@@ -1,0 +1,7 @@
+{
+    "custom/next": {
+    "format": "󰙡 ",
+    "on-click": "playerctl --player=spotify next && playerctl --player=youtube-music next",
+    "tooltip": false,
+  },
+}

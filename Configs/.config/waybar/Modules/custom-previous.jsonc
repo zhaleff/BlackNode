@@ -1,0 +1,7 @@
+{
+    "custom/previous": {
+    "format": "󰙣",
+    "on-click": "playerctl --player=spotify previous && playerctl --player=youtube-music previous",
+    "tooltip": false,
+  },
+}

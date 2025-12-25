@@ -1,0 +1,17 @@
+{
+  "bluetooth": {
+    "format": "{icon}",
+    "format-icons": ["󰂯", "󰤾", "󰥀", "󰥄", "󰥈"],
+
+    "tooltip-format-off": "Bluetooth is off",
+    "tooltip-format-on": "Bluetooth is on",
+
+    "format-connected": "{icon} {num_connections}",
+    "format-connected-battery": "{icon} {device_battery_percentage}%",
+
+    "tooltip-format-connected": "{device_enumerate}",
+    "tooltip-format-enumerate-connected": "{device_alias}\t{device_battery_percentage}%",
+
+    "on-click": "blueman-manager"
+  },
+}

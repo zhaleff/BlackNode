@@ -1,0 +1,21 @@
+{
+     "mpris": {
+     "format": "{player_icon} {title} - {artist} ",
+     "format-paused": "{status_icon} {title} - {artist}",
+
+     "player-icons": {
+       "default": "<span foreground='#cba6f7'>󰝚 </span>",
+       "spotify": "<span foreground='#a6e3a1'>󰓇 </span>",
+       "firefox": "<span foreground='#f38ba8'>󰗃 </span>"
+     },
+     "status-icons": {
+       "paused": "<span color='#b4befe'>\u200A\u200A󰏤\u2009\u2009</span>"
+     },
+
+     "tooltip-format": "Playing: {title} - {artist}",
+     "tooltip-format-paused": "Paused: {title} - {artist}",
+     "min-length": 5,
+     "max-length": 15,
+   },
+
+}

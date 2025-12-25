@@ -1,0 +1,7 @@
+{
+    "custom/catppuccin-theme": {
+    "format": "󰏘",
+    "on-click": "~/.config/waybar/scripts/catppuccin.sh",
+    "tooltip": false,
+  },
+}

@@ -1,0 +1,9 @@
+{
+    "custom/pause": {
+    "format": "{icon}",
+//    "exec": "playerctl -l 2>/dev/null | head -n 1",
+    "on-click": "playerctl --player=spotify play-pause",
+    "tooltip": false,
+    "format-icons": [ "", "" ],
+  },
+}

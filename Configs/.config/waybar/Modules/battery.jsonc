@@ -1,0 +1,16 @@
+{
+  
+  "battery": {
+    "states": {
+      "good": 95,
+      "warning": 30,
+      "critical": 15
+    },
+    "format": "{icon}",
+    "format-full": "{icon}",
+    "format-plugged": " {capacity}% <span font='Font Awesome 5 Free'>\uf0e7</span> ",
+    "format-alt": "{icon} {capacity}%",
+    "tooltip-format": "{capacity}%, about {time} left",
+    "format-icons": ["", "", "", ""]
+  },
+}

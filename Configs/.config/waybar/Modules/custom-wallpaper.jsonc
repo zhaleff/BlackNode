@@ -1,0 +1,7 @@
+{
+      "custom/wallpaper": {
+     "format": " ",
+     "on-click": "~/.config/rofi/wallselect/script.sh",
+     "tooltip": false,
+   },
+}

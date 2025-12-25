@@ -1,0 +1,207 @@
+{
+  "reload_style_on_change": true,
+  "layer": "top",
+  "position": "top",
+  "spacing": 0,
+  "height": 26,
+  "include": [
+    "$XDG_CONFIG_HOME/waybar/CSS/style-dotfiles.css"
+  ],
+  "modules-left": [ "custom/arch", "hyprland/workspaces" , "cpu","custom/seperator","memory","custom/seperator","network#speed"],
+  "modules-center": ["clock"],
+  "modules-right": [
+    // "custom/wallpaper",
+    "custom/transparency",
+    "custom/seperator",
+    "temperature#gpu",
+    "custom/seperator",
+    "custom/gh",
+    "custom/seperator",
+    "backlight",
+    "custom/seperator",
+    "wireplumber",
+    "custom/seperator",
+    "network",
+    // "custom/seperator",
+    "battery",
+  ],
+  "custom/seperator" : {
+    "format" : "<span>|</span>"
+  },
+
+  "custom/transparency": {
+    "format": " ",
+    "tooltip": false,
+    "on-click": "~/.config/waybar/scripts/toggle-trans.sh",
+    "format-alt": " "
+  },
+  "temperature#gpu": {
+    "thermal-zone": 5,
+    "critical-threshold": 80,
+    "format-critical": "{temperatureC}°C ",
+    "format": "<span color='#eba0ac'> </span>{temperatureC}°C ",
+    "tooltip": false
+  },
+  "backlight": {
+    "device": "intel_backlight",
+    "scroll-step": 5,
+    "format": "{icon}",
+    "format-icons": [" 󰃞", " 󰃟", " 󰃝", " 󰃠"],
+    "tooltip": true,
+    "tooltip-format": "{percent}%"
+  },
+  "wireplumber": {
+    "max-volume": 200,
+    "scroll-step": 5,
+    "format": "{icon}",
+    "format-bluetooth": "{icon}",
+    "format-icons": ["  ", "   ", "   "],
+    "format-muted": "   ",
+    "on-click-middle": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+    "on-click": "pamixer -t",
+    "tooltip": true,
+    "tooltip-format": "{volume}% | {desc}"
+  },
+  "network": {
+    "format-wifi": " {icon}",
+    "format-ethernet": "󰈀",
+    "format-icons": ["󰤯 ", "󰤟 ", "󰤢 ", "󰤢 ", "󰤨 "],
+    "format-disconnected": "󰪎 ",
+    "interval": 5,
+    "tooltip-format-wifi": " {bandwidthDownBytes} |  {bandwidthUpBytes} | {essid}",
+    "tooltip-format-disconnected": "Disconnected",
+    "on-click": "exec ~/.config/rofi/wifi/wifi.sh",
+    "on-click-right": "kitty -e nmtui"
+  },
+  "network#speed": {
+    "interval": 1,
+    "format": "{ifname}%%",
+    "format-wifi": "<span color='#a6e3a1' >  </span>{bandwidthDownBytes} <span  color='#f38ba8'>  </span>{bandwidthUpBytes}",
+    "format-ethernet": " {bandwidthDownBytes}  {bandwidthUpBytes} ",
+    "format-disconnected": "󰌙",
+    "tooltip-format": "{ipaddr}",
+    "format-linked": "󰈁 {ifname} (No IP)",
+    "tooltip-format-wifi": "{essid} {icon} {signalStrength}%",
+    "tooltip-format-ethernet": "{ifname} 󰌘",
+    "tooltip-format-disconnected": "󰌙 Disconnected",
+    "max-length": 22,
+    "min-length": 20,
+    "format-icons": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"]
+  },
+  "cpu": {
+    "interval": 1,
+    "format": "<span color='#a6e3a1' font='Font Awesome 6 Free-Solid'></span>  {usage}%",
+    "on-click": "kitty btop"
+  },
+  "memory": {
+    "interval": 1,
+    "format": " <span color='#a6e3a1' font='Font Awesome 6 Free'>󰄫</span>  {percentage}%",
+    "on-click": "kitty btop",
+    "tooltip-format": "{used}/{total} GiB"
+  },
+  "custom/wallpaper": {
+    "format": "\uf03e",
+    "on-click": "~/.config/waybar/scripts/change-wallpaper.sh && hyprpaper",
+    "tooltip": false,
+    "on-click-right": "kitty -e ~/.config/waybar/scripts/select-wallpaper.sh"
+  },
+  "custom/gh": {
+    "exec": "sleep 1 & ~/.config/waybar/scripts/weekly_commits dark",
+    "return-type": "json",
+    "interval": 2400,
+    "tooltip": true,
+    "on-click": "xdg-open https://github.com/ad1822",
+    "on-click-right": "~/.config/waybar/scripts/weekly_commits DARK"
+  },
+  "hyprland/workspaces": {
+    "on-click": "activate",
+    "format": "{icon}",
+    "format-icons": {
+    },
+    "persistent-workspaces": {
+      "*": 4
+    },
+    "on-scroll-up": "hyprctl dispatch workspace e-1",
+    "on-scroll-down": "hyprctl dispatch workspace e+1"
+  },
+  "custom/arch": {
+    "format": "<span font='omarchy'></span>",
+  },
+  "clock": {
+    "format": "{:%H:%M / %h %d}",
+    "tooltip": true,
+    "tooltip-format": "<tt>{calendar}</tt>"
+  },
+  "custom/wallpaper": {
+    "format": "\uf03e",
+    "on-click": "~/.config/waybar/scripts/change-wallpaper.sh && hyprpaper",
+    "tooltip": false,
+    "on-click-right": "kitty -e ~/.config/waybar/scripts/select-wallpaper.sh"
+  },
+  "network": {
+    "format-icons": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
+    "format": "{icon}",
+    "format-wifi": "{icon}",
+    "format-ethernet": "󰀂",
+    "format-disconnected": "󰤮",
+    "tooltip-format-wifi": "{essid} ({frequency} GHz)\n⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}",
+    "tooltip-format-ethernet": "⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}",
+    "tooltip-format-disconnected": "Disconnected",
+    "interval": 3,
+    "spacing": 1,
+    "on-click": "omarchy-launch-wifi"
+  },
+  "battery": {
+    "format": "{icon} {capacity}%",
+    "format-plugged": "",
+    "format-icons": {
+      "charging": ["󰢜 ", "󰂆 ", "󰂇 ", "󰂈 ", "󰢝 ", "󰂉 ", "󰢞 ", "󰂊 ", "󰂋 ", "󰂅 "],
+      "default": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"]
+    },
+    "format-full": "󰂅 ",
+    "format-alt": "{icon} ",
+    "tooltip-format-discharging": "{power:>1.0f}W↓ {capacity}%",
+    "tooltip-format-charging": "{power:>1.0f}W↑ {capacity}%",
+    "interval": 5,
+    "states": {
+      "good": 95,
+      "warning": 30,
+      "critical": 15
+    },
+  },
+  "bluetooth": {
+    "format": "",
+    "format-disabled": "󰂲",
+    "format-connected": "",
+    "tooltip-format": "Devices connected: {num_connections}",
+    "on-click": "blueberry"
+  },
+  "pulseaudio": {
+    "format": "{icon}",
+    "on-click": "$TERMINAL --class=Wiremix -e wiremix",
+    "on-click-right": "pamixer -t",
+    "tooltip-format": "Playing at {volume}%",
+    "scroll-step": 5,
+    "format-muted": "",
+    "format-icons": {
+      "default": ["", "", ""]
+    }
+  },
+  "group/tray-expander": {
+    "orientation": "inherit",
+    "drawer": {
+      "transition-duration": 600,
+      "click-to-reveal" : true,
+      "children-class": "tray-group-item"
+    },
+    "modules": ["custom/expand-icon", "tray"]
+  },
+  "custom/expand-icon": {
+    "format": " ",
+    "tooltip": false
+  },
+  "tray": {
+    "icon-size": 12,
+    "spacing": 12
+  }
+}

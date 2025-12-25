@@ -1,0 +1,282 @@
+//--- ZepharDev Nvim
+{
+  "layer": "top",
+  "position": "top",
+  "height": 30,
+  "margin-left": 550,
+  "margin-right": 550,
+  "margin-top": 5,
+  "margin-bottom": 0,
+  "spacing": 15,
+  "reload_style_on_change": true,
+
+  // Choose the order of the modules
+
+  "modules-left": [ 
+
+  ],
+  "modules-center": [
+    "group/hollow-center-1"
+  ],
+  "modules-right": [
+
+  ],
+  "group/hollow-center-1": {
+    "orientation": "horizontal",
+    "modules": [
+    "backlight",
+    "clock",
+    "battery"
+    ],
+  },
+  "group/hollow-left-4": {
+    "orientation": "horizontal",
+    "modules": [
+    ],
+  },
+
+  "group/hollow-left-1": {
+    "orientation": "horizontal",
+    "modules": [
+      "cpu",
+      "temperature",
+      "memory"
+    ],
+  },
+  "group/hollow-right-1": {
+    "orientation": "horizontal",
+    "modules": [
+    ],
+  },
+  "group/hollow-left-2": {
+    "orientation": "horizontal",
+    "modules": [
+      "hyprland/workspaces",
+    ],
+  },
+  "group/hollow-right-3": {
+    "orientation": "horizontal",
+    "modules": [
+      "custom/user",
+    ],
+  },
+  "group/hollow-left-3": {
+    "orientation": "horizontal",
+    "modules": [
+      "network#speed",
+    ],
+  },
+  "group/hollow-right-4": {
+    "orientation": "horizontal",
+    "modules": [
+      "mpris",
+      "custom/previous",
+      "custom/pause",
+      "custom/next",
+    ],
+  },
+  "group/hollow-right-5": {
+    "orientation": "horizontal",
+    "modules": [
+      "network",
+      "idle_inhibitor",
+      "custom/power",
+    ],
+  },
+  // Modules configuration
+  "hyprland/workspaces": {
+    "on-click": "activate",
+    "activate-only": false,
+    "all-outputs": true,
+    "format": "{name}",
+    "format-icons": {
+      "1": "*",  
+      "2": "*",   
+      "3": "*",     
+      "4": "*",    
+      "5": "*",   
+      "6": "*",     
+      "7": "*",    
+      "8": "*",     
+      "9": "*",    
+      "10": "*",
+       "urgent": "*",
+       "active": "*",
+       "default": "*",
+    },
+    "persistent_workspaces": {
+      "[]": 3
+    }
+  },
+  "hyprland/window": {
+    "format": " 󰶞 {}",
+    "max-length": 32,
+    "separate-outputs": false,
+  },
+
+  "tray": {
+    "icon-size": 16,
+    "spacing": 5,
+    "show-passive-items": true,
+  },
+
+
+  "clock": {
+    "format": " {:%H:%M}",
+    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+    "format-alt": "{:%Y-%m-%d}",
+  },
+    "custom/target": {
+        "format": "󰓾 {}",
+
+        "exec": "cat ~/.target 2>/dev/null || echo 'No target'",
+        "interval": 2,
+        "tooltip": false,
+        "on-click": "bash -c 'read -p \"Target IP/Host: \" target && echo $target > ~/.target'",
+        "on-click-right": "bash -c '[[ -f ~/.target ]] && rm ~/.target'"
+    },
+  "temperature": {
+    "thermal-zone": 2,
+    "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
+    "format-critical": "{temperatureC}°C {icon}",
+    "critical-threshold": 80,
+    "interval": 2,
+    "format": " {temperatureC:>2}°C",
+    "format-icons": ["0", "", ""],
+    "on-click": "kitty -e zsh -c 'btop; exec zsh'",
+  },
+
+  "cpu": {
+    "interval": 2,
+    "format": " {usage:>2}%",
+    "on-click": "kitty -e zsh -c 'btop; exec zsh'",
+  },
+
+  "memory": {
+    "interval": 2,
+    "format": " {:>2}%",
+  },
+
+  "disk": {
+    "interval": 15,
+    "format": "󰋊 {percentage_used:>2}%",
+  },
+  "backlight": {
+    // "device": "acpi_video1",
+    "format": "{icon} {percent:>2}%",
+    "tooltip": "{percent:>2}%",
+    "format-alt": "{percent:>2}%",
+    "format-icons": [ "", "", "", "", "", "", "", "", ""],
+  },
+
+  "bluetooth": {
+    "format": "{icon}",
+    "format-icons": ["󰂯", "󰤾", "󰥀", "󰥄", "󰥈"],
+
+    "tooltip-format-off": "Bluetooth is off",
+    "tooltip-format-on": "Bluetooth is on",
+
+    "format-connected": "{icon} {num_connections}",
+    "format-connected-battery": "{icon} {device_battery_percentage}%",
+
+    "tooltip-format-connected": "{device_enumerate}",
+    "tooltip-format-enumerate-connected": "{device_alias}\t{device_battery_percentage}%",
+
+    "on-click": "blueman-manager"
+  },
+    "custom/public-ip": {
+        "format": "󰩟 {}",
+        "exec": "curl https://ipaddress.sh",
+        "interval": 10,
+        "tooltip": true,
+        "on-click": "echo '{ip}' | xclip -sel clip",
+        "on-click-right": "alacritty -e nmap -sP 192.168.1.0/24",
+     },
+  "network": {
+        "interval": 3,
+        "format-wifi": "{icon}", 
+        "format-ethernet": "󰌗 {ipaddr}", 
+        "format-linked": "󰌙 {ifname} (Sin IP)", 
+        "format-disconnected": "󰖪", 
+        "format-alt": "󰛳 {ifname}", 
+        "tooltip-format-wifi": " {bandwidthDownBytes}  {bandwidthUpBytes}", 
+        "tooltip-format-ethernet": "󰌗 {ifname} | IP: {ipaddr}/{cidr} | GW: {gwaddr}", 
+        "tooltip-format-disconnected": "󰖪 No internet connection", 
+        "tooltip-format-linked": "󰌙 {ifname}: Not ip",
+        "max-length": 30, 
+        "on-click": "~/.config/rofi/wifi/script.sh", 
+        "format-icons": {
+            "wifi": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"], 
+            "ethernet": ["󰌗"], 
+            "disconnected": ["󰖪"] 
+        },
+    },
+    "idle_inhibitor": {
+       "format": "{icon}",
+      "format-icons": {
+       "activated": "󰅶 ",
+       "deactivated": "󰛊",
+     },
+    },
+
+
+    "custom/user": {
+        "format": " {}",
+        "exec": "whoami",
+        "interval": 30,
+        "tooltip": false,
+        "on-click": "notify-send 'Usuario' '$(whoami)@$(hostname)'"
+  },
+  "wireplumber": {
+    "format": "{icon} {volume:>3}%",
+    "format-muted": "󰖁 {volume:>3}%",
+    "format-bluetooth": "{icon} {volume:>2}% 󰂯", //{format_source}",
+    "format-bluetooth-muted": "󰖁 {icon} 󰂯", //{format_source}",
+    "format-icons": ["", "", ""],
+  },
+  "custom/power": {
+    "format": "{icon}",
+    "format-icons": "", //  
+    "exec-on-event": "true",
+    "on-click": "wlogout",
+    "tooltip-format": "Power Menu",
+  },
+    "custom/htb-vpn": {
+        "format": "{}",
+        "exec": "bash -c 'ip=$(ip -4 addr show tun0 2>/dev/null | grep -oP \"inet \\\\K[\\\\d.]+\"); if [ -n \"$ip\" ]; then echo \"$ip\"; else echo \"HTB Disconnected\"; fi'",
+        "interval": 3,
+        "tooltip": false
+    },
+   "battery": {
+    "states": {
+      "good": 95,
+      "warning": 30,
+      "critical": 15
+    },
+    "format": "{icon} {capacity}%",
+    "format-full": "{icon}",
+    "format-plugged": " {capacity}% <span font='Font Awesome 5 Free'>\uf0e7</span> ",
+    "format-alt": "{icon} {capacity}%",
+    "tooltip-format": "{capacity}%, about {time} left",
+    "format-icons": [" ", " ", " ", " "]
+  },
+
+  "network#speed": {
+    "interval": 1,
+    "format": "{ifname}%%",
+    "format-wifi": " {bandwidthDownBytes}  {bandwidthUpBytes}",
+    "format-ethernet": " {bandwidthDownBytes}  {bandwidthUpBytes} ",
+    "format-disconnected": "󰌙",
+    "tooltip-format": "{ipaddr}",
+    "format-linked": "󰈁 {ifname} (No IP)",
+    "tooltip-format-wifi": "{essid} {icon} {signalStrength}%",
+    "tooltip-format-ethernet": "{ifname} 󰌘",
+    "tooltip-format-disconnected": "󰌙 Disconnected",
+    "max-length": 16,
+    "min-length": 14,
+  },
+} 
+
+
+
+

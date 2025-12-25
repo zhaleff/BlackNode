@@ -1,0 +1,188 @@
+@import 'mocha.css';
+
+* {
+  background-color: @crust;
+  color: @text;
+  border: none;
+  border-radius: 0;
+  min-height: 0;
+  font-family: Iosevka Nerd Font;
+  font-size: 12px;
+  font-weight : 600;
+}
+
+
+.modules-left {
+}
+.modules-right {
+}
+
+#workspaces {
+  border-radius : 0px;
+  background : @mauve;
+  margin-right : 10px;
+}
+
+#workspaces button {
+  background : @mauve;
+  all: initial;
+  padding: 0 8px;
+  margin: 0 2px;
+}
+
+#workspaces button label {
+  background : @mauve;
+  color: @surface2;
+  /* font-size: 10; */
+}
+
+#workspaces button.active label {
+  background : @mauve;
+  color: @crust;
+  font-size: 15;
+  font-weight : 900;
+}
+
+#workspaces button.empty {
+  background : @mauve;
+  /* opacity: 0.2; */
+}
+
+#tray {
+  min-width: 0px;
+  transition: min-width 0.2s ease, opacity 0.2s ease;
+  opacity: 0;
+}
+
+#tray:hover {
+  min-width: 150px;
+  opacity: 1;
+}
+
+#tray,
+#cpu,
+#network,
+#pulseaudio {
+  min-width: 12px;
+  margin: 0 7.5px;
+}
+
+
+#clock {
+  color : @text;
+  /* background : @maroon; */
+  padding : 0 10px;
+}
+
+#custom-arch {
+  min-width: 20px;
+  margin: 0px 10px 0px 6px;
+  font-size : 18px;
+  color : @blue;
+}
+
+#custom-expand-icon {
+  margin-right: 7px;
+}
+
+tooltip {
+  font-family: Ubuntu Mono Nerd Font;
+  padding: 2px;
+}
+
+
+.hidden {
+  opacity: 0;
+}
+
+#custom-seperator {
+  color: @surface2;
+}
+
+#cpu {
+  color : @text;
+  margin-right : 10px;
+}
+
+#custom-transparency {
+  font-size : 15px;
+  margin-right : 8;
+  color: @green;
+}
+
+
+#custom-gh{
+  margin-right: 10px;
+  margin-left: 10px;
+  font-size : 8px;
+}
+
+#memory {
+  color : @text;
+  margin-right : 10px;
+}
+
+
+#temperature.gpu {
+  color: @text;
+  margin-left : 6px;
+}
+#backlight{
+  color : @lavender;
+  margin-right : 10px;
+}
+
+#wireplumber{
+  color : @lavender;
+}
+#network{
+  color : @lavender;
+  margin-right : 10px;
+}
+
+#network.speed {
+  color : @text;
+}
+
+#battery {
+  padding: 0 8px;
+  margin-left : 2px;
+}
+
+#battery.charging {
+  color : @mantle;
+  background: #a6e3a1;
+}
+
+#battery.good:not(.charging) {
+  background: #74c7ec;
+  color : @mantle;
+}
+
+#battery.warning:not(.charging) {
+  background: #74c7ec; 
+  color: @mantle;
+}
+
+#battery.low:not(.charging) {
+  background: #f38ba8; /* Text */
+  color: @mantle;
+}
+
+#battery.critical:not(.charging) {
+  background: #f38ba8; /* Text */
+  color: @mantle;
+  animation-name: blink;
+  animation-duration: 0.75s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  border-radius: 6px;
+}
+
+@keyframes blink {
+  to {
+    color: #f38ba8; /* Red */
+    background: #f2cdcd; /* Text */
+  }
+}

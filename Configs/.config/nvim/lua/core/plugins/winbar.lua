@@ -1,0 +1,3 @@
+return {
+   { 'fgheng/winbar.nvim' }
+}
