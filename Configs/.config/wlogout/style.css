@@ -1,0 +1,66 @@
+@import "mocha.css";
+
+* {
+  background-image: none;
+}
+
+window {
+   background-color: rgba(30, 30, 46, 0.40);
+
+}
+
+button {
+  background-color: rgba(30, 30, 46, 0.0);
+  outline-style: none;
+  margin-left: 0px;
+  border: none;
+  border-width: 0px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 60%;
+  border-radius: 20px 20px 20px 20px;
+  animation: gradient_f 20s ease-in infinite;
+  text-shadow: none;
+}
+
+button:focus {
+  background-size: 70%;
+  border: 0px;
+  border-radius: 20px 10px 5px 20px;
+}
+
+button:hover {
+  background-size: 80%;
+  border-radius: 12px;
+  animation: gradient_f 20s ease-in infinite;
+  transition: all 0.3s cubic-bezier(.55,0.0,.28,1.682);
+}
+
+#shutdown {
+  background-image: image(url("./icons/power.png"));
+}
+#reboot {
+  background-image: image(url("./icons/restart.png"));
+}
+
+
+#lock {
+  background-image: image(url("./icons/lock.png"));
+}
+
+
+#suspend {
+  background-image: image(url("./icons/sleep.png"));
+}
+
+
+#hibernate {
+  background-image: image(url("./icons/hibernate.png"));
+}
+
+
+#logout {
+  background-image: image(url("./icons/logout.png"));
+}
+
+

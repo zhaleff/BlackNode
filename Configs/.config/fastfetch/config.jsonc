@@ -12,7 +12,7 @@
   "modules": [
     {
       "type": "title",
-      "format": "   󰢚 HyprCraft the coffee race at dawn...",
+      "format": "   󰢚 HollowSec the coffee race at dawn...",
       "keyColor": "magenta",
       "color": "magenta"
     },
@@ -128,7 +128,7 @@
     },
     {
       "type": "colors",
-      "symbol": "square",
+      "symbol": "circle",
       "paddingLeft": 2,
       "colors": [
         "black", "red", "green", "yellow",
