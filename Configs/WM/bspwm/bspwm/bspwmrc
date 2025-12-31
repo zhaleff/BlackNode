@@ -1,0 +1,117 @@
+#!/bin/bash
+# ============================================================
+# ░█▀▄░█▀▀░█▀█░█░█░█▄█░█▀▄░█▀▀
+# ░█▀▄░▀▀█░█▀▀░█▄█░█░█░█▀▄░█░░
+# ░▀▀░░▀▀▀░▀░░░▀░▀░▀░▀░▀░▀░▀▀▀
+# Author: FlickGMD 
+# Repo: https://github.com/FlickGMD/AutoBSPWM 
+# Date: 2025-06-21 21:18
+# Copyright © 2025 
+# =============================================================
+ 
+# ░█▀▀░█▀▄░█▀▄░█▀█░█▀▄░░░█░░░█▀█░█▀▀░█▀▀
+# ░█▀▀░█▀▄░█▀▄░█░█░█▀▄░░░█░░░█░█░█░█░▀▀█
+# ░▀▀▀░▀░▀░▀░▀░▀▀▀░▀░▀░░░▀▀▀░▀▀▀░▀▀▀░▀▀▀
+readonly ERROR_LOG="${HOME}/.bspwm_errors"
+rm "${ERROR_LOG}" > /dev/null
+
+# ░█▀▄░█▀█░█▀▀░█▄█░█▀█░█▀█░█▀▀
+# ░█░█░█▀█░█▀▀░█░█░█░█░█░█░▀▀█
+# ░▀▀░░▀░▀░▀▀▀░▀░▀░▀▀▀░▀░▀░▀▀▀
+
+start_daemons(){
+  killall sxhkd 
+  killall polybar
+  pidof -q picom || picom &
+  pidof -q eww || eww daemon &
+  pidof -q sxhkd > /dev/null || sxhkd &
+  pidof -q dunst || dunst &
+  killall dunst; dunst &
+  wmname LG3D &
+}
+
+{ start_daemons & } 2>"${ERROR_LOG}"
+
+# ░█▀▀░█░░░▀█▀░█▀█░█▀▄░█▀█░█▀█░█▀▄░█▀▄░░░█▀▄░█▀█░█▀▀░█▄█░█▀█░█▀█
+# ░█░░░█░░░░█░░█▀▀░█▀▄░█░█░█▀█░█▀▄░█░█░░░█░█░█▀█░█▀▀░█░█░█░█░█░█
+# ░▀▀▀░▀▀▀░▀▀▀░▀░░░▀▀░░▀▀▀░▀░▀░▀░▀░▀▀░░░░▀▀░░▀░▀░▀▀▀░▀░▀░▀▀▀░▀░▀
+
+clipboard(){
+  vmware-user-suid-wrapper & 
+  vmware-user &
+}
+
+{ clipboard & } 2>"${ERROR_LOG}"
+# ░█░█░█▀█░█░░░█░░░█▀█░█▀█░█▀█░█▀▀░█▀▄
+# ░█▄█░█▀█░█░░░█░░░█▀▀░█▀█░█▀▀░█▀▀░█▀▄
+# ░▀░▀░▀░▀░▀▀▀░▀▀▀░▀░░░▀░▀░▀░░░▀▀▀░▀░▀
+
+wall(){
+  if pidof -q xwinwrap > /dev/null; then 
+    pkill xwinwrap
+  fi
+
+  path="${1}"
+
+  /usr/bin/feh --bg-fill "${path}" &
+}
+
+wall ~/Imágenes/wallpapers/Wallpaper.jpg  2>"${ERROR_LOG}"
+
+# ░█▀▄░█░█░█░░░█▀▀░█▀▀
+# ░█▀▄░█░█░█░░░█▀▀░▀▀█
+# ░▀░▀░▀▀▀░▀▀▀░▀▀▀░▀▀▀
+ 
+bspc rule -a Tk state=floating 2 > "$ERROR_LOG"
+bspc rule -a "Toplevel" state=floating 2 > "$ERROR_LOG"
+
+# ░█░█░█▀█░█▀▄░█░█░█▀▀░█▀█░█▀█░█▀▀░█▀▀░█▀▀
+# ░█▄█░█░█░█▀▄░█▀▄░▀▀█░█▀▀░█▀█░█░░░█▀▀░▀▀█
+# ░▀░▀░▀▀▀░▀░▀░▀░▀░▀▀▀░▀░░░▀░▀░▀▀▀░▀▀▀░▀▀▀
+
+set_workspaces(){
+  # sudo apt install libroman-perl 
+  # :)
+  workspaces="${1}"
+
+  # 2) Asegurar que sea un entero positivo
+  if ! [[ "$1" =~ ^[1-9][0-9]*$ ]]; then
+    bspc monitor -d  I II III IV VI VII
+    echo "Error: '${workspaces}' no es un número válido." >&2
+    return 1 
+  fi
+
+  count="${1}"
+
+  romans=()
+  for (( i=1; i<=count; i++ )); do
+    romans+=( "$(perl -MRoman -le "print Roman($i)")" )
+  done
+
+  /usr/bin/bspc monitor -d "${romans[@]}"
+} 
+set_workspaces 6 2>"${ERROR_LOG}" 
+
+# ░█▀▀░█▀█░█▀█░█▀▀░▀█▀░█▀▀░█░█░█▀▄░█▀█░▀█▀░▀█▀░█▀█░█▀█░█▀▀
+# ░█░░░█░█░█░█░█▀▀░░█░░█░█░█░█░█▀▄░█▀█░░█░░░█░░█░█░█░█░▀▀█
+# ░▀▀▀░▀▀▀░▀░▀░▀░░░▀▀▀░▀▀▀░▀▀▀░▀░▀░▀░▀░░▀░░▀▀▀░▀▀▀░▀░▀░▀▀▀
+
+[[ -f "${HOME}/.Xresources" ]] && xrdb -merge "${HOME}/.Xresources"
+xsetroot -cursor_name left_ptr
+
+focused_color="#C2F6FC"
+normal_color="#010812"
+bspc config window_gap          10
+bspc config split_ratio          0.52
+bspc config borderless_monocle   true
+bspc config gapless_monocle      true
+bspc config focused_border_color "${focused_color}"
+bspc config normal_border_color "${normal_color}"
+bspc config border_width 2
+bspc config focus_follows_pointer true
+
+# ░█▀█░█▀█░█░░░█░█░█▀▄░█▀█░█▀▄
+# ░█▀▀░█░█░█░░░░█░░█▀▄░█▀█░█▀▄
+# ░▀░░░▀▀▀░▀▀▀░░▀░░▀▀░░▀░▀░▀░▀ 
+ 
+{ ~/.config/polybar/./launch.sh & } 2>"${ERROR_LOG}"
