@@ -1,0 +1,62 @@
+/************
+ * Calendar *
+ ***********/
+calendar {
+  color: $text_color;
+  border: 1px solid $borders_color;
+  font-feature-settings: "tnum";
+
+  > header {
+    border-bottom: 1px solid $borders_color;
+
+    > button {
+      border: none;
+      box-shadow: none;
+      background: none;
+      border-radius: 0;
+    }
+    > button:backdrop {
+      background: none;
+    }
+  }
+
+  > grid {
+    > label.day-name {
+    }
+
+    > label.week-number {
+    }
+
+    > label.today {
+      box-shadow: inset 0px -2px $selected_bg_color;
+
+      &:selected {
+        box-shadow: none;
+      }
+    }
+
+    > label:focus {
+      outline-color: $selected_bg_color;
+      outline-offset: -2px;
+      outline-width: 2px;
+      outline-style: solid;
+    }
+
+    > label.day-number {
+      padding: 4px;
+
+      &:selected{
+        @extend %selected_items;
+        border-radius: 3px;
+      }
+
+      &:checked {
+        background-color: gtkalpha($selected_bg_color, 0.3);
+      }
+    }
+
+    > label.day-number.other-month {
+      color: gtkalpha(currentColor, 0.3);
+    }
+  }
+}

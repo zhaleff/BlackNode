@@ -1,0 +1,73 @@
+[env]
+TERM = "xterm-256color"
+
+[window]
+decorations = "full"
+startup_mode = "Windowed"
+opacity = 0.90
+blur = true
+dynamic_padding = true
+dimensions = { columns = 100, lines = 30 }
+padding = { x = 10, y = 10 }
+
+[font]
+normal = { family = "JetBrainsMono Nerd Font", style = "Regular" }
+bold = { family = "JetBrainsMono Nerd Font", style = "Bold" }
+italic = { family = "JetBrainsMono Nerd Font", style = "Italic" }
+size = 12.5
+offset = { x = 0, y = 1 }
+
+[colors.primary]
+background = "#1e1e2e"
+foreground = "#cdd6f4"
+
+[colors.cursor]
+text = "CellBackground"
+cursor = "CellForeground"
+
+[colors.selection]
+text = "CellForeground"
+background = "#313244"
+
+[colors.normal]
+black   = "#45475a"
+red     = "#f38ba8"
+green   = "#a6e3a1"
+yellow  = "#f9e2af"
+blue    = "#89b4fa"
+magenta = "#f5c2e7"
+cyan    = "#94e2d5"
+white   = "#bac2de"
+
+[colors.bright]
+black   = "#585b70"
+red     = "#f38ba8"
+green   = "#a6e3a1"
+yellow  = "#f9e2af"
+blue    = "#89b4fa"
+magenta = "#f5c2e7"
+cyan    = "#94e2d5"
+white   = "#a6adc8"
+
+[cursor]
+style = "Beam"
+unfocused_hollow = true
+blink_interval = 500
+
+[mouse]
+hide_when_typing = true
+
+[keyboard]
+bindings = [
+  { key = "V", mods = "Control|Shift", action = "Paste" },
+  { key = "C", mods = "Control|Shift", action = "Copy" },
+  { key = "N", mods = "Control|Shift", action = "SpawnNewInstance" }
+]
+
+[scrolling]
+history = 10000
+multiplier = 3
+
+[debug]
+render_timer = false
+log_level = "Warn"
