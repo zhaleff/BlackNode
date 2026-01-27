@@ -6,6 +6,7 @@ return {
       "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-path",
       "hrsh7th/cmp-cmdline",
+      "xzbdmw/colorful-menu.nvim",
       "hrsh7th/cmp-nvim-lua",
       "saadparwaiz1/cmp_luasnip",
       "onsails/lspkind.nvim",
@@ -13,32 +14,49 @@ return {
       "kdheepak/cmp-latex-symbols",
       "jmbuhr/cmp-pandoc-references",
       "f3fora/cmp-spell",
-      
     },
     config = function()
       local cmp = require("cmp")
       local luasnip = require("luasnip")
       local lspkind = require("lspkind")
 
-      -- 1. PRIMERO: Definir grupos de highlight para que coincidan con Catppuccin
-      vim.api.nvim_set_hl(0, "CmpPmenu",          { bg = "#1e1e2e" })  -- Fondo del menú
-      vim.api.nvim_set_hl(0, "CmpBorder",         { fg = "#45475a" })  -- Color del borde 'single'
-      vim.api.nvim_set_hl(0, "CmpSel",            { bg = "#585b70", bold = true }) -- Item seleccionado
-      vim.api.nvim_set_hl(0, "CmpDoc",            { bg = "#181825" })  -- Fondo de documentación
-      vim.api.nvim_set_hl(0, "CmpDocBorder",      { fg = "#45475a" })  -- Borde de documentación
+      -- Highlights Catppuccin-friendly (tus colores originales)
+      vim.api.nvim_set_hl(0, "CmpPmenu", { bg = "#1e1e2e" })
+      vim.api.nvim_set_hl(0, "CmpBorder", { fg = "#45475a" })
+      vim.api.nvim_set_hl(0, "CmpSel", { bg = "#585b70", bold = true })
+      vim.api.nvim_set_hl(0, "CmpDoc", { bg = "#181825" })
+      vim.api.nvim_set_hl(0, "CmpDocBorder", { fg = "#45475a" })
 
-      -- 2. Configuración principal de cmp
       cmp.setup({
+        enabled = function()
+          local disabled = false
+          disabled = disabled or (vim.api.nvim_get_option_value("buftype", { buf = 0 }) == "prompt")
+          disabled = disabled or (vim.fn.reg_recording() ~= "")
+          disabled = disabled or (vim.fn.reg_executing() ~= "")
+
+          if vim.api.nvim_get_mode().mode == "c" then
+            return true
+          end
+
+          local context = require("cmp.config.context")
+          if context.in_treesitter_capture("comment") or context.in_syntax_group("Comment") then
+            return false
+          end
+
+          return not disabled
+        end,
+
         snippet = {
           expand = function(args)
             luasnip.lsp_expand(args.body)
           end,
         },
+
         mapping = cmp.mapping.preset.insert({
           ["<C-Space>"] = cmp.mapping.complete({ reason = cmp.ContextReason.Auto }),
           ["<CR>"] = cmp.mapping.confirm({
             behavior = cmp.ConfirmBehavior.Replace,
-            select = true, -- CONFIRMA el item actualmente seleccionado
+            select = true, -- Confirma el ítem destacado (primero si no moviste)
           }),
           ["<Tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
@@ -65,42 +83,37 @@ return {
           ["<C-j>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
           ["<C-k>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
           ["<C-b>"] = cmp.mapping.scroll_docs(-4),
-          ["<C-f>"] = cmp.mapping.scroll_docs(4),
+           ["<C-f>"] = cmp.mapping.scroll_docs(4),
           ["<C-e>"] = cmp.mapping.abort(),
-          ["<C-d>"] = cmp.mapping(function()
-            if cmp.visible() then
-              cmp.select_next_item({ count = 5 })
-            end
-          end, { "i" }),
-          ["<C-u>"] = cmp.mapping(function()
-            if cmp.visible() then
-              cmp.select_prev_item({ count = 5 })
-            end
-          end, { "i" }),
+          ["<C-d>"] = cmp.mapping(function() if cmp.visible() then cmp.select_next_item({ count = 5 }) end end, { "i" }),
+          ["<C-u>"] = cmp.mapping(function() if cmp.visible() then cmp.select_prev_item({ count = 5 }) end end, { "i" }),
         }),
+
         sources = cmp.config.sources({
-          { name = "nvim_lsp",    priority_weight = 100, max_item_count = 10 },
-          { name = "luasnip",     priority_weight = 90,  max_item_count = 5 },
-          { name = "nvim_lua",    priority_weight = 80 },
-          { name = "path",        priority_weight = 70 },
-          { name = "latex_symbols", priority_weight = 60, option = { strategy = 2 } },
+          { name = "nvim_lsp",          priority_weight = 100, max_item_count = 10 },
+          { name = "luasnip",           priority_weight = 90,  max_item_count = 5 },
+          { name = "nvim_lua",          priority_weight = 80 },
+          { name = "path",              priority_weight = 70 },
+          { name = "latex_symbols",     priority_weight = 60,  option = { strategy = 2 } },
           { name = "pandoc_references", priority_weight = 50 },
-          { name = "spell",       priority_weight = 30, keyword_length = 3 },
+          { name = "spell",             priority_weight = 30,  keyword_length = 3 },
         }, {
-          { name = "buffer",      priority_weight = 20,
+          {
+            name = "buffer",
+            priority_weight = 20,
             option = {
-              get_bufnrs = function()
-                return vim.api.nvim_list_bufs()
-              end,
+              get_bufnrs = function() return vim.api.nvim_list_bufs() end,
               keyword_pattern = [[\%(-\?\d\+\%(\.\d\+\)\?\|\h\w*\%(-\w*\)*\)]],
               keyword_length = 3,
               max_item_count = 5,
-            }
+            },
           },
         }),
+
         formatting = {
           format = lspkind.cmp_format({
             mode = "symbol_text",
+            -- preset = 'codicons',
             maxwidth = 40,
             ellipsis_char = "…",
             before = function(entry, vim_item)
@@ -118,16 +131,40 @@ return {
             end,
           }),
         },
-        experimental = {
-          ghost_text = {
-            hl_group = "Comment",
+
+        sorting = {
+          comparators = {
+            cmp.config.compare.offset,
+            cmp.config.compare.exact,
+            cmp.config.compare.scopes, -- Prioriza variables locales
+            cmp.config.compare.score,
+            function(entry1, entry2)   -- Deprioritiza ítems con _ inicial
+              local _, entry1_under = entry1.completion_item.label:find("^_+")
+              local _, entry2_under = entry2.completion_item.label:find("^_+")
+              if entry1_under ~= entry2_under then
+                if entry1_under then
+                  return false
+                else
+                  return true
+                end
+              end
+            end,
+            cmp.config.compare.recently_used,
+            cmp.config.compare.locality,
+            cmp.config.compare.kind,
+            cmp.config.compare.sort_text,
+            cmp.config.compare.length,
+            cmp.config.compare.order,
           },
-          native_menu = false,
         },
+
+        experimental = {
+          ghost_text = { hl_group = "Comment" },
+        },
+
         window = {
           completion = {
             border = "rounded",
-            scrollbar = false, -- Más limpio sin barra de scroll
             winhighlight = "Normal:CmpPmenu,FloatBorder:CmpBorder,CursorLine:CmpSel,Search:None",
             max_width = 60,
             max_height = 12,
@@ -136,64 +173,42 @@ return {
           },
           documentation = {
             border = "rounded",
-            scrollbar = false,
             winhighlight = "Normal:CmpDoc,FloatBorder:CmpDocBorder,Search:None",
             max_width = 70,
             max_height = 15,
           },
         },
+
         performance = {
           debounce = 60,
           throttle = 100,
           fetching_timeout = 200,
           max_view_entries = 30,
         },
-        preselect = cmp.PreselectMode.Item, -- SELECCIONA automáticamente el primer item
+
+        preselect = cmp.PreselectMode.Item,
         completion = {
           completeopt = "menu,menuone,noinsert,noselect",
-          autocomplete = {
-            cmp.TriggerEvent.TextChanged,
-            cmp.TriggerEvent.InsertEnter,
-          },
           keyword_length = 1,
         },
+
         view = {
           entries = { name = "custom", selection_order = "near_cursor" },
         },
       })
 
-      -- Configuración para línea de comandos
+      -- Cmdline setups (sin cambios, están perfectos)
       cmp.setup.cmdline({ "/", "?" }, {
         mapping = cmp.mapping.preset.cmdline(),
-        sources = {
-          { name = "buffer", keyword_length = 2 },
-        },
+        sources = { { name = "buffer", keyword_length = 2 } },
       })
 
       cmp.setup.cmdline(":", {
         mapping = cmp.mapping.preset.cmdline(),
         sources = cmp.config.sources(
           { { name = "path" } },
-          { { name = "cmdline",
-            option = {
-              ignore_cmds = { "Man", "!" }
-            }
-          } }
+          { { name = "cmdline", option = { ignore_cmds = { "Man", "!" } } } }
         ),
-      })
-
-      -- Autocomando para desactivar completado en comentarios
-      vim.api.nvim_create_autocmd("FileType", {
-        pattern = { "*" },
-        callback = function()
-          vim.b.cmp_enabled = true
-          local line = vim.api.nvim_get_current_line()
-          local col = vim.api.nvim_win_get_cursor(0)[2]
-          local before_cursor = line:sub(1, col)
-          if before_cursor:match("^%s*#") or before_cursor:match("//") or before_cursor:match("^%s*--") then
-            vim.b.cmp_enabled = false
-          end
-        end,
       })
     end,
   },
@@ -201,38 +216,47 @@ return {
     "L3MON4D3/LuaSnip",
     version = "v2.*",
     build = "make install_jsregexp",
+    event = "InsertEnter", -- Loads only when you start typing – keeps startup clean
     dependencies = {
       "rafamadriz/friendly-snippets",
       "honza/vim-snippets",
     },
     config = function()
-      require("luasnip.loaders.from_vscode").lazy_load({
-        paths = {
-          vim.fn.stdpath("config") .. "/snippets",
-          vim.fn.stdpath("data") .. "/lazy/friendly-snippets",
-          vim.fn.stdpath("data") .. "/lazy/vim-snippets",
-        }
-      })
-      require("luasnip.loaders.from_lua").load({ paths = vim.fn.stdpath("config") .. "/lua/snippets" })
+      local ls = require("luasnip")
 
+      -- Clean and lively setup – history + dynamic updates feel snappier
+      ls.config.setup({
+        history = true,                                  -- Jump back to previous snippets easily
+        update_events = "TextChanged,TextChangedI",
+        region_check_events = "CursorMoved,InsertEnter", -- Cleaner dynamic snippets
+        delete_check_events = "TextChanged,InsertLeave",
+        enable_autosnippets = false,                     -- Flip to true if you fancy autosnippets later
+      })
+
+      -- Loaders – lazy so they don't bog down startup
+      require("luasnip.loaders.from_vscode").lazy_load()
+      require("luasnip.loaders.from_snipmate").lazy_load() -- honza/vim-snippets
+      require("luasnip.loaders.from_lua").lazy_load({
+        paths = vim.fn.stdpath("config") .. "/lua/snippets",
+      })
+
+      -- Minimal keymaps – clean and redundant with cmp
       vim.keymap.set({ "i", "s" }, "<C-l>", function()
-        if require("luasnip").expand_or_jumpable() then
-          require("luasnip").expand_or_jump()
-        end
-      end, { silent = true, desc = "Expandir o saltar en snippet" })
+        if ls.expand_or_jumpable() then ls.expand_or_jump() end
+      end, { silent = true, desc = "LuaSnip: Expand or Jump Forward" })
 
       vim.keymap.set({ "i", "s" }, "<C-h>", function()
-        if require("luasnip").jumpable(-1) then
-          require("luasnip").jump(-1)
-        end
-      end, { silent = true, desc = "Saltar atrás en snippet" })
+        if ls.jumpable(-1) then ls.jump(-1) end
+      end, { silent = true, desc = "LuaSnip: Jump Backward" })
 
       vim.keymap.set("i", "<C-e>", function()
-        if require("luasnip").choice_active() then
-          require("luasnip").change_choice(1)
-        end
-      end, { desc = "Cambiar opción en nodo choice" })
+        if ls.choice_active() then ls.change_choice(1) end
+      end, { silent = true, desc = "LuaSnip: Next Choice" })
+
+      -- Extra: cycle choices backward
+      vim.keymap.set("i", "<C-E>", function()
+        if ls.choice_active() then ls.change_choice(-1) end
+      end, { silent = true, desc = "LuaSnip: Previous Choice" })
     end,
   },
-
 }

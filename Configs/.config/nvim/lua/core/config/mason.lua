@@ -48,7 +48,6 @@ local servers = {
           useLibraryCodeForTypes = true,
           diagnosticMode = "workspace",
           autoImportCompletions = true,
-          -- Opciones para reducir consumo
           indexing = true,
           importFormat = "absolute",
         }
@@ -64,16 +63,6 @@ local servers = {
     },
     settings = {
       tailwindCSS = {
-        experimental = {
-          classRegex = {
-            "class: \"([^\"]*)\"",
-            "className: \"([^\"]*)\"",
-            "classNames: \"([^\"]*)\"",
-            "tw`([^`]*)`",
-            "tw=\"([^\"]*)\"",
-            "tw={\"([^\"}]*)\"}",
-          }
-        },
         includeLanguages = {
           html = "html",
           javascript = "javascript",
@@ -189,24 +178,9 @@ require("mason-lspconfig").setup({
       require("lspconfig")[server_name].setup(opts)
     end,
     
-    ["ltex"] = function()
-      require("lspconfig").ltex.setup({
-        capabilities = capabilities,
-        settings = {
-          ltex = {
-            language = "es",
-            dictionary = {},
-            disabledRules = {},
-            hiddenFalsePositives = {},
-          }
-        },
-        on_attach = function(client, bufnr)
-        end
-      })
-    end,
     
     -- Configuración especial para tsserver
-    ["tsserver"] = function()
+    ["ts_ls"] = function()
       require("lspconfig").tsserver.setup({
         capabilities = capabilities,
         settings = {
@@ -281,8 +255,6 @@ if client and client.name == "tailwindcss" then
         'tailwindcss-language-server',
         '--stdio'
     }
-    vim.notify("TailwindCSS LSP - Programming Web :>")
-end
+    end
   end,
 })
-

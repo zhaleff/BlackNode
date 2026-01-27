@@ -4,45 +4,87 @@ return {
     event = "VimEnter",
     dependencies = { "nvim-tree/nvim-web-devicons" },
     config = function()
-      local hyprcraft = [[
+      -- A clean, modern ASCII header that fits Catppuccin mocha perfectly
+      -- Minimal cat silhouette – subtle, classy, not overwhelming
+      local header = {
+        "",
+        "",
+        "",
+        "  ,`````.          _________",
+        "  '  Nvim  `,       /_  ___   \\",
+        "  '  ^_^   `.     /@ \\/@  \\   \\",
+        "  ` , . , '  `.. \\__/\\___/   /",
+        "                 \\_\\/______/",
+        "                 /     /\\\\\\",
+        "                  |     |\\\\\\\\\\",
+        "                   \\      \\\\\\\\",
+        "                                 \\______/\\\\\\\\     -ccw-",
+        "                     _______ ||_||_______",
+        "                     (______(((_(((______(@)",
+        "",
+        "",
+        "",
+      }
 
-
-
-_____________________                              _____________________
-`-._:  .:'   `:::  .:\           |\__/|           /::  .:'   `:::  .:.-'
-    \      :          \          |:   |          /         :       /    
-     \     ::    .     `-_______/ ::   \_______-'   .      ::   . /      
-      |  :   :: ::'  :   :: ::'  :   :: ::'      :: ::'  :   :: :|       
-      |     ;::         ;::         ;::         ;::         ;::  |       
-      |  .:'   `:::  .:'   `:::  .:'   `:::  .:'   `:::  .:'   `:|       
-      /     :           :           :           :           :    \       
-     /______::_____     ::    .     ::    .     ::   _____._::____\      
-                   `----._:: ::'  :   :: ::'  _.----'                    
-                          `--.       ;::  .--'                           
-                              `-. .:'  .-'                               
-                                 \    / :F_P:                            
-                                  \  /                                   
-                                   \/ 
-    ]]
       require("dashboard").setup({
-        theme = "doom",
+        theme = "doom", -- Keeps the centred layout nice and clean
         config = {
-          header = vim.split(hyprcraft, "\n"),
+          header = header,
           center = {
-            { icon = " ", desc = "NvimTree        ", key = "e", action = "NvimTreeToggle" },
-            { icon = " ", desc = "Find Files      ", key = "f", action = "Telescope find_files" },
-            { icon = " ", desc = "Recent Files    ", key = "r", action = "Telescope oldfiles" },
-            { icon = " ", desc = "Live Grep       ", key = "g", action = "Telescope live_grep" },
-            { icon = "󰚰 ", desc = "Update Plugins  ", key = "u", action = "Lazy update" },
-            { icon = "󰩈 ", desc = "Quit            ", key = "q", action = "qa" },
+            {
+              icon = "  ",
+              desc = "Explorer            ",
+              key = "e",
+              action = "Neotree toggle",
+            },
+            {
+              icon = "  ",
+              desc = "Find Files          ",
+              key = "f",
+              action = "Telescope find_files",
+            },
+            {
+              icon = "  ",
+              desc = "Recent Files        ",
+              key = "r",
+              action = "Telescope oldfiles",
+            },
+            {
+              icon = "󰈞  ",
+              desc = "Live Grep           ",
+              key = "g",
+              action = "Telescope live_grep",
+            },
+            {
+              icon = "󱐥  ",
+              desc = "TODOs / Fixes       ",
+              key = "t",
+              action = "TodoTelescope",
+            },
+            {
+              icon = "󰚰  ",
+              desc = "Update Plugins      ",
+              key = "u",
+              action = "Lazy update",
+            },
+            {
+              icon = "󰩈  ",
+              desc = "Quit                ",
+              key = "q",
+              action = "qa",
+            },
           },
           footer = function()
             local stats = require("lazy").stats()
-            local ms = (math.floor(stats.startuptime * 100 + 0.5) / 100)
-            return { "", "HyprCraft 2025  •  " .. stats.count .. " plugins loaded in " .. ms .. "ms" }
+            local ms = math.floor(stats.startuptime * 100 + 0.5) / 100
+            return {
+              "",
+              "  HyprCraft • " .. stats.loaded .. "/" .. stats.count .. " plugins •  " .. ms .. "ms",
+              "",
+            }
           end,
         },
       })
-    end
-  }
+    end,
+  },
 }

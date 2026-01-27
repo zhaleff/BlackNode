@@ -2,9 +2,8 @@ return {
   {
     "catppuccin/nvim",
     name = "catppuccin",
-    priority = 1000, -- Se carga primero
+    priority = 1000,
     config = function()
-      -- 1. PRIMERO configurar Catppuccin
       require("catppuccin").setup({
         flavour = "mocha",
         transparent_background = false,
@@ -20,14 +19,18 @@ return {
         integrations = {
           cmp = true,
           gitsigns = true,
+          neo_tree = true,
+          trouble = true,
           nvimtree = true,
           telescope = { enabled = true },
           treesitter = true,
           dashboard = true,
           which_key = true,
           notify = true,
-          bufferline = true,
-          indent_blankline = { enabled = true, scope_color = "mauve" },
+          mason = true,
+          flash = true,
+          treesitter_context = true,
+          todo_comments = true,
           mini = { enabled = true },
           native_lsp = {
             enabled = true,
@@ -46,17 +49,39 @@ return {
           },
         },
       })
-      vim.cmd.colorscheme("catppuccin")    
-      
-      local ctp_feline = require('catppuccin.special.feline')
-      ctp_feline.setup()       
+
+      vim.cmd.colorscheme("catppuccin")
+
+      -- Feline
+      local ctp_feline = require("catppuccin.special.feline")
+
+      ctp_feline.setup({
+        view = {
+          lsp = {
+            name = false,
+          },
+        },
+        assets = {
+          lsp = {
+            server = "󰅡",
+            error = "",
+            warning = "",
+            info = "󰋼",
+            hint = "󰛩",
+          },
+        },
+      })
       require("feline").setup({
+        disable = {
+          filetypes = {},
+          buftypes = {},
+        },
         components = ctp_feline.get_statusline(),
       })
     end,
   },
-  
   {
     'feline-nvim/feline.nvim',
-    lazy = true,   },
+    lazy = true,
+  },
 }
