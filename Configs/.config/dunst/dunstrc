@@ -1,0 +1,90 @@
+[global]
+    monitor = 0
+    follow = none
+    width = 350
+    height = (80, 200)
+    origin = top-center
+    alignment = "left"
+    vertical_alignment = "center"
+    ellipsize = "middle"
+    offset = "20x30"
+    padding = 16
+    horizontal_padding = 20
+    text_icon_padding = 12
+    icon_position = "left"
+    min_icon_size = 48
+    max_icon_size = 64
+    icon_corner_radius = 8
+    progress_bar = true
+    progress_bar_height = 8
+    progress_bar_min_width = 250
+    progress_bar_max_width = 380
+    progress_bar_corner_radius = 6
+    progress_bar_corners = all
+    progress_bar_frame_width = 2
+    frame_width = 2
+    frame_color = "#313244ff"          ; surface0 - borde sutil en todo
+    separator_height = 2
+    separator_color = "#45475aff"      ; surface1 - separador más visible
+    corner_radius = 14                 ; más redondeado y moderno
+    gap_size = 14
+    line_height = 4
+    notification_limit = 6
+    idle_threshold = 120
+    history_length = 50
+    show_age_threshold = 60
+    markup = "full"
+    font = "JetBrains Mono Nerd Font Medium 11"
+    format = "<b>%s</b>\n<span foreground='#9399b2ff'>%a</span>\n%b"  ; appname en overlay2 (sutil)
+    word_wrap = "yes"
+    sort = "yes"
+    shrink = "no"
+    indicate_hidden = "yes"
+    sticky_history = "yes"
+    ignore_newline = "no"
+    show_indicators = "no"
+    stack_duplicates = true
+    always_run_script = true
+    hide_duplicate_count = false
+    ignore_dbusclose = false
+    force_xwayland = false
+    mouse_left_click = "do_action"
+    mouse_middle_click = "close_all"
+    mouse_right_click = "close_current"
+    browser = "firefox"
+
+    ; Barra de progreso
+    progress_bar_color = "#cba6f7ff"   ; mauve por defecto
+    progress_bar_frame_color = "#313244ff"
+
+[experimental]
+    per_monitor_dpi = false
+
+[urgency_low]
+    background = "#1e1e2eee"           ; base con leve transparencia
+    foreground = "#cdd6f4ff"
+    highlight = "#cba6f7ff"
+    frame_color = "#313244ff"
+    timeout = 5
+
+[urgency_normal]
+    background = "#1e1e2eee"
+    foreground = "#cdd6f4ff"
+    highlight = "#cba6f7ff"
+    frame_color = "#313244ff"
+    timeout = 8
+
+[urgency_critical]
+    background = "#1e1e2eee"
+    foreground = "#f38ba8ff"           ; texto rojo suave
+    highlight = "#f38ba8ff"
+    frame_color = "#313244ff"          ; mismo borde sutil
+    frame_width = 4                    ; borde más grueso para destacar
+    timeout = 0
+    progress_bar_color = "#f38ba8ff"   ; barra de progreso roja en críticas
+
+[shortcuts]
+    close_notification = ctrl+space
+    close_all_notifications = ctrl+shift+space
+    history_pop = ctrl+grave
+    context_menu = ctrl+shift+period
