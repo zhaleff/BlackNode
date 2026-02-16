@@ -1,19 +1,14 @@
--- === EMMET VIM MEJORADO 2026 (clásico pero ULTRA-INTELIGENTE y EFICIENTE) ===
--- Versión pulida al máximo: más precisa, rápida y con Tree-sitter para contexto
--- Mantiene TODOS tus mapeos originales <C-y>...
--- <Tab> ahora es aún más listo: detecta Emmet + snippets + customs + Tree-sitter context
--- No expande Emmet dentro de strings/comments (gracias a Tree-sitter)
 
-vim.g.user_emmet_mode = 'i'         -- solo insert mode (seguro y rápido)
+
+vim.g.user_emmet_mode = 'i'        
 vim.g.user_emmet_leader_key = '<C-y>'
-vim.g.user_emmet_install_global = 0 -- control manual por buffer
+vim.g.user_emmet_install_global = 0 
 vim.g.user_emmet_complete_tag = 1
 vim.g.user_emmet_settings = {
   variables = { lang = "es" },
   indent_blockelement = 1,
   javascript = { extends = 'jsx' },
   typescript = { extends = 'tsx' },
-  -- Snippets personalizados rápidos (más útiles y comunes)
   html = {
     snippets = {
       fc = "div.flex.items-center.justify-center|",
@@ -29,14 +24,12 @@ vim.g.user_emmet_settings = {
   },
 }
 
--- Filetypes donde activamos Emmet
 local emmet_ft = {
   "html", "htmldjango", "javascript", "javascriptreact",
   "typescript", "typescriptreact", "vue", "svelte",
   "jsx", "tsx", "css", "scss", "less", "php", "blade", "xml", "markdown"
 }
 
--- Activación automática
 vim.api.nvim_create_autocmd("FileType", {
   pattern = emmet_ft,
   callback = function()
@@ -45,7 +38,6 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
--- Mapeos clásicos <C-y>... (exactamente como los tenías)
 vim.api.nvim_create_autocmd("FileType", {
   pattern = emmet_ft,
   callback = function()
@@ -59,18 +51,15 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
--- <Tab> SUPER INTELIGENTE (pulido al máximo con Tree-sitter)
 vim.api.nvim_create_autocmd("FileType", {
   pattern = emmet_ft,
   callback = function()
     vim.keymap.set('i', '<Tab>', function()
-      -- 1. Snippet jump primero (luasnip o vim.snippet)
       if vim.snippet.active({ direction = 1 }) then
         vim.schedule(function() vim.snippet.jump(1) end)
         return ""
       end
 
-      -- 2. Tree-sitter context: NO expandir Emmet en comments/strings
       local ts_context = require("cmp.config.context") -- Reusamos el mismo de cmp (preciso y rápido)
       if ts_context.in_treesitter_capture("comment") or ts_context.in_treesitter_capture("string") or
           ts_context.in_syntax_group("Comment") or ts_context.in_syntax_group("String") then
@@ -81,7 +70,6 @@ vim.api.nvim_create_autocmd("FileType", {
       local col = vim.api.nvim_win_get_cursor(0)[2] + 1
       local before = line:sub(1, col)
 
-      -- 3. Detectar abreviatura Emmet (regex más preciso y robusto)
       local emmet_pattern = "[%w%-%.:#>%+%*%^%!%$@_%(%)%[%]]+$"
       local abbr = before:match(emmet_pattern)
       if abbr and #abbr >= 2 then
@@ -90,9 +78,7 @@ vim.api.nvim_create_autocmd("FileType", {
         end
       end
 
-      -- 4. Patrones personales frecuentes (más útiles y comunes 2026)
       local customs = {
-        -- CSS / Tailwind rápidos
         { p = "df$",   r = "display: flex;" },
         { p = "dg$",   r = "display: grid;" },
         { p = "db$",   r = "display: block;" },
@@ -104,13 +90,11 @@ vim.api.nvim_create_autocmd("FileType", {
         { p = "p$",    r = "padding: 1rem;" },
         { p = "m$",    r = "margin: 1rem;" },
 
-        -- Tailwind class shortcuts (si no usas LSP full)
         { p = "red$",  r = "text-red-500" },
         { p = "blue$", r = "text-blue-500" },
         { p = "bgd$",  r = "bg-gray-900" },
         { p = "bgl$",  r = "bg-gray-100" },
 
-        -- JS/TSX comunes
         { p = "clg$",  r = "console.log()" },
         { p = "ue$",   r = "useEffect(() => {|}, []);" },
         { p = "us$",   r = "useState(" },
@@ -127,11 +111,9 @@ vim.api.nvim_create_autocmd("FileType", {
         end
       end
 
-      -- 5. Nada coincide → indent normal
       return vim.api.nvim_replace_termcodes("<Tab>", true, true, true)
     end, { expr = true, buffer = true, desc = "Smart Tab: Emmet + customs + snippet jump + TS context" })
 
-    -- Shift-Tab para ir atrás en snippets o dedent
     vim.keymap.set('i', '<S-Tab>', function()
       if vim.snippet.active({ direction = -1 }) then
         vim.schedule(function() vim.snippet.jump(-1) end)
@@ -142,7 +124,6 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
--- Comando rápido para debug
 vim.api.nvim_create_user_command('EmmetStatus', function()
   print("Emmet active:", vim.b.emmet_html and "yes" or "no")
   print("Filetype:", vim.bo.filetype)
