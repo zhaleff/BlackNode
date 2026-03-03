@@ -1,0 +1,88 @@
+@import "mocha.css";
+
+* {
+  background-image: none;
+}
+
+window {
+   background-color: rgba(30, 30, 46, 0.40);
+}
+
+button {
+  background-color: rgba(30, 30, 46, 0.90);
+  outline-style: none;
+  margin-left: 0px;
+  border: none;
+  border-width: 0px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 10%;
+  border-radius: 6px;
+  animation: gradient_f 20s ease-in infinite;
+  text-shadow: none;
+}
+
+button:focus {
+  background-color: rgba(30, 30, 46, 0.90);
+  background-size: 10%;
+  border: none;
+}
+
+button:hover {
+  background-color: @mauve;
+  background-size: 25%;
+  border-radius: 12px;
+  animation: gradient_f 20s ease-in infinite;
+  transition: all 0.3s cubic-bezier(.55,0.0,.28,1.682);
+}
+
+#shutdown {
+  margin-bottom: -2.5rem;
+  margin-right: -2rem;
+  background-image: image(url("./icons/power.png"));
+}
+#shutdown:hover {
+  background-image: image(url("./icons/power-hover.png"));
+}
+
+#reboot {
+  margin-top: -1.3rem;
+  margin-right: -2rem;
+  background-image: image(url("./icons/restart.png"));
+}
+#reboot:hover {
+  background-image: image(url("./icons/restart-hover.png"));
+}
+
+#lock {
+  background-image: image(url("./icons/lock.png"));
+  margin-left: 12rem;
+  margin-top: -1.3rem;
+}
+#lock:hover {
+  background-image: image(url("./icons/lock-hover.png"));
+}
+
+#suspend {
+  margin-left: 12rem;
+  background-image: image(url("./icons/sleep.png"));
+}
+#suspend:hover {
+  background-image: image(url("./icons/sleep-hover.png"));
+}
+
+#hibernate {
+  background-image: image(url("./icons/hibernate.png"));
+  margin: 8rem -106rem -8rem 106rem;
+}
+#hibernate:hover {
+  background-image: image(url("./icons/hibernate-hover.png"));
+}
+
+#logout {
+  background-image: image(url("./icons/logout.png"));
+  margin: -8rem 106rem 8rem -106rem;
+}
+#logout:hover {
+  background-image: image(url("./icons/logout-hover.png"));
+}

@@ -5,46 +5,51 @@
 }
 
 window {
-   background-color: rgba(30, 30, 46, 0.40);
+  background-color: transparent;
 
 }
 
 button {
-  background-color: rgba(30, 30, 46, 0.0);
+  background-color: rgba(30, 30, 46, 0.7);
   outline-style: none;
-  margin-left: 0px;
+  margin-left: 7px;
   border: none;
   border-width: 0px;
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 60%;
-  border-radius: 20px 20px 20px 20px;
+  background-size: 40%;
+  border-radius: 80px 80px 80px 80px;
   animation: gradient_f 20s ease-in infinite;
   text-shadow: none;
 }
 
 button:focus {
-  background-size: 70%;
-  border: 0px;
-  border-radius: 20px 10px 5px 20px;
+  background-size: 40%;
+  border: 2px solid #1e1e2e;
+  border-radius: 40px 40px 40px 40px;
 }
 
 button:hover {
-  background-size: 80%;
+  background-size: 40%;
   border-radius: 12px;
+  border-radius: 40px 40px 40px 40px;
+
   animation: gradient_f 20s ease-in infinite;
-  transition: all 0.3s cubic-bezier(.55,0.0,.28,1.682);
+  transition: all 0.3s cubic-bezier(.55, 0.0, .28, 1.682);
 }
 
 #shutdown {
+  padding: 0.7rem;
   background-image: image(url("./icons/power.png"));
 }
+
 #reboot {
+  padding: 1.5rem;
   background-image: image(url("./icons/restart.png"));
 }
 
-
 #lock {
+  padding: 2rem;
   background-image: image(url("./icons/lock.png"));
 }
 
@@ -53,14 +58,12 @@ button:hover {
   background-image: image(url("./icons/sleep.png"));
 }
 
-
 #hibernate {
+  padding: 0.8rem;
   background-image: image(url("./icons/hibernate.png"));
 }
 
-
 #logout {
+  padding: 1.3rem;
   background-image: image(url("./icons/logout.png"));
 }
-
-

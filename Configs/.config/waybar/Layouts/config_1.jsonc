@@ -1,14 +1,3 @@
-// Copyright (c) 2025 Zhaleff && HollowSec. All Rights Reserved.
-// LICENCE: MIT 
-// 
-//--- ZepharDev Nvim
-//
-//
-// Hi :D
-//
-// Config waybar, style num 3, waybar for chill 
-// 
-// 
 {
   "layer": "top",
   "position": "top",
@@ -19,13 +8,11 @@
   "margin-bottom": 0,
   "spacing": 15,
   "reload_style_on_change": true,
-  // Choose the order of the modules
   "modules-left": [
     "group/hollow-left-2",
-    // "group/hollow-left-2",
     "group/hollow-left-4",
     "group/hollow-left-5",
-    "group/hollow-left-1",
+    "group/hollow-left-1"
   ],
   "modules-center": [],
   "modules-right": [
@@ -36,7 +23,7 @@
   ],
   "group/hollow-center-1": {
     "orientation": "horizontal",
-    "modules": [],
+    "modules": []
   },
   "group/hollow-left-4": {
     "orientation": "horizontal",
@@ -44,15 +31,15 @@
       "mpris",
       "custom/previous",
       "custom/pause",
-      "custom/next",
-    ],
+      "custom/next"
+    ]
   },
   "group/hollow-left-1": {
     "orientation": "horizontal",
     "modules": [
       "custom/pacman",
       "custom/pkg-aur"
-    ],
+    ]
   },
   "group/hollow-right-1": {
     "orientation": "horizontal",
@@ -60,32 +47,32 @@
       "cpu",
       "temperature",
       "memory"
-    ],
+    ]
   },
   "group/hollow-left-2": {
     "orientation": "horizontal",
     "modules": [
-      "hyprland/workspaces",
-    ],
+      "hyprland/workspaces"
+    ]
   },
   "group/hollow-right-3": {
     "orientation": "horizontal",
     "modules": [
-      "custom/user",
-    ],
+      "custom/user"
+    ]
   },
   "group/hollow-left-3": {
     "orientation": "horizontal",
     "modules": [
-      "custom/uptime",
-    ],
+      "custom/uptime"
+    ]
   },
   "group/hollow-right-4": {
     "orientation": "horizontal",
     "modules": [
       "idle_inhibitor",
-      "clock",
-    ],
+      "clock"
+    ]
   },
   "group/hollow-left-5": {
     "orientation": "horizontal",
@@ -94,19 +81,17 @@
       "wireplumber",
       "network",
       "custom/power",
-      "battery",
-    ],
+      "battery"
+    ]
   },
   "group/hollow-right-5": {
     "orientation": "horizontal",
     "modules": [
       "hyprland/window"
-    ],
+    ]
   },
-  // Modules configuration
   "hyprland/workspaces": {
     "on-click": "activate",
-    "activate-only": false,
     "all-outputs": true,
     "format": "{name}",
     "format-icons": {
@@ -122,64 +107,31 @@
       "10": "*",
       "urgent": "*",
       "active": "*",
-      "default": "*",
-    },
-    "persistent_workspaces": {
-      "[]": 3
+      "default": "*"
     }
   },
   "hyprland/window": {
     "format": " 󰶞 {}",
-    "max-length": 32,
-    "separate-outputs": false,
-  },
-  "tray": {
-    "icon-size": 16,
-    "spacing": 5,
-    "show-passive-items": true,
+    "max-length": 32
   },
   "clock": {
-    "format": "{:%H:%M}",
-    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-    "format-alt": "{:%Y-%m-%d}",
-  },
-  "custom/target": {
-    "format": "󰓾 {}",
-    "exec": "cat ~/.target 2>/dev/null || echo 'No target'",
-    "interval": 2,
-    "tooltip": false,
-    "on-click": "bash -c 'read -p \"Target IP/Host: \" target && echo $target > ~/.target'",
-    "on-click-right": "bash -c '[[ -f ~/.target ]] && rm ~/.target'"
+    "format": "{:%H:%M}"
   },
   "temperature": {
     "thermal-zone": 2,
-    "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
-    "format-critical": "{temperatureC}°C {icon}",
-    "critical-threshold": 80,
-    "interval": 2,
     "format": " {temperatureC:>2}°C",
-    "format-icons": [
-      "0",
-      "",
-      ""
-    ],
-    "on-click": "kitty -e zsh -c 'btop; exec zsh'",
+    "on-click": "kitty -e btop"
   },
   "cpu": {
     "interval": 2,
     "format": " {usage:>2}%",
-    "on-click": "kitty -e zsh -c 'btop; exec zsh'",
+    "on-click": "kitty -e btop"
   },
   "memory": {
     "interval": 2,
-    "format": " {:>2}%",
-  },
-  "disk": {
-    "interval": 15,
-    "format": "󰋊 {percentage_used:>2}%",
+    "format": " {:>2}%"
   },
   "backlight": {
-    // "device": "acpi_video1",
     "format": "{icon}",
     "format-icons": [
       "",
@@ -191,45 +143,13 @@
       "",
       "",
       ""
-    ],
-  },
-  "bluetooth": {
-    "format": "{icon}",
-    "format-icons": [
-      "󰂯",
-      "󰤾",
-      "󰥀",
-      "󰥄",
-      "󰥈"
-    ],
-    "tooltip-format-off": "Bluetooth is off",
-    "tooltip-format-on": "Bluetooth is on",
-    "format-connected": "{icon} {num_connections}",
-    "format-connected-battery": "{icon} {device_battery_percentage}%",
-    "tooltip-format-connected": "{device_enumerate}",
-    "tooltip-format-enumerate-connected": "{device_alias}\t{device_battery_percentage}%",
-    "on-click": "blueman-manager"
-  },
-  "custom/public-ip": {
-    "format": "󰩟 {}",
-    "exec": "curl https://ipaddress.sh",
-    "interval": 10,
-    "tooltip": true,
-    "on-click": "echo '{ip}' | xclip -sel clip",
-    "on-click-right": "alacritty -e nmap -sP 192.168.1.0/24",
+    ]
   },
   "network": {
     "interval": 3,
     "format-wifi": "{icon}",
-    "format-ethernet": "󰌗 {ipaddr}",
-    "format-linked": "󰌙 {ifname} (Sin IP)",
+    "format-ethernet": "󰌗",
     "format-disconnected": "󰖪",
-    "format-alt": "󰛳 {ifname}",
-    "tooltip-format-wifi": " {bandwidthDownBytes}  {bandwidthUpBytes}",
-    "tooltip-format-ethernet": "󰌗 {ifname} | IP: {ipaddr}/{cidr} | GW: {gwaddr}",
-    "tooltip-format-disconnected": "󰖪 No internet connection",
-    "tooltip-format-linked": "󰌙 {ifname}: Not ip",
-    "max-length": 30,
     "on-click": "~/.config/rofi/wifi/script.sh",
     "format-icons": {
       "wifi": [
@@ -245,115 +165,73 @@
       "disconnected": [
         "󰖪"
       ]
-    },
+    }
   },
   "idle_inhibitor": {
     "format": "{icon}",
     "format-icons": {
       "activated": "󰅶",
-      "deactivated": "󰛊",
-    },
+      "deactivated": "󰛊"
+    }
   },
-  // Module Custom
   "custom/pkg-aur": {
     "exec": "yay -Qua | wc -l",
     "interval": 1800,
-    "format": "󰣇 {}",
-    "tooltip": true,
-    "tooltip-format": "AUR packages"
+    "format": "󰣇 {}"
   },
   "custom/pacman": {
     "format": "󰮯 {}",
-    "interval": 3600, // every hour
-    "exec": "checkupdates | wc -l", // # of updates
-    "exec-if": "exit 0", // always run; consider advanced run conditions
-    "on-click": "kitty -e zsh -c 'fastfetch && sleep 0.5 && sudo pacman -Syu; exec zsh'", // update system
-    "signal": 8,
+    "interval": 3600,
+    "exec": "checkupdates | wc -l",
+    "on-click": "kitty -e sh -c 'sudo pacman -Syu'"
   },
   "custom/user": {
     "format": " {}",
     "exec": "whoami",
     "interval": 30,
-    "tooltip": false,
     "on-click": "notify-send 'Usuario' '$(whoami)@$(hostname)'"
   },
   "wireplumber": {
     "format": "{icon}",
-    "tooltip-format": "{icon}{volume:>3}%",
-    "format-muted": "󰖁 {volume:>3}%",
-    "format-bluetooth": "{icon} {volume:>2}% 󰂯", //{format_source}",
-    "format-bluetooth-muted": "󰖁 {icon} 󰂯", //{format_source}",
+    "format-muted": "󰖁",
     "format-icons": [
       "",
       "",
       ""
-    ],
+    ]
   },
   "custom/power": {
-    "format": "{icon}",
-    "format-icons": "", //  
-    "exec-on-event": "true",
-    "on-click": "wlogout",
-    "tooltip-format": "Power Menu",
-  },
-  "custom/htb-vpn": {
-    "format": "{}",
-    "exec": "bash -c 'ip=$(ip -4 addr show tun0 2>/dev/null | grep -oP \"inet \\\\K[\\\\d.]+\"); if [ -n \"$ip\" ]; then echo \"$ip\"; else echo \"HTB Disconnected\"; fi'",
-    "interval": 3,
-    "tooltip": false
+    "format": "",
+    "on-click": "wlogout"
   },
   "battery": {
-    "states": {
-      "good": 95,
-      "warning": 30,
-      "critical": 15
-    },
     "format": "{icon}",
-    "format-full": "{icon}",
-    "format-plugged": " {capacity}% <span font='Font Awesome 5 Free'>\uf0e7</span> ",
-    "format-alt": "{icon} {capacity}%",
-    "tooltip-format": "{capacity}%, about {time} left",
     "format-icons": [
-      " ",
-      " ",
-      " ",
-      " "
+      "",
+      "",
+      "",
+      ""
     ]
   },
   "custom/next": {
-    "format": "󰙡 ",
-    "on-click": "playerctl --player=spotify next && playerctl --player=youtube-music next",
-    "tooltip": false,
+    "format": "󰙡",
+    "on-click": "playerctl next"
   },
   "custom/pause": {
     "format": "{icon}",
-    //    "exec": "playerctl -l 2>/dev/null | head -n 1",
-    "on-click": "playerctl --player=spotify play-pause",
-    "tooltip": false,
+    "on-click": "playerctl play-pause",
     "format-icons": [
       "",
       ""
-    ],
+    ]
   },
   "custom/previous": {
     "format": "󰙣",
-    "on-click": "playerctl --player=spotify previous && playerctl --player=youtube-music previous",
-    "tooltip": false,
+    "on-click": "playerctl previous"
   },
   "mpris": {
-    "format": "{player_icon} {title} - {artist} ",
-    "format-paused": "{status_icon} {title} - {artist}",
-    "player-icons": {
-      "default": "<span foreground='#cba6f7'>󰝚 </span>",
-      "spotify": "<span foreground='#a6e3a1'>󰓇 </span>",
-      "firefox": "<span foreground='#f38ba8'>󰗃 </span>"
-    },
-    "status-icons": {
-      "paused": "<span color='#b4befe'>\u200A\u200A󰏤\u2009\u2009</span>"
-    },
-    "tooltip-format": "Playing: {title} - {artist}",
-    "tooltip-format-paused": "Paused: {title} - {artist}",
-    "min-length": 5,
-    "max-length": 18,
-  },
+    "format": "{player_icon} {title}",
+    "format-paused": "{status_icon} {title}",
+    "max-length": 18
+  }
 }

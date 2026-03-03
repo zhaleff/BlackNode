@@ -1,6 +1,0 @@
-{
-  "disk": {
-    "interval": 15,
-    "format": "󰋊 {percentage_used:>2}%",
-  },
-}
