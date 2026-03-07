@@ -5,7 +5,7 @@ local function setup_keymaps()
 
   wk.add({
     { "<leader>e",  "<cmd>Neotree toggle<CR>",                  desc = "Explorer (Neo-tree)" },
-
+    { "<leader>e",  "<cmd>ToggleTerm<CR>",                      desc = "ToggleTerm" },
     { "<leader>f",  group = "Find" },
     { "<leader>ff", "<cmd>Telescope find_files<CR>",            desc = "Files" },
     { "<leader>fg", "<cmd>Telescope live_grep<CR>",             desc = "Grep" },

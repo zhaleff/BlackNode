@@ -5,27 +5,7 @@ return {
     dependencies = { "nvim-tree/nvim-web-devicons" },
     config = function()
       -- A clean, modern ASCII header that fits Catppuccin mocha perfectly
-      -- Minimal cat silhouette – subtle, classy, not overwhelming
-      local header = {
-        "",
-        "",
-        "",
-        "  ,`````.          _________",
-        "  '  Nvim  `,       /_  ___   \\",
-        "  '  ^_^   `.     /@ \\/@  \\   \\",
-        "  ` , . , '  `.. \\__/\\___/   /",
-        "                 \\_\\/______/",
-        "                 /     /\\\\\\",
-        "                  |     |\\\\\\\\\\",
-        "                   \\      \\\\\\\\",
-        "                                 \\______/\\\\\\\\     -ccw-",
-        "                     _______ ||_||_______",
-        "                     (______(((_(((______(@)",
-        "",
-        "",
-        "",
-      }
-
+      -- Minimal cat silhouette – subtle, classy, not overwhelmin
       require("dashboard").setup({
         theme = "doom", -- Keeps the centred layout nice and clean
         config = {

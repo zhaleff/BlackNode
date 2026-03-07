@@ -1,0 +1,163 @@
+@import "shared/colors.rasi"
+
+configuration {
+  modi: "drun,filebrowser,window,run";
+  show-icons: true;
+
+  display-drun: " ";
+  display-run: " ";
+  display-filebrowser: " ";
+  display-window: " ";
+
+  drun-display-format: "{name}";
+  window-format: "{w}{t}";
+
+  font: "JetBrainsMono Nerd Font 10";
+  icon-theme: "Tela-circle-dracula";
+}
+
+window {
+  height: 30em;
+  width: 58em;
+
+  transparency: "real";
+  fullscreen: false;
+  enabled: true;
+
+  cursor: "default";
+
+  spacing: 0em;
+  padding: 0em;
+
+  border-color: #6c7086;
+  background-color: transparent;
+}
+
+mainbox {
+  enabled: true;
+
+  spacing: 0em;
+  padding: 0.8em;
+
+  orientation: horizontal;
+  children: [ "listbox", "inputbar" ];
+
+  background-color: transparent;
+}
+
+inputbar {
+  enabled: true;
+
+  width: 28.5em;
+
+  spacing: 0em;
+  padding: 0em;
+
+  children: [ "entry" ];
+  expand: false;
+
+  background-color: #1e1e2e;
+  background-image: url("~/.local/share/wallpapers/purple_leaves.png", height);
+
+  border-radius: 0em 1em 1em 0em;
+}
+
+entry {
+  enabled: false;
+}
+
+listbox {
+  spacing: 0em;
+  padding: 0em;
+
+  children: [ "dummy", "listview", "dummy" ];
+
+  background-color: rgba(30, 30, 41, 0.90);
+  border-radius: 1.2em 0em 0em 1.2em;
+}
+
+listview {
+  enabled: true;
+
+  spacing: 0em;
+  padding: 1em 2em 1em 2em;
+
+  columns: 1;
+  lines: 8;
+
+  cycle: true;
+  dynamic: true;
+
+  scrollbar: false;
+
+  layout: vertical;
+  reverse: false;
+
+  expand: false;
+
+  fixed-height: true;
+  fixed-columns: true;
+
+  cursor: "default";
+
+  background-color: transparent;
+  text-color: #cdd6f4;
+}
+
+dummy {
+  background-color: transparent;
+}
+
+element {
+  enabled: true;
+
+  spacing: 1em;
+  padding: 0.5em 0.5em 0.5em 1.5em;
+
+  cursor: pointer;
+
+  background-color: transparent;
+  text-color: #cdd6f4;
+}
+
+element selected.normal {
+  background-color: #cba6f7;
+  text-color: #11111b;
+  border-radius: 6em;
+}
+
+element-icon {
+  size: 2.2em;
+
+  cursor: inherit;
+
+  background-color: transparent;
+  text-color: inherit;
+}
+
+element-text {
+  vertical-align: 0.5;
+  horizontal-align: 0.0;
+
+  cursor: inherit;
+
+  background-color: transparent;
+  text-color: inherit;
+}
+
+error-message {
+  text-color: #cdd6f4;
+  background-color: rgba(30, 30, 41, 0.50);
+
+  text-transform: capitalize;
+
+  children: [ "textbox" ];
+}
+
+textbox {
+  text-color: inherit;
+  background-color: inherit;
+
+  vertical-align: 0.5;
+  horizontal-align: 0.5;
+}

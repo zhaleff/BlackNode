@@ -20,6 +20,7 @@ return {
       local luasnip = require("luasnip")
       local lspkind = require("lspkind")
 
+      -- Highlights Catppuccin-friendly (tus colores originales)
       vim.api.nvim_set_hl(0, "CmpPmenu", { bg = "#1e1e2e" })
       vim.api.nvim_set_hl(0, "CmpBorder", { fg = "#45475a" })
       vim.api.nvim_set_hl(0, "CmpSel", { bg = "#585b70", bold = true })
@@ -82,7 +83,7 @@ return {
           ["<C-j>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
           ["<C-k>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
           ["<C-b>"] = cmp.mapping.scroll_docs(-4),
-          ["<C-f>"] = cmp.mapping.scroll_docs(4),
+           ["<C-f>"] = cmp.mapping.scroll_docs(4),
           ["<C-e>"] = cmp.mapping.abort(),
           ["<C-d>"] = cmp.mapping(function() if cmp.visible() then cmp.select_next_item({ count = 5 }) end end, { "i" }),
           ["<C-u>"] = cmp.mapping(function() if cmp.visible() then cmp.select_prev_item({ count = 5 }) end end, { "i" }),

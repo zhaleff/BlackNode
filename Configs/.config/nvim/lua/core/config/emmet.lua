@@ -1,14 +1,6 @@
-<<<<<<< HEAD
 vim.g.user_emmet_mode = 'i'
 vim.g.user_emmet_leader_key = '<C-y>'
 vim.g.user_emmet_install_global = 0
-=======
-
-
-vim.g.user_emmet_mode = 'i'        
-vim.g.user_emmet_leader_key = '<C-y>'
-vim.g.user_emmet_install_global = 0 
->>>>>>> 781df40da6791263c18e5566ae8b5c6356fc8058
 vim.g.user_emmet_complete_tag = 1
 vim.g.user_emmet_settings = {
   variables = { lang = "es" },
@@ -57,7 +49,6 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
-<<<<<<< HEAD
 local function in_comment_or_string()
   local ok, ts = pcall(vim.treesitter.get_node)
   if not ok then return false end
@@ -67,30 +58,17 @@ local function in_comment_or_string()
   return type == "comment" or type == "string" or type == "string_content" or type == "comment_content"
 end
 
-=======
->>>>>>> 781df40da6791263c18e5566ae8b5c6356fc8058
 vim.api.nvim_create_autocmd("FileType", {
   pattern = emmet_ft,
   callback = function()
     vim.keymap.set('i', '<Tab>', function()
-<<<<<<< HEAD
       if vim.snippet and vim.snippet.active({ direction = 1 }) then
-=======
-      if vim.snippet.active({ direction = 1 }) then
->>>>>>> 781df40da6791263c18e5566ae8b5c6356fc8058
         vim.schedule(function() vim.snippet.jump(1) end)
         return ""
       end
 
-<<<<<<< HEAD
       if in_comment_or_string() then
         return vim.api.nvim_replace_termcodes("<Tab>", true, true, true)
-=======
-      local ts_context = require("cmp.config.context") -- Reusamos el mismo de cmp (preciso y rápido)
-      if ts_context.in_treesitter_capture("comment") or ts_context.in_treesitter_capture("string") or
-          ts_context.in_syntax_group("Comment") or ts_context.in_syntax_group("String") then
-        return vim.api.nvim_replace_termcodes("<Tab>", true, true, true) -- solo indent
->>>>>>> 781df40da6791263c18e5566ae8b5c6356fc8058
       end
 
       local line = vim.api.nvim_get_current_line()
@@ -116,18 +94,10 @@ vim.api.nvim_create_autocmd("FileType", {
         { p = "gap$",  r = "gap: 1rem;" },
         { p = "p$",    r = "padding: 1rem;" },
         { p = "m$",    r = "margin: 1rem;" },
-<<<<<<< HEAD
-=======
-
->>>>>>> 781df40da6791263c18e5566ae8b5c6356fc8058
         { p = "red$",  r = "text-red-500" },
         { p = "blue$", r = "text-blue-500" },
         { p = "bgd$",  r = "bg-gray-900" },
         { p = "bgl$",  r = "bg-gray-100" },
-<<<<<<< HEAD
-=======
-
->>>>>>> 781df40da6791263c18e5566ae8b5c6356fc8058
         { p = "clg$",  r = "console.log()" },
         { p = "ue$",   r = "useEffect(() => {|}, []);" },
         { p = "us$",   r = "useState(" },

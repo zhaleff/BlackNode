@@ -2,50 +2,40 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
-    event = { "BufReadPre", "BufNewFile" },          -- Lazy-load when opening files – keeps startup snappy
+    event = { "BufReadPre", "BufNewFile" },
     dependencies = {
-      "nvim-treesitter/nvim-treesitter-textobjects", -- Extra power for selecting/moving code blocks
+      "nvim-treesitter/nvim-treesitter-textobjects",
     },
     config = function()
       require("nvim-treesitter.configs").setup({
-        -- Parsers to install – covers everything you use daily (web, python, lua, config files, etc.)
         ensure_installed = {
           "lua", "luadoc", "vim", "vimdoc",
           "python",
           "javascript", "typescript", "tsx", "jsx",
-          "html", "css", "scss", "tailwind",
+          "html", "css", "scss", "tailwindcss",
           "json", "jsonc", "yaml", "toml",
           "markdown", "markdown_inline",
           "bash", "regex",
-          "php", "blade", "vue", "svelte", "astro",
+          "php", "phpdoc", "blade", "vue", "svelte", "astro",
           "git_rebase", "git_commit", "gitignore",
-          "query", -- For Treesitter queries (useful for dev)
+          "query",
+          "c", "cpp", "rust", "go", "java", "ruby",
+          "dockerfile", "graphql", "prisma", "sql",
+          "cmake", "make", "ninja",
         },
-
-        -- Auto-install missing parsers when entering a buffer
         auto_install = true,
-
-        -- Core modules
         highlight = {
           enable = true,
-          additional_vim_regex_highlighting = false, -- Pure Treesitter – cleaner and faster
+          additional_vim_regex_highlighting = false,
           disable = function(lang, buf)
-            -- Disable for massive files to avoid lag
-            local max_filesize = 100 * 1024 -- 100 KB
+            local max_filesize = 200 * 1024
             local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
             if ok and stats and stats.size > max_filesize then
               return true
             end
           end,
         },
-
-        indent = {
-          enable = true,
-          -- Python indent can be flaky in some cases – disable if it annoys you
-          -- disable = { "python" },
-        },
-
-        -- Incremental selection – press <C-space> to grow selection by Treesitter nodes (brilliant for code blocks)
+        indent = { enable = true },
         incremental_selection = {
           enable = true,
           keymaps = {
@@ -55,8 +45,6 @@ return {
             node_decremental = "<bs>",
           },
         },
-
-        -- Textobjects – super useful for moving/selecting/swap functions, classes, parameters, etc.
         textobjects = {
           select = {
             enable = true,
@@ -74,11 +62,13 @@ return {
               ["il"] = "@loop.inner",
               ["ai"] = "@conditional.outer",
               ["ii"] = "@conditional.inner",
+              ["aC"] = "@comment.outer",
+              ["iC"] = "@comment.inner",
             },
           },
           move = {
             enable = true,
-            set_jumps = true, -- Add to jumplist for <C-o>/<C-i>
+            set_jumps = true,
             goto_next_start = {
               ["]f"] = "@function.outer",
               ["]c"] = "@class.outer",
@@ -101,19 +91,37 @@ return {
           swap = {
             enable = true,
             swap_next = {
-              ["<leader>sp"] = "@parameter.inner", -- Swap parameters
+              ["<leader>sp"] = "@parameter.inner",
             },
             swap_previous = {
               ["<leader>sP"] = "@parameter.inner",
             },
           },
         },
+        rainbow = {
+          enable = true,
+          extended_mode = true,
+          max_file_lines = nil,
+        },
+        autotag = { enable = true },
+        refactor = {
+          highlight_definitions = { enable = true },
+          highlight_current_scope = { enable = false },
+          navigation = {
+            enable = true,
+            keymaps = {
+              goto_definition = "gnd",
+              list_definitions = "gnD",
+              list_definitions_toc = "gO",
+              goto_next_usage = "<A-*>",
+              goto_previous_usage = "<A-#>",
+            },
+          },
+        },
       })
-
-      -- Optional: fold using Treesitter (nice with Catppuccin)
       vim.opt.foldmethod = "expr"
       vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
-      vim.opt.foldenable = false -- Start with folds closed – toggle with za/zm/zr
+      vim.opt.foldenable = false
     end,
   },
 }
