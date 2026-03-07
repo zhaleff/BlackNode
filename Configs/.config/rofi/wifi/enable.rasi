@@ -26,7 +26,7 @@ window {
 
     /* properties for all widgets */
     enabled:                     true;
-    border-radius:               8px;
+    border-radius:               12px;
     cursor:                      "default";
     background-color:            @background;
 }
@@ -85,7 +85,7 @@ element {
     enabled:                     true;
     spacing:                     0px;
     padding:                     12px 8px;
-    border-radius:               8px;
+    border-radius:               12px;
     background-color:            transparent;
     text-color:                  @foreground;
     cursor:                      pointer;

@@ -26,7 +26,7 @@ window {
 
     /* properties for all widgets */
     enabled:                     true;
-    border-radius:               6px;
+    border-radius:               12px;
     cursor:                      "default";
     background-color:            @background;
 }
@@ -57,7 +57,7 @@ entry {
     expand:                      false;
     width:                       315px;
     padding:                     12px 16px 8px 16px;
-    border-radius:               6px;
+    border-radius:               12px;
     margin:                      0px 0px 0px 6px;
     background-color:            @background-alt;
     text-color:                  inherit;
@@ -71,7 +71,7 @@ textbox-prompt-colon {
     expand:                      false;
     str:                         "";
     padding:                     10px 22px 10px 12px;
-    border-radius:               6px;
+    border-radius:               12px;
     background-color:            #89b4fa;
     text-color:                  @background;
 }
@@ -89,9 +89,9 @@ listview {
     fixed-height:                true;
     fixed-columns:               true;
 
-    spacing:                     0px;
-    margin: 			         10px 20px 20px 20px;
-    border-radius: 		         6px;
+    spacing:                      0px;
+    margin: 			                10px 20px 20px 20px;
+    border-radius: 		            6px;
     background-color:            #1e1e2e;
     text-color:                  @foreground;
     cursor:                      "default";
@@ -102,21 +102,21 @@ element {
     enabled:                     true;
     spacing:                     0px;
     padding:                     12px 8px;
-    border-radius:               6px;
+    border-radius:               12px;
     background-color:            transparent;
     text-color:                  @foreground;
     cursor:                      pointer;
 }
 element.selected  {
     background-color:            @selected;
-    border-radius:               6px;
+    border-radius:               12px;
     text-color:                  @background;
 }
 element-icon {
     size:                        0px;
 }
 element-text {
-    padding: 			         0px 16px;
+    padding: 			               0px 16px;
     background-color:            transparent;
     text-color:                  inherit;
     cursor:                      inherit;

@@ -20,14 +20,14 @@ window {
     width:                       100%;
     border-color:                #6c7086;
     height:                      60%;
-    border-radius:               32px;
+    border-radius:               12px;
     padding:                     10px;
     background-color:            transparent;
 }
 
 /*****----- Main Layout -----*****/
 mainbox {
-    border-radius:               32px;
+    border-radius:               12px;
     border-color: #6c7086;
     spacing:                     0px;
     orientation:                 vertical;
@@ -50,26 +50,27 @@ listview {
     dynamic:                     false;
     spacing:                     10px;
     padding:                     8px;
-    border-radius:               16px ;
+    border-radius:               12px;
     background-color:            #1e1e2e;
 }
 
 /*****----- Element Styling -----*****/
 element {
     padding:                     0px 10px 10px 10px;
-    border-radius:               32px;
+    border-radius:               12px;
     background-color:            transparent;
     horizontal-align:            0.5;
 }
 element selected.normal {
     background-color:            @selected;
     padding: 200px;
+    border-radius:               12px;
     margin: 12px;
 }
 element-icon {
     size:                        389px;
     height:                      180px;
-    border-radius:               32px;
+    border-radius:               12px;
     background-color:            transparent;
     vertical-align:              0.5;
     padding:                     2px;
