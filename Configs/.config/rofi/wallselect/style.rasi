@@ -1,106 +1,83 @@
-// # z0mbi3 -  https://github.com/gh0stzk/dotfiles
-
+/*****----- Configuration -----*****/
 configuration {
-    modi:                        "drun";
-    show-icons:                  true;
-    drun-display-format:         "{name}";
-    font:                        "JetBrainsMono NF Bold 11";
-
-    //hover-select:				 true;
-	//me-select-entry:			 "";
-	//me-accept-entry:			 "MousePrimary";
+    show-icons:                 true;
+    drun-display-format:        "{name}";
 }
 
-//----- Global Properties -----//
-
+/*****----- Global Properties -----*****/
 * {
-main-bg: #1e1e2e;
-main-fg: #cdd4f6;
-select-bg: #cba6f7;
-select-fg: #282828;
+    font:                        "JetBrains Mono Nerd Font 9";
+    background:                  #1e1e2e;
+    background-alt:              #313244;
+    foreground:                  #eff1f5;
+    selected:                    #cba6f7;
 }
 
-//----- Main Window -----//
-
+/*****----- Main Window -----*****/
 window {
-    enabled:                     true;
     fullscreen:                  false;
+    location:                    center;
     width:                       100%;
-    transparency:                "real";
-    cursor:                      "default";
-    spacing:                     0px;
-    padding:                     0px;
-    border:                      0px;
-    border-radius:               0px;
-    border-color:                transparent;
+    border-color:                #6c7086;
+    height:                      60%;
+    border-radius:               12px;
+    padding:                     10px;
     background-color:            transparent;
 }
 
-//----- Main Box -----//
-
+/*****----- Main Layout -----*****/
 mainbox {
-    enabled:                     true;
-    children:                    [ "listview" ];
-    background-color:            @main-bg;
-}
-
-//----- Listview -----//
-
-listview {
-    enabled:                     true;
-    columns:                     6;
-    lines:                       1;
-    spacing:                     50px;
-    padding:                     20px 30px;
-    cycle:                       true;
-    dynamic:                     false;
-    scrollbar:                   false;
-    layout:                      vertical;
-    reverse:                     true;
-    fixed-height:                true;
-    fixed-columns:               true;
-    cursor:                      "default";
-    background-color:            transparent;
-    text-color:                  @main-fg;
-}
-
-//----- Elements -----//
-
-element {
-    enabled:                     true;
-    orientation:                 horizontal;
+    border-radius:               12px;
+    border-color: #6c7086;
     spacing:                     0px;
-    padding:                     0px;
-    border-radius:               20px;
-    cursor:                      pointer;
+    orientation:                 vertical;
+    children:                    [ "listbox" ];
+}
+
+listbox {
+    spacing:                     0px;
+    orientation:                 vertical;
+    children:                    [ "listview" ];
+}
+
+/*****----- Listview: Icon Grid -----*****/
+listview {
+    columns:                     3;
+    lines:                       5;
+    layout:                      vertical;
+    fixed-columns:               true;
+    fixed-height:                true;
+    dynamic:                     false;
+    spacing:                     10px;
+    padding:                     8px;
+    border-radius:               12px;
+    background-color:            #1e1e2e;
+}
+
+/*****----- Element Styling -----*****/
+element {
+    padding:                     0px 10px 10px 10px;
+    border-radius:               12px;
     background-color:            transparent;
-    text-color:                  @main-fg;
-}
-
-@media(max-aspect-ratio: 1.8) {
-    element {
-        orientation:             vertical;
-    }
-}
-
-element selected.normal {
-    background-color:            @select-bg;
-    text-color:                  @select-fg;
-}
-
-element-icon {
-    size:                        33%;
-    cursor:                      inherit;
-    border-radius:               0px;
-    background-color:            transparent;
-    text-color:                  inherit;
-}
-
-element-text {
-    vertical-align:              0.5;
     horizontal-align:            0.5;
-    padding:                     20px;
-    cursor:                      inherit;
+}
+element selected.normal {
+    background-color:            @selected;
+    padding: 200px;
+    border-radius:               12px;
+    margin: 12px;
+}
+element-icon {
+    size:                        389px;
+    height:                      180px;
+    border-radius:               12px;
     background-color:            transparent;
-    text-color:                  inherit;
+    vertical-align:              0.5;
+    padding:                     2px;
+}
+element-text {
+    text-color:                  transparent;
+    background-color:            transparent;
+    padding:                     0px;
+    font:                        "JetBrains Mono Nerd Font 0";
 }
