@@ -26,23 +26,6 @@ return {
       },
     },
   },
-  basedpyright = {
-    settings = {
-      basedpyright = {
-        analysis = {
-          typeCheckingMode = "standard",
-          autoSearchPaths = true,
-          useLibraryCodeForTypes = true,
-          diagnosticMode = "workspace",
-          inlayHints = {
-            callArgumentNames = true,
-            functionReturnTypes = true,
-            variableTypes = true,
-          },
-        },
-      },
-    },
-  },
   vtsls = {
     filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue", "svelte", "astro" },
     settings = {
@@ -54,53 +37,6 @@ return {
           propertyDeclarationTypes = { enabled = true },
           functionLikeReturnTypes = { enabled = true },
           enumMemberValues = { enabled = true },
-        },
-      },
-    },
-  },
-  clangd = {
-    cmd = {
-      "clangd",
-      "--background-index",
-      "--clang-tidy",
-      "--header-insertion=iwyu",
-      "--completion-style=detailed",
-      "--pch-storage=memory",
-      "--offset-encoding=utf-16",
-      "--j=4",
-    },
-    root_markers = { ".clangd", "compile_commands.json", "compile_flags.txt", ".git" },
-  },
-  rust_analyzer = {
-    settings = {
-      ["rust-analyzer"] = {
-        cargo = { allFeatures = true, loadOutDirsFromCheck = true },
-        checkOnSave = { command = "clippy" },
-        procMacro = { enable = true },
-        inlayHints = {
-          bindingModeHints = { enable = true },
-          chainingHints = { enable = true },
-          closureReturnTypeHints = { enable = "always" },
-          lifetimeElisionHints = { enable = "always" },
-          parameterHints = { enable = true },
-          typeHints = { enable = true },
-        },
-      },
-    },
-  },
-  gopls = {
-    settings = {
-      gopls = {
-        gofumpt = true,
-        staticcheck = true,
-        usePlaceholders = true,
-        completeUnimported = true,
-        hints = {
-          assignVariableTypes = true,
-          compositeLiteralFields = true,
-          constantValues = true,
-          parameterNames = true,
-          rangeVariableTypes = true,
         },
       },
     },
@@ -137,18 +73,8 @@ return {
       },
     },
   },
-  yamlls = {
-    settings = {
-      yaml = {
-        validate = true,
-        format = { enable = true },
-        keyOrdering = false,
-      },
-    },
-  },
+
   marksman = {},
   bashls = { filetypes = { "sh", "bash", "zsh" } },
-  dockerls = {},
-  cmake = {},
-  intelephense = {},
+
 }

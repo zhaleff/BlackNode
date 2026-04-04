@@ -1,38 +1,67 @@
 return {
   {
+    "kevinhwang91/nvim-ufo",
+    dependencies = { "kevinhwang91/promise-async" },
+    event = "BufReadPost",
+    opts = {
+      provider_selector = function()
+        return { "treesitter", "indent" }
+      end,
+      fold_virt_text_handler = function(virtText, lnum, endLnum, width, truncate)
+        local newVirtText = {}
+        local suffix = ("  󰁂 %d lines"):format(endLnum - lnum)
+        local sufWidth = vim.fn.strdisplaywidth(suffix)
+        local targetWidth = width - sufWidth
+        local curWidth = 0
+        for _, chunk in ipairs(virtText) do
+          local chunkText = chunk[1]
+          local chunkWidth = vim.fn.strdisplaywidth(chunkText)
+          if targetWidth > curWidth + chunkWidth then
+            table.insert(newVirtText, chunk)
+          else
+            chunkText = truncate(chunkText, targetWidth - curWidth)
+            table.insert(newVirtText, { chunkText, chunk[2] })
+            chunkWidth = vim.fn.strdisplaywidth(chunkText)
+            if curWidth + chunkWidth < targetWidth then
+              suffix = suffix .. (" "):rep(targetWidth - curWidth - chunkWidth)
+            end
+            break
+          end
+          curWidth = curWidth + chunkWidth
+        end
+        table.insert(newVirtText, { suffix, "Comment" })
+        return newVirtText
+      end,
+    },
+  },
+
+  {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
     event = { "BufReadPre", "BufNewFile" },
     dependencies = {
       "nvim-treesitter/nvim-treesitter-textobjects",
+      "nvim-treesitter/nvim-treesitter-refactor",
     },
     config = function()
       require("nvim-treesitter.configs").setup({
         ensure_installed = {
-          "lua", "luadoc", "vim", "vimdoc",
-          "python",
-          "javascript", "typescript", "tsx", "jsx",
-          "html", "css", "scss", "tailwindcss",
-          "json", "jsonc", "yaml", "toml",
+          "lua", "luadoc", "vim", "vimdoc", "query",
+          "javascript", "typescript", "tsx",
+          "html", "css", "scss",
+          "vue", "svelte", "astro",
+          "json", "jsonc", "yaml", "sql",
           "markdown", "markdown_inline",
           "bash", "regex",
-          "php", "phpdoc", "blade", "vue", "svelte", "astro",
-          "git_rebase", "git_commit", "gitignore",
-          "query",
-          "c", "cpp", "rust", "go", "java", "ruby",
-          "dockerfile", "graphql", "prisma", "sql",
-          "cmake", "make", "ninja",
+          "gitignore", "gitcommit",
         },
         auto_install = true,
         highlight = {
           enable = true,
           additional_vim_regex_highlighting = false,
-          disable = function(lang, buf)
-            local max_filesize = 200 * 1024
+          disable = function(_, buf)
             local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
-            if ok and stats and stats.size > max_filesize then
-              return true
-            end
+            return ok and stats and stats.size > 200 * 1024
           end,
         },
         indent = { enable = true },
@@ -41,8 +70,18 @@ return {
           keymaps = {
             init_selection = "<C-space>",
             node_incremental = "<C-space>",
-            scope_incremental = false,
             node_decremental = "<bs>",
+            scope_incremental = false,
+          },
+        },
+        refactor = {
+          highlight_definitions = {
+            enable = true,
+            clear_on_cursor_move = true,
+          },
+          smart_rename = {
+            enable = true,
+            keymaps = { smart_rename = "grr" },
           },
         },
         textobjects = {
@@ -90,38 +129,27 @@ return {
           },
           swap = {
             enable = true,
-            swap_next = {
-              ["<leader>sp"] = "@parameter.inner",
-            },
-            swap_previous = {
-              ["<leader>sP"] = "@parameter.inner",
-            },
-          },
-        },
-        rainbow = {
-          enable = true,
-          extended_mode = true,
-          max_file_lines = nil,
-        },
-        autotag = { enable = true },
-        refactor = {
-          highlight_definitions = { enable = true },
-          highlight_current_scope = { enable = false },
-          navigation = {
-            enable = true,
-            keymaps = {
-              goto_definition = "gnd",
-              list_definitions = "gnD",
-              list_definitions_toc = "gO",
-              goto_next_usage = "<A-*>",
-              goto_previous_usage = "<A-#>",
-            },
+            swap_next = { ["<leader>sp"] = "@parameter.inner" },
+            swap_previous = { ["<leader>sP"] = "@parameter.inner" },
           },
         },
       })
-      vim.opt.foldmethod = "expr"
-      vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
-      vim.opt.foldenable = false
+
+      vim.opt.foldlevel = 99
+      vim.opt.foldlevelstart = 99
+      vim.opt.foldenable = true
     end,
+  },
+
+  {
+    "nvim-treesitter/nvim-treesitter-context",
+    event = "BufReadPost",
+    opts = {
+      enable = true,
+      max_lines = 3,
+      trim_scope = "outer",
+      mode = "cursor",
+      separator = "─",
+    },
   },
 }

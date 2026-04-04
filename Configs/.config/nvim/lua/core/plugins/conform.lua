@@ -30,17 +30,16 @@ return {
 
         python = { "ruff_fix", "ruff_format", "black" },
 
-        javascript = { "biome", "prettierd", "prettier" },
-        typescript = { "biome", "prettierd", "prettier" },
-        javascriptreact = { "biome", "prettierd", "prettier" },
-        typescriptreact = { "biome", "prettierd", "prettier" },
+        javascript = { "prettierd", "prettier" },
+        typescript = { "prettierd", "prettier" },
+        javascriptreact = { "prettierd", "prettier" },
+        typescriptreact = { "prettierd", "prettier" },
 
         html = { "prettierd", "prettier" },
         css = { "prettierd", "prettier" },
         scss = { "prettierd", "prettier" },
         less = { "prettierd", "prettier" },
-        json = { "biome", "prettierd", "prettier" },
-        jsonc = { "biome", "prettierd", "prettier" },
+        json = { "prettierd", "prettier" },
 
         yaml = { "prettierd", "prettier" },
         markdown = { "prettierd", "prettier" },
@@ -48,6 +47,8 @@ return {
 
         blade = { "blade-formatter", "prettierd", "prettier" },
         php = { "pint", "prettierd", "prettier" },
+
+        kotlin = { "ktlint" },
 
         ["_"] = { "trim_whitespace", "trim_newlines" },
       },
@@ -61,9 +62,6 @@ return {
         },
         prettier = {
           prepend_args = { "--single-quote", "--trailing-comma", "all" },
-        },
-        biome = {
-          require_cwd = true,
         },
         ["blade-formatter"] = {
           prepend_args = { "--indent-size", "2" },
@@ -92,10 +90,10 @@ return {
         python = { "ruff" },
         lua = { "selene" },
 
-        javascript = { "biome", "eslint" },
-        typescript = { "biome", "eslint" },
-        javascriptreact = { "biome", "eslint" },
-        typescriptreact = { "biome", "eslint" },
+        javascript = { "eslint" },
+        typescript = { "eslint" },
+        javascriptreact = { "eslint" },
+        typescriptreact = { "eslint" },
 
         html = { "htmlhint" },
         css = { "stylelint" },
@@ -106,11 +104,7 @@ return {
         ruff = {
           args = { "--format", "json", "--no-cache", "--stdin-filename", "$FILENAME" },
         },
-        biome = {
-          condition = function(ctx)
-            return vim.fs.find({ "biome.json", "biome.jsonc" }, { path = ctx.filename, upward = true })[1]
-          end,
-        },
+
         eslint = {
           condition = function(ctx)
             return vim.fs.find({ ".eslintrc", ".eslintrc.js", ".eslintrc.cjs", ".eslintrc.json" },

@@ -24,6 +24,9 @@ require("lazy").setup({
   require("core.plugins.emmet"),
   require("core.plugins.notify"),
   require("core.plugins.blackline"),
+  require("core.plugins.mini-surround"),
+  require("core.plugins.tabout"),
+  require("core.plugins.harpoon"),
   require("core.plugins.pets"),
   require("core.plugins.trouble"),
   require("core.plugins.dashboard"),
@@ -41,8 +44,10 @@ require("lazy").setup({
   require("core.plugins.mason-lsp"),
   require("core.plugins.lsp"),
   require("core.plugins.mini"),
-  require("core.plugins.treesiter-context"),
+  -- require("core.plugins.treesiter-context"),
+  require("core.plugins.telekasten"),
   require("core.plugins.winbar"),
+  require("core.plugins.treesiter"),
   -- require("core.plugins.copilot"),
   require("core.plugins.which-key"),
 })
@@ -50,6 +55,6 @@ require("lazy").setup({
 
 require("core.config.keymaps")
 require("core.config.emmet")
-require("core.config.mason")
+-- require("core.config.mason")
 require("core.config.diagnostic")
 -- require("core.plugins.winbar")

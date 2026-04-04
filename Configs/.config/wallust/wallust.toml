@@ -11,11 +11,11 @@
 
 # How the image is parse, in order to get the colors:
 # full - resized - wal - thumb -  fastresize - kmeans
-backend = "resized"
+backend = "full"
 
 # What color space to use to produce and select the most prominent colors:
 # lab - labmixed - lch - lchmixed
-color_space = "lch"
+color_space = "lchmixed"
 
 # Use the most prominent colors in a way that makes sense, a scheme color palette:
 # dark - dark16 - darkcomp - darkcomp16
@@ -23,7 +23,7 @@ color_space = "lch"
 # harddark - harddark16 - harddarkcomp - harddarkcomp16
 # softdark - softdark16 - softdarkcomp - softdarkcomp16
 # softlight - softlight16 - softlightcomp - softlightcomp16
-palette = "dark16"
+palette = "harddark16"
 
 # Ensures a "readable contrast" (OPTIONAL, disabled by default)
 # Should only be enabled when you notice an unreadable contrast frequently happening
@@ -42,11 +42,9 @@ saturation = 50
 waybar = { template = 'waybar.css', target = '~/.cache/wallust/waybar.css' }
 rofi = { template = 'rofi.rasi', target = '~/.cache/wallust/rofi.rasi' }
 kitty = { template = 'kitty.conf', target = '~/.config/kitty/colors-wallust.conf' }
-wallpaper = { src = 'wallpaper', target = '~/.cache/wallust/wallpaper.png' }
 hyprland = { template = 'hyprland.conf', target = '~/.cache/wallust/hyprland.conf' }
 cava = { template = 'cava', target = '~/.config/cava/config' }
 dunst = { template = 'dunst', target = '~/.config/dunst/dunstrc' }
 nvim = { template = 'wallust.lua', target = '~/.config/nvim/lua/core/wallust_colors.lua' }
 clipse = { template = 'clipse.json', target = '~/.config/clipse/colors.json' }
-gtk = { template = 'gtk-colors.css', target = '~/.cache/wallust/gtk-colors.css' }
 p10k = { template = 'p10k.zsh', target = '~/.p10k.zsh' }
