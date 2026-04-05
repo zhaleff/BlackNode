@@ -1,0 +1,10 @@
+{
+  "custom/pacman": {
+    "format": "󰮯 {}",
+    "interval": 3600,
+    "exec": "checkupdates | wc -l",
+    "exec-if": "exit 0",
+    "on-click": "kitty -e zsh -c 'fastfetch && sleep 0.5 && sudo pacman -Syu; exec zsh'",
+    "signal": 8
+  }
+}

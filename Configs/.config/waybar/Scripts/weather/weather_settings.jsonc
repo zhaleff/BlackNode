@@ -1,0 +1,42 @@
+{
+  "latitude": "auto",
+  "longitude": "auto",
+  "unit": "Fahrenheit",
+  "time_format": "24h",
+  "hour_display": "number",
+  "hourly_number_of_hours": 12,
+  "daily_number_of_days": 10,
+  "snapshot_number_of_days": 2,
+  "refresh_interval": 900,
+  "icon_type": "nerd",
+  "icon_position": "left",
+  "font_size": 14,
+  "colors": {
+    "primary": "#42A5F5",
+    "cold": "skyblue",
+    "neutral": "#42A5F5",
+    "warm": "khaki",
+    "hot": "indianred",
+    "pop_low": "#EAD7FF",
+    "pop_med": "#CFA7FF",
+    "pop_high": "#BC85FF",
+    "pop_vhigh": "#A855F7",
+    "divider": "#2B3B57"
+  },
+  "color_weather_icons": true,
+  "weather_colors": {
+    "clear_day": "#FFAC33",
+    "clear_night": "#FAC629",
+    "partly_cloudy_day": "#D89C4C",
+    "partly_cloudy_night": "#A88E3A",
+    "overcast": "#B0B0B0",
+    "fog": "#D3D3D3",
+    "drizzle": "#87CEEB",
+    "rain": "#4A90E2",
+    "heavy_rain": "#1E90FF",
+    "freezing_rain": "#00CED1",
+    "snow": "#87CEEB",
+    "heavy_snow": "#B0E0E6",
+    "thunderstorm": "#9370DB"
+  }
+}

@@ -1,0 +1,24 @@
+@import "../../../.cache/wallust/waybar.css";
+
+#hollow-left-1,
+#hollow-left-3,
+#hollow-left-4,
+#hollow-left-5,
+#hollow-left-6,
+#hollow-left-7,
+#hollow-center-1,
+#hollow-center-2,
+#hollow-right-1,
+#hollow-right-2,
+#hollow-right-3,
+#hollow-right-4,
+#hollow-right-5 {
+  background: @background;
+  border-radius: 10.5pt;
+  padding: 8px;
+}
+
+#hollow-left-2 {
+  background: @background;
+  border-radius: 10.5pt;
+}

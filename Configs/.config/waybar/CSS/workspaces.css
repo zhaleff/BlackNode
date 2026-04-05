@@ -1,0 +1,35 @@
+@import "../../../.cache/wallust/waybar.css";
+
+#workspaces button {
+  box-shadow: none;
+  text-shadow: none;
+  padding: 0px;
+  border-radius: 12px;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  margin-left: 0px;
+  padding-left: 3px;
+  padding-right: 3px;
+  margin-right: 0px;
+  color: @foreground;
+  animation: ws_normal 20s ease-in-out 1;
+}
+
+#workspaces button.active {
+  background: @color4;
+  color: @background;
+  border-radius: 12px;
+  margin-left: 0px;
+  padding-left: 8px;
+  padding-right: 8px;
+  margin-right: 0px;
+  animation: ws_active 20s ease-in-out 1;
+  transition: all 0.4s cubic-bezier(.55, -0.68, .48, 1.682);
+}
+
+#workspaces button:hover {
+  background: @selected_bg;
+  color: @foreground;
+  animation: ws_hover 20s ease-in-out 1;
+  transition: all 0.3s cubic-bezier(.55, -0.68, .48, 1.682);
+}

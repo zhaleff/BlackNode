@@ -1,0 +1,28 @@
+{
+  "include": [
+    "~/.config/waybar/Modules/backlight.jsonc",
+    "~/.config/waybar/Modules/battery.jsonc",
+    "~/.config/waybar/Modules/clock.jsonc",
+    "~/.config/waybar/Modules/cpu.jsonc",
+    "~/.config/waybar/Modules/htb-vpn.jsonc",
+    "~/.config/waybar/Modules/idle_inhibitor.jsonc",
+    "~/.config/waybar/Modules/memory.jsonc",
+    "~/.config/waybar/Modules/mpris.jsonc",
+    "~/.config/waybar/Modules/network.jsonc",
+    "~/.config/waybar/Modules/pacman.jsonc",
+    "~/.config/waybar/Modules/pkg-aur.jsonc",
+    "~/.config/waybar/Modules/power.jsonc",
+    "~/.config/waybar/Modules/spotify-next.jsonc",
+    "~/.config/waybar/Modules/spotify-pause.jsonc",
+    "~/.config/waybar/Modules/spotify-prev.jsonc",
+    "~/.config/waybar/Modules/target.jsonc",
+    "~/.config/waybar/Modules/temperature.jsonc",
+    "~/.config/waybar/Modules/tray.jsonc",
+    "~/.config/waybar/Modules/waybar-rofi.jsonc",
+    "~/.config/waybar/Modules/user.jsonc",
+    "~/.config/waybar/Modules/weather.jsonc",
+    "~/.config/waybar/Modules/window.jsonc",
+    "~/.config/waybar/Modules/wirepumbler.jsonc",
+    "~/.config/waybar/Modules/workspaces.jsonc"
+  ]
+}

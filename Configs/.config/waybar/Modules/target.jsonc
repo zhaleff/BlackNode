@@ -1,0 +1,10 @@
+{
+  "custom/target": {
+    "format": "󰓾 {}",
+    "exec": "cat ~/.target 2>/dev/null || echo 'No target'",
+    "interval": 2,
+    "tooltip": false,
+    "on-click": "bash -c 'read -p \"Target IP/Host: \" target && echo $target > ~/.target'",
+    "on-click-right": "bash -c '[[ -f ~/.target ]] && rm ~/.target'"
+  }
+}

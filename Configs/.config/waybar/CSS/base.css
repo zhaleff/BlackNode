@@ -1,0 +1,30 @@
+@import "../../../.cache/wallust/waybar.css";
+
+* {
+  min-height: 0;
+  font-family: "JetBrainsMono Nerd Font", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 14px;
+}
+
+#waybar {
+  background-color: transparent;
+}
+
+#waybar .module {
+  color: @foreground;
+  padding: 0px 0px;
+  margin: -10px 5px -10px;
+  border: 2px;
+}
+
+#waybar .module:hover {
+  color: @foreground;
+}
+
+#window#waybar {
+  color: @foreground;
+  background-color: @active_tab_background;
+  transition-property: background-color;
+  transition-duration: 0.5s;
+  border: 2px solid @color1;
+}

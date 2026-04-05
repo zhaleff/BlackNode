@@ -1,0 +1,7 @@
+{
+  "cpu": {
+    "interval": 2,
+    "format": " {usage:>2}%",
+    "on-click": "kitty -e zsh -c 'btop; exec zsh'"
+  }
+}

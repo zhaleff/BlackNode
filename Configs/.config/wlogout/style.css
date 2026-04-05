@@ -11,31 +11,51 @@ window {
 button {
   background-color: @background;
   outline-style: none;
+  margin: -0.15em;
   border: 2px solid transparent;
-  border-radius: 70px;
+
+  border-radius: 0;
+
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 50%;
+  background-size: 30%;
   text-shadow: none;
+
   transition:
-    border-radius 0.4s cubic-bezier(0.4, 0, 0.2, 1),
     background-color 0.3s ease,
     border-color 0.3s ease,
     background-size 0.3s ease;
 }
 
+button:hover,
 button:focus {
-  background-color: @color5;
-  border-color: @color5;
-  border-radius: 18px;
+  background-color: @color4;
+  border-color: @color4;
   background-size: 60%;
 }
 
-button:hover {
-  background-color: @color5;
-  border-color: @color5;
-  border-radius: 18px;
-  background-size: 60%;
+
+#lock {
+  padding: 1.8rem;
+  background-image: image(url("./icons/lock.png"));
+
+  border-radius: 70px 0 0 70px;
+}
+
+#hibernate {
+  padding: 0.8rem;
+  background-image: image(url("./icons/hibernate.png"));
+
+  border-radius: 0 70px 70px 0;
+}
+
+#logout {
+  padding: 1.3rem;
+  background-image: image(url("./icons/logout.png"));
+}
+
+#suspend {
+  background-image: image(url("./icons/sleep.png"));
 }
 
 #shutdown {
@@ -46,23 +66,4 @@ button:hover {
 #reboot {
   padding: 1.3rem;
   background-image: image(url("./icons/restart.png"));
-}
-
-#lock {
-  padding: 1.8rem;
-  background-image: image(url("./icons/lock.png"));
-}
-
-#suspend {
-  background-image: image(url("./icons/sleep.png"));
-}
-
-#hibernate {
-  padding: 0.8rem;
-  background-image: image(url("./icons/hibernate.png"));
-}
-
-#logout {
-  padding: 1.3rem;
-  background-image: image(url("./icons/logout.png"));
 }

@@ -1,0 +1,254 @@
+[
+  {
+    "code": 0,
+    "day": "Clear sky",
+    "night": "Clear sky",
+    "icon-nerd": "󰖙",
+    "icon-nerd-night": "󰖔",
+    "icon-emoji": "☀️",
+    "icon-emoji-night": "🌙"
+  },
+  {
+    "code": 1,
+    "day": "Mainly clear",
+    "night": "Mainly clear",
+    "icon-nerd": "󰖙",
+    "icon-nerd-night": "󰖔",
+    "icon-emoji": "☀️",
+    "icon-emoji-night": "🌙"
+  },
+  {
+    "code": 2,
+    "day": "Partly cloudy",
+    "night": "Partly cloudy",
+    "icon-nerd": "󰖕",
+    "icon-nerd-night": "󰼱",
+    "icon-emoji": "⛅️",
+    "icon-emoji-night": "☁️"
+  },
+  {
+    "code": 3,
+    "day": "Overcast",
+    "night": "Overcast",
+    "icon-nerd": "󰖕",
+    "icon-nerd-night": "󰼱",
+    "icon-emoji": "☁️",
+    "icon-emoji-night": "☁️"
+  },
+  {
+    "code": 45,
+    "day": "Fog",
+    "night": "Fog",
+    "icon-nerd": "󰖑",
+    "icon-nerd-night": "󰖑",
+    "icon-emoji": "🌫️",
+    "icon-emoji-night": "🌫️"
+  },
+  {
+    "code": 48,
+    "day": "Depositing rime fog",
+    "night": "Depositing rime fog",
+    "icon-nerd": "",
+    "icon-nerd-night": "󰖑",
+    "icon-emoji": "🌫️",
+    "icon-emoji-night": "🌫️"
+  },
+  {
+    "code": 51,
+    "day": "Light drizzle",
+    "night": "Light drizzle",
+    "icon-nerd": "",
+    "icon-nerd-night": "",
+    "icon-emoji": "💧",
+    "icon-emoji-night": "💧"
+  },
+  {
+    "code": 53,
+    "day": "Moderate drizzle",
+    "night": "Moderate drizzle",
+    "icon-nerd": "",
+    "icon-nerd-night": "",
+    "icon-emoji": "💧",
+    "icon-emoji-night": "💧"
+  },
+  {
+    "code": 55,
+    "day": "Dense drizzle",
+    "night": "Dense drizzle",
+    "icon-nerd": "",
+    "icon-nerd-night": "",
+    "icon-emoji": "💦",
+    "icon-emoji-night": "💦"
+  },
+  {
+    "code": 56,
+    "day": "Light freezing drizzle",
+    "night": "Light freezing drizzle",
+    "icon-nerd": "",
+    "icon-nerd-night": "",
+    "icon-emoji": "💧❄️",
+    "icon-emoji-night": "💧❄️"
+  },
+  {
+    "code": 57,
+    "day": "Dense freezing drizzle",
+    "night": "Dense freezing drizzle",
+    "icon-nerd": "ﭽ",
+    "icon-nerd-night": "ﭽ",
+    "icon-emoji": "💦❄️",
+    "icon-emoji-night": "💦❄️"
+  },
+  {
+    "code": 61,
+    "day": "Slight rain",
+    "night": "Slight rain",
+    "icon-nerd": "",
+    "icon-nerd-night": "",
+    "icon-emoji": "🌧️",
+    "icon-emoji-night": "🌧️"
+  },
+  {
+    "code": 63,
+    "day": "Moderate rain",
+    "night": "Moderate rain",
+    "icon-nerd": "󰖗",
+    "icon-nerd-night": "󰖗",
+    "icon-emoji": "🌧️",
+    "icon-emoji-night": "🌧️"
+  },
+  {
+    "code": 65,
+    "day": "Heavy rain",
+    "night": "Heavy rain",
+    "icon-nerd": "󰖖",
+    "icon-nerd-night": "󰖖",
+    "icon-emoji": "💦",
+    "icon-emoji-night": "💦"
+  },
+  {
+    "code": 66,
+    "day": "Light freezing rain",
+    "night": "Light freezing rain",
+    "icon-nerd": "󰼵",
+    "icon-nerd-night": "󰙿",
+    "icon-emoji": "🌧️❄️",
+    "icon-emoji-night": "🌧️❄️"
+  },
+  {
+    "code": 67,
+    "day": "Heavy freezing rain",
+    "night": "Heavy freezing rain",
+    "icon-nerd": "󰙿",
+    "icon-nerd-night": "󰙿",
+    "icon-emoji": "💦❄️",
+    "icon-emoji-night": "💦❄️"
+  },
+  {
+    "code": 71,
+    "day": "Slight snow fall",
+    "night": "Slight snow fall",
+    "icon-nerd": "󰼴",
+    "icon-nerd-night": "",
+    "icon-emoji": "🌨️",
+    "icon-emoji-night": "🌨️"
+  },
+  {
+    "code": 73,
+    "day": "Moderate snow fall",
+    "night": "Moderate snow fall",
+    "icon-nerd": "󰼴",
+    "icon-nerd-night": "",
+    "icon-emoji": "🌨️",
+    "icon-emoji-night": "🌨️"
+  },
+  {
+    "code": 75,
+    "day": "Heavy snow fall",
+    "night": "Heavy snow fall",
+    "icon-nerd": "󰼶",
+    "icon-nerd-night": "󰼶",
+    "icon-emoji": "❄️",
+    "icon-emoji-night": "❄️"
+  },
+  {
+    "code": 77,
+    "day": "Snow grains",
+    "night": "Snow grains",
+    "icon-nerd": "󰖘",
+    "icon-nerd-night": "󰖘",
+    "icon-emoji": "❄️",
+    "icon-emoji-night": "❄️"
+  },
+  {
+    "code": 80,
+    "day": "Slight rain showers",
+    "night": "Slight rain showers",
+    "icon-nerd": "",
+    "icon-nerd-night": "",
+    "icon-emoji": "🌦️",
+    "icon-emoji-night": "🌦️"
+  },
+  {
+    "code": 81,
+    "day": "Moderate rain showers",
+    "night": "Moderate rain showers",
+    "icon-nerd": "",
+    "icon-nerd-night": "",
+    "icon-emoji": "🌦️",
+    "icon-emoji-night": "🌦️"
+  },
+  {
+    "code": 82,
+    "day": "Violent rain showers",
+    "night": "Violent rain showers",
+    "icon-nerd": "",
+    "icon-nerd-night": "",
+    "icon-emoji": "💦",
+    "icon-emoji-night": "💦"
+  },
+  {
+    "code": 85,
+    "day": "Slight snow showers",
+    "night": "Slight snow showers",
+    "icon-nerd": "",
+    "icon-nerd-night": "",
+    "icon-emoji": "🌨️",
+    "icon-emoji-night": "🌨️"
+  },
+  {
+    "code": 86,
+    "day": "Heavy snow showers",
+    "night": "Heavy snow showers",
+    "icon-nerd": "",
+    "icon-nerd-night": "",
+    "icon-emoji": "❄️",
+    "icon-emoji-night": "❄️"
+  },
+  {
+    "code": 95,
+    "day": "Thunderstorm",
+    "night": "Thunderstorm",
+    "icon-nerd": "",
+    "icon-nerd-night": "",
+    "icon-emoji": "⛈️",
+    "icon-emoji-night": "⛈️"
+  },
+  {
+    "code": 96,
+    "day": "Thunderstorm with slight hail",
+    "night": "Thunderstorm with slight hail",
+    "icon-nerd": "",
+    "icon-nerd-night": "",
+    "icon-emoji": "⛈️",
+    "icon-emoji-night": "⛈️"
+  },
+  {
+    "code": 99,
+    "day": "Thunderstorm with heavy hail",
+    "night": "Thunderstorm with heavy hail",
+    "icon-nerd": "",
+    "icon-nerd-night": "",
+    "icon-emoji": "⛈️",
+    "icon-emoji-night": "⛈️"
+  }
+]

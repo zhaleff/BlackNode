@@ -1,0 +1,8 @@
+{
+  "custom/htb-vpn": {
+    "format": "{}",
+    "exec": "bash -c 'ip=$(ip -4 addr show tun0 2>/dev/null | grep -oP \"inet \\\\K[\\\\d.]+\"); if [ -n \"$ip\" ]; then echo \"$ip\"; else echo \"HTB Disconnected\"; fi'",
+    "interval": 3,
+    "tooltip": false
+  }
+}
