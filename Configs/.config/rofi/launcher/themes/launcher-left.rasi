@@ -1,0 +1,164 @@
+/*****----- Import Wallust -----*****/
+@import "~/.cache/wallust/rofi.rasi"
+
+configuration {
+  modi: "drun,filebrowser,window,run";
+  show-icons: true;
+
+  display-drun: " ";
+  display-run: " ";
+  display-filebrowser: " ";
+  display-window: " ";
+
+  drun-display-format: "{name}";
+  window-format: "{w}{t}";
+
+  font: "JetBrainsMono Nerd Font 10";
+  icon-theme: "Tela-circle-dracula";
+}
+
+window {
+  height: 30em;
+  width: 58em;
+
+  transparency: "real";
+  fullscreen: false;
+  enabled: true;
+
+  cursor: "default";
+
+  spacing: 0em;
+  padding: 0em;
+
+  border-color: var(color5);
+  background-color: transparent;
+}
+
+mainbox {
+  enabled: true;
+
+  spacing: 0em;
+  padding: 0.8em;
+
+  orientation: horizontal;
+  children: [ "listbox", "inputbar" ];
+
+  background-color: transparent;
+}
+
+inputbar {
+  enabled: true;
+
+  width: 28.5em;
+
+  spacing: 0em;
+  padding: 0em;
+
+  children: [ "entry" ];
+  expand: false;
+
+  background-color: var(background);
+  background-image: url("~/.cache/wallust/current_wallpaper.png", height);
+
+  border-radius: 0em 0.75em 0.75em 0em;
+}
+
+entry {
+  enabled: false;
+}
+
+listbox {
+  spacing: 0em;
+  padding: 0em;
+
+  children: [ "dummy", "listview", "dummy" ];
+
+  background-color: var(background);
+  border-radius: 10px 0em 0em 10px;
+}
+
+listview {
+  enabled: true;
+
+  spacing: 0em;
+  padding: 1em 2em 1em 2em;
+
+  columns: 1;
+  lines: 8;
+
+  cycle: true;
+  dynamic: true;
+
+  scrollbar: false;
+
+  layout: vertical;
+  reverse: false;
+
+  expand: false;
+
+  fixed-height: true;
+  fixed-columns: true;
+
+  cursor: "default";
+
+  background-color: transparent;
+  text-color: var(foreground);
+}
+
+dummy {
+  background-color: transparent;
+}
+
+element {
+  enabled: true;
+
+  spacing: 1em;
+  padding: 0.5em 0.5em 0.5em 1.5em;
+
+  cursor: pointer;
+
+  background-color: transparent;
+  text-color: var(foreground);
+}
+
+element selected.normal {
+  background-color: var(color1);
+  text-color: var(background);
+  border-radius: 0.75em;
+}
+
+element-icon {
+  size: 2.2em;
+
+  cursor: inherit;
+
+  background-color: transparent;
+  text-color: inherit;
+}
+
+element-text {
+  vertical-align: 0.5;
+  horizontal-align: 0.0;
+
+  cursor: inherit;
+
+  background-color: transparent;
+  text-color: inherit;
+}
+
+error-message {
+  text-color: var(foreground);
+  background-color: var(background);
+
+  text-transform: capitalize;
+
+  children: [ "textbox" ];
+}
+
+textbox {
+  text-color: inherit;
+  background-color: inherit;
+
+  vertical-align: 0.5;
+  horizontal-align: 0.5;
+}

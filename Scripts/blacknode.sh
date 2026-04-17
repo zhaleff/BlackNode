@@ -1,188 +1,124 @@
 #!/usr/bin/env bash
+
 set -e
 
-SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &> /dev/null && pwd)"
+script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+repo="$HOME/BlackNode/Configs"
+config_src="$repo/.config"
+cache_src="$repo/.cache/wallust"
+config_dst="$HOME/.config"
+cache_dst="$HOME/.cache/wallust"
+plugins_dir="$HOME/.zsh/plugins"
 
-RESET="\033[0m"
-BOLD="\033[1m"
-DIM="\033[2m"
-WHITE="\033[1;37m"
-CYAN="\033[0;36m"
-CYAN_B="\033[1;36m"
-GRAY="\033[0;90m"
-BLUE_B="\033[1;34m"
+reset="\033[0m"
+cyan="\033[0;36m"
+green="\033[0;32m"
+yellow="\033[1;33m"
 
-print_header() {
-    echo -e "${BLUE_B}┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓${RESET}"
-    echo -e "${BLUE_B}┃${RESET} ${CYAN_B}B L A C K N O D E${RESET} ${BLUE_B}┃${RESET}"
-    echo -e "${BLUE_B}┃${RESET} Modular Installation Orchestrator ${BLUE_B}┃${RESET}"
-    echo -e "${BLUE_B}┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛${RESET}"
-    echo -e "${DIM} aesthetic • minimal • strictly modular${RESET}"
-    echo ""
-}
+ok()   { echo -e "${green}✓${reset} $*"; }
+info() { echo -e "${cyan}→${reset} $*"; }
+warn() { echo -e "${yellow}!${reset} $*"; }
 
-print_separator() {
-    echo -e "${GRAY}────────────────────────────────────────────────────────────${RESET}"
-}
+[[ -f "$script_dir/welcome.sh" ]] && bash "$script_dir/welcome.sh"
 
-component_names=(
-    "Hyprland (Wayland compositor)"
-    "Waybar (status bar)"
-    "Rofi (application launcher)"
-    "Wlogout (logout menu)"
-    "Wallpaper setup"
-    "Wallust (colour scheme generator)"
-    "Zsh shell & configuration"
-    "Neovim text editor"
-    "Yazi terminal file manager"
-    "Fastfetch (system fetch)"
-    "Cava audio visualiser"
-    "Clipse clipboard manager"
-    "Aww (widgets / notifications)"
-    "Flatpak support"
-    "Yay (AUR helper)"
-    "Bin (custom utilities)"
-    "Update system packages"
-    "View changelog"
+if command -v paru &>/dev/null; then
+    pkg="paru -S --noconfirm --needed"
+elif command -v yay &>/dev/null; then
+    pkg="yay -S --noconfirm --needed"
+else
+    pkg="sudo pacman -S --noconfirm --needed"
+fi
+
+packages=(
+    zsh
+    ttf-jetbrains-mono-nerd
+    noto-fonts-emoji
+    fzf fd bat ripgrep eza zoxide
+    alacritty kitty
+    fastfetch cava
+    rofi-wayland
+    wlogout
+    clipse
+    nwg-look qt5ct qt6ct
+    sddm
+    python-pywal
+    dunst libnotify
+    jq git curl wget unzip
 )
 
-component_scripts=(
-    "hyprland.sh"
-    "waybar.sh"
-    "rofi.sh"
-    "wlogout.sh"
+info "Installing packages..."
+for p in "${packages[@]}"; do
+    $pkg "$p" && ok "$p"
+done
 
-    "wallpaper.sh"
-    "wallust.sh"
-    "zsh.sh"
-    "nvim.sh"
-    "yazi.sh"
-    "fastfetch.sh"
-    "cava.sh"
-    "clipse.sh"
-    "aww.sh"
-    "flatpak.sh"
-    "yay.sh"
-    "bin.sh"
-    "update.sh"
-    "changelog.sh"
+if [[ "$SHELL" != "$(which zsh)" ]]; then
+    info "Changing shell to zsh..."
+    chsh -s "$(which zsh)" "$USER"
+    ok "Shell changed to zsh"
+fi
+
+mkdir -p "$plugins_dir"
+
+declare -A plugin_repos=(
+    [zsh-autosuggestions]="https://github.com/zsh-users/zsh-autosuggestions"
+    [zsh-syntax-highlighting]="https://github.com/zsh-users/zsh-syntax-highlighting"
+    [fast-syntax-highlighting]="https://github.com/zdharma-continuum/fast-syntax-highlighting"
+    [zsh-autocomplete]="https://github.com/marlonrichert/zsh-autocomplete"
+    [zsh-completions]="https://github.com/zsh-users/zsh-completions"
+    [zsh-autopair]="https://github.com/hlissner/zsh-autopair"
+    [zsh-history-substring-search]="https://github.com/zsh-users/zsh-history-substring-search"
+    [zsh-you-should-use]="https://github.com/MichaelAquilina/zsh-you-should-use"
+    [fzf-tab]="https://github.com/Aloxaf/fzf-tab"
+    [fzf-zsh-plugin]="https://github.com/unixorn/fzf-zsh-plugin"
+    [zsh-fzf-history-search]="https://github.com/joshskidmore/zsh-fzf-history-search"
+    [powerlevel10k]="https://github.com/romkatv/powerlevel10k"
 )
 
-main() {
-    print_header
-    echo -e "${CYAN_B}► Initialising BlackNode environment...${RESET}"
-    print_separator
-    if [[ -f "${SCRIPT_DIR}/welcome.sh" ]]; then
-        echo -e "${CYAN}Running welcome.sh${RESET}"
-        bash "${SCRIPT_DIR}/welcome.sh"
+for plugin in "${!plugin_repos[@]}"; do
+    target="$plugins_dir/$plugin"
+    if [[ -d "$target/.git" ]]; then
+        git -C "$target" pull --quiet && ok "$plugin updated"
     else
-        echo -e "${GRAY}⚠ welcome.sh not found – skipping${RESET}"
+        git clone --depth=1 "${plugin_repos[$plugin]}" "$target" && ok "$plugin cloned"
     fi
-    echo ""
-    read -r -p "Would you like to view the introduction? (y/n): " intro_choice
-    if [[ "$intro_choice" =~ ^[Yy]$ ]]; then
-        if [[ -f "${SCRIPT_DIR}/introduction.sh" ]]; then
-            echo -e "${CYAN}Running introduction.sh${RESET}"
-            bash "${SCRIPT_DIR}/introduction.sh"
-            echo ""
-        fi
-    fi
-    read -r -p "Would you like to view additional information? (y/n): " info_choice
-    if [[ "$info_choice" =~ ^[Yy]$ ]]; then
-        if [[ -f "${SCRIPT_DIR}/information.sh" ]]; then
-            echo -e "${CYAN}Running information.sh${RESET}"
-            bash "${SCRIPT_DIR}/information.sh"
-            echo ""
-        fi
-    fi
-    while true; do
-        print_header
-        echo -e "${BLUE_B}Component Selection${RESET}"
-        echo -e "${CYAN}Choose which modules to execute (each runs independently).${RESET}"
-        echo ""
-        for i in "${!component_names[@]}"; do
-            printf "${CYAN}%2d${RESET}) ${WHITE}%s${RESET} ${GRAY}(%s)${RESET}\n" \
-                "$((i+1))" "${component_names[$i]}" "${component_scripts[$i]}"
-        done
-        echo ""
-        echo -e "${DIM}Tip: enter numbers separated by spaces (e.g. 1 3 5 8)"
-        echo -e " or type ${CYAN}all${RESET} for complete setup"
-        echo -e " or type ${CYAN}h${RESET} for help${RESET}"
-        echo ""
-        read -r -p "Your selection: " raw_input
-        raw_input=$(echo "$raw_input" | tr '[:upper:]' '[:lower:]')
-        if [[ "$raw_input" == "h" || "$raw_input" == "help" ]]; then
-            echo -e "${CYAN}Launching help system...${RESET}"
-            if [[ -f "${SCRIPT_DIR}/help.sh" ]]; then
-                bash "${SCRIPT_DIR}/help.sh"
-            else
-                echo -e "${GRAY}help.sh not found${RESET}"
-            fi
-            echo -e "${DIM}Returning to selection menu...${RESET}"
-            echo ""
-            continue
-        fi
-        selected_scripts=()
-        selected_indices=()
-        if [[ "$raw_input" == "all" ]]; then
-            for i in "${!component_scripts[@]}"; do
-                selected_indices+=("$i")
-            done
-        else
-            for num in $raw_input; do
-                if [[ "$num" =~ ^[0-9]+$ ]]; then
-                    idx=$((num - 1))
-                    if [[ $idx -ge 0 && $idx -lt ${#component_scripts[@]} ]]; then
-                        selected_indices+=("$idx")
-                    fi
-                fi
-            done
-        fi
-        if [[ ${#selected_indices[@]} -eq 0 ]]; then
-            echo -e "${GRAY}No components selected. Please try again.${RESET}"
-            continue
-        fi
-        mapfile -t selected_indices < <(printf "%s\n" "${selected_indices[@]}" | sort -nu)
-        for idx in "${selected_indices[@]}"; do
-            selected_scripts+=("${component_scripts[$idx]}")
-        done
-        echo ""
-        print_separator
-        echo -e "${WHITE}You have selected the following modules:${RESET}"
-        for script in "${selected_scripts[@]}"; do
-            echo -e " ${CYAN}▶${RESET} ${script}"
-        done
-        echo ""
-        read -r -p "Proceed with execution? (y/n): " confirm
-        if [[ "$confirm" =~ ^[Yy]$ ]]; then
-            break
-        else
-            echo -e "${GRAY}Selection cancelled. Returning to menu...${RESET}"
-            echo ""
-        fi
-    done
-    echo ""
-    print_separator
-    echo -e "${CYAN_B}► Starting modular orchestration...${RESET}"
-    echo -e "${DIM}Only selected scripts will run. No logic is duplicated here.${RESET}"
-    echo ""
-    for script in "${selected_scripts[@]}"; do
-        if [[ -f "${SCRIPT_DIR}/${script}" ]]; then
-            echo -e "${CYAN_B}Executing → ${BOLD}${script}${RESET}"
-            print_separator
-            bash "${SCRIPT_DIR}/${script}"
-            echo ""
-            echo -e "${GRAY}✓ ${script} completed${RESET}"
-            echo ""
-        else
-            echo -e "${GRAY}⚠ ${script} not found – skipping${RESET}"
-        fi
-    done
-    print_separator
-    echo -e "${CYAN_B}Orchestration complete.${RESET}"
-    echo -e "${WHITE}BlackNode is now configured exactly as you requested.${RESET}"
-    echo -e "${DIM}Thank you for using the modular installer.${RESET}"
-    echo ""
-}
+done
 
-main
+info "Copying dotfiles..."
+for dir in "$config_src"/*/; do
+    name="$(basename "$dir")"
+    mkdir -p "$config_dst/$name"
+    cp -r "$dir/." "$config_dst/$name/"
+    ok "$name"
+done
+
+info "Copying wallust cache..."
+mkdir -p "$cache_dst"
+cp -r "$cache_src/." "$cache_dst/"
+ok "wallust cache"
+
+for d in "$config_dst/hypr/scripts" "$config_dst/waybar/scripts" "$config_dst/rofi/scripts"; do
+    [[ -d "$d" ]] && chmod +x "$d"/*.sh 2>/dev/null
+done
+
+systemctl list-unit-files sddm.service &>/dev/null && sudo systemctl enable sddm.service
+
+if [[ -n "$HYPRLAND_INSTANCE_SIGNATURE" ]]; then
+    info "Reloading Hyprland..."
+    hyprctl reload
+    sleep 1
+
+    info "Restarting Waybar..."
+    pkill -x waybar 2>/dev/null || true
+    sleep 0.5
+    nohup waybar &>/dev/null &
+    disown
+    ok "Waybar started"
+
+    pkill -x dunst 2>/dev/null || true
+    sleep 0.3
+    nohup dunst &>/dev/null &
+    disown
+    ok "Dunst restarted"
+fi
+
+ok "BlackNode setup complete"

@@ -1,3 +1,6 @@
+/*****----- Import Wallust -----*****/
+@import "~/.cache/wallust/rofi.rasi"
+
 /*****----- Configuration -----*****/
 configuration {
     modi:                       "drun,window";
@@ -6,27 +9,21 @@ configuration {
     display-run:                "";
     display-filebrowser:        "";
     display-window:             "";
-	drun-display-format:        "{name}";
-	window-format:              "{w} {c}";
+    drun-display-format:        "{name}";
+    window-format:              "{w} {c}";
 }
 
-
-
-
 /*****----- Global Properties -----*****/
+/* Usando los nombres exactos de tu plantilla */
 * {
-    font:                        "JetBrains Mono Nerd Font 24";
-    background:                  #11111b;
-    background-alt:              #313244;
-    foreground:                  #eff1f5;
-    selected:                    #cba6f7;
-    active:                      #6E77FF;
-    urgent:                      #8E3596;
+    font: "JetBrainsMono Nerd Font 24";
+    selected:       var(color5);
+    active:         var(color6);
+    urgent:         var(color1);
 }
 
 /*****----- Main Window -----*****/
 window {
-    /* properties for window widget */
     transparency:                "real";
     location:                    center;
     anchor:                      center;
@@ -36,11 +33,10 @@ window {
     x-offset:                    0px;
     y-offset:                    0px;
 
-    /* properties for all widgets */
     enabled:                     true;
-    border-radius:               12px;
+    border-radius:               14px;
     cursor:                      "default";
-    background-color:            @background;
+    background-color:            var(background);
 }
 
 /*****----- Main Box -----*****/
@@ -60,40 +56,30 @@ listbox {
     children:                    [ "listview" ];
 }
 
-
-
 /*****----- Mode Switcher -----*****/
-mode-switcher{
+mode-switcher {
     enabled:                     true;
     spacing:                     8px;
     background-color:            transparent;
-    text-color:                  @foreground;
+    text-color:                  var(foreground);
 }
+
 button {
     padding:                     12px 22px 12px 16px;
-    border-radius:               12px;
-    background-color:            @background;
+    border-radius:               14px;
+    background-color:            var(background);
     text-color:                  inherit;
     cursor:                      pointer;
 }
+
 button selected {
-    background-color:            @selected;
-    text-color:                  @background;
+    background-color:            var(selected);
+    text-color:                  var(background);
 }
-
-message {
-    padding: 5px 10px;
-    enabled: true;
-    border: 0;
-    background-color: #313244;
-    text-color: #f5c2e7;
-    margin: 10px 0;
-}
-
 
 /*****----- Listview -----*****/
 listview {
-    padding :                   8px;
+    padding:                     8px;
     enabled:                     true;
     columns:                     5;
     lines:                       1;
@@ -106,10 +92,10 @@ listview {
     fixed-columns:               true;
 
     spacing:                     8px;
-    margin: 			                0px 12px 16px 12px;
-    border-radius: 		            12px;
-    background-color:            #1e1e2e;
-    text-color:                  @foreground;
+    margin:                      0px 12px 16px 12px;
+    border-radius:               14px;
+    background-color:            var(color0); /* Un poco diferente al fondo principal */
+    text-color:                  var(foreground);
     cursor:                      "default";
 }
 
@@ -121,21 +107,24 @@ element {
     padding:                     8px;
     border-radius:               12px;
     background-color:            transparent;
-    text-color:                  @foreground;
+    text-color:                  var(foreground);
     cursor:                      pointer;
 }
+
 element selected.normal {
-    background-color:            @selected;
-    text-color:                  @background;
+    background-color:            var(selected);
+    text-color:                  var(background);
 }
+
 element-icon {
     background-color:            transparent;
     text-color:                  inherit;
     size:                        0px;
     cursor:                      inherit;
 }
+
 element-text {
-    padding: 			               0px 16px;
+    padding:                     0px 16px;
     background-color:            transparent;
     text-color:                  inherit;
     cursor:                      inherit;
@@ -146,18 +135,24 @@ element-text {
 /*****----- Message -----*****/
 message {
     background-color:            transparent;
+    padding:                     5px 10px;
+    enabled:                     true;
+    border:                      0;
+    margin:                      10px 0;
 }
+
 textbox {
     padding:                     0px;
     border-radius:               0px;
-    background-color:            @background;
-    text-color:                  @foreground;
+    background-color:            var(background);
+    text-color:                  var(foreground);
     vertical-align:              0.5;
     horizontal-align:            0.5;
 }
+
 error-message {
     padding:                     0px;
     border-radius:               0px;
-    background-color:            @background;
-    text-color:                  @foreground;
+    background-color:            var(background);
+    text-color:                  var(foreground);
 }

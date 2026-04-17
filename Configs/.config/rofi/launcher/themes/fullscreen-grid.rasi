@@ -1,0 +1,113 @@
+@import "~/.cache/wallust/rofi.rasi"
+
+configuration {
+  modi: "drun,filebrowser,window,run";
+  show-icons: true;
+  display-drun: " ";
+  display-run: " ";
+  display-filebrowser: " ";
+  display-window: " ";
+  drun-display-format: "{name}";
+  font: "JetBrainsMono Nerd Font 10";
+  icon-theme: "Tela-circle-dracula";
+}
+
+window {
+  fullscreen: true;
+  transparency: "real";
+  background-color: var(background);
+  spacing: 0em;
+  padding: 0em;
+}
+
+mainbox {
+  spacing: 0em;
+  padding: 4em 8em;
+  orientation: vertical;
+  children: [ "inputbar", "listview" ];
+  background-color: transparent;
+}
+
+inputbar {
+  enabled: true;
+  spacing: 0.6em;
+  padding: 0.7em 1.2em;
+  margin: 0em 0em 2em 0em;
+  children: [ "prompt", "entry" ];
+  background-color: var(color5);
+  border-radius: 2em;
+  text-color: var(background);
+}
+
+prompt {
+  background-color: transparent;
+  text-color: var(background);
+}
+
+entry {
+  background-color: transparent;
+  text-color: var(background);
+  cursor: text;
+  placeholder: "Buscar aplicación...";
+  placeholder-color: var(background);
+}
+
+listview {
+  enabled: true;
+  spacing: 1em;
+  padding: 0em;
+  columns: 4;
+  lines: 4;
+  cycle: true;
+  dynamic: true;
+  scrollbar: false;
+  layout: vertical;
+  background-color: transparent;
+  text-color: var(foreground);
+}
+
+element {
+  enabled: true;
+  spacing: 0em;
+  padding: 1.2em 0.5em;
+  cursor: pointer;
+  background-color: transparent;
+  text-color: var(foreground);
+  border-radius: 1em;
+  orientation: vertical;
+}
+
+element selected.normal {
+  background-color: var(color4);
+  text-color: var(background);
+}
+
+element-icon {
+  size: 3em;
+  cursor: inherit;
+  background-color: transparent;
+  text-color: inherit;
+  horizontal-align: 0.5;
+}
+
+element-text {
+  vertical-align: 0.5;
+  horizontal-align: 0.5;
+  cursor: inherit;
+  background-color: transparent;
+  text-color: inherit;
+  margin: 0.5em 0em 0em 0em;
+}
+
+error-message {
+  text-color: var(foreground);
+  background-color: var(background);
+  children: [ "textbox" ];
+}
+
+textbox {
+  text-color: inherit;
+  background-color: inherit;
+  vertical-align: 0.5;
+  horizontal-align: 0.5;
+}

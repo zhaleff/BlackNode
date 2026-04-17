@@ -1,8 +1,12 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 WALL_DIR="$HOME/.local/share/wallpapers"
 
-SELECTED=$(find "$WALL_DIR" -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" \) \
+SELECTED=$(find "$WALL_DIR" -type f \( \
+    -iname "*.jpg" -o \
+    -iname "*.jpeg" -o \
+    -iname "*.png" -o \
+    -iname "*.gif" \) \
     | while read -r img; do
         printf '%s\0icon\x1f%s\n' "$img" "$img"
       done \
@@ -17,3 +21,13 @@ if ! pgrep -x "awww" > /dev/null; then
 fi
 
 awww img "$SELECTED" --transition-type=random
+
+# Solo copia a wallust si NO es gif (porque wallust no maneja bien gifs)
+if [[ "$SELECTED" != *.gif ]]; then
+    cp "$SELECTED" ~/.cache/wallust/current_wallpaper.png
+    wallust run ~/.cache/wallust/current_wallpaper.png
+    wallust run "$SELECTED"
+fi
+
+killall -SIGUSR2 waybar && killall dunst && dunst &
+pkill -USR1 cava

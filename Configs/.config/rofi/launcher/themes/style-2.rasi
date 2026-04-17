@@ -1,0 +1,125 @@
+/* centered-compact-footer */
+@import "~/.cache/wallust/rofi.rasi"
+
+configuration {
+    modi:                        "drun,filebrowser,window,run";
+    show-icons:                  true;
+    display-drun:                "󰣆";
+    display-run:                 "󰆍";
+    display-filebrowser:         "󰉋";
+    display-window:              "󱂬";
+    drun-display-format:         "{name}";
+    font:                        "JetBrainsMono Nerd Font 10";
+    icon-theme:                  "Tela-circle-dracula";
+}
+
+window {
+    width:                       40em;
+    height:                      24em;
+    transparency:                "real";
+    fullscreen:                  false;
+    border:                      0px;
+    border-radius:               1.5em;
+    background-color:            transparent;
+    spacing:                     0em;
+    padding:                     0em;
+    location:                    center;
+    anchor:                      center;
+}
+
+mainbox {
+    spacing:                     0.6em;
+    padding:                     1.2em;
+    orientation:                 vertical;
+    children:                    [ "inputbar", "listview", "mode-switcher" ];
+    background-color:            var(background);
+    border-radius:               1.5em;
+}
+
+inputbar {
+    spacing:                     0.5em;
+    padding:                     0em 0em;
+    orientation:                 horizontal;
+    children:                    [ "entry" ];
+    background-color:            transparent;
+}
+
+entry {
+    background-color:            var(color0);
+    text-color:                  var(foreground);
+    cursor:                      text;
+    vertical-align:              0.5;
+    placeholder:                 "Search applications...";
+    placeholder-color:           var(color7);
+    padding:                     0.5em 1.2em;
+    border-radius:               2em;
+}
+
+listview {
+    enabled:                     true;
+    columns:                     1;
+    lines:                       7;
+    spacing:                     0.2em;
+    padding:                     0em 0em;
+    cycle:                       true;
+    dynamic:                     true;
+    scrollbar:                   false;
+    layout:                      vertical;
+    background-color:            transparent;
+    text-color:                  var(foreground);
+}
+
+element {
+    spacing:                     0em;
+    padding:                     0.5em 1.2em;
+    margin:                      0.08em 0.2em;
+    cursor:                      pointer;
+    background-color:            transparent;
+    text-color:                  var(foreground);
+    border-radius:               1.5em;
+    orientation:                 horizontal;
+}
+
+element selected.normal {
+    background-color:            var(color1);
+    text-color:                  var(background);
+}
+
+element-icon {
+    size:                        2em;
+    cursor:                      inherit;
+    background-color:            transparent;
+    text-color:                  inherit;
+    vertical-align:              0.5;
+}
+
+element-text {
+    vertical-align:              0.5;
+    horizontal-align:            0.0;
+    cursor:                      inherit;
+    background-color:            transparent;
+    text-color:                  inherit;
+    margin:                      0em 0em 0em 0.6em;
+}
+
+mode-switcher {
+    spacing:                     0.8em;
+    padding:                     0.4em 0em;
+    background-color:            transparent;
+}
+
+button {
+    padding:                     0.5em 1em;
+    background-color:            var(color0);
+    text-color:                  var(foreground);
+    border-radius:               2em;
+    cursor:                      pointer;
+    horizontal-align:            0.5;
+    font:                        "JetBrainsMono Nerd Font 12";
+    expand:                      true;
+}
+
+button selected {
+    background-color:            var(color4);
+    text-color:                  var(background);
+}

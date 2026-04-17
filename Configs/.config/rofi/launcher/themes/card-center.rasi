@@ -1,0 +1,100 @@
+/* accent-left-search */
+@import "~/.cache/wallust/rofi.rasi"
+
+window {
+  width: 48em;
+  height: 28em;
+  transparency: "real";
+  border-radius: 1.2em;
+  background-color: var(background);
+  location: center;
+  anchor: center;
+}
+
+mainbox {
+  children: [ accent-panel, listview ];
+  spacing: 0;
+  padding: 0;
+  background-color: transparent;
+}
+
+accent-panel {
+  width: 28%;
+  background-color: var(color4);
+  border-radius: 1.2em 0 0 1.2em;
+  padding: 1.2em 0.8em;
+  layout: vertical;
+  children: [ panel-search, mode-switcher-vert ];
+  spacing: 1.2em;
+}
+
+panel-search {
+  children: [ entry ];
+  background-color: var(color0);
+  border-radius: 1.2em;
+  padding: 0.2em 0.5em;
+  margin: 0 0.2em;
+}
+
+entry {
+  placeholder: "Type to filter...";
+  placeholder-color: var(color7);
+  font: "JetBrainsMono Nerd Font 10";
+  text-color: var(foreground);
+  background-color: transparent;
+  padding: 0.5em 0.2em;
+}
+
+mode-switcher-vert {
+  orientation: vertical;
+  spacing: 0.5em;
+  padding: 0.5em 0.2em;
+}
+
+button {
+  padding: 0.5em 0.8em;
+  border-radius: 2em;
+  background-color: transparent;
+  text-color: var(foreground);
+  font: "JetBrainsMono Nerd Font 10";
+  horizontal-align: 0.5;
+}
+
+button selected {
+  background-color: var(color15);
+  text-color: var(color4);
+}
+
+listview {
+  width: 72%;
+  layout: vertical;
+  children: [ element ];
+  background-color: var(background);
+  border-radius: 0 1.2em 1.2em 0;
+  padding: 1.2em 0.5em 0.5em 0.5em;
+  spacing: 0.2em;
+}
+
+element {
+  orientation: horizontal;
+  padding: 0.6em 1em;
+  margin: 0.08em 0.5em;
+  border-radius: 1em;
+  background-color: transparent;
+  spacing: 1em;
+}
+
+element selected {
+  background-color: var(color4);
+  text-color: var(background);
+}
+
+element-icon {
+  size: 2em;
+}
+
+element-text {
+  font: "JetBrainsMono Nerd Font 10";
+  text-color: var(foreground);
+  vertical-align: 0.5;
+}

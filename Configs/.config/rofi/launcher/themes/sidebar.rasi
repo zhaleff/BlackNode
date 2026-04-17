@@ -1,0 +1,121 @@
+@import "~/.cache/wallust/rofi.rasi"
+
+configuration {
+  modi: "drun,filebrowser,window,run";
+  show-icons: true;
+  display-drun: " ";
+  display-run: " ";
+  display-filebrowser: " ";
+  display-window: " ";
+  drun-display-format: "{name}";
+  font: "JetBrainsMono Nerd Font 10";
+  icon-theme: "Tela-circle-dracula";
+}
+
+window {
+  width: 22em;
+  height: 100%;
+  location: west;
+  anchor: west;
+  transparency: "real";
+  fullscreen: false;
+  border-color: var(color5);
+  background-color: transparent;
+  spacing: 0em;
+  padding: 0em;
+  x-offset: 0em;
+}
+
+mainbox {
+  spacing: 0em;
+  padding: 0em;
+  orientation: vertical;
+  children: [ "inputbar", "listbox" ];
+  background-color: var(background);
+}
+
+inputbar {
+  enabled: true;
+  spacing: 0.5em;
+  padding: 1em;
+  children: [ "prompt", "entry" ];
+  background-color: var(color5);
+  text-color: var(background);
+}
+
+prompt {
+  background-color: transparent;
+  text-color: var(background);
+}
+
+entry {
+  background-color: transparent;
+  text-color: var(background);
+  cursor: text;
+  placeholder: "Buscar...";
+  placeholder-color: var(background);
+}
+
+listbox {
+  spacing: 0em;
+  padding: 0.5em 0em;
+  children: [ "listview" ];
+  background-color: transparent;
+}
+
+listview {
+  enabled: true;
+  spacing: 0em;
+  padding: 0.3em 0em;
+  columns: 1;
+  lines: 16;
+  cycle: true;
+  dynamic: true;
+  scrollbar: false;
+  layout: vertical;
+  background-color: transparent;
+  text-color: var(foreground);
+}
+
+element {
+  enabled: true;
+  spacing: 0.6em;
+  padding: 0.6em 1em;
+  cursor: pointer;
+  background-color: transparent;
+  text-color: var(foreground);
+}
+
+element selected.normal {
+  background-color: var(color4);
+  text-color: var(background);
+  border-radius: 0em;
+}
+
+element-icon {
+  size: 1.6em;
+  cursor: inherit;
+  background-color: transparent;
+  text-color: inherit;
+}
+
+element-text {
+  vertical-align: 0.5;
+  horizontal-align: 0.0;
+  cursor: inherit;
+  background-color: transparent;
+  text-color: inherit;
+}
+
+error-message {
+  text-color: var(foreground);
+  background-color: var(background);
+  children: [ "textbox" ];
+}
+
+textbox {
+  text-color: inherit;
+  background-color: inherit;
+  vertical-align: 0.5;
+  horizontal-align: 0.5;
+}

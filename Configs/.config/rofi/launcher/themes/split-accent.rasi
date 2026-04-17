@@ -1,0 +1,142 @@
+@import "~/.cache/wallust/rofi.rasi"
+
+configuration {
+  modi: "drun,filebrowser,window,run";
+  show-icons: true;
+  display-drun: " ";
+  display-run: " ";
+  display-filebrowser: " ";
+  display-window: " ";
+  drun-display-format: "{name}";
+  font: "JetBrainsMono Nerd Font 10";
+  icon-theme: "Tela-circle-dracula";
+}
+
+window {
+  height: 32em;
+  width: 54em;
+  transparency: "real";
+  fullscreen: false;
+  border-color: var(color5);
+  background-color: transparent;
+  location: center;
+  anchor: center;
+  spacing: 0em;
+  padding: 0em;
+}
+
+mainbox {
+  spacing: 0em;
+  padding: 0em;
+  orientation: horizontal;
+  children: [ "accentbox", "contentbox" ];
+  background-color: transparent;
+}
+
+accentbox {
+  expand: false;
+  width: 14em;
+  spacing: 0em;
+  padding: 2em 1.5em;
+  orientation: vertical;
+  children: [ "dummy", "inputbar", "dummy" ];
+  background-color: var(color5);
+  border-radius: 1em 0em 0em 1em;
+}
+
+dummy {
+  background-color: transparent;
+}
+
+inputbar {
+  enabled: true;
+  expand: false;
+  spacing: 0.6em;
+  padding: 0em;
+  orientation: vertical;
+  children: [ "prompt", "entry" ];
+  background-color: transparent;
+}
+
+prompt {
+  background-color: transparent;
+  text-color: var(background);
+  font: "JetBrainsMono Nerd Font Bold 16";
+  horizontal-align: 0.5;
+  margin: 0em 0em 0.6em 0em;
+}
+
+entry {
+  background-color: transparent;
+  text-color: var(background);
+  cursor: text;
+  placeholder: "buscar...";
+  placeholder-color: var(background);
+  horizontal-align: 0.5;
+}
+
+contentbox {
+  spacing: 0em;
+  padding: 0em;
+  children: [ "listview" ];
+  background-color: var(background);
+  border-radius: 0em 1em 1em 0em;
+}
+
+listview {
+  enabled: true;
+  spacing: 0em;
+  padding: 1em 1.2em;
+  columns: 1;
+  lines: 8;
+  cycle: true;
+  dynamic: true;
+  scrollbar: false;
+  layout: vertical;
+  background-color: transparent;
+  text-color: var(foreground);
+}
+
+element {
+  enabled: true;
+  spacing: 1em;
+  padding: 0.6em 1em;
+  margin: 0.15em 0em;
+  cursor: pointer;
+  background-color: transparent;
+  text-color: var(foreground);
+  border-radius: 0.6em;
+}
+
+element selected.normal {
+  background-color: var(color4);
+  text-color: var(background);
+}
+
+element-icon {
+  size: 2em;
+  cursor: inherit;
+  background-color: transparent;
+  text-color: inherit;
+}
+
+element-text {
+  vertical-align: 0.5;
+  horizontal-align: 0.0;
+  cursor: inherit;
+  background-color: transparent;
+  text-color: inherit;
+}
+
+error-message {
+  text-color: var(foreground);
+  background-color: var(background);
+  children: [ "textbox" ];
+}
+
+textbox {
+  text-color: inherit;
+  background-color: inherit;
+  vertical-align: 0.5;
+  horizontal-align: 0.5;
+}

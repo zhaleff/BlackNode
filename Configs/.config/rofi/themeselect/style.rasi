@@ -1,0 +1,90 @@
+/**
+ * BlackNode · themeselect style
+ * Usa las variables de colors.rasi del tema activo
+ */
+
+@import "../launcher/shared/colors.rasi"
+
+* {
+    font:             "JetBrainsMono Nerd Font 11";
+    background-color: transparent;
+    text-color:       @foreground;
+}
+
+window {
+    transparency:     "real";
+    background-color: @background;
+    border:           2px solid;
+    border-color:     @selected;
+    border-radius:    12px;
+    width:            44em;
+    padding:          0;
+}
+
+mainbox {
+    background-color: transparent;
+    children:         [ inputbar, listview ];
+    spacing:          0;
+    padding:          12px;
+}
+
+inputbar {
+    background-color: @background-alt;
+    border-radius:    8px;
+    padding:          10px 14px;
+    margin:           0 0 10px 0;
+    children:         [ prompt, entry ];
+    spacing:          8px;
+}
+
+prompt {
+    background-color: transparent;
+    text-color:       @selected;
+    font:             "JetBrainsMono Nerd Font Bold 13";
+}
+
+entry {
+    background-color: transparent;
+    text-color:       @foreground;
+    placeholder:      "buscar tema...";
+    placeholder-color: @urgent;
+}
+
+listview {
+    background-color: transparent;
+    lines:            8;
+    columns:          1;
+    spacing:          4px;
+    cycle:            true;
+    scrollbar:        false;
+}
+
+element {
+    background-color: @background-alt;
+    border-radius:    8px;
+    padding:          10px 14px;
+    children:         [ element-text ];
+}
+
+element-text {
+    background-color: transparent;
+    text-color:       inherit;
+    vertical-align:   0.5;
+    font:             "JetBrainsMono Nerd Font 11";
+}
+
+element normal.normal {
+    background-color: transparent;
+    text-color:       @foreground;
+}
+
+element selected.normal {
+    background-color: @selected;
+    text-color:       #111111;
+    border-radius:    8px;
+}
+
+element alternate.normal {
+    background-color: transparent;
+    text-color:       @foreground;
+}

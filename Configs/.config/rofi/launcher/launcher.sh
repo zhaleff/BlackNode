@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 
-dir="$HOME/.config/rofi/launcher/"
-theme='style'
+themes_dir="$HOME/.config/rofi/launcher/themes"
+config="$HOME/.config/rofi/config.rasi"
 
-## Run
-rofi \
-    -show drun \
-    -theme ${dir}/${theme}.rasi
+chosen=$(ls "$themes_dir"/*.rasi | xargs -I{} basename {} .rasi | rofi -dmenu -i -p " Tema" -theme "$themes_dir/selector.rasi")
+
+[[ -z "$chosen" ]] && exit 0
+
+echo "@theme \"$themes_dir/$chosen.rasi\"" > "$config"

@@ -1,0 +1,138 @@
+@import "~/.cache/wallust/rofi.rasi"
+
+configuration {
+    show-icons:                  false;
+    font:                        "JetBrainsMono Nerd Font 10";
+}
+
+window {
+    width:                       52em;
+    height:                      28em;
+    transparency:                "real";
+    fullscreen:                  false;
+    border:                      2px solid;
+    border-color:                var(color5);
+    border-radius:               1.2em;
+    background-color:            transparent;
+    spacing:                     0em;
+    padding:                     0em;
+    location:                    center;
+    anchor:                      center;
+}
+
+mainbox {
+    spacing:                     0em;
+    padding:                     0em;
+    orientation:                 horizontal;
+    children:                    [ "leftbox", "rightbox" ];
+    background-color:            var(background);
+    border-radius:               1.2em;
+}
+
+leftbox {
+    expand:                      false;
+    width:                       18em;
+    orientation:                 vertical;
+    children:                    [ "dummy", "textbox-title", "dummy2", "entry" ];
+    background-color:            var(background);
+    background-image:            url("~/.cache/wallust/current_wallpaper.png", height);
+    border-radius:               1.2em 0em 0em 1.2em;
+    padding:                     2em 1.6em;
+    spacing:                     0em;
+}
+
+dummy {
+    expand:                      true;
+    background-color:            transparent;
+}
+
+dummy2 {
+    expand:                      false;
+    height:                      0.8em;
+    background-color:            transparent;
+}
+
+textbox-title {
+    expand:                      false;
+    content:                     " themes";
+    text-color:                  var(foreground);
+    background-color:            transparent;
+    font:                        "JetBrainsMono Nerd Font Bold 22";
+    horizontal-align:            0.0;
+    vertical-align:              0.5;
+}
+
+entry {
+    expand:                      false;
+    background-color:            var(background);
+    text-color:                  var(foreground);
+    cursor:                      text;
+    placeholder:                 "search...";
+    placeholder-color:           var(color5);
+    border-radius:               0.6em;
+    padding:                     0.6em 1em;
+    font:                        "JetBrainsMono Nerd Font 9";
+}
+
+rightbox {
+    orientation:                 vertical;
+    children:                    [ "listview" ];
+    background-color:            transparent;
+    border-radius:               0em 1.2em 1.2em 0em;
+    padding:                     0em;
+    spacing:                     0em;
+}
+
+listview {
+    enabled:                     true;
+    columns:                     1;
+    lines:                       7;
+    spacing:                     0em;
+    padding:                     1em 0.8em;
+    cycle:                       true;
+    dynamic:                     true;
+    scrollbar:                   false;
+    layout:                      vertical;
+    background-color:            transparent;
+    text-color:                  var(foreground);
+}
+
+element {
+    spacing:                     0em;
+    padding:                     0.7em 1.2em;
+    margin:                      0.15em 0em;
+    cursor:                      pointer;
+    background-color:            transparent;
+    text-color:                  var(foreground);
+    border-radius:               0.7em;
+    orientation:                 horizontal;
+}
+
+element selected.normal {
+    background-color:            var(color5);
+    text-color:                  var(background);
+}
+
+element-icon {
+    size:                        0em;
+}
+
+element-text {
+    vertical-align:              0.5;
+    horizontal-align:            0.0;
+    background-color:            transparent;
+    text-color:                  inherit;
+}
+
+error-message {
+    text-color:                  var(foreground);
+    background-color:            var(background);
+    children:                    [ "textbox" ];
+}
+
+textbox {
+    text-color:                  inherit;
+    background-color:            inherit;
+    vertical-align:              0.5;
+    horizontal-align:            0.5;
+}

@@ -1,0 +1,141 @@
+@import "~/.cache/wallust/rofi.rasi"
+
+configuration {
+  modi: "drun,filebrowser,window,run";
+  show-icons: true;
+  display-drun: " ";
+  display-run: " ";
+  display-filebrowser: " ";
+  display-window: " ";
+  drun-display-format: "{name}";
+  window-format: "{w}{t}";
+  font: "JetBrainsMono Nerd Font 10";
+  icon-theme: "Tela-circle-dracula";
+}
+
+window {
+  height: 34em;
+  width: 62em;
+  transparency: "real";
+  fullscreen: false;
+  border-color: var(color5);
+  background-color: transparent;
+  location: center;
+  anchor: center;
+  spacing: 0em;
+  padding: 0em;
+}
+
+mainbox {
+  spacing: 0em;
+  padding: 0em;
+  orientation: horizontal;
+  children: [ "wallbox", "rightbox" ];
+  background-color: transparent;
+}
+
+wallbox {
+  expand: false;
+  width: 20em;
+  spacing: 0em;
+  padding: 0em;
+  children: [ "dummy" ];
+  background-color: var(background);
+  background-image: url("~/.cache/wallust/current_wallpaper.png", height);
+  border-radius: 1em 0em 0em 1em;
+}
+
+dummy {
+  background-color: transparent;
+}
+
+rightbox {
+  spacing: 0em;
+  padding: 0em;
+  orientation: vertical;
+  children: [ "listview", "inputbar" ];
+  background-color: var(background);
+  border-radius: 0em 1em 1em 0em;
+}
+
+listview {
+  enabled: true;
+  spacing: 0em;
+  padding: 1em 1em 0.5em 1em;
+  columns: 2;
+  lines: 5;
+  cycle: true;
+  dynamic: true;
+  scrollbar: false;
+  layout: vertical;
+  background-color: transparent;
+  text-color: var(foreground);
+}
+
+element {
+  enabled: true;
+  spacing: 0.8em;
+  padding: 0.6em 0.8em;
+  margin: 0.2em;
+  cursor: pointer;
+  background-color: transparent;
+  text-color: var(foreground);
+  border-radius: 0.7em;
+}
+
+element selected.normal {
+  background-color: var(color4);
+  text-color: var(background);
+}
+
+element-icon {
+  size: 2em;
+  cursor: inherit;
+  background-color: transparent;
+  text-color: inherit;
+}
+
+element-text {
+  vertical-align: 0.5;
+  horizontal-align: 0.0;
+  cursor: inherit;
+  background-color: transparent;
+  text-color: inherit;
+}
+
+inputbar {
+  enabled: true;
+  spacing: 0.6em;
+  padding: 0.9em 1.4em;
+  margin: 0.4em 0.8em 0.8em 0.8em;
+  children: [ "prompt", "entry" ];
+  background-color: var(color5);
+  border-radius: 0.8em;
+  text-color: var(background);
+}
+
+prompt {
+  background-color: transparent;
+  text-color: var(background);
+}
+
+entry {
+  background-color: transparent;
+  text-color: var(background);
+  cursor: text;
+  placeholder: "Buscar...";
+  placeholder-color: var(background);
+}
+
+error-message {
+  text-color: var(foreground);
+  background-color: var(background);
+  children: [ "textbox" ];
+}
+
+textbox {
+  text-color: inherit;
+  background-color: inherit;
+  vertical-align: 0.5;
+  horizontal-align: 0.5;
+}

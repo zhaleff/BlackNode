@@ -1,110 +1,76 @@
-/*****----- Configuration -----*****/
+/*****----- Import Wallust -----*****/
+@import "~/.cache/wallust/rofi.rasi"
+
 configuration {
-	show-icons: 		false;
+	show-icons: false;
 }
 
-/*****----- Global Properties -----*****/
-* {
-    font:                        "JetBrains Mono Nerd Font 12";
-    background:                  #11111b;
-    background-alt:              #313244;
-    foreground:                  #eff1f5;
-    selected:                    #cba6f7;
-    active:                      #6E77FF;
-    urgent:                      #8E3596;
-}
-
-/*****----- Main Window -----*****/
 window {
-    transparency:                "real";
-    location:                    center;
-    anchor:                      center;
-    fullscreen:                  false;
-    width:                       320px;
-    x-offset:                    0px;
-    y-offset:                    0px;
-
-    /* properties for all widgets */
-    enabled:                     true;
-    border-radius:               12px;
-    cursor:                      "default";
-    background-color:            @background;
+    transparency:     "real";
+    location:         center;
+    anchor:           center;
+    width:            320px;
+    enabled:          true;
+    border-radius:    12px;
+    background-color: var(background);
 }
 
-/*****----- Main Box -----*****/
 mainbox {
-    enabled:                     true;
-    spacing:                     0px;
-    background-color:            transparent;
-    orientation:                 horizontal;
-    children:                    [ "inputbar", "listview" ];
+    enabled:          true;
+    spacing:          0px;
+    background-color: transparent;
+    orientation:      horizontal;
+    children:         [ "inputbar", "listview" ];
 }
 
-/*****----- Inputbar -----*****/
 inputbar {
-    enabled:                     true;
-    spacing:                     0px;
-    padding:                     28px 0px 28px 24px;
-    background-color:            transparent;
-    text-color:                  @foreground;
-    orientation:                 horizontal;
-    children:                    [ "textbox-prompt-colon" ];
+    enabled:          true;
+    padding:          28px 0px 28px 24px;
+    background-color: transparent;
+    text-color:       var(foreground);
+    children:         [ "textbox-prompt-colon" ];
 }
 
 textbox-prompt-colon {
-    enabled:                     true;
-    expand:                      false;
-    str:                         "";
-    padding:                     12px 24px 12px 14px;
-    border-radius:               100%;
-    background-color:            #a6e3a1;
-    text-color:                  @background;
+    enabled:          true;
+    expand:           false;
+    str:              "";
+    padding:          12px 24px 12px 14px;
+    border-radius:    100%;
+    background-color: var(color2);
+    text-color:       var(background);
 }
 
-/*****----- Listview -----*****/
 listview {
-    enabled:                     true;
-    columns:                     1;
-    lines:                       1;
-    cycle:                       true;
-    dynamic:                     false;
-    scrollbar:                   false;
-    layout:                      vertical;
-    reverse:                     false;
-
-    spacing:                     0px;
-    margin: 			 28px 24px;
-    border-radius: 		 8px;
-    background-color:            #1e1e2e;
-    text-color:                  @foreground;
-    cursor:                      "default";
+    enabled:          true;
+    columns:          1;
+    lines:            1;
+    cycle:            true;
+    dynamic:          false;
+    layout:           vertical;
+    spacing:          0px;
+    margin:           28px 24px;
+    border-radius:    8px;
+    background-color: var(color0);
+    text-color:       var(foreground);
 }
 
-/*****----- Elements -----*****/
 element {
-    enabled:                     true;
-    spacing:                     0px;
-    padding:                     12px 8px;
-    border-radius:               12px;
-    background-color:            transparent;
-    text-color:                  @foreground;
-    cursor:                      pointer;
+    enabled:          true;
+    padding:          12px 8px;
+    border-radius:    12px;
+    background-color: transparent;
+    text-color:       var(foreground);
 }
+
 element selected.normal {
-    background-color:            @selected;
-    text-color:                  @background;
+    background-color: var(color6);
+    text-color:       var(background);
 }
-element-icon {
-    background-color:            transparent;
-    text-color:                  inherit;
-    size:                        0px;
-    cursor:                      inherit;
-}
+
 element-text {
-    padding: 			 0px 16px;
-    background-color:            transparent;
-    text-color:                  inherit;
-    cursor:                      inherit;
-    vertical-align:              0.5;
-    horizontal-align:            0;
+    padding:          0px 16px;
+    background-color: transparent;
+    text-color:       inherit;
+    vertical-align:   0.5;
 }

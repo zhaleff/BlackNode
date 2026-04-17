@@ -5,12 +5,12 @@ configuration {
 
 /*****----- Global Properties -----*****/
 * {
-    font:                        "Iosevka Nerd Font 10";
-    background: #11111b;
-    foreground: #cdd6f4;
-    selected: #cba6f7;
-    active: #f5e0dc;
-    urgent: #f38ba8;
+    background:   #0a090e;
+    background-alt: #1b1826;
+    foreground:   #d0cfda;
+    selected:     #9a99b1;
+    active:       #a599b0;
+    urgent:       #9a99b1;
 }
 
 /*****----- Main Window -----*****/

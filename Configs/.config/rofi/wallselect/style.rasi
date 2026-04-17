@@ -1,83 +1,93 @@
-/*****----- Configuration -----*****/
+// Config: https://github.com/develcooking/hyprland-dotfiles/blob/main/.config/rofi/wallSelect.rasi
+
+@import "~/.cache/wallust/rofi.rasi"
+
 configuration {
-    show-icons:                 true;
-    drun-display-format:        "{name}";
+    modi:                        "drun,filebrowser,window,run";
+    show-icons:                  true;
+    drun-display-format:         "{name}";
+    font:                        "JetBrainsMono Nerd Font Bold 11";
 }
 
-/*****----- Global Properties -----*****/
-* {
-    font:                        "JetBrains Mono Nerd Font 9";
-    background:                  #1e1e2e;
-    background-alt:              #313244;
-    foreground:                  #eff1f5;
-    selected:                    #cba6f7;
-}
-
-/*****----- Main Window -----*****/
 window {
+    enabled:                     true;
     fullscreen:                  false;
-    location:                    center;
     width:                       100%;
-    border-color:                #6c7086;
-    height:                      60%;
-    border-radius:               12px;
-    padding:                     10px;
-    background-color:            transparent;
-}
-
-/*****----- Main Layout -----*****/
-mainbox {
-    border-radius:               12px;
-    border-color: #6c7086;
+    transparency:                "real";
+    cursor:                      "default";
     spacing:                     0px;
-    orientation:                 vertical;
-    children:                    [ "listbox" ];
-}
-
-listbox {
-    spacing:                     0px;
-    orientation:                 vertical;
-    children:                    [ "listview" ];
-}
-
-/*****----- Listview: Icon Grid -----*****/
-listview {
-    columns:                     3;
-    lines:                       5;
-    layout:                      vertical;
-    fixed-columns:               true;
-    fixed-height:                true;
-    dynamic:                     false;
-    spacing:                     10px;
-    padding:                     8px;
-    border-radius:               12px;
-    background-color:            #1e1e2e;
-}
-
-/*****----- Element Styling -----*****/
-element {
-    padding:                     0px 10px 10px 10px;
-    border-radius:               12px;
-    background-color:            transparent;
-    horizontal-align:            0.5;
-}
-element selected.normal {
-    background-color:            @selected;
-    padding: 200px;
-    border-radius:               12px;
-    margin: 12px;
-}
-element-icon {
-    size:                        389px;
-    height:                      180px;
-    border-radius:               12px;
-    background-color:            transparent;
-    vertical-align:              0.5;
-    padding:                     2px;
-}
-element-text {
-    text-color:                  transparent;
-    background-color:            transparent;
     padding:                     0px;
-    font:                        "JetBrains Mono Nerd Font 0";
+    border:                      0px;
+    border-radius:               0px;
+    background-color:            transparent;
+}
+
+mainbox {
+    enabled:                     true;
+    children:                    [ "listview" ];
+    background-color:            var(background);
+}
+
+listview {
+    enabled:                     true;
+    columns:                     6;
+    lines:                       1;
+    spacing:                     40px;
+    padding:                     18px 28px;
+    cycle:                       true;
+    dynamic:                     false;
+    scrollbar:                   false;
+    layout:                      vertical;
+    reverse:                     false;
+    fixed-height:                true;
+    fixed-columns:               true;
+    cursor:                      "default";
+    background-color:            transparent;
+    text-color:                  var(foreground);
+}
+
+element {
+    enabled:                     true;
+    orientation:                 horizontal;
+    spacing:                     0px;
+    padding:                     0px;
+    border-radius:               16px;
+    cursor:                      pointer;
+    background-color:            transparent;
+    text-color:                  var(foreground);
+}
+
+element selected.normal {
+    background-color:            var(color1);
+    text-color:                  var(background);
+}
+
+element-icon {
+    size:                        33%;
+    cursor:                      inherit;
+    border-radius:               0px;
+    background-color:            transparent;
+    text-color:                  inherit;
+}
+
+element-text {
+    vertical-align:              0.5;
+    horizontal-align:            0.5;
+    padding:                     18px;
+    cursor:                      inherit;
+    background-color:            transparent;
+    text-color:                  inherit;
+}
+
+error-message {
+    text-color:                  var(foreground);
+    background-color:            var(background);
+    children:                    [ "textbox" ];
+}
+
+textbox {
+    text-color:                  inherit;
+    background-color:            inherit;
+    vertical-align:              0.5;
+    horizontal-align:            0.5;
 }
