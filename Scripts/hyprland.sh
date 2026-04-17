@@ -5,5 +5,4 @@
 
 yay -S --noconfirm hyprland xdg-desktop-portal-hyprland
 
-mkdir -p ~/.config/hypr
-cp -r ./config/hypr/* ~/.config/hypr/
+cp -r ~/BlackNode/Configs/.config/hypr/* ~/.config/hypr/

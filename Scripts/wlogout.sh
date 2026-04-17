@@ -15,7 +15,6 @@
 
 DOTFILES_CONFIG="$HOME/BlackNode/Configs/.config"
 
-yay -S --noconfirm wallust
+yay -S --noconfirm wlogout
 
-mkdir -p "$HOME/.config/wallust"
-cp -r "$DOTFILES_CONFIG/wallust/"* "$HOME/.config/wallust/"
+cp -r ~/BlackNode/Configs/.config/wlogout/ ~/.config/

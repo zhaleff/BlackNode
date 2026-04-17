@@ -30,8 +30,6 @@ component_names=(
     "Waybar (status bar)"
     "Rofi (application launcher)"
     "Wlogout (logout menu)"
-    "Hyprlock (screen locker)"
-    "Hyprshot (screenshot utility)"
     "Wallpaper setup"
     "Wallust (colour scheme generator)"
     "Zsh shell & configuration"
@@ -53,8 +51,7 @@ component_scripts=(
     "waybar.sh"
     "rofi.sh"
     "wlogout.sh"
-    "hyprlock.sh"
-    "hyprshot.sh"
+
     "wallpaper.sh"
     "wallust.sh"
     "zsh.sh"

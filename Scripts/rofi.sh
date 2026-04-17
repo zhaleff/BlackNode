@@ -16,5 +16,4 @@ DOTFILES_CONFIG="$HOME/BlackNode/Configs/.config"
 
 yay -S --noconfirm rofi-wayland
 
-mkdir -p "$HOME/.config/rofi"
 cp -r "$DOTFILES_CONFIG/rofi/"* "$HOME/.config/rofi/"
