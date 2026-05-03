@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+
+ROFI_THEME="$HOME/.config/rofi/menu.rasi"
+SCRIPTS="$HOME/.local/bin/scripts"
+
+main() {
+    local choice
+    choice=$(printf '%s\n' \
+        "System" \
+        "Audio" \
+        "Display" \
+        "Window" \
+        "Screenshot" \
+        "Processes" \
+        "Packages" \
+        "Apps" \
+        "Wallpapers" \
+        "---" \
+        "Waybar" \
+        "Reload" \
+        "Services" \
+        "Theme" \
+        "Info" \
+        "Session" \
+        | rofi -dmenu -i -p "BlackNode" -theme "$ROFI_THEME")
+
+    case "$choice" in
+        "System") "$SCRIPTS/system/menu.sh" ;;
+        "Audio") "$SCRIPTS/audio/menu.sh" ;;
+        "Display") "$SCRIPTS/display/menu.sh" ;;
+        "Window") "$SCRIPTS/window/menu.sh" ;;
+        "Screenshot") "$SCRIPTS/screenshot/menu.sh" ;;
+        "Processes") "$SCRIPTS/process/menu.sh" ;;
+        "Packages") "$SCRIPTS/package/menu.sh" ;;
+        "Apps") "$SCRIPTS/apps/menu.sh" ;;
+        "Wallpapers") "$SCRIPTS/wallpaper/menu.sh" ;;
+        "Waybar") "$SCRIPTS/waybar/menu.sh" ;;
+        "Reload") "$SCRIPTS/reload/menu.sh" ;;
+        "Services") "$SCRIPTS/services/menu.sh" ;;
+        "Theme") "$SCRIPTS/theme/menu.sh" ;;
+        "Info") "$SCRIPTS/info/menu.sh" ;;
+        "Session") "$SCRIPTS/session/menu.sh" ;;
+    esac
+}
+
+main
