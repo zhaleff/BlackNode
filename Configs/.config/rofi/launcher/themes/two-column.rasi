@@ -13,102 +13,94 @@ configuration {
 }
 
 window {
-  height: 32em;
-  width: 46em;
-  transparency: "real";
-  fullscreen: false;
-  border-color: var(color5);
-  background-color: transparent;
-  spacing: 0em;
-  padding: 0em;
+    height:                      480px;
+    width:                       672px;
+    transparency:                "real";
+    fullscreen:                  false;
+    border:                      1px;
+    border-radius:               14px;
+    background-color:            var(background);
+    location:                    center;
+    anchor:                      center;
+    spacing:                     0px;
+    padding:                     0px;
 }
 
 mainbox {
-  spacing: 0em;
-  padding: 0em;
-  orientation: vertical;
-  children: [ "inputbar", "listview" ];
-  background-color: var(background);
-  border-radius: 1em;
+    spacing:                     0px;
+    padding:                     0px;
+    orientation:                 vertical;
+    children:                    [ "inputbar", "listview" ];
+    background-color:            var(background);
+    border-radius:               14px;
 }
 
 inputbar {
-  enabled: true;
-  spacing: 0.6em;
-  padding: 1em 1.5em;
-  children: [ "prompt", "entry" ];
-  background-color: var(color5);
-  border-radius: 1em 1em 0em 0em;
-  text-color: var(background);
-}
-
-prompt {
-  background-color: transparent;
-  text-color: var(background);
+    enabled:                     true;
+    spacing:                     10px;
+    padding:                    16px 24px;
+    children:                    [ "entry" ];
+    background-color:            var(color4);
+    border-radius:               14px;
+    text-color:                  var(background);
 }
 
 entry {
-  background-color: transparent;
-  text-color: var(background);
-  cursor: text;
-  placeholder: "Buscar...";
-  placeholder-color: var(background);
+    background-color:            transparent;
+    text-color:                  var(background);
+    cursor:                      text;
+    placeholder:                 "Search...";
+    placeholder-color:          rgba(0,0,0,0.5);
 }
 
 listview {
-  enabled: true;
-  spacing: 0em;
-  padding: 1em;
-  columns: 2;
-  lines: 5;
-  cycle: true;
-  dynamic: true;
-  scrollbar: false;
-  layout: vertical;
-  background-color: transparent;
-  text-color: var(foreground);
+    enabled:                     true;
+    spacing:                     0px;
+    padding:                    16px;
+    columns:                     2;
+    lines:                       5;
+    cycle:                       true;
+    dynamic:                     true;
+    scrollbar:                   false;
+    layout:                      vertical;
+    background-color:            transparent;
+    text-color:                  var(foreground);
 }
 
 element {
-  enabled: true;
-  spacing: 1em;
-  padding: 0.7em 1em;
-  cursor: pointer;
-  background-color: transparent;
-  text-color: var(foreground);
-  border-radius: 0.6em;
-  margin: 0.2em;
+    enabled:                     true;
+    spacing:                     16px;
+    padding:                    11px 16px;
+    cursor:                      pointer;
+    background-color:            transparent;
+    text-color:                  var(foreground);
+    border-radius:               10px;
+    margin:                      3px;
 }
 
 element selected.normal {
-  background-color: var(color4);
-  text-color: var(background);
+    background-color:            var(color4);
+    text-color:                  var(background);
 }
 
 element-icon {
-  size: 2.4em;
-  cursor: inherit;
-  background-color: transparent;
-  text-color: inherit;
+    size:                        35px;
+    cursor:                      inherit;
+    background-color:            transparent;
+    text-color:                  inherit;
 }
 
 element-text {
-  vertical-align: 0.5;
-  horizontal-align: 0.0;
-  cursor: inherit;
-  background-color: transparent;
-  text-color: inherit;
-}
-
-error-message {
-  text-color: var(foreground);
-  background-color: var(background);
-  children: [ "textbox" ];
+    vertical-align:              0.5;
+    horizontal-align:            0.0;
+    cursor:                      inherit;
+    background-color:            transparent;
+    text-color:                  inherit;
 }
 
 textbox {
-  text-color: inherit;
-  background-color: inherit;
-  vertical-align: 0.5;
-  horizontal-align: 0.5;
+    text-color:                  inherit;
+    background-color:            inherit;
+    vertical-align:              0.5;
+    horizontal-align:            0.5;
 }

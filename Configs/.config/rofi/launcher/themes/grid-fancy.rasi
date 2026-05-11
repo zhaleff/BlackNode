@@ -1,0 +1,107 @@
+/* grid-fancy */
+@import "~/.cache/wallust/rofi.rasi"
+
+configuration {
+    modi:                        "drun,filebrowser,window,run";
+    show-icons:                  true;
+    display-drun:                " ";
+    display-run:                 " ";
+    display-filebrowser:         " ";
+    display-window:              " ";
+    drun-display-format:         "{name}";
+    font:                        "JetBrainsMono Nerd Font 10";
+    icon-theme:                  "Tela-circle-dracula";
+}
+
+window {
+    width:                       900px;
+    height:                      600px;
+    transparency:                "real";
+    fullscreen:                  false;
+    border:                      0px;
+    border-radius:               24px;
+    background-color:            var(background);
+    location:                    center;
+    anchor:                      center;
+}
+
+mainbox {
+    spacing:                     0px;
+    padding:                     24px;
+    orientation:                 vertical;
+    children:                    [ "inputbar", "listview" ];
+    background-color:            transparent;
+}
+
+inputbar {
+    spacing:                     16px;
+    padding:                     0px 0px 20px 0px;
+    children:                    [ "entry" ];
+    background-color:            transparent;
+}
+
+entry {
+    background-color:            var(color0);
+    text-color:                  var(foreground);
+    cursor:                      text;
+    vertical-align:              0.5;
+    placeholder:                 "Search applications...";
+    placeholder-color:           var(color7);
+    padding:                     14px 20px;
+    border-radius:               14px;
+    font:                        "JetBrainsMono Nerd Font 14";
+}
+
+listview {
+    enabled:                     true;
+    columns:                     5;
+    lines:                       4;
+    spacing:                     12px;
+    padding:                     0px;
+    cycle:                       true;
+    dynamic:                     true;
+    scrollbar:                   false;
+    layout:                      vertical;
+    background-color:            transparent;
+    text-color:                  var(foreground);
+}
+
+element {
+    spacing:                     0px;
+    padding:                     16px;
+    cursor:                      pointer;
+    background-color:            transparent;
+    text-color:                  var(foreground);
+    border-radius:               16px;
+    orientation:                 vertical;
+}
+
+element selected.normal {
+    background-color:            var(color4);
+    text-color:                  var(background);
+}
+
+element-icon {
+    size:                        48px;
+    cursor:                      inherit;
+    background-color:            transparent;
+    text-color:                  inherit;
+    horizontal-align:            0.5;
+}
+
+element-text {
+    font:                        "JetBrainsMono Nerd Font 10";
+    vertical-align:              0.5;
+    horizontal-align:            0.5;
+    cursor:                      inherit;
+    background-color:            transparent;
+    text-color:                  inherit;
+    margin:                      8px 0px 0px 0px;
+}
+
+textbox {
+    text-color:                  inherit;
+    background-color:            inherit;
+    vertical-align:              0.5;
+    horizontal-align:            0.5;
+}

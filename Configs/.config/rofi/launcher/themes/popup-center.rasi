@@ -1,0 +1,105 @@
+/* popup-center */
+@import "~/.cache/wallust/rofi.rasi"
+
+configuration {
+    modi:                        "drun,filebrowser,window,run";
+    show-icons:                  true;
+    display-drun:                " ";
+    display-run:                 " ";
+    display-filebrowser:         " ";
+    display-window:              " ";
+    drun-display-format:         "{name}";
+    font:                        "JetBrainsMono Nerd Font 10";
+    icon-theme:                  "Tela-circle-dracula";
+}
+
+window {
+    width:                       600px;
+    height:                      450px;
+    transparency:                "real";
+    fullscreen:                  false;
+    border:                      0px;
+    border-radius:               24px;
+    background-color:            var(background);
+    location:                    center;
+    anchor:                      center;
+}
+
+mainbox {
+    spacing:                     0px;
+    padding:                     20px;
+    orientation:                 vertical;
+    children:                    [ "inputbar", "listview" ];
+    background-color:            transparent;
+}
+
+inputbar {
+    spacing:                     16px;
+    padding:                     0px 0px 20px 0px;
+    children:                    [ "entry" ];
+    background-color:            transparent;
+}
+
+entry {
+    background-color:            var(color0);
+    text-color:                  var(foreground);
+    cursor:                      text;
+    vertical-align:              0.5;
+    placeholder:                 "Type to search...";
+    placeholder-color:           var(color7);
+    padding:                     14px 18px;
+    border-radius:               14px;
+    font:                        "JetBrainsMono Nerd Font 12";
+}
+
+listview {
+    enabled:                     true;
+    columns:                     1;
+    lines:                       6;
+    spacing:                     8px;
+    padding:                     0px;
+    cycle:                       true;
+    dynamic:                     true;
+    scrollbar:                   false;
+    layout:                      vertical;
+    background-color:            transparent;
+    text-color:                  var(foreground);
+}
+
+element {
+    spacing:                     0px;
+    padding:                     14px 18px;
+    cursor:                      pointer;
+    background-color:            transparent;
+    text-color:                  var(foreground);
+    border-radius:               14px;
+}
+
+element selected.normal {
+    background-color:            var(color4);
+    text-color:                  var(background);
+}
+
+element-icon {
+    size:                        28px;
+    cursor:                      inherit;
+    background-color:            transparent;
+    text-color:                  inherit;
+    vertical-align:              0.5;
+}
+
+element-text {
+    vertical-align:              0.5;
+    horizontal-align:            0.0;
+    cursor:                      inherit;
+    background-color:            transparent;
+    text-color:                  inherit;
+    margin:                      0px 0px 0px 14px;
+}
+
+textbox {
+    text-color:                  inherit;
+    background-color:            inherit;
+    vertical-align:              0.5;
+    horizontal-align:            0.5;
+}

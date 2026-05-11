@@ -1,19 +1,21 @@
+/*****----- Configuration -----*****/
+configuration {
+    show-icons: false;
+}
+
 /*****----- Import Wallust -----*****/
 @import "~/.cache/wallust/rofi.rasi"
 
-configuration {
-	show-icons: false;
-}
-
+/*****----- Main Window -----*****/
 window {
     transparency:     "real";
     location:         southeast;
     anchor:           center;
-    width:            400px;
-    x-offset:         -10px;
-    y-offset:         -10px;
+    width:            360px;
+    x-offset:         -18px;
+    y-offset:         -18px;
     enabled:          true;
-    border-radius:    12px;
+    border-radius:    16px;
     background-color: var(background);
 }
 
@@ -27,67 +29,70 @@ mainbox {
 
 inputbar {
     enabled:          true;
-    padding:          24px 22px 0px 22px;
+    padding:          16px 16px 0px 16px;
     background-color: transparent;
     text-color:       var(foreground);
     orientation:      horizontal;
-    children:         [ "textbox-prompt-colon", "entry" ];
+    children:         [ "textbox-prompt", "entry" ];
+}
+
+textbox-prompt {
+    enabled:          true;
+    expand:          false;
+    str:             "󰤯";
+    padding:         10px 14px;
+    border-radius:   12px;
+    background-color: var(color4);
+    text-color:       var(background);
+    vertical-align:   0.5;
 }
 
 entry {
     enabled:          true;
     expand:           false;
-    width:            315px;
-    padding:          12px 16px 8px 16px;
-    border-radius:    12px;
-    margin:           0px 0px 0px 6px;
+    width:            260px;
+    padding:          10px 14px;
+    border-radius:     12px;
+    margin:           0px 0px 0px 8px;
     background-color: var(color0);
-    text-color:       inherit;
-    placeholder:      "Search";
-}
-
-textbox-prompt-colon {
-    enabled:          true;
-    expand:           false;
-    str:              "";
-    padding:          10px 22px 10px 12px;
-    border-radius:    12px;
-    background-color: var(color4);
-    text-color:       var(background);
+    text-color:       var(foreground);
+    cursor:           text;
+    placeholder:     "Search WiFi...";
+    placeholder-color: var(color7);
 }
 
 listview {
     enabled:          true;
     columns:          1;
-    lines:            7;
-    cycle:            false;
-    dynamic:          true;
-    scrollbar:        false;
-    layout:           vertical;
-    spacing:          0px;
-    margin:           10px 20px 20px 20px;
-    border-radius:    6px;
-    background-color: var(background);
-    text-color:       var(foreground);
+    lines:           6;
+    cycle:           false;
+    dynamic:         true;
+    scrollbar:       false;
+    layout:          vertical;
+    spacing:         0px;
+    margin:          16px;
+    border-radius:   12px;
+    background-color: transparent;
+    text-color:     var(foreground);
 }
 
 element {
-    enabled:          true;
-    padding:          12px 8px;
+    enabled:           true;
+    padding:          12px;
     border-radius:    12px;
     background-color: transparent;
     text-color:       var(foreground);
 }
 
 element.selected {
-    background-color: var(color6);
-    border-radius:    12px;
-    text-color:       var(background);
+    background-color: var(color4);
+    border-radius:   12px;
+    text-color:      var(background);
 }
 
 element-text {
-    padding:          0px 16px;
+    padding:          0px 12px;
     background-color: transparent;
     text-color:       inherit;
-    vertical-align:   0.5;
+    vertical-align:  0.5;
 }

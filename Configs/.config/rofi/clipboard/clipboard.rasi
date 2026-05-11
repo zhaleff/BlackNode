@@ -1,128 +1,122 @@
 /*****----- Configuration -----*****/
 configuration {
-	show-icons: 		false;
+    show-icons: false;
 }
+
+/*****----- Import Wallust -----*****/
+@import "~/.cache/wallust/rofi.rasi"
 
 /*****----- Global Properties -----*****/
 * {
-    background:                  #1e1e2e;
-    background-alt:              #313244;
-    foreground:                  #cdd6f4;
-    selected:                    #cba6f7;
-    active:                      #89b4fa;
-    urgent:                      #f38ba8;
+    font: "JetBrains Mono Nerd Font 12";
 }
 
 /*****----- Main Window -----*****/
 window {
-    transparency:                "real";
-    location:                    southeast;
-    anchor:                      center;
-    fullscreen:                  false;
-    width:                       500px;
-    x-offset:                    -200px;
-    y-offset:                    -20px;
-
-    /* properties for all widgets */
-    enabled:                     true;
-    border-radius:               6px;
-    cursor:                      "default";
-    background-color:            @background;
+    transparency:        "real";
+    location:            southeast;
+    anchor:              center;
+    fullscreen:          false;
+    width:               380px;
+    x-offset:            -18px;
+    y-offset:            -18px;
+    enabled:             true;
+    border-radius:        16px;
+    background-color:     var(background);
 }
 
 /*****----- Main Box -----*****/
 mainbox {
     enabled:                     true;
-    spacing:                     0px;
-    background-color:            transparent;
-    orientation:                 vertical;
-    children:                    [ "inputbar", "listview" ];
+    spacing:                    0px;
+    background-color:           transparent;
+    orientation:               vertical;
+    children:                  [ "inputbar", "listview" ];
 }
 
 /*****----- Inputbar -----*****/
 inputbar {
-    enabled:                     true;
-    spacing:                     0px;
-    padding:                     28px 24px 0px 24px;
-    background-color:            transparent;
-    text-color:                  @foreground;
-    orientation:                 horizontal;
-    children:                    [ "textbox-prompt-colon", "dummy", "entry" ];
+    enabled:          true;
+    spacing:         0px;
+    padding:        16px 16px 0px 16px;
+    background-color: transparent;
+    text-color:     var(foreground);
+    orientation:    horizontal;
+    children:       [ "textbox-prompt", "entry" ];
 }
 
-dummy {
-    background-color: 		 transparent;
+textbox-prompt {
+    enabled:          true;
+    expand:          false;
+    str:            "󰑔";
+    padding:        10px 14px;
+    border-radius: 12px;
+    background-color: var(color5);
+    text-color:     var(background);
+    vertical-align:  0.5;
 }
 
 entry {
-    enabled:                     true;
-    expand:                      false;
-    width:                       400px;
-    padding:                     12px 16px 8px 16px;
-    border-radius:               8px;
-    background-color:            @background-alt;
-    text-color:                  inherit;
-    cursor:                      text;
-    placeholder:                 "Search";
-    placeholder-color:           inherit;
-}
-
-textbox-prompt-colon {
-    font:                        "Font Awesome 5 Free 14";
-    enabled:                     true;
-    expand:                      false;
-    str:                         "";
-    padding:                     10px 14px 10px 14px;
-    border-radius:               6px;
-    background-color:            #a6e3a1;
-    text-color:                  @background;
+    enabled:           true;
+    expand:           false;
+    width:            280px;
+    padding:          10px 14px;
+    border-radius:   12px;
+    margin:           0px 0px 0px 8px;
+    background-color: var(color0);
+    text-color:       var(foreground);
+    cursor:           text;
+    placeholder:     "Search clipboard...";
+    placeholder-color: var(color7);
 }
 
 /*****----- Listview -----*****/
 listview {
-    enabled:                     true;
-    columns:                     1;
-    lines:                       6;
-    cycle:                       true;
-    dynamic:                     true;
-    scrollbar:                   false;
-    layout:                      vertical;
-    reverse:                     false;
-    fixed-height:                true;
-    fixed-columns:               true;
-
-    spacing:                     0px;
-    margin: 			         28px 20px;
-    border-radius: 		         6px;
-    background-color:            #1e1e2e;
-    text-color:                  @foreground;
-    cursor:                      "default";
+    enabled:           true;
+    columns:          1;
+    lines:            5;
+    cycle:           true;
+    dynamic:         true;
+    scrollbar:       false;
+    layout:          vertical;
+    reverse:         false;
+    fixed-height:   true;
+    fixed-columns:  true;
+    spacing:        0px;
+    margin:         16px;
+    border-radius:  12px;
+    background-color: transparent;
+    text-color:     var(foreground);
+    cursor:         "default";
 }
 
 /*****----- Elements -----*****/
 element {
-    enabled:                     true;
-    spacing:                     0px;
-    padding:                     12px 8px;
-    border-radius:               6px;
-    background-color:            transparent;
-    text-color:                  @foreground;
-    cursor:                      pointer;
+    enabled:          true;
+    spacing:          0px;
+    padding:         12px;
+    border-radius:   12px;
+    background-color: transparent;
+    text-color:      var(foreground);
+    cursor:          pointer;
 }
-element.selected  {
-    background-color:            @selected;
-    text-color:                  @background;
+
+element selected {
+    background-color: var(color5);
+    text-color:     var(background);
 }
+
 element-icon {
-    size:                         30px;
-    background-color:             transparent;
-    text-color:                   @foreground;
+    size:            24px;
+    background-color: transparent;
+    text-color:     var(foreground);
 }
+
 element-text {
-    padding: 			 0px 16px;
-    background-color:            transparent;
-    text-color:                  inherit;
-    cursor:                      inherit;
-    vertical-align:              0.5;
-    horizontal-align:            0;
+    padding:         0px 12px;
+    background-color: transparent;
+    text-color:     inherit;
+    cursor:        inherit;
+    vertical-align: 0.5;
+    horizontal-align: 0;
 }

@@ -13,130 +13,127 @@ configuration {
 }
 
 window {
-  height: 32em;
-  width: 54em;
-  transparency: "real";
-  fullscreen: false;
-  border-color: var(color5);
-  background-color: transparent;
-  location: center;
-  anchor: center;
-  spacing: 0em;
-  padding: 0em;
+    height:                      448px;
+    width:                       768px;
+    transparency:                "real";
+    fullscreen:                  false;
+    border:                      1px;
+    border-radius:               14px;
+    background-color:            var(background);
+    location:                    center;
+    anchor:                      center;
+    spacing:                     0px;
+    padding:                     0px;
 }
 
 mainbox {
-  spacing: 0em;
-  padding: 0em;
-  orientation: horizontal;
-  children: [ "accentbox", "contentbox" ];
-  background-color: transparent;
+    spacing:                     0px;
+    padding:                     0px;
+    orientation:                 horizontal;
+    children:                    [ "accentbox", "contentbox" ];
+    background-color:            transparent;
 }
 
 accentbox {
-  expand: false;
-  width: 14em;
-  spacing: 0em;
-  padding: 2em 1.5em;
-  orientation: vertical;
-  children: [ "dummy", "inputbar", "dummy" ];
-  background-color: var(color5);
-  border-radius: 1em 0em 0em 1em;
+    expand:                      false;
+    width:                       224px;
+    spacing:                     0px;
+    padding:                    32px 24px;
+    orientation:                 vertical;
+    children:                    [ "dummy", "inputbar", "dummy" ];
+    background-color:            var(color4);
+    border-radius:               14px;
 }
 
 dummy {
-  background-color: transparent;
+    background-color:            transparent;
 }
 
 inputbar {
-  enabled: true;
-  expand: false;
-  spacing: 0.6em;
-  padding: 0em;
-  orientation: vertical;
-  children: [ "prompt", "entry" ];
-  background-color: transparent;
+    enabled:                     true;
+    expand:                      false;
+    spacing:                     10px;
+    padding:                    0px;
+    orientation:                 vertical;
+    children:                    [ "prompt", "entry" ];
+    background-color:            transparent;
 }
 
 prompt {
-  background-color: transparent;
-  text-color: var(background);
-  font: "JetBrainsMono Nerd Font Bold 16";
-  horizontal-align: 0.5;
-  margin: 0em 0em 0.6em 0em;
+    background-color:            transparent;
+    text-color:                  var(background);
+    font:                        "JetBrainsMono Nerd Font Bold 16";
+    horizontal-align:            0.5;
+    margin:                      0px 0px 8px 0px;
 }
 
 entry {
-  background-color: transparent;
-  text-color: var(background);
-  cursor: text;
-  placeholder: "buscar...";
-  placeholder-color: var(background);
-  horizontal-align: 0.5;
+    background-color:            var(color0);
+    text-color:                  var(foreground);
+    cursor:                      text;
+    placeholder:                 "Search...";
+    placeholder-color:          var(color7);
+    horizontal-align:            0.5;
+    padding:                     8px 13px;
+    border-radius:               14px;
 }
 
 contentbox {
-  spacing: 0em;
-  padding: 0em;
-  children: [ "listview" ];
-  background-color: var(background);
-  border-radius: 0em 1em 1em 0em;
+    spacing:                     0px;
+    padding:                    0px;
+    children:                    [ "listview" ];
+    background-color:            var(background);
+    border-radius:               14px;
 }
 
 listview {
-  enabled: true;
-  spacing: 0em;
-  padding: 1em 1.2em;
-  columns: 1;
-  lines: 8;
-  cycle: true;
-  dynamic: true;
-  scrollbar: false;
-  layout: vertical;
-  background-color: transparent;
-  text-color: var(foreground);
+    enabled:                     true;
+    spacing:                     0px;
+    padding:                    16px 19px;
+    columns:                     1;
+    lines:                       7;
+    cycle:                       true;
+    dynamic:                     true;
+    scrollbar:                   false;
+    layout:                      vertical;
+    background-color:            transparent;
+    text-color:                  var(foreground);
 }
 
 element {
-  enabled: true;
-  spacing: 1em;
-  padding: 0.6em 1em;
-  margin: 0.15em 0em;
-  cursor: pointer;
-  background-color: transparent;
-  text-color: var(foreground);
-  border-radius: 0.6em;
+    enabled:                     true;
+    spacing:                     16px;
+    padding:                    8px 16px;
+    margin:                      2px 0px;
+    cursor:                      pointer;
+    background-color:            transparent;
+    text-color:                  var(foreground);
+    border-radius:               10px;
 }
 
 element selected.normal {
-  background-color: var(color4);
-  text-color: var(background);
+    background-color:            var(color4);
+    text-color:                  var(background);
 }
 
 element-icon {
-  size: 2em;
-  cursor: inherit;
-  background-color: transparent;
-  text-color: inherit;
+    size:                        29px;
+    cursor:                      inherit;
+    background-color:            transparent;
+    text-color:                  inherit;
 }
 
 element-text {
-  vertical-align: 0.5;
-  horizontal-align: 0.0;
-  cursor: inherit;
-  background-color: transparent;
-  text-color: inherit;
-}
-
-error-message {
-  text-color: var(foreground);
-  background-color: var(background);
-  children: [ "textbox" ];
+    vertical-align:              0.5;
+    horizontal-align:            0.0;
+    cursor:                      inherit;
+    background-color:            transparent;
+    text-color:                  inherit;
 }
 
 textbox {
-  text-color: inherit;
-  background-color: inherit;
-  vertical-align: 0.5;
-  horizontal-align: 0.5;
+    text-color:                  inherit;
+    background-color:            inherit;
+    vertical-align:              0.5;
+    horizontal-align:            0.5;
 }

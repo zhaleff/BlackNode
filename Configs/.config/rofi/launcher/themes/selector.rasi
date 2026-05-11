@@ -6,39 +6,37 @@ configuration {
 }
 
 window {
-    width:                       52em;
-    height:                      28em;
+    width:                       768px;
+    height:                      416px;
     transparency:                "real";
     fullscreen:                  false;
-    border:                      2px solid;
-    border-color:                var(color5);
-    border-radius:               1.2em;
-    background-color:            transparent;
-    spacing:                     0em;
-    padding:                     0em;
+    border-radius:               14px;
+    background-color:            var(background);
+    spacing:                     0px;
+    padding:                     0px;
     location:                    center;
     anchor:                      center;
 }
 
 mainbox {
-    spacing:                     0em;
-    padding:                     0em;
+    spacing:                     0px;
+    padding:                     0px;
     orientation:                 horizontal;
     children:                    [ "leftbox", "rightbox" ];
     background-color:            var(background);
-    border-radius:               1.2em;
+    border-radius:               14px;
 }
 
 leftbox {
     expand:                      false;
-    width:                       18em;
+    width:                       288px;
     orientation:                 vertical;
     children:                    [ "dummy", "textbox-title", "dummy2", "entry" ];
     background-color:            var(background);
     background-image:            url("~/.cache/wallust/current_wallpaper.png", height);
-    border-radius:               1.2em 0em 0em 1.2em;
-    padding:                     2em 1.6em;
-    spacing:                     0em;
+    border-radius:               14px;
+    padding:                    32px 26px;
+    spacing:                     0px;
 }
 
 dummy {
@@ -48,7 +46,7 @@ dummy {
 
 dummy2 {
     expand:                      false;
-    height:                      0.8em;
+    height:                      16px;
     background-color:            transparent;
 }
 
@@ -57,20 +55,20 @@ textbox-title {
     content:                     " themes";
     text-color:                  var(foreground);
     background-color:            transparent;
-    font:                        "JetBrainsMono Nerd Font Bold 22";
+    font:                        "JetBrainsMono Nerd Font Bold 20";
     horizontal-align:            0.0;
     vertical-align:              0.5;
 }
 
 entry {
     expand:                      false;
-    background-color:            var(background);
+    background-color:            var(color0);
     text-color:                  var(foreground);
     cursor:                      text;
     placeholder:                 "search...";
-    placeholder-color:           var(color5);
-    border-radius:               0.6em;
-    padding:                     0.6em 1em;
+    placeholder-color:          var(color7);
+    border-radius:               14px;
+    padding:                    10px 16px;
     font:                        "JetBrainsMono Nerd Font 9";
 }
 
@@ -78,17 +76,17 @@ rightbox {
     orientation:                 vertical;
     children:                    [ "listview" ];
     background-color:            transparent;
-    border-radius:               0em 1.2em 1.2em 0em;
-    padding:                     0em;
-    spacing:                     0em;
+    border-radius:               14px;
+    padding:                     0px;
+    spacing:                     0px;
 }
 
 listview {
     enabled:                     true;
     columns:                     1;
-    lines:                       7;
-    spacing:                     0em;
-    padding:                     1em 0.8em;
+    lines:                       6;
+    spacing:                     0px;
+    padding:                    16px 13px;
     cycle:                       true;
     dynamic:                     true;
     scrollbar:                   false;
@@ -98,13 +96,13 @@ listview {
 }
 
 element {
-    spacing:                     0em;
-    padding:                     0.7em 1.2em;
-    margin:                      0.15em 0em;
+    spacing:                     0px;
+    padding:                    10px 19px;
+    margin:                      2px 0px;
     cursor:                      pointer;
     background-color:            transparent;
     text-color:                  var(foreground);
-    border-radius:               0.7em;
+    border-radius:               10px;
     orientation:                 horizontal;
 }
 
@@ -114,7 +112,7 @@ element selected.normal {
 }
 
 element-icon {
-    size:                        0em;
+    size:                        0px;
 }
 
 element-text {
@@ -122,12 +120,6 @@ element-text {
     horizontal-align:            0.0;
     background-color:            transparent;
     text-color:                  inherit;
-}
-
-error-message {
-    text-color:                  var(foreground);
-    background-color:            var(background);
-    children:                    [ "textbox" ];
 }
 
 textbox {

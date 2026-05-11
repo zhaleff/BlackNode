@@ -23,7 +23,7 @@
     progress_bar_corners = all
     progress_bar_frame_width = 2
     frame_width = 2
-    frame_color = "{{color5}}"
+    frame_color = "{{background}}"
     separator_height = 2
     separator_color = "{{color2}}"
     corner_radius = 14
@@ -53,7 +53,7 @@
     mouse_right_click = "close_current"
     browser = "firefox"
 
-    progress_bar_color = "{{color5}}"
+    progress_bar_color = "{{color1}}"
     progress_bar_frame_color = "{{color0}}"
 
 [experimental]
@@ -62,13 +62,13 @@
 [urgency_low]
     background = "{{background}}"
     foreground = "{{foreground}}"
-    highlight = "{{color4}}"
+    highlight = "{{color1}}"
     timeout = 5
 
 [urgency_normal]
     background = "{{background}}"
     foreground = "{{foreground}}"
-    highlight = "{{color5}}"
+    highlight = "{{color1}}"
     timeout = 8
 
 [urgency_critical]

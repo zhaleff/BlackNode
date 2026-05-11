@@ -18,8 +18,8 @@ configuration {
 }
 
 window {
-  height: 30em;
-  width: 58em;
+  height: 50%;
+  width: 50%;
 
   transparency: "real";
   fullscreen: false;
@@ -27,8 +27,8 @@ window {
 
   cursor: "default";
 
-  spacing: 0em;
-  padding: 0em;
+  spacing: 0px;
+  padding: 0px;
 
   border-color: var(color5);
   background-color: transparent;
@@ -37,8 +37,8 @@ window {
 mainbox {
   enabled: true;
 
-  spacing: 0em;
-  padding: 0.8em;
+  spacing: 0px;
+  padding: 12px;
 
   orientation: horizontal;
   children: [ "listbox", "inputbar" ];
@@ -49,10 +49,10 @@ mainbox {
 inputbar {
   enabled: true;
 
-  width: 28.5em;
+  width: 456px;
 
-  spacing: 0em;
-  padding: 0em;
+  spacing: 0px;
+  padding: 0px;
 
   children: [ "entry" ];
   expand: false;
@@ -60,7 +60,7 @@ inputbar {
   background-color: var(background);
   background-image: url("~/.cache/wallust/current_wallpaper.png", height);
 
-  border-radius: 0em 0.75em 0.75em 0em;
+  border-radius: 14px;
 }
 
 entry {
@@ -68,20 +68,20 @@ entry {
 }
 
 listbox {
-  spacing: 0em;
-  padding: 0em;
+  spacing: 0px;
+  padding: 0px;
 
   children: [ "dummy", "listview", "dummy" ];
 
   background-color: var(background);
-  border-radius: 10px 0em 0em 10px;
+  border-radius: 14px;
 }
 
 listview {
   enabled: true;
 
-  spacing: 0em;
-  padding: 1em 2em 1em 2em;
+  spacing: 0px;
+  padding: 16px 32px 16px 32px;
 
   columns: 1;
   lines: 8;
@@ -112,8 +112,8 @@ dummy {
 element {
   enabled: true;
 
-  spacing: 1em;
-  padding: 0.5em 0.5em 0.5em 1.5em;
+  spacing: 16px;
+  padding: 8px 8px 8px 24px;
 
   cursor: pointer;
 
@@ -124,11 +124,11 @@ element {
 element selected.normal {
   background-color: var(color1);
   text-color: var(background);
-  border-radius: 0.75em;
+  border-radius: 14px;
 }
 
 element-icon {
-  size: 2.2em;
+  size: 35px;
 
   cursor: inherit;
 

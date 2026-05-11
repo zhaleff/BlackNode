@@ -1,0 +1,110 @@
+/* floating-card */
+@import "~/.cache/wallust/rofi.rasi"
+
+configuration {
+    modi:                        "drun,filebrowser,window,run";
+    show-icons:                  true;
+    display-drun:                " ";
+    display-run:                 " ";
+    display-filebrowser:         " ";
+    display-window:              " ";
+    drun-display-format:         "{name}";
+    font:                        "JetBrainsMono Nerd Font 10";
+    icon-theme:                  "Tela-circle-dracula";
+}
+
+window {
+    width:                       512px;
+    height:                      352px;
+    transparency:                "real";
+    fullscreen:                  false;
+    border:                      1px;
+    border-radius:               14px;
+    background-color:            var(background);
+    spacing:                     0px;
+    padding:                     0px;
+    location:                    center;
+    anchor:                      center;
+}
+
+mainbox {
+    spacing:                     0px;
+    padding:                     0px;
+    orientation:                 vertical;
+    children:                    [ "inputbar", "listview" ];
+    background-color:            transparent;
+    border-radius:               14px;
+}
+
+inputbar {
+    spacing:                     0px;
+    padding:                     16px;
+    children:                    [ "entry" ];
+    background-color:            var(color4);
+    border-radius:               14px;
+}
+
+entry {
+    background-color:            transparent;
+    text-color:                  var(background);
+    cursor:                      text;
+    vertical-align:              0.5;
+    placeholder:                 "Search...";
+    placeholder-color:          rgba(0,0,0,0.5);
+    padding:                     6px 8px;
+}
+
+listview {
+    enabled:                     true;
+    columns:                     1;
+    lines:                       5;
+    spacing:                     0px;
+    padding:                     8px;
+    cycle:                       true;
+    dynamic:                     true;
+    scrollbar:                   false;
+    layout:                      vertical;
+    background-color:            var(background);
+    border-radius:               14px;
+    text-color:                  var(foreground);
+}
+
+element {
+    spacing:                     0px;
+    padding:                    8px 16px;
+    margin:                      2px 3px;
+    cursor:                      pointer;
+    background-color:            transparent;
+    text-color:                  var(foreground);
+    border-radius:               10px;
+    orientation:                 horizontal;
+}
+
+element selected.normal {
+    background-color:            var(color4);
+    text-color:                  var(background);
+}
+
+element-icon {
+    size:                        32px;
+    cursor:                      inherit;
+    background-color:            transparent;
+    text-color:                  inherit;
+    vertical-align:              0.5;
+}
+
+element-text {
+    vertical-align:              0.5;
+    horizontal-align:            0.0;
+    cursor:                      inherit;
+    background-color:            transparent;
+    text-color:                  inherit;
+    margin:                      0px 0px 0px 13px;
+}
+
+textbox {
+    text-color:                  inherit;
+    background-color:            inherit;
+    vertical-align:              0.5;
+    horizontal-align:            0.5;
+}

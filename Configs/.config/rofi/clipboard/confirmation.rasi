@@ -5,16 +5,13 @@ configuration {
 
 /*****----- Global Properties -----*****/
 * {
-    font:                        "JetBrains Mono Nerd Font 10";
+    font:                        "JetBrains Mono Nerd Font 12";
     background:                  #11111b;
+    foreground:                  #cdd6f4;
     selected:                    #cba6f7;
-    active:                      #716251;
-    urgent:                      #934A1C;
+    active:                      #f5e0dc;
+    urgent:                      #f38ba8;
 }
-
-/*
-USE_BUTTONS=YES
-*/
 
 /*****----- Main Window -----*****/
 window {
@@ -22,13 +19,12 @@ window {
     location:                    center;
     anchor:                      center;
     fullscreen:                  false;
-    width:                       350px;
+    width:                       280px;
     x-offset:                    0px;
     y-offset:                    0px;
-
     padding:                     0px;
     border:                      0px solid;
-    border-radius:               8px;
+    border-radius:               16px;
     border-color:                @selected;
     cursor:                      "default";
     background-color:            @background;
@@ -47,6 +43,16 @@ mainbox {
     children:                    [ "message", "listview" ];
 }
 
+/*****----- Message -----*****/
+message {
+    enabled:                     true;
+    margin:                      12px 20px;
+    padding:                     10px 16px;
+    border-radius:               12px 12px 0px 0px;
+    background-color:            @selected;
+    text-color:                  @background;
+}
+
 /*****----- Listview -----*****/
 listview {
     enabled:                     true;
@@ -58,10 +64,9 @@ listview {
     layout:                      vertical;
     reverse:                     false;
     fixed-height:                true;
-    fixed-columns:               true;
-
-    spacing:                     16px;
-    padding:                     32px;
+    fixed-columns:              true;
+    spacing:                     12px;
+    padding:                     16px;
     margin:                      0px;
     background-color:            transparent;
     cursor:                      "default";
@@ -70,35 +75,23 @@ listview {
 /*****----- Elements -----*****/
 element {
     enabled:                     true;
-    padding:                     17px;
-    border-radius:               16px;
-    background-color:            #585b70;
+    padding:                     12px 16px;
+    border-radius:               12px;
+    background-color:            #313244;
     text-color:                  #eff1f5;
     cursor:                      pointer;
 }
+
 element-text {
-    font:                        "Font Awesome 5 Free Bold 24";
+    font:                        "JetBrains Mono Nerd Font 12";
     background-color:            transparent;
     text-color:                  inherit;
     cursor:                      inherit;
     vertical-align:              0.5;
     horizontal-align:            0.5;
 }
-element selected.normal {
-    background-color:            #8839ef;
-}
 
-/*****----- Message -----*****/
-message {
-    enabled:                     true;
-    margin:      		 0px 25px;
-    padding:                     10px 20px;
-    border-radius: 		 0% 0% 100% 100%;
-    background-color: 		 #f5c2e7;
-}
-textbox {
-    background-color:            transparent;
-    text-color:                  #313244;
-    vertical-align:              0.5;
-    horizontal-align:            0.5;
+element selected.normal {
+    background-color:            @selected;
+    text-color:                  @background;
 }

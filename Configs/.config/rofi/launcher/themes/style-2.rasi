@@ -14,31 +14,31 @@ configuration {
 }
 
 window {
-    width:                       40em;
-    height:                      24em;
+    width:                       576px;
+    height:                      384px;
     transparency:                "real";
     fullscreen:                  false;
     border:                      0px;
-    border-radius:               1.5em;
-    background-color:            transparent;
-    spacing:                     0em;
-    padding:                     0em;
+    border-radius:               14px;
+    background-color:            var(background);
+    spacing:                     0px;
+    padding:                     0px;
     location:                    center;
     anchor:                      center;
 }
 
 mainbox {
-    spacing:                     0.6em;
-    padding:                     1.2em;
+    spacing:                     0px;
+    padding:                     0px;
     orientation:                 vertical;
     children:                    [ "inputbar", "listview", "mode-switcher" ];
-    background-color:            var(background);
-    border-radius:               1.5em;
+    background-color:            transparent;
+    border-radius:               14px;
 }
 
 inputbar {
-    spacing:                     0.5em;
-    padding:                     0em 0em;
+    spacing:                     8px;
+    padding:                     19px;
     orientation:                 horizontal;
     children:                    [ "entry" ];
     background-color:            transparent;
@@ -49,18 +49,18 @@ entry {
     text-color:                  var(foreground);
     cursor:                      text;
     vertical-align:              0.5;
-    placeholder:                 "Search applications...";
+    placeholder:                 "Search...";
     placeholder-color:           var(color7);
-    padding:                     0.5em 1.2em;
-    border-radius:               2em;
+    padding:                     10px 19px;
+    border-radius:               14px;
 }
 
 listview {
     enabled:                     true;
     columns:                     1;
-    lines:                       7;
-    spacing:                     0.2em;
-    padding:                     0em 0em;
+    lines:                       6;
+    spacing:                     5px;
+    padding:                     8px 16px;
     cycle:                       true;
     dynamic:                     true;
     scrollbar:                   false;
@@ -70,23 +70,23 @@ listview {
 }
 
 element {
-    spacing:                     0em;
-    padding:                     0.5em 1.2em;
-    margin:                      0.08em 0.2em;
+    spacing:                     0px;
+    padding:                     10px 19px;
+    margin:                      2px 3px;
     cursor:                      pointer;
     background-color:            transparent;
     text-color:                  var(foreground);
-    border-radius:               1.5em;
+    border-radius:               10px;
     orientation:                 horizontal;
 }
 
 element selected.normal {
-    background-color:            var(color1);
+    background-color:            var(color4);
     text-color:                  var(background);
 }
 
 element-icon {
-    size:                        2em;
+    size:                        32px;
     cursor:                      inherit;
     background-color:            transparent;
     text-color:                  inherit;
@@ -99,23 +99,23 @@ element-text {
     cursor:                      inherit;
     background-color:            transparent;
     text-color:                  inherit;
-    margin:                      0em 0em 0em 0.6em;
+    margin:                      0px 0px 0px 13px;
 }
 
 mode-switcher {
-    spacing:                     0.8em;
-    padding:                     0.4em 0em;
+    spacing:                     10px;
+    padding:                     10px 16px;
     background-color:            transparent;
 }
 
 button {
-    padding:                     0.5em 1em;
+    padding:                     6px 16px;
     background-color:            var(color0);
     text-color:                  var(foreground);
-    border-radius:               2em;
+    border-radius:               14px;
     cursor:                      pointer;
     horizontal-align:            0.5;
-    font:                        "JetBrainsMono Nerd Font 12";
+    font:                        "JetBrainsMono Nerd Font 10";
     expand:                      true;
 }
 

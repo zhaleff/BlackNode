@@ -1,5 +1,5 @@
 * {
-    background: {{background}};
+    background: {{background}}CC;
     foreground: {{foreground}};
     color0: {{color0}};
     color1: {{color1}};

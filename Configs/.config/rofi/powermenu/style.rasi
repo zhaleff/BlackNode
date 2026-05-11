@@ -3,110 +3,87 @@ configuration {
     show-icons: false;
 }
 
-/*****----- Global Properties -----*****/
-* {
-    background:   #0a090e;
-    background-alt: #1b1826;
-    foreground:   #d0cfda;
-    selected:     #9a99b1;
-    active:       #a599b0;
-    urgent:       #9a99b1;
-}
+/*****----- Import Wallust -----*****/
+@import "~/.cache/wallust/rofi.rasi"
 
 /*****----- Main Window -----*****/
 window {
-    transparency: "real";
-    location: center;
-    anchor: center;
-    fullscreen: false;
-    width: 300px;
-    x-offset: 0px;
-    y-offset: 0px;
-
-    padding: 4px;
-    border-radius: 4px;
-    background-color: @background;
+    transparency:  "real";
+    location:      center;
+    anchor:       center;
+    fullscreen:   false;
+    width:        280px;
+    x-offset:    0px;
+    y-offset:    0px;
+    padding:      0px;
+    border:      0px;
+    border-radius: 16px;
+    background-color: var(background);
 }
 
 /*****----- Main Box -----*****/
 mainbox {
-    enabled: true;
-    spacing: 2px;
-    margin: 4px;
-    padding: 2px;
-    background-color: @background;
-    children: [ "listview" ];
-}
-
-
-
-/*****----- Inputbar -----*****/
-inputbar {
-    enabled: true;
-    background-color: @background;
-    text-color: @foreground;
-    children: ["dummy", "prompt"];
-}
-
-prompt {
-    enabled: true;
-    padding: 4px;
-    border-radius: 4px;
-    background-color: #a6e3a1;
-    text-color: #313244;
+    enabled:          true;
+    spacing:          0px;
+    margin:           0px;
+    padding:         12px;
+    background-color: transparent;
+    children:        [ "listview" ];
 }
 
 /*****----- Listview -----*****/
 listview {
-    enabled: true;
-    columns: 1;
-    lines: 6;
-    cycle: true;
-    dynamic: true;
-    scrollbar: false;
-    layout: vertical;
-    reverse: false;
-    fixed-height: true;
-    fixed-columns: true;
-
-    spacing: 4px;
-    padding: 4px;
-    background-color: @background;
+    enabled:          true;
+    columns:          1;
+    lines:           5;
+    cycle:           true;
+    dynamic:         true;
+    scrollbar:       false;
+    layout:          vertical;
+    reverse:         false;
+    fixed-height:    true;
+    fixed-columns:  true;
+    spacing:        8px;
+    padding:        0px;
+    background-color: transparent;
+    text-color:      var(foreground);
 }
 
-/*****----- Elements (Text Instead of Icons) -----*****/
+/*****----- Elements -----*****/
 element {
-    enabled: true;
-    padding: 10px;
-    border-radius: 2px;
-    background-color: @background;
-    text-color: #cdd6f4;
-    cursor: pointer;
+    enabled:           true;
+    padding:          14px;
+    border-radius:     14px;
+    background-color: transparent;
+    text-color:      var(foreground);
+    cursor:          pointer;
 }
 
 element selected.normal {
-    background-color: #cba6f7;
-    text-color: #1e1e2e;
+    background-color: var(color5);
+    text-color:       var(background);
 }
 
 element-text {
-    font: "Iosevka Nerd Font 10";
+    font: "JetBrainsMono Nerd Font 12";
     background-color: transparent;
-    text-color: inherit;
-    cursor: inherit;
+    text-color:       inherit;
+    cursor:          inherit;
+    horizontal-align: 0.5;
 }
 
 /*****----- Message Box -----*****/
 message {
-    enabled: true;
-    margin: 2px;
-    padding: 4px;
-    border-radius: 2px;
-    background-color: #f5e0dc;
-    text-color: #1e1e2e;
+    enabled:          true;
+    margin:          4px;
+    padding:         8px;
+    border-radius:    14px;
+    background-color: var(color5);
+    text-color:      var(background);
 }
 
 textbox {
     background-color: transparent;
-    text-color: @foreground;
+    text-color:      var(foreground);
+    horizontal-align: 0.5;
 }

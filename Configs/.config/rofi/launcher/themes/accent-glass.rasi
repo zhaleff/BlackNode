@@ -1,0 +1,150 @@
+/* accent-glass */
+@import "~/.cache/wallust/rofi.rasi"
+
+configuration {
+    modi:                        "drun,filebrowser,window,run";
+    show-icons:                  true;
+    display-drun:                " ";
+    display-run:                 " ";
+    display-filebrowser:         " ";
+    display-window:              " ";
+    drun-display-format:         "{name}";
+    font:                        "JetBrainsMono Nerd Font 10";
+    icon-theme:                  "Tela-circle-dracula";
+}
+
+window {
+    width:                       720px;
+    height:                      500px;
+    transparency:                "real";
+    fullscreen:                  false;
+    border:                      0px;
+    border-radius:               16px;
+    background-color:            var(background);
+    location:                    center;
+    anchor:                      center;
+}
+
+mainbox {
+    spacing:                     0px;
+    padding:                     0px;
+    orientation:                 horizontal;
+    children:                    [ "sidebar", "main" ];
+    background-color:            transparent;
+}
+
+sidebar {
+    expand:                      false;
+    width:                       180px;
+    background-color:            var(color4);
+    border-radius:               16px 0px 0px 16px;
+    orientation:                vertical;
+    children:                    [ "title-area", "mode-switcher" ];
+}
+
+title-area {
+    background-color:            transparent;
+    text-color:                  var(background);
+    font:                        "JetBrainsMono Nerd Font Bold 16";
+    vertical-align:              0.5;
+    horizontal-align:            0.5;
+    padding:                     20px;
+}
+
+mode-switcher {
+    orientation:                vertical;
+    spacing:                     8px;
+    padding:                     16px;
+}
+
+button {
+    padding:                     12px 16px;
+    border-radius:               12px;
+    background-color:            transparent;
+    text-color:                  var(foreground);
+}
+
+button selected {
+    background-color:            var(color5);
+    text-color:                  var(background);
+}
+
+main {
+    spacing:                     0px;
+    padding:                     20px;
+    orientation:                 vertical;
+    children:                    [ "inputbar", "listview" ];
+    background-color:            var(background);
+    border-radius:               0px 16px 16px 0px;
+}
+
+inputbar {
+    spacing:                     12px;
+    padding:                     0px 0px 16px 0px;
+    children:                    [ "entry" ];
+    background-color:            transparent;
+}
+
+entry {
+    background-color:            var(color0);
+    text-color:                  var(foreground);
+    cursor:                      text;
+    vertical-align:              0.5;
+    placeholder:                 "Search...";
+    placeholder-color:           var(color7);
+    padding:                     12px 16px;
+    border-radius:               12px;
+}
+
+listview {
+    enabled:                     true;
+    columns:                     1;
+    lines:                       6;
+    spacing:                     8px;
+    padding:                     0px;
+    cycle:                       true;
+    dynamic:                     true;
+    scrollbar:                   false;
+    layout:                      vertical;
+    background-color:            transparent;
+    text-color:                  var(foreground);
+}
+
+element {
+    spacing:                     0px;
+    padding:                     12px 16px;
+    cursor:                      pointer;
+    background-color:            transparent;
+    text-color:                  var(foreground);
+    border-radius:               12px;
+    orientation:                 horizontal;
+}
+
+element selected.normal {
+    background-color:            var(color4);
+    text-color:                  var(background);
+}
+
+element-icon {
+    size:                        32px;
+    cursor:                      inherit;
+    background-color:            transparent;
+    text-color:                  inherit;
+    vertical-align:              0.5;
+}
+
+element-text {
+    vertical-align:              0.5;
+    horizontal-align:            0.0;
+    cursor:                      inherit;
+    background-color:            transparent;
+    text-color:                  inherit;
+    margin:                      0px 0px 0px 12px;
+}
+
+textbox {
+    text-color:                  inherit;
+    background-color:            inherit;
+    vertical-align:              0.5;
+    horizontal-align:            0.5;
+}
