@@ -6,7 +6,6 @@ if has_cmp then
   capabilities = vim.tbl_deep_extend("force", capabilities, cmp_lsp.default_capabilities())
 end
 
--- Extras comunes que todo LSP moderno debería soportar
 capabilities.textDocument.foldingRange = { dynamicRegistration = false, lineFoldingOnly = true }
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 capabilities.textDocument.completion.completionItem.resolveSupport = {

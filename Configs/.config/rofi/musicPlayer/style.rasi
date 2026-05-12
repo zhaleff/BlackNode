@@ -1,158 +1,87 @@
-/*****----- Configuration -----*****/
 configuration {
-    show-icons:          true;
-    display-drun:        "";
-    display-run:         "";
-    display-filebrowser: "";
-    display-window:      "";
-    drun-display-format: "{name}";
-    window-format:      "{w} {c}";
+    font:                           "Comfortaa 12";
+    disable-history:                false;
+    fullscreen:                     false;
+    hide-scrollbar:                 true;
+    sidebar-mode:                   false;
 }
 
-/*****----- Global Properties -----*****/
+@import "~/.cache/wallust/rofi.rasi"
+
 * {
-    background:     #0a090e;
-    background-alt: #1b1826;
-    foreground:    #d0cfda;
-    selected:      #f5c2e7;
-    active:       #a599b0;
-    urgent:       #f38ba8;
+    background-color:               var(background);
+    text-color:                     var(foreground);
 }
 
-/*****----- Main Window -----*****/
 window {
-    transparency:       "real";
-    location:           center;
-    anchor:            center;
-    fullscreen:        false;
-    height:            160px;
-    width:            650px;
-    x-offset:          0px;
-    y-offset:          0px;
-    enabled:           true;
-    border-radius:      16px;
-    cursor:            "default";
-    background-color:  @background;
+    transparency:                   "real";
+    border-radius:                  12px;
+    location:                       east;
+    anchor:                         east;
+    width:                          100px;
+    x-offset:                       -15px;
+    y-offset:                       0px;
 }
 
-/*****----- Main Box -----*****/
-mainbox {
-    enabled:           true;
-    spacing:           0px;
-    background-color:  transparent;
-    orientation:      vertical;
-    children:         [ "message", "listbox" ];
-}
-
-listbox {
-    spacing:           0px;
-    padding:          0px;
-    background-color: transparent;
-    orientation:      horizontal;
-    children:         [ "listview" ];
-}
-
-/*****----- Mode Switcher -----*****/
-mode-switcher {
-    enabled:          true;
-    spacing:         8px;
-    background-color: transparent;
-    text-color:      @foreground;
-}
-
-button {
-    padding:          12px 18px;
-    border-radius:    12px;
-    background-color: @background;
-    text-color:       inherit;
-    cursor:          pointer;
-}
-
-button selected {
-    background-color: @selected;
-    text-color:      @background;
-}
-
-message {
-    padding:        8px 16px;
-    enabled:        true;
-    border:        0;
-    background-color: #313244;
-    text-color:    @selected;
-    margin:        8px 0;
-}
-
-/*****----- Listview -----*****/
 listview {
-    padding:      8px;
-    enabled:      true;
-    columns:      5;
-    lines:        1;
-    cycle:        true;
-    dynamic:     true;
-    scrollbar:   false;
-    layout:       vertical;
-    reverse:     false;
-    fixed-height: true;
-    fixed-columns: true;
-    spacing:     8px;
-    margin:       0px 12px 12px 12px;
-    border-radius: 12px;
-    background-color: #1e1e2e;
-    text-color:  @foreground;
-    cursor:     "default";
+    columns:                        1;
+    lines:                          3;
+    spacing:                        0px;
+    cycle:                          true;
+    dynamic:                        true;
+    layout:                         vertical;
 }
 
-/*****----- Elements -----*****/
+mainbox {
+    background-color:               transparent;
+    children:                       [ listview ];
+    spacing:                        10px;
+    margin:                         8px;
+}
+
 element {
-    enabled:           true;
-    margin:           16px 0px;
-    spacing:          0px;
-    padding:          8px;
-    border-radius:    12px;
-    background-color: transparent;
-    text-color:      @foreground;
-    cursor:          pointer;
-}
-
-element selected.normal {
-    background-color: @selected;
-    text-color:       @background;
-}
-
-element-icon {
-    background-color: transparent;
-    text-color:       inherit;
-    size:             0px;
-    cursor:           inherit;
+    background-color:               transparent;
+    text-color:                     var(foreground);
+    orientation:                    vertical;
+    border-radius:                  8px;
 }
 
 element-text {
-    padding:           0px 12px;
-    background-color:  transparent;
-    text-color:       inherit;
-    cursor:           inherit;
-    vertical-align:    0.5;
-    horizontal-align:  0;
+    font:                           "feather 20";
+    expand:                         true;
+    horizontal-align:               0.5;
+    vertical-align:                 0.5;
+    padding:                        12px 0px 25px 7px;
+    margin:                         4px 0px 4px 0px;
 }
 
-/*****----- Message -----*****/
-message {
-    background-color: transparent;
+element normal.urgent,
+element alternate.urgent {
+    background-color:               transparent;
+    text-color:                     var(background);
+    border-radius:                  12px;
 }
 
-textbox {
-    padding:           0px;
-    border-radius:     0px;
-    background-color: @background;
-    text-color:      @foreground;
-    vertical-align:   0.5;
-    horizontal-align: 0.5;
+element normal.active,
+element alternate.active {
+    background-color:               transparent;
+    text-color:                     var(background);
 }
 
-error-message {
-    padding:           0px;
-    border-radius:     0px;
-    background-color: @background;
-    text-color:      @foreground;
+element selected {
+    background-color:               transparent;
+    text-color:                     var(color1);
+    border-radius:                  8px;
+    border:                         1px;
+    border-color:                   var(color1);
+}
+
+element selected.urgent {
+    background-color:               transparent;
+    text-color:                     var(background);
+}
+
+element selected.active {
+    background-color:               transparent;
+    color:                          var(background);
 }

@@ -1,86 +1,87 @@
-/*****----- Configuration -----*****/
 configuration {
-    show-icons:                 false;
+    font:                           "Comfortaa 12";
+    disable-history:                false;
+    fullscreen:                     false;
+    hide-scrollbar:                 true;
+    sidebar-mode:                   false;
 }
 
-/*****----- Global Properties -----*****/
+@import "~/.cache/wallust/rofi.rasi"
+
 * {
-    font:        "JetBrains Mono Nerd Font 13";
-    background: #11111b;
-    foreground: #cdd6f4;
-    selected:   #cba6f7;
-    active:     #f5e0dc;
-    urgent:     #f38ba8;
+    background-color:               var(background);
+    text-color:                     var(foreground);
 }
 
-/*****----- Main Window -----*****/
 window {
-    transparency:        "real";
-    location:           center;
-    anchor:             center;
-    fullscreen:         false;
-    width:              240px;
-    x-offset:           0px;
-    y-offset:           0px;
-    padding:            0px;
-    border:             0px solid;
-    border-radius:      16px;
-    border-color:       @selected;
-    cursor:             "default";
-    background-color:   @background;
+    transparency:                   "real";
+    border-radius:                  12px;
+    location:                       east;
+    anchor:                         east;
+    width:                          100px;
+    x-offset:                       -15px;
+    y-offset:                       0px;
 }
 
-/*****----- Main Box -----*****/
-mainbox {
-    enabled:           true;
-    spacing:          0px;
-    margin:           0px;
-    padding:          0px;
-    border:           0px solid;
-    border-radius:    0px;
-    border-color:     @selected;
-    background-color: transparent;
-    children:         [ "listview" ];
-}
-
-/*****----- Listview -----*****/
 listview {
-    enabled:           true;
-    columns:          1;
-    lines:           2;
-    cycle:           true;
-    dynamic:         true;
-    scrollbar:       false;
-    layout:          vertical;
-    reverse:         false;
-    fixed-height:    true;
-    fixed-columns:  true;
-    spacing:         12px;
-    padding:         16px;
-    margin:          0px;
-    background-color: transparent;
-    cursor:          "default";
+    columns:                        1;
+    lines:                          2;
+    spacing:                        0px;
+    cycle:                          true;
+    dynamic:                        true;
+    layout:                         vertical;
 }
 
-/*****----- Elements -----*****/
+mainbox {
+    background-color:               transparent;
+    children:                       [ listview ];
+    spacing:                        10px;
+    margin:                         8px;
+}
+
 element {
-    enabled:           true;
-    padding:         12px;
-    border-radius:    12px;
-    background-color: #313244;
-    cursor:         pointer;
+    background-color:               transparent;
+    text-color:                     var(foreground);
+    orientation:                    vertical;
+    border-radius:                  8px;
 }
 
 element-text {
-    font: "JetBrains Mono Nerd Font 13";
-    background-color: transparent;
-    text-color:   inherit;
-    cursor:     inherit;
-    vertical-align:  0.5;
-    horizontal-align: 0.5;
+    font:                           "feather 20";
+    expand:                         true;
+    horizontal-align:               0.5;
+    vertical-align:                 0.5;
+    padding:                        12px 0px 25px 7px;
+    margin:                         4px 0px 4px 0px;
 }
 
-element selected.normal {
-    background-color: @selected;
-    text-color:     @background;
+element normal.urgent,
+element alternate.urgent {
+    background-color:               transparent;
+    text-color:                     var(background);
+    border-radius:                  12px;
+}
+
+element normal.active,
+element alternate.active {
+    background-color:               transparent;
+    text-color:                     var(background);
+}
+
+element selected {
+    background-color:               transparent;
+    text-color:                     var(color1);
+    border-radius:                  8px;
+    border:                         1px;
+    border-color:                   var(color1);
+}
+
+element selected.urgent {
+    background-color:               transparent;
+    text-color:                     var(background);
+}
+
+element selected.active {
+    background-color:               transparent;
+    color:                          var(background);
 }

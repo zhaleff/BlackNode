@@ -8,32 +8,16 @@ return {
     },
     event = { "BufReadPre", "BufNewFile" },
     config = function()
-      -- ── Capabilities ────────────────────────────────────────────────────
-      local capabilities = vim.lsp.protocol.make_client_capabilities()
-
-      local has_cmp, cmp_lsp = pcall(require, "cmp_nvim_lsp")
-      if has_cmp then
-        capabilities = vim.tbl_deep_extend("force", capabilities, cmp_lsp.default_capabilities())
-      end
-
-      -- Folding (para plugins como nvim-ufo si los usas después)
-      capabilities.textDocument.foldingRange = {
-        dynamicRegistration = false,
-        lineFoldingOnly = true,
-      }
-
-      -- ── Registrar servidores ─────────────────────────────────────────────
-      local registry = require("core.lsp.registry")
+      local capabilities = require("core.lsp.capabilities")
+      local registry     = require("core.lsp.registry")
 
       for name, config in pairs(registry) do
         vim.lsp.config[name] = vim.tbl_deep_extend("force", config, {
           capabilities = capabilities,
         })
       end
-
       vim.lsp.enable(vim.tbl_keys(registry))
 
-      -- ── Keymaps (solo cuando hay LSP activo en el buffer) ────────────────
       vim.api.nvim_create_autocmd("LspAttach", {
         group = vim.api.nvim_create_augroup("UserLspKeymaps", { clear = true }),
         callback = function(ev)
@@ -41,38 +25,44 @@ return {
             vim.keymap.set(mode, keys, func, { buffer = ev.buf, desc = "LSP: " .. desc })
           end
 
-          -- Navegación
-          map("n", "gd", vim.lsp.buf.definition, "Ir a definición")
-          map("n", "gD", vim.lsp.buf.declaration, "Ir a declaración")
-          map("n", "gi", vim.lsp.buf.implementation, "Ir a implementación")
-          map("n", "gt", vim.lsp.buf.type_definition, "Ir a tipo")
-          map("n", "gr", vim.lsp.buf.references, "Referencias")
-          map("n", "K", vim.lsp.buf.hover, "Hover docs")
-          map("n", "<C-k>", vim.lsp.buf.signature_help, "Signature help")
-
-          -- Acciones
-          map("n", "<leader>ca", vim.lsp.buf.code_action, "Code action")
-          map("v", "<leader>ca", vim.lsp.buf.code_action, "Code action (visual)")
-          map("n", "<leader>rn", vim.lsp.buf.rename, "Rename")
-          map("n", "<leader>f", function()
-            vim.lsp.buf.format({ async = true })
-          end, "Formatear")
-
-          -- Diagnósticos
-          map("n", "<leader>e", vim.diagnostic.open_float, "Ver diagnóstico")
-          map("n", "[d", vim.diagnostic.goto_prev, "Diagnóstico anterior")
-          map("n", "]d", vim.diagnostic.goto_next, "Diagnóstico siguiente")
-          map("n", "<leader>q", vim.diagnostic.setloclist, "Lista de diagnósticos")
-
-          -- Inlay hints (toggle)
+          map("n", "gd",         vim.lsp.buf.definition,      "Ir a definición")
+          map("n", "gD",         vim.lsp.buf.declaration,     "Ir a declaración")
+          map("n", "gi",         vim.lsp.buf.implementation,  "Ir a implementación")
+          map("n", "gt",         vim.lsp.buf.type_definition, "Ir a tipo")
+          map("n", "gr",         vim.lsp.buf.references,      "Referencias")
+          map("n", "K",          function()
+            local winid = require("ufo").peekFoldedLinesUnderCursor()
+            if not winid then vim.lsp.buf.hover() end
+          end, "Hover / Peek fold")
+          map("n", "<C-k>",      vim.lsp.buf.signature_help,  "Signature help")
+          map("n", "<leader>ca", vim.lsp.buf.code_action,     "Code action")
+          map("v", "<leader>ca", vim.lsp.buf.code_action,     "Code action (visual)")
+          map("n", "<leader>rn", vim.lsp.buf.rename,          "Rename")
+          map("n", "<leader>f",  function() vim.lsp.buf.format({ async = true }) end, "Formatear")
+          map("n", "<leader>e",  vim.diagnostic.open_float,   "Ver diagnóstico")
+          map("n", "[d",         vim.diagnostic.goto_prev,    "Diagnóstico anterior")
+          map("n", "]d",         vim.diagnostic.goto_next,    "Diagnóstico siguiente")
+          map("n", "<leader>q",  vim.diagnostic.setloclist,   "Lista de diagnósticos")
           map("n", "<leader>ih", function()
-            vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = ev.buf }), { bufnr = ev.buf })
+            local enabled = vim.lsp.inlay_hint.is_enabled({ bufnr = ev.buf })
+            vim.lsp.inlay_hint.enable(not enabled, { bufnr = ev.buf })
           end, "Toggle inlay hints")
+
+          local client = vim.lsp.get_client_by_id(ev.data.client_id)
+          if client and client.supports_method("textDocument/documentHighlight") then
+            local group = vim.api.nvim_create_augroup("UserLspHighlight_" .. ev.buf, { clear = true })
+            vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+              buffer = ev.buf, group = group, callback = vim.lsp.buf.document_highlight,
+            })
+            vim.api.nvim_create_autocmd("CursorMoved", {
+              buffer = ev.buf, group = group, callback = vim.lsp.buf.clear_references,
+            })
+          end
         end,
       })
 
       vim.diagnostic.config({
-        virtual_text     = false, -- tiny-inline-diagnostic lo maneja mejor
+        virtual_text     = false,
         signs            = {
           text = {
             [vim.diagnostic.severity.ERROR] = "",
@@ -83,9 +73,9 @@ return {
         },
         underline        = true,
         severity_sort    = true,
-        update_in_insert = false, -- no molesta mientras escribes
+        update_in_insert = false,
         float            = {
-          border = "rounded",
+          border = "single",
           source = "if_many",
           header = "",
           prefix = "",

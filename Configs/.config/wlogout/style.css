@@ -30,7 +30,7 @@ button {
 button:hover,
 button:focus {
   background-color: @color4;
-  border-color: @color4;
+  border: 2px solid @color1;
   background-size: 60%;
 }
 

@@ -1,107 +1,87 @@
-/* grid-fancy */
+configuration {
+    font:                           "Comfortaa 12";
+    disable-history:                false;
+    fullscreen:                     false;
+    hide-scrollbar:                 true;
+    sidebar-mode:                   false;
+}
+
 @import "~/.cache/wallust/rofi.rasi"
 
-configuration {
-    modi:                        "drun,filebrowser,window,run";
-    show-icons:                  true;
-    display-drun:                " ";
-    display-run:                 " ";
-    display-filebrowser:         " ";
-    display-window:              " ";
-    drun-display-format:         "{name}";
-    font:                        "JetBrainsMono Nerd Font 10";
-    icon-theme:                  "Tela-circle-dracula";
+* {
+    background-color:               var(background);
+    text-color:                     var(foreground);
 }
 
 window {
-    width:                       900px;
-    height:                      600px;
-    transparency:                "real";
-    fullscreen:                  false;
-    border:                      0px;
-    border-radius:               24px;
-    background-color:            var(background);
-    location:                    center;
-    anchor:                      center;
-}
-
-mainbox {
-    spacing:                     0px;
-    padding:                     24px;
-    orientation:                 vertical;
-    children:                    [ "inputbar", "listview" ];
-    background-color:            transparent;
-}
-
-inputbar {
-    spacing:                     16px;
-    padding:                     0px 0px 20px 0px;
-    children:                    [ "entry" ];
-    background-color:            transparent;
-}
-
-entry {
-    background-color:            var(color0);
-    text-color:                  var(foreground);
-    cursor:                      text;
-    vertical-align:              0.5;
-    placeholder:                 "Search applications...";
-    placeholder-color:           var(color7);
-    padding:                     14px 20px;
-    border-radius:               14px;
-    font:                        "JetBrainsMono Nerd Font 14";
+    transparency:                   "real";
+    border-radius:                  12px;
+    location:                       east;
+    anchor:                         east;
+    width:                          100px;
+    x-offset:                       -15px;
+    y-offset:                       0px;
 }
 
 listview {
-    enabled:                     true;
-    columns:                     5;
-    lines:                       4;
-    spacing:                     12px;
-    padding:                     0px;
-    cycle:                       true;
-    dynamic:                     true;
-    scrollbar:                   false;
-    layout:                      vertical;
-    background-color:            transparent;
-    text-color:                  var(foreground);
+    columns:                        1;
+    lines:                          3;
+    spacing:                        0px;
+    cycle:                          true;
+    dynamic:                        true;
+    layout:                         vertical;
+}
+
+mainbox {
+    background-color:               transparent;
+    children:                       [ listview ];
+    spacing:                        10px;
+    margin:                         8px;
 }
 
 element {
-    spacing:                     0px;
-    padding:                     16px;
-    cursor:                      pointer;
-    background-color:            transparent;
-    text-color:                  var(foreground);
-    border-radius:               16px;
-    orientation:                 vertical;
-}
-
-element selected.normal {
-    background-color:            var(color4);
-    text-color:                  var(background);
-}
-
-element-icon {
-    size:                        48px;
-    cursor:                      inherit;
-    background-color:            transparent;
-    text-color:                  inherit;
-    horizontal-align:            0.5;
+    background-color:               transparent;
+    text-color:                     var(foreground);
+    orientation:                    vertical;
+    border-radius:                  8px;
 }
 
 element-text {
-    font:                        "JetBrainsMono Nerd Font 10";
-    vertical-align:              0.5;
-    horizontal-align:            0.5;
-    cursor:                      inherit;
-    background-color:            transparent;
-    text-color:                  inherit;
-    margin:                      8px 0px 0px 0px;
+    font:                           "feather 20";
+    expand:                         true;
+    horizontal-align:               0.5;
+    vertical-align:                 0.5;
+    padding:                        12px 0px 25px 7px;
+    margin:                         4px 0px 4px 0px;
 }
 
-textbox {
-    text-color:                  inherit;
-    background-color:            inherit;
-    vertical-align:              0.5;
-    horizontal-align:            0.5;
+element normal.urgent,
+element alternate.urgent {
+    background-color:               transparent;
+    text-color:                     var(background);
+    border-radius:                  12px;
+}
+
+element normal.active,
+element alternate.active {
+    background-color:               transparent;
+    text-color:                     var(background);
+}
+
+element selected {
+    background-color:               transparent;
+    text-color:                     var(color1);
+    border-radius:                  8px;
+    border:                         1px;
+    border-color:                   var(color1);
+}
+
+element selected.urgent {
+    background-color:               transparent;
+    text-color:                     var(background);
+}
+
+element selected.active {
+    background-color:               transparent;
+    color:                          var(background);
 }

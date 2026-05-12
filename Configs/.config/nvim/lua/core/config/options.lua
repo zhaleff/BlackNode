@@ -32,3 +32,26 @@ vim.opt.splitkeep = "screen"
 vim.opt.splitbelow = true
 vim.opt.splitright = true
 vim.opt.hlsearch = false
+
+vim.opt.fillchars = {
+  horiz = "─",
+  horizup = "┴",
+  horizdown = "┬",
+  vert = "│",
+  vertleft = "┤",
+  vertright = "├",
+  verthoriz = "┼",
+}
+
+vim.opt.virtualedit = "insert"
+
+vim.opt.diffopt = {
+  "vertical",
+  "hiddenoff",
+  "filler",
+}
+
+vim.opt.formatoptions = vim.opt.formatoptions - "c" - "o" - "r"
+
+vim.cmd("syntax on")
+vim.cmd("filetype plugin indent on")

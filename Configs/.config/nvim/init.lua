@@ -9,6 +9,7 @@ vim.opt.rtp:prepend(lazypath)
 
 require("core.config.options")
 
+
 require("lazy").setup({
   -- plugins
   -- require("core.plugins.lsplines"),
@@ -33,9 +34,7 @@ require("lazy").setup({
   require("core.plugins.navic"),
   require("core.plugins.diagnostic"),
   require("core.plugins.gitsigns"),
-  require("core.plugins.tailwind_colorizer"),
   require("core.plugins.conform"),
-  require("core.plugins.fidget"),
   require("core.plugins.toggleterm"),
   require("core.plugins.colorizer"),
   require("core.plugins.mason"),
@@ -44,17 +43,12 @@ require("lazy").setup({
   require("core.plugins.mason-lsp"),
   require("core.plugins.lsp"),
   require("core.plugins.mini"),
-  -- require("core.plugins.treesiter-context"),
   require("core.plugins.telekasten"),
   require("core.plugins.winbar"),
   require("core.plugins.treesiter"),
-  -- require("core.plugins.copilot"),
   require("core.plugins.which-key"),
 })
 
-
 require("core.config.keymaps")
 require("core.config.emmet")
--- require("core.config.mason")
-require("core.config.diagnostic")
--- require("core.plugins.winbar")
+

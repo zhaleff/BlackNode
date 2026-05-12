@@ -1,5 +1,4 @@
--- core/lsp/registry.lua
--- Configuración detallada de cada servidor (sin capabilities)
+
 return {
   lua_ls = {
     settings = {

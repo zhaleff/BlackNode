@@ -12,11 +12,10 @@
 hyprshotSave="$HOME/.local/share/screenshots/"
 rofiConfig="$HOME/.config/rofi/hyprshot/style.rasi"
 
-options=" \n \n \n \n "
+options=" \n \n "
 
 rofi_cmd() {
   rofi -dmenu \
-    -mesg "Screenshot  " \
     -theme $rofiConfig
 }
 
@@ -28,8 +27,6 @@ declare -A actions=(
   [" "]="hyprshot -m region -o $hyprshotSave"
   [" "]="hyprshot -m window -o $hyprshotSave"
   [" "]="hyprshot -m output -o $hyprshotSave"
-  [" "]="hyprshot -m output -o $hyprshotSave"
-  [" "]="exit 0"
 )
 
 run() {
