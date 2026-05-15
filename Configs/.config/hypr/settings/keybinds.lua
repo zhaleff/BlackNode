@@ -34,9 +34,12 @@ hl.bind(mainMod .. " + Y", hl.dsp.exec_cmd("spotify"))
 -- Launchers and menus
 hl.bind(mainMod .. " + R",     hl.dsp.exec_cmd("rofi -show drun"))
 hl.bind(mainMod .. " + SPACE", hl.dsp.exec_cmd("~/.local/bin/bn-menu"))
+hl.bind(" + CTRL + ALT + UP", hl.dsp.exec_cmd("~/.config/waybar/Scripts/launcher/launch.sh"))
 hl.bind(mainMod .. " + T",     hl.dsp.exec_cmd("~/.config/rofi/musicPlayer/script.sh"))
 hl.bind(mainMod .. " + A",     hl.dsp.exec_cmd("~/.config/rofi/wifi/script.sh"))
-
+hl.bind(mainMod .. " + SHIFT + X",     hl.dsp.exec_cmd("~/.config/rofi/powermenu/script.sh"))
+hl.bind(mainMod .. " + G", hl.dsp.exec_cmd("~/.config/rofi/bookmarks/script.sh"))
+hl.bind(mainMod .. " + J", hl.dsp.exec_cmd("~/.config/rofi/battery/script.sh"))
 
 -- Clipboard
 hl.bind(mainMod .. " + C",         hl.dsp.exec_cmd("kitty --class clipse -e clipse"))
@@ -52,8 +55,9 @@ hl.bind(mainMod .. " + SHIFT + H", hl.dsp.exec_cmd("~/.config/rofi/wf-recorder/s
 hl.bind(mainMod .. " + X", hl.dsp.exec_cmd("wlogout -b 6"))
 hl.bind(mainMod .. " + L", hl.dsp.exec_cmd("hyprlock"))
 hl.bind(mainMod .. " + Q", hl.dsp.window.close())
-
-
+hl.bind(mainMod .. " + F", hl.dsp.window.float({ action = "toggle" }))
+hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
+hl.bind(mainMod .. " + SHIFT + F", hl.dsp.window.fullscreen({ mode = "fullscreen", action = "toggle" }))
 -- Wallpaper, animations and audio settings
 hl.bind(mainMod .. " + W",         hl.dsp.exec_cmd("~/.config/rofi/wallselect/script.sh"))
 hl.bind(mainMod .. " + SHIFT + I", hl.dsp.exec_cmd("~/.config/rofi/animation/script.sh"))
@@ -91,26 +95,12 @@ hl.bind("XF86AudioPrev",  hl.dsp.exec_cmd("playerctl previous"),    { locked = t
 hl.bind("XF86AudioPlay",  hl.dsp.exec_cmd("playerctl play-pause"),  { locked = true })
 hl.bind("XF86AudioPause", hl.dsp.exec_cmd("playerctl play-pause"),  { locked = true })
 
+hl.bind("XF86MonBrightnessUp",  hl.dsp.exec_cmd("brightnessctl -e4 -n2 set 5%+ && ~/.local/bin/brightness.sh"), { locked = true, repeating = true })
+hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("brightnessctl -e4 -n2 set 5%- && ~/.local/bin/brightness.sh"), { locked = true, repeating = true })
 
--- Brightness (repeating, works on lock screen)
-hl.bind("XF86MonBrightnessDown",
-    hl.dsp.exec_cmd("brightnessctl -e4 -n2 set 5%- && dunstify -i ~/.config/dunst/assets/brightness.svg"),
-    { locked = true, repeating = true })
-hl.bind("XF86MonBrightnessUp",
-    hl.dsp.exec_cmd("brightnessctl -e4 -n2 set 5%+ && dunstify -i ~/.config/dunst/assets/brightness.svg"),
-    { locked = true, repeating = true })
 
 
 -- Volume (repeating, works on lock screen)
-hl.bind("XF86AudioRaiseVolume",
-    hl.dsp.exec_cmd("~/.local/bin/volume.sh"),
-    { locked = true, repeating = true })
-hl.bind("XF86AudioLowerVolume",
-    hl.dsp.exec_cmd("~/.local/bin/volume.sh"),
-    { locked = true, repeating = true })
-hl.bind("XF86AudioMute",
-    hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle && dunstify -i ~/.config/dunst/assets/volume-cross.svg"),
-    { locked = true, repeating = true })
-hl.bind("XF86AudioMicMute",
-    hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle && dunstify -i ~/.config/dunst/assets/volume-loud.svg"),
-    { locked = true, repeating = true })
+hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+ && ~/.local/bin/volume.sh"), { locked = true, repeating = true })
+hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- && ~/.local/bin/volume.sh"), { locked = true, repeating = true })
+hl.bind("XF86AudioMute",        hl.dsp.exec_cmd("~/.local/bin/mute.sh"), { locked = true, repeating = true })
