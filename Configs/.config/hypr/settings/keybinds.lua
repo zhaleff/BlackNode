@@ -34,6 +34,7 @@ hl.bind(mainMod .. " + Y", hl.dsp.exec_cmd("spotify"))
 -- Launchers and menus
 hl.bind(mainMod .. " + R",     hl.dsp.exec_cmd("rofi -show drun"))
 hl.bind(mainMod .. " + SPACE", hl.dsp.exec_cmd("~/.local/bin/bn-menu"))
+hl.bind(mainMod .. " + SHIFT + R", hl.dsp.exec_cmd("~/.config/rofi/launcher/launcher.sh"))
 hl.bind(" + CTRL + ALT + UP", hl.dsp.exec_cmd("~/.config/waybar/Scripts/launcher/launch.sh"))
 hl.bind(mainMod .. " + T",     hl.dsp.exec_cmd("~/.config/rofi/musicPlayer/script.sh"))
 hl.bind(mainMod .. " + A",     hl.dsp.exec_cmd("~/.config/rofi/wifi/script.sh"))

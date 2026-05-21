@@ -1,0 +1,81 @@
+configuration {
+    font:                           "Comfortaa 12";
+    disable-history:                false;
+    fullscreen:                     false;
+    hide-scrollbar:                 true;
+    sidebar-mode:                   false;
+}
+
+@import "../colors.rasi"
+
+* {
+    background-color:               @surface;
+    text-color:                     @on-surface;
+}
+
+window {
+    transparency:                   "real";
+    border-radius:                  12px;
+    location:                       east;
+    anchor:                         east;
+    width:                          100px;
+    x-offset:                       -15px;
+    y-offset:                       0px;
+}
+
+listview {
+    columns:                        1;
+    lines:                          3;
+    spacing:                        0px;
+    cycle:                          true;
+    dynamic:                        true;
+    layout:                         vertical;
+}
+
+mainbox {
+    children:                       [ listview ];
+    spacing:                        10px;
+    margin:                         8px;
+}
+
+element {
+    text-color:                     @on-surface;
+    orientation:                    vertical;
+    border-radius:                  8px;
+    background-color:               transparent;
+}
+
+element-text {
+    font:                           "feather 20";
+    expand:                         true;
+    horizontal-align:               0.5;
+    vertical-align:                 0.5;
+    padding:                        12px 0px 25px 7px;
+    margin:                         4px 0px 4px 0px;
+}
+
+element normal.urgent,
+element alternate.urgent {
+    text-color:                     @primary;
+    border-radius:                  12px;
+}
+
+element normal.active,
+element alternate.active {
+    text-color:                     @surface;
+}
+
+element selected {
+    text-color:                     @primary;
+    border-radius:                  8px;
+    border:                         1px;
+    border-color:                   @primary;
+}
+
+element selected.urgent {
+    text-color:                     @surface;
+}
+
+element selected.active {
+    text-color:                     @surface;
+}

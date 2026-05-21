@@ -1,0 +1,30 @@
+/* Matugen template for wlogout */
+
+@define-color primary rgba(154, 212, 162, 0.98);
+@define-color on-primary #003917;
+
+@define-color surface rgba(16, 21, 16, 0.98);
+@define-color on-surface #dfe4dc;
+
+@define-color primary-container #19512a;
+@define-color on-primary-container #b5f1bc;
+
+@define-color secondary #b7ccb7;
+@define-color on-secondary #233425;
+
+@define-color secondary-container #394b3b;
+@define-color on-secondary-container #d3e8d2;
+
+@define-color tertiary #a2ced8;
+@define-color on-tertiary #00363e;
+
+@define-color tertiary-container #204d55;
+@define-color on-tertiary-container #bdeaf4;
+
+@define-color error #ffb4ab;
+@define-color on-error #690005;
+
+@define-color error-container #93000a;
+@define-color on-error-container #ffdad6;
+
+@define-color outline #8b9389;

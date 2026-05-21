@@ -1,3 +1,7 @@
+-- project: blacknode dotfiles
+-- file: animations/vertical.lua
+-- description: hyprland v0.55 animation config
+
 hl.curve("default",           { type = "bezier", points = { {0.05, 0.9}, {0.1, 1.05} } })
 hl.curve("wind",              { type = "bezier", points = { {0.05, 0.9}, {0.1, 1.05} } })
 hl.curve("overshot",          { type = "bezier", points = { {0.13, 0.99}, {0.29, 1.08} } })
@@ -22,4 +26,5 @@ hl.animation({ leaf = "fadeLayers",  enabled = true, speed = 10, bezier = "defau
 hl.animation({ leaf = "workspaces",  enabled = true, speed = 7,  bezier = "overshot",     style = "slidevert" })
 hl.animation({ leaf = "border",      enabled = true, speed = 1,  bezier = "liner" })
 hl.animation({ leaf = "layers",      enabled = true, speed = 4,  bezier = "bounce",       style = "slidevert right" })
-hl.animation({ leaf = "borderangle", enabled = true, speed = 30, bezier = "liner",        style = "loop" })
+
+hl.animation({ leaf = "borderangle", enabled = true, speed = 30, bezier = "liner", style = "loop" })

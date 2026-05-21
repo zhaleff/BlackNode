@@ -1,5 +1,5 @@
-/*****----- Import Wallust -----*****/
-@import "~/.cache/wallust/rofi.rasi"
+/*****----- Import Matugen -----*****/
+@import "../../colors.rasi"
 
 configuration {
   modi: "drun,filebrowser,window,run";
@@ -30,7 +30,6 @@ window {
   spacing: 0px;
   padding: 0px;
 
-  border-color: var(color5);
   background-color: transparent;
 }
 
@@ -102,7 +101,7 @@ listview {
   cursor: "default";
 
   background-color: transparent;
-  text-color: var(foreground);
+  text-color: @on-surface;
 }
 
 dummy {
@@ -118,12 +117,12 @@ element {
   cursor: pointer;
 
   background-color: transparent;
-  text-color: var(foreground);
+  text-color: @on-surface;
 }
 
 element selected.normal {
-  background-color: var(color1);
-  text-color: var(background);
+  background-color: @primary;
+  text-color: @on-surface;
   border-radius: 14px;
 }
 
@@ -147,8 +146,8 @@ element-text {
 }
 
 error-message {
-  text-color: var(foreground);
-  background-color: var(background);
+  text-color: @on-surface;
+  background-color: @error;
 
   text-transform: capitalize;
 

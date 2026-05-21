@@ -41,7 +41,7 @@
   },
   "group/hollow-left-5": {
     "orientation": "horizontal",
-    "modules": ["backlight", "wireplumber", "network", "custom/power", "battery"]
+    "modules": ["backlight", "wireplumber", "custom/governor", "network", "custom/power", "battery"]
   },
   "group/hollow-right-1": {
     "orientation": "horizontal",

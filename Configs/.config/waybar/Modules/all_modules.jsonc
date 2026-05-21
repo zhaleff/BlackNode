@@ -20,6 +20,7 @@
     "~/.config/waybar/Modules/tray.jsonc",
     "~/.config/waybar/Modules/waybar-rofi.jsonc",
     "~/.config/waybar/Modules/user.jsonc",
+    "~/.config/waybar/Modules/governor.jsonc",
     "~/.config/waybar/Modules/weather.jsonc",
     "~/.config/waybar/Modules/window.jsonc",
     "~/.config/waybar/Modules/wirepumbler.jsonc",

@@ -54,7 +54,7 @@
 
   "group/hollow-right-3": {
     "orientation": "horizontal",
-    "modules": [ "clock", , "custom/waybar-rofi"]
+    "modules": [ "clock", "custom/waybar-rofi"]
   },
 
   "group/hollow-right-4": {

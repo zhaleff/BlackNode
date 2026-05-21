@@ -12,10 +12,11 @@
 hyprshotSave="$HOME/.local/share/screenshots/"
 rofiConfig="$HOME/.config/rofi/hyprshot/style.rasi"
 
-options=" \n \n "
+options=" \n \n "
 
 rofi_cmd() {
   rofi -dmenu \
+    -mesg "Screenshot  " \
     -theme $rofiConfig
 }
 

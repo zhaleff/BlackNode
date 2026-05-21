@@ -17,9 +17,10 @@ if ! pgrep -x "awww" > /dev/null; then
 fi
 awww img "$SELECTED" --transition-type=random
 
-cp "$SELECTED" ~/.cache/wallust/current_wallpaper.png
+cp "$SELECTED" ~/.config/rofi/wallpaper.png
 
-wallust run "$SELECTED"
+matugen image "$SELECTED" -m dark --source-color-index 0
 
 killall -SIGUSR2 waybar && killall dunst && dunst &
 pkill -USR1 cava
+killall -SIGUSR1 kitty

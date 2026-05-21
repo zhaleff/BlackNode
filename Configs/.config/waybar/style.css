@@ -1,3 +1,89 @@
-@import "CSS/base.css";
-@import "CSS/groups.css";
-@import "CSS/workspaces.css";
+@import "colors.css";
+
+* {
+  min-height: 0;
+  font-family: "JetBrainsMono Nerd Font", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 13px;
+}
+
+#waybar {
+  background-color: transparent;
+}
+
+#waybar .module {
+  color: @on-surface;
+  padding: 0px 0px;
+  margin: -10px 5px -10px;
+  border: 4px;
+}
+
+#waybar .module:hover {
+  color: @on-surface;
+}
+
+#window#waybar {
+  color: @on-surface;
+  background-color: @surface;
+  transition-property: background-color;
+  transition-duration: 0.5s;
+  border: 2px solid @primary;
+}
+
+#workspaces button {
+  box-shadow: none;
+  text-shadow: none;
+  padding: 0px;
+  border-radius: 12px;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  margin-left: 0px;
+  padding-left: 3px;
+  padding-right: 3px;
+  margin-right: 0px;
+  color: @on-surface;
+  animation: ws_normal 20s ease-in-out 1;
+}
+
+#workspaces button.active {
+  background: @primary;
+  color: @surface;
+  border-radius: 12px;
+  margin-left: 0px;
+  padding-left: 8px;
+  padding-right: 8px;
+  margin-right: 0px;
+  animation: ws_active 20s ease-in-out 1;
+  transition: all 0.4s cubic-bezier(.55, -0.68, .48, 1.682);
+}
+
+#workspaces button:hover {
+  background: @on-primary;
+  color: @foreground;
+  animation: ws_hover 20s ease-in-out 1;
+  transition: all 0.3s cubic-bezier(.55, -0.68, .48, 1.682);
+}
+
+
+#hollow-left-1,
+#hollow-left-3,
+#hollow-left-4,
+#hollow-left-5,
+#hollow-left-6,
+#hollow-left-7,
+#hollow-center-1,
+#hollow-center-2,
+#hollow-right-1,
+#hollow-right-2,
+#hollow-right-3,
+#hollow-right-4,
+#hollow-right-5 {
+  background: @surface;
+  padding: 8px;
+  border-radius: 10.5pt;
+}
+
+
+#hollow-left-2 {
+  background: @surface;
+  border-radius: 10.5pt;
+}

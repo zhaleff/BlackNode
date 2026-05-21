@@ -110,10 +110,42 @@ hl.window_rule({
 
 hl.window_rule({
   name = "windowrule-15",
-  float = false,
+  float = true,
   center = true,
   size = "670 670",
   match = { class = "xdg-desktop-portal-gtk" }
+})
+hl.window_rule({
+  name = "windowrule-16",
+  float = true,
+  size = "600 400",
+  match = { class = "yad-icon-browser" }
+})
+hl.window_rule({
+  name = "windowrule-17",
+  float = true,
+  size = "800 600",
+  center = true,
+  match = { class = "feh" }
+})
+
+hl.window_rule({
+  name = "windowrule-18",
+  float = true,
+  size = "800 600",
+  center = true,
+  match = { class = "org.gnome.clocks" }
+})
+hl.window_rule({
+  name = "firefox-auth",
+  float = true,
+  center = true,
+  size = "700 700",
+
+  match = {
+    class = "firefox",
+    title = ".*([Ll]ogin|[Ss]ign.?in|[Aa]uth|OAuth|Google).*",
+  },
 })
 -- rules layerrule
 

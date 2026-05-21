@@ -1,0 +1,30 @@
+/* Matugen template for wlogout */
+
+@define-color primary rgba({{colors.primary.default.red}}, {{colors.primary.default.green}}, {{colors.primary.default.blue}}, 0.98);
+@define-color on-primary {{colors.on_primary.default.hex}};
+
+@define-color surface rgba({{colors.surface.default.red}}, {{colors.surface.default.green}}, {{colors.surface.default.blue}}, 0.98);
+@define-color on-surface {{colors.on_surface.default.hex}};
+
+@define-color primary-container {{colors.primary_container.default.hex}};
+@define-color on-primary-container {{colors.on_primary_container.default.hex}};
+
+@define-color secondary {{colors.secondary.default.hex}};
+@define-color on-secondary {{colors.on_secondary.default.hex}};
+
+@define-color secondary-container {{colors.secondary_container.default.hex}};
+@define-color on-secondary-container {{colors.on_secondary_container.default.hex}};
+
+@define-color tertiary {{colors.tertiary.default.hex}};
+@define-color on-tertiary {{colors.on_tertiary.default.hex}};
+
+@define-color tertiary-container {{colors.tertiary_container.default.hex}};
+@define-color on-tertiary-container {{colors.on_tertiary_container.default.hex}};
+
+@define-color error {{colors.error.default.hex}};
+@define-color on-error {{colors.on_error.default.hex}};
+
+@define-color error-container {{colors.error_container.default.hex}};
+@define-color on-error-container {{colors.on_error_container.default.hex}};
+
+@define-color outline {{colors.outline.default.hex}};

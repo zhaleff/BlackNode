@@ -55,7 +55,7 @@ require("settings/decoration")
 require("animations/vertical")
 
 -- colors
-require("themes/hyprland")
+require("themes/colors")
       
 -- Windows rules
 require("settings/rules")

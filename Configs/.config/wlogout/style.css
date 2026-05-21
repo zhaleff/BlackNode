@@ -1,4 +1,4 @@
-@import "../../.cache/wallust/waybar.css";
+@import "colors.css";
 
 * {
   background-image: none;
@@ -9,9 +9,9 @@ window {
 }
 
 button {
-  background-color: @background;
+  background-color: @surface;
   outline-style: none;
-  margin: -0.15em;
+  margin: -0.09em;
   border: 2px solid transparent;
 
   border-radius: 0;
@@ -29,11 +29,15 @@ button {
 
 button:hover,
 button:focus {
-  background-color: @color4;
-  border: 2px solid @color1;
+  background-color: @primary;
+  border: none;
   background-size: 60%;
-}
 
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease,
+    background-size 0.3s ease;
+}
 
 #lock {
   padding: 1.8rem;

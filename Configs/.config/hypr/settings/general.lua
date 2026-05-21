@@ -10,16 +10,16 @@
 --   `?8888P                                                 
 
 
-require("themes/hyprland")
+require("themes/colors")
 
 hl.config({
   general = {
     gaps_in = 3,
     gaps_out = 7,
-    border_size = 2,
+    border_size = 1,
 
     col = {
-      active_border   = { colors = {"rgba(" .. color1 .. "ee)", "rgba(" .. color2 .. "ee)"}, angle = 45 },
+      active_border   = { colors = {"rgba(" .. color0 .. "ee)", "rgba(" .. color1 .. "ee)"}, angle = 145 },
       inactive_border = "rgba(" .. color0 .. "aa)",
     },
     layout = "dwindle",

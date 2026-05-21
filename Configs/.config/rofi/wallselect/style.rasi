@@ -1,95 +1,93 @@
-/*****----- Configuration -----*****/
 configuration {
     show-icons:          true;
     display-drun:        "";
     display-filebrowser: "";
     display-window:      "";
     drun-display-format: "{name}";
-    font:              "JetBrainsMono Nerd Font Bold 12";
+    font:                 "JetBrainsMono Nerd Font Bold 12";
 }
 
-/*****----- Import Wallust -----*****/
-@import "~/.cache/wallust/rofi.rasi"
+@import "../colors.rasi"
 
 window {
-    enabled:          true;
-    fullscreen:       false;
-    width:          100%;
-    transparency:   "real";
-    cursor:         "default";
-    spacing:        0px;
-    padding:       0px;
-    border:        0px;
-    border-radius:   0px;
-    background-color: transparent;
+    enabled:              true;
+    fullscreen:           false;
+    width:                 100%;
+    transparency:         "real";
+    cursor:               "default";
+    spacing:              0px;
+    padding:              0px;
+    border:               0px;
+    border-radius:        0px;
+    background-color:     transparent;
 }
 
 mainbox {
-    enabled:          true;
-    children:        [ "listview" ];
-    background-color: var(background);
+    enabled:              true;
+    children:            [ "listview" ];
+    background-color:     @surface;
 }
 
 listview {
-    enabled:          true;
-    columns:        6;
-    lines:          1;
-    spacing:        32px;
-    padding:        20px 24px;
-    cycle:          true;
-    dynamic:        false;
-    scrollbar:      false;
-    layout:         vertical;
-    reverse:        false;
-    fixed-height:   true;
-    fixed-columns: true;
-    cursor:        "default";
-    background-color: transparent;
-    text-color:    var(foreground);
+    enabled:              true;
+    columns:              6;
+    lines:                1;
+    spacing:              32px;
+    padding:              20px 24px;
+    cycle:                true;
+    dynamic:              false;
+    scrollbar:            false;
+    layout:               vertical;
+    reverse:              false;
+    fixed-height:         true;
+    fixed-columns:        true;
+    cursor:              "default";
+    background-color:     transparent;
+    text-color:           @on-surface;
 }
 
 element {
-    enabled:           true;
-    orientation:      horizontal;
-    spacing:        0px;
-    padding:        0px;
-    border-radius:    16px;
-    cursor:        pointer;
-    background-color: transparent;
-    text-color:    var(foreground);
+    enabled:              true;
+    orientation:          horizontal;
+    spacing:              0px;
+    padding:              0px;
+    border-radius:        16px;
+    cursor:               pointer;
+    background-color:     transparent;
+    text-color:           @on-surface;
 }
 
 element selected.normal {
-    background-color: var(color5);
-    text-color:    var(background);
+    background-color:     @primary;
+    text-color:           @on-primary;
 }
 
 element-icon {
-    size:             30%;
-    cursor:          inherit;
-    border-radius:   0px;
-    background-color: transparent;
-    text-color:    inherit;
+    size:                 30%;
+    cursor:               inherit;
+    border-radius:        0px;
+    background-color:     transparent;
+    text-color:           inherit;
 }
 
 element-text {
-    vertical-align:   0.5;
-    horizontal-align: 0.5;
-    padding:     16px;
-    cursor:      inherit;
-    background-color: transparent;
-    text-color:  inherit;
+    vertical-align:       0.5;
+    horizontal-align:     0.5;
+    padding:              16px;
+    cursor:               inherit;
+    background-color:     transparent;
+    text-color:           inherit;
 }
 
 error-message {
-    text-color:       var(foreground);
-    background-color: var(background);
-    children:      [ "textbox" ];
+    text-color:           @on-surface;
+    background-color:     @surface;
+    children:            [ "textbox" ];
 }
 
 textbox {
-    text-color:       inherit;
-    background-color: inherit;
-    vertical-align:   0.5;
-    horizontal-align: 0.5;
+    text-color:           inherit;
+    background-color:     inherit;
+    vertical-align:       0.5;
+    horizontal-align:     0.5;
 }

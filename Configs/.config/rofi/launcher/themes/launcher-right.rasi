@@ -1,4 +1,5 @@
-@import "~/.cache/wallust/rofi.rasi"
+
+@import "../../colors.rasi"
 
 configuration {
   modi: "drun,filebrowser,window,run";
@@ -18,7 +19,7 @@ window {
   width: 928px;
   transparency: "real";
   fullscreen: false;
-  border-color: var(color5);
+  border-color: @primary;
   background-color: transparent;
   spacing: 0px;
   padding: 0px;
@@ -40,8 +41,8 @@ inputbar {
   padding: 0px;
   children: [ "entry" ];
   expand: false;
-  background-color: var(background);
-  background-image: url("~/.cache/wallust/current_wallpaper.png", height);
+  background-color: @surface;
+  background-image: url("../../wallpaper.png", height);
   border-radius: 14px;
 }
 
@@ -53,7 +54,7 @@ listbox {
   spacing: 0px;
   padding: 0px;
   children: [ "dummy", "listview", "dummy" ];
-  background-color: var(background);
+  background-color: @surface;
   border-radius: 14px;
 }
 
@@ -73,7 +74,7 @@ listview {
   fixed-columns: true;
   cursor: "default";
   background-color: transparent;
-  text-color: var(foreground);
+  text-color: @on-surface;
 }
 
 dummy {
@@ -86,12 +87,12 @@ element {
   padding: 8px 24px 8px 8px;
   cursor: pointer;
   background-color: transparent;
-  text-color: var(foreground);
+  text-color: @on-surface;
 }
 
 element selected.normal {
-  background-color: var(color4);
-  text-color: var(background);
+  background-color: @primary-container;
+  text-color: @on-primary-container;
   border-radius: 14px;
 }
 
@@ -111,8 +112,8 @@ element-text {
 }
 
 error-message {
-  text-color: var(foreground);
-  background-color: var(background);
+  text-color: @on-surface;
+  background-color: @surface;
   children: [ "textbox" ];
 }
 

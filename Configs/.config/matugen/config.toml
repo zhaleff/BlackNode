@@ -1,0 +1,48 @@
+[config]
+reload_apps = true
+
+[templates.kitty]
+input_path = '~/.config/matugen/templates/kitty.conf'
+output_path = '~/.config/kitty/colors.conf'
+
+[templates.waybar]
+input_path = '~/.config/matugen/templates/waybar.css'
+output_path = '~/.config/waybar/colors.css'
+
+[templates.rofi]
+input_path = '~/.config/matugen/templates/rofi.rasi'
+output_path = '~/.config/rofi/colors.rasi'
+
+[templates.dunst]
+input_path = '~/.config/matugen/templates/dunstrc'
+output_path = '~/.config/dunst/dunstrc'
+
+[templates.hyprland]
+input_path = '~/.config/matugen/templates/hyprland.lua'
+output_path = '~/.config/hypr/themes/colors.lua'
+
+[templates.wlogout]
+input_path = '~/.config/matugen/templates/wlogout.css'
+output_path = '~/.config/wlogout/colors.css'
+
+[templates.cava]
+input_path = '~/.config/matugen/templates/cava'
+output_path = '~/.config/cava/config'
+
+
+[templates.neovim]
+input_path = '~/.config/matugen/templates/nvim.lua'
+output_path = '~/.config/nvim/generated.lua'
+# post_hook = 'pkill -SIGUSR1 nvim'
+
+[tempates.clipse]
+input_path = '~/.config/matugen/templates/clipse_theme.json'
+output_path = '~/.config/clipse/clipse_theme.json'
+
+# [templates.nvim]
+# input_path = '~/.config/matugen/templates/nvim.lua'
+# output_path = '~/.config/nvim/lua/core/config/colors.lua'
+
+[templates.btop]
+input_path = '~/.config/matugen/templates/btop'
+output_path = '~/.config/btop/themes/colors.theme'
