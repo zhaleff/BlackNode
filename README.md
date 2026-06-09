@@ -98,19 +98,15 @@ Clone the repository and run the main installer:
 
 ```bash
 git clone https://github.com/zhaleff/BlackNode.git $HOME/BlackNode
-cd $HOME/BlackNode
-bash blacknode.sh
+cd $HOME/BlackNode/Scripts
+bash install.sh
 ```
 
 > [!TIP]
-> If you only want specific components, skip `blacknode.sh` entirely and jump to [Manual Install](#manual-install).
+> If you only want specific components, skip `install.sh` entirely and jump to [Manual Install](#manual-install).
 
 Please reboot after the installer completes for all changes to take effect.
 
-<div align="right">
-  <br>
-  <a href="#-by-zhaleff--hollowsec"><kbd> <br> 🡅 <br> </kbd></a>
-</div>
 
 #
 
@@ -121,62 +117,10 @@ Every script is fully independent. Run any of them on their own, in any order. N
 
 If you do not have an AUR helper yet, start here:
 
-```bash
-bash yay.sh
-```
-
-Then run whatever you need:
-
-```bash
-# Documentation — informational only, no side effects
-bash welcome.sh / introduction.sh / information.sh / changelog.sh / help.sh
-
-# Core
-bash flatpak.sh && bash bins.sh && bash update.sh
-
-# Window Manager
-bash hyprland.sh && bash hyprlock.sh && bash hyprshot.sh
-
-# Bar & Launcher
-bash waybar.sh && bash rofi.sh
-
-# Terminal & Shell
-bash kitty.sh && bash alacritty.sh && bash zsh.sh
-
-# Tools
-bash nvim.sh && bash yazi.sh && bash fastfetch.sh
-bash cava.sh && bash clipse.sh && bash dunst.sh && bash wlogout.sh
-
-# Theming
-bash wallust.sh && bash wallpaper.sh && bash gtk.sh && bash awww.sh
-```
 
 For a complete breakdown of what every script installs and deploys, see [INSTALLATION.md](./INSTALLATION.md).
-
-<div align="right">
-  <br>
-  <a href="#-by-zhaleff--hollowsec"><kbd> <br> 🡅 <br> </kbd></a>
-</div>
-
 #
 
-<a id="updating"></a>
-<img src="https://readme-typing-svg.herokuapp.com?font=Lexend+Giga&size=22&pause=1000&color=6CB6FF&vCenter=true&width=435&height=25&lines=UPDATING" width="435"/>
-
-To update the entire system at once, run:
-
-```bash
-bash update.sh
-```
-
-This runs `pacman -Syu` → `yay -Syu` → `flatpak update` in sequence. Any tool that is not installed is skipped automatically.
-
-To pull the latest BlackNode configs:
-
-```bash
-cd $HOME/BlackNode
-git pull
-```
 
 > [!WARNING]
 > Pulling new configs and re-running component scripts will overwrite your local configuration files. Back up anything you have modified before doing so.
@@ -187,7 +131,6 @@ git pull
 <img src="https://readme-typing-svg.herokuapp.com?font=Lexend+Giga&size=22&pause=1000&color=6CB6FF&vCenter=true&width=435&height=25&lines=SHOWCASE" width="435"/>
 
 <div align="center"><table><tr><td>BlackNode</td><td>Hyprlock</td><td>Rofi</td></tr><tr><td>
-<img width="280" alt="blacknode" src="./Assets/blacknode.png"/></td><td>
 <img width="280" alt="hyprlock" src="./Assets/Hyprlock.png"/></td><td>
 <img width="280" alt="rofi" src="./Assets/Rofi.png"/></td></tr></table></div>
 
@@ -209,47 +152,6 @@ git pull
 <div align="center"><table><tr><td>wf-recorder</td><td>Wlogout</td><td>Banner</td></tr><tr><td>
 <img width="280" alt="wf-recorder" src="./Assets/wf-recorder.png"/></td><td>
 <img width="280" alt="wlogout" src="./Assets/Wlogout.png"/></td><td>
-<img width="280" alt="logo" src="./Assets/BlackNode-Logo.png"/></td></tr></table></div>
-
-<div align="right">
-  <br>
-  <a href="#-by-zhaleff--hollowsec"><kbd> <br> 🡅 <br> </kbd></a>
-</div>
-
-
-#
-
-<a id="structure"></a>
-<img src="https://readme-typing-svg.herokuapp.com?font=Lexend+Giga&size=22&pause=1000&color=6CB6FF&vCenter=true&width=435&height=25&lines=STRUCTURE" width="435"/>
-
-```
-$HOME/BlackNode/
-├── blacknode.sh                  ← main installer, start here
-├── yay.sh / flatpak.sh / bins.sh / update.sh
-├── hyprland.sh / hyprlock.sh / hyprshot.sh
-├── waybar.sh / rofi.sh
-├── kitty.sh / alacritty.sh / zsh.sh
-├── nvim.sh / yazi.sh / fastfetch.sh
-├── cava.sh / clipse.sh / dunst.sh / wlogout.sh
-├── wallust.sh / wallpaper.sh / gtk.sh / awww.sh
-├── welcome.sh / introduction.sh / information.sh / changelog.sh / help.sh
-│
-├── Assets/
-│   └── desktop.png · fastfetch.png · hyprlock.png · rofi*.png · wallselect.png · wlogout.png
-│
-└── Configs/
-    ├── .config/
-    │   └── hypr · waybar · kitty · alacritty · nvim · rofi · dunst
-    │       zsh · powerlevel10k · yazi · fastfetch · cava · clipse
-    │       wallust · wlogout · gtk-3.0 · gtk-4.0 · qt5ct · sddm
-    └── .local/
-        └── bin/
-```
-
-<div align="right">
-  <br>
-  <a href="#-by-zhaleff--hollowsec"><kbd> <br> 🡅 <br> </kbd></a>
-</div>
 
 #
 
@@ -294,14 +196,4 @@ Now go. Explore. Break things. Fix them. And make this your own.
 
 BlackNode is released under the [MIT Licence](./LICENSE). You are free to use, modify, and share it however you wish. Attribution is appreciated but not required.
 
-#
-
-<div align="center">
-  <p>Made with ❤️ by <a href="https://github.com/zhaleff">zhaleff</a> and the HollowSec community.</p>
-  <p><i>Happy hacking.</i></p>
-</div>
-
-<div align="right">
-  <sub>Last edited on: 2025</sub>
-</div>
 
