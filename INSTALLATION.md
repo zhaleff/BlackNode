@@ -30,10 +30,6 @@
 
 #
 
-<div align="center">
-  <h3>The automated gateway to your new environment.</h3>
-  <p><i>Understand what goes into your system before it gets deployed.</i></p>
-</div>
 
 #
 
@@ -41,12 +37,6 @@
 <img src="https://readme-typing-svg.herokuapp.com?font=Lexend+Giga&size=22&pause=1000&color=6CB6FF&vCenter=true&width=435&height=25&lines=OVERVIEW" width="435"/>
 
 El script de instalación automatiza la configuración completa del entorno **BlackNode**. Se encarga de gestionar de forma nativa la actualización del sistema, la instalación del backend de paquetes (tanto oficiales como de AUR), el respaldo preventivo de tus archivos de configuración existentes y el despliegue estructurado de enlaces simbólicos (symlinks).
-
-<div align="right">
-  <br>
-  <a href="#-by-zhaleff--hollowsec"><kbd> <br> 🡅 <br> </kbd></a>
-</div>
-
 #
 
 <a id="requirements"></a>
@@ -75,4 +65,4 @@ Para inicializar el despliegue automático del entorno completo, clona el reposi
 ```bash
 git clone [https://github.com/zhaleff/BlackNode.git](https://github.com/zhaleff/BlackNode.git) $HOME/BlackNode
 cd $HOME/BlackNode
-bash path/to/install.sh
+bash Scripts/install.sh
