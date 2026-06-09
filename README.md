@@ -1,3 +1,8 @@
+
+<p align="center">
+  <img src="./Assets/BlackNode-Logo.png" width="100%" alt="BlackNode Banner">
+</p>
+
 ###### _<div align="right"><sub>// by zhaleff · HollowSec</sub></div>_
 <h1 align="center">BlackNode // Your Setup</h1>
 <div align="center">
@@ -176,37 +181,41 @@ git pull
 > [!WARNING]
 > Pulling new configs and re-running component scripts will overwrite your local configuration files. Back up anything you have modified before doing so.
 
-<div align="right">
-  <br>
-  <a href="#-by-zhaleff--hollowsec"><kbd> <br> 🡅 <br> </kbd></a>
-</div>
-
 #
 
 <a id="showcase"></a>
 <img src="https://readme-typing-svg.herokuapp.com?font=Lexend+Giga&size=22&pause=1000&color=6CB6FF&vCenter=true&width=435&height=25&lines=SHOWCASE" width="435"/>
 
-<div align="center"><table><tr><td>Desktop</td><td>Fastfetch</td><td>Hyprlock</td></tr><tr><td>
-<img width="280" alt="desktop" src="https://github.com/user-attachments/assets/07407b3a-9b7f-4996-9b56-c838c7d246f8"/></td><td>
-<img width="280" alt="fastfetch" src="https://github.com/user-attachments/assets/fd5ceba2-e933-4aad-b44e-3f1871813a54"/></td><td>
-<img width="280" alt="hyprlock" src="https://github.com/user-attachments/assets/33fa3c75-cff2-4c8c-9901-8d3d97935573"/></td></tr></table></div>
+<div align="center"><table><tr><td>BlackNode</td><td>Hyprlock</td><td>Rofi</td></tr><tr><td>
+<img width="280" alt="blacknode" src="./Assets/blacknode.png"/></td><td>
+<img width="280" alt="hyprlock" src="./Assets/Hyprlock.png"/></td><td>
+<img width="280" alt="rofi" src="./Assets/Rofi.png"/></td></tr></table></div>
 
-<div align="center"><table><tr><td>Rofi</td><td>Rofi 2</td><td>Rofi 3</td></tr><tr><td>
-<img width="280" alt="rofi" src="https://github.com/user-attachments/assets/9c74ae48-33ae-478d-9443-ed81a3705fe5"/></td><td>
-<img width="280" alt="rofi_2" src="https://github.com/user-attachments/assets/c5752a1d-479e-4943-b47d-32cdb901bdf2"/></td><td>
-<img width="280" alt="rofi_3" src="https://github.com/user-attachments/assets/11ffd6bd-bc62-44bf-88ec-5dc48b5fb07e"/></td></tr>
-<tr><td>Rofi 5</td><td>Rofi 8</td><td></td></tr><tr><td>
-<img width="280" alt="rofi_5" src="https://github.com/user-attachments/assets/b796746e-dbed-4239-bcee-a1666632d300"/></td><td>
-<img width="280" alt="rofi_8" src="https://github.com/user-attachments/assets/a8d958fb-6d02-45cf-ab90-249cfd7ba9a2"/></td><td></td></tr></table></div>
+<div align="center"><table><tr><td>Kitty</td><td>NeoVim</td><td>FastFetch</td></tr><tr><td>
+<img width="280" alt="kitty" src="./Assets/Kitty.png"/></td><td>
+<img width="280" alt="neovim" src="./Assets/NeoVim.png"/></td><td>
+<img width="280" alt="fastfetch" src="./Assets/FastFetch.png"/></td></tr></table></div>
 
-<div align="center"><table><tr><td>Wallpaper Select</td><td>Wlogout</td></tr><tr><td>
-<img width="280" alt="wallselect" src="https://github.com/user-attachments/assets/0591b204-9e0e-44c8-82f1-55a35f2a1b95"/></td><td>
-<img width="280" alt="wlogout" src="https://github.com/user-attachments/assets/3983edf0-898a-4a74-b40b-3e04a684be4f"/></td></tr></table></div>
+<div align="center"><table><tr><td>Btop</td><td>Cava</td><td>Bookmarks</td></tr><tr><td>
+<img width="280" alt="btop" src="./Assets/Btop.png"/></td><td>
+<img width="280" alt="cava" src="./Assets/Cava.png"/></td><td>
+<img width="280" alt="bookmarks" src="./Assets/Bookmarks.png"/></td></tr></table></div>
+
+<div align="center"><table><tr><td>Control Music</td><td>HyprShot</td><td>Wallpaper Select</td></tr><tr><td>
+<img width="280" alt="controlmusic" src="./Assets/ControlMusic.png"/></td><td>
+<img width="280" alt="hyprshot" src="./Assets/HyprShot.png"/></td><td>
+<img width="280" alt="wallselect" src="./Assets/WallSelect.png"/></td></tr></table></div>
+
+<div align="center"><table><tr><td>wf-recorder</td><td>Wlogout</td><td>Banner</td></tr><tr><td>
+<img width="280" alt="wf-recorder" src="./Assets/wf-recorder.png"/></td><td>
+<img width="280" alt="wlogout" src="./Assets/Wlogout.png"/></td><td>
+<img width="280" alt="logo" src="./Assets/BlackNode-Logo.png"/></td></tr></table></div>
 
 <div align="right">
   <br>
   <a href="#-by-zhaleff--hollowsec"><kbd> <br> 🡅 <br> </kbd></a>
 </div>
+
 
 #
 
