@@ -1,6 +1,0 @@
-// Copyright (c) 2026 Zhaleff && HollowSec. All Rights Reserved.
-{
-    "include": [
-        "/home/zhaleff/.config/waybar/Layouts/blacknode.jsonc"
-    ]
-}

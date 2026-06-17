@@ -1,6 +1,0 @@
-{
-  "memory": {
-    "interval": 2,
-    "format": " {:>2}%"
-  }
-}
