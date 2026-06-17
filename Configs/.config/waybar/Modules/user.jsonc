@@ -1,0 +1,9 @@
+{
+  "custom/user": {
+    "format": " {}",
+    "exec": "whoami",
+    "interval": 30,
+    "tooltip": false,
+    "on-click": "notify-send 'Usuario' '$(whoami)@$(hostname)'"
+  }
+}

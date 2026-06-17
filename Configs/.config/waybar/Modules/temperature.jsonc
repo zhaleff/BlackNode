@@ -1,0 +1,12 @@
+{
+  "temperature": {
+    "thermal-zone": 2,
+    "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
+    "format-critical": "{temperatureC}°C {icon}",
+    "critical-threshold": 80,
+    "interval": 2,
+    "format": " {temperatureC:>2}°C",
+    "format-icons": ["0", "", ""],
+    "on-click": "kitty -e zsh -c 'btop; exec zsh'"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "custom/pause": {
+    "format": "{icon}",
+    "on-click": "playerctl --player=spotify play-pause",
+    "tooltip": false,
+    "format-icons": [
+      "",
+      ""
+    ]
+  }
+}

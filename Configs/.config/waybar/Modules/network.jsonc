@@ -1,0 +1,18 @@
+{
+  "network": {
+    "interval": 3,
+    "format-wifi": "{icon}",
+    "format-ethernet": "󰌗 {ipaddr}",
+    "format-linked": "󰌙 {ifname} (Sin IP)",
+    "format-disconnected": "󰖪",
+    "format-alt": "󰛳 {ifname}",
+    "tooltip-format-wifi": " {bandwidthDownBytes}  {bandwidthUpBytes}",
+    "tooltip-format-ethernet": "󰌗 {ifname} | IP: {ipaddr}/{cidr} | GW: {gwaddr}",
+    "on-click": "~/.config/rofi/wifi/script.sh",
+    "format-icons": {
+      "wifi": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
+      "ethernet": ["󰌗"],
+      "disconnected": ["󰖪"]
+    }
+  }
+}

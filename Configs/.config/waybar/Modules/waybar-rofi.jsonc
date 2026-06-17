@@ -1,0 +1,7 @@
+{
+  "custom/waybar-rofi": {
+    "format": " ",
+    "on-click": "~/.config/waybar/Scripts/launcher/script.sh",
+    "tooltip": false
+  }
+}

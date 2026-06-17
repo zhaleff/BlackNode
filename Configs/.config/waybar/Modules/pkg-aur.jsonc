@@ -1,0 +1,9 @@
+{
+  "custom/pkg-aur": {
+    "exec": "yay -Qua | wc -l",
+    "interval": 1800,
+    "format": "󰣇 {}",
+    "tooltip": true,
+    "tooltip-format": "AUR packages"
+  }
+}

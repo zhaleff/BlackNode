@@ -1,0 +1,124 @@
+@import "colors.css";
+
+* {
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  font-family: "JetBrainsMono Nerd Font", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  margin: 0px 2px;
+  transition: all 0.25s cubic-bezier(0.3, 0.0, 0.0, 1.0);
+  min-height: 0;
+}
+
+window#waybar {
+  background-color: @surface;
+  border-radius: 10px;
+  margin: 4px 6px;
+  padding: 0 4px;
+}
+
+tooltip {
+  background-color: @surface;
+  color: @on-surface-variant;
+  border-radius: 10px;
+  padding: 10px 16px;
+  border: 1px solid alpha(@outline, 0.2);
+}
+
+tooltip label {
+  color: @on-surface-variant;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+#hollow-left-1,
+#hollow-left-2,
+#hollow-left-3,
+#hollow-left-4,
+#hollow-left-5,
+#hollow-left-6,
+#hollow-left-7,
+#hollow-center-1,
+#hollow-center-2,
+#hollow-right-1,
+#hollow-right-2,
+#hollow-right-3,
+#hollow-right-4,
+#hollow-right-5 {
+  background-color: alpha(@outline, 0.12);
+  border-radius: 8px;
+  padding: 4px 8px;
+  margin: 5px 3px;
+}
+
+#hollow-left-1:hover,
+#hollow-left-2:hover,
+#hollow-left-3:hover,
+#hollow-left-4:hover,
+#hollow-left-5:hover,
+#hollow-left-6:hover,
+#hollow-left-7:hover,
+#hollow-center-1:hover,
+#hollow-center-2:hover,
+#hollow-right-1:hover,
+#hollow-right-2:hover,
+#hollow-right-3:hover,
+#hollow-right-4:hover,
+#hollow-right-5:hover {
+  background-color: alpha(@secondary-container, 0.5);
+  border-radius: 12px;
+}
+
+.module {
+  background-color: transparent;
+  color: @on-surface;
+  padding: 0 4px;
+  margin: 0;
+}
+
+#workspaces {
+  background-color: transparent;
+  padding: 0;
+  margin: 0;
+}
+
+#workspaces button {
+  box-shadow: none;
+  text-shadow: none;
+  background-color: alpha(@outline, 0.2);
+  color: @on-surface;
+  border-radius: 8px;
+  padding: 0 6px;
+  margin: 0 3px;
+  animation: 20s ease-in-out 1;
+  transition: background-color 0.4s cubic-bezier(.55, -0.68, .48, 1.682),
+    padding 0.4s cubic-bezier(.55, -0.68, .48, 1.682),
+    border-radius 0.4s cubic-bezier(.55, -0.68, .48, 1.682);
+
+}
+
+#workspaces button.active {
+  background-color: @primary;
+  color: @on-primary;
+  border-radius: 8px;
+  padding: 2 8px;
+  animation: 20s ease-in-out 1;
+  transition: background-color 0.4s cubic-bezier(.55, -0.68, .48, 1.682),
+    padding 0.4s cubic-bezier(.55, -0.68, .48, 1.682),
+    border-radius 0.4s cubic-bezier(.55, -0.68, .48, 1.682);
+}
+
+
+#workspaces button:hover {
+  background-color: @primary;
+  color: @on-primary;
+  border-radius: 8px;
+  padding: 0 4px;
+  animation: 20s ease-in-out 1;
+  transition: background-color 0.3s cubic-bezier(.55, -0.68, .48, 1.682),
+    padding 0.3s cubic-bezier(.55, -0.68, .48, 1.682),
+    border-radius 0.3s cubic-bezier(.55, -0.68, .48, 1.682);
+
+}
