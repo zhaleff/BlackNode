@@ -1,125 +1,86 @@
-
-@import "../../colors.rasi"
-
 configuration {
-  modi: "drun,filebrowser,window,run";
-  show-icons: true;
-  display-drun: " ";
-  display-run: " ";
-  display-filebrowser: " ";
-  display-window: " ";
-  drun-display-format: "{name}";
-  window-format: "{w}{t}";
-  font: "JetBrainsMono Nerd Font 10";
-  icon-theme: "Tela-circle-dracula";
+    modi:                           "drun";
+    show-icons:                     true;
+    drun-display-format:            "{name}";
+    font:                           "Comfortaa 12";
+    disable-history:                false;
+    fullscreen:                     false;
+    hide-scrollbar:                 true;
+    sidebar-mode:                   false;
+}
+
+@import "../colors.rasi"
+
+* {
+    background-color:               @surface;
+    text-color:                     @on-surface;
 }
 
 window {
-  height: 480px;
-  width: 928px;
-  transparency: "real";
-  fullscreen: false;
-  border-color: @primary;
-  background-color: transparent;
-  spacing: 0px;
-  padding: 0px;
+    transparency:                   "real";
+    border-radius:                  12px;
+    location:                       east;
+    anchor:                         east;
+    width:                          100px;
+    x-offset:                       -15px;
+    y-offset:                       0px;
 }
 
 mainbox {
-  enabled: true;
-  spacing: 0px;
-  padding: 13px;
-  orientation: horizontal;
-  children: [ "inputbar", "listbox" ];
-  background-color: transparent;
-}
-
-inputbar {
-  enabled: true;
-  width: 456px;
-  spacing: 0px;
-  padding: 0px;
-  children: [ "entry" ];
-  expand: false;
-  background-color: @surface;
-  background-image: url("../../wallpaper.png", height);
-  border-radius: 14px;
-}
-
-entry {
-  enabled: false;
-}
-
-listbox {
-  spacing: 0px;
-  padding: 0px;
-  children: [ "dummy", "listview", "dummy" ];
-  background-color: @surface;
-  border-radius: 14px;
+    children:                       [ listview ];
+    spacing:                        10px;
+    margin:                         8px;
 }
 
 listview {
-  enabled: true;
-  spacing: 0px;
-  padding: 16px 32px 16px 32px;
-  columns: 1;
-  lines: 8;
-  cycle: true;
-  dynamic: true;
-  scrollbar: false;
-  layout: vertical;
-  reverse: false;
-  expand: false;
-  fixed-height: true;
-  fixed-columns: true;
-  cursor: "default";
-  background-color: transparent;
-  text-color: @on-surface;
-}
-
-dummy {
-  background-color: transparent;
+    columns:                        1;
+    lines:                          8;
+    spacing:                        4px;
+    cycle:                          true;
+    dynamic:                        true;
+    layout:                         vertical;
 }
 
 element {
-  enabled: true;
-  spacing: 16px;
-  padding: 8px 24px 8px 8px;
-  cursor: pointer;
-  background-color: transparent;
-  text-color: @on-surface;
-}
-
-element selected.normal {
-  background-color: @primary;
-  text-color: @on-primary;
-  border-radius: 14px;
+    orientation:                    vertical;
+    border-radius:                  8px;
+    background-color:               transparent;
+    children:                       [ element-icon ];
+    padding:                        6px;
 }
 
 element-icon {
-  size: 35px;
-  cursor: inherit;
-  background-color: transparent;
-  text-color: inherit;
+    size:                           46px;
+    horizontal-align:               0.5;
+    vertical-align:                 0.5;
+    background-color:               transparent;
 }
 
 element-text {
-  vertical-align: 0.5;
-  horizontal-align: 0.0;
-  cursor: inherit;
-  background-color: transparent;
-  text-color: inherit;
+    enabled:                        false;
 }
 
-error-message {
-  text-color: @on-surface;
-  background-color: @surface;
-  children: [ "textbox" ];
+element normal.urgent,
+element alternate.urgent {
+    text-color:                     @surface;
+    border-radius:                  12px;
 }
 
-textbox {
-  text-color: inherit;
-  background-color: inherit;
-  vertical-align: 0.5;
-  horizontal-align: 0.5;
+element normal.active,
+element alternate.active {
+    text-color:                     @surface;
+}
+
+element selected {
+    border-radius:                  8px;
+    border:                         1px;
+    border-color:                   @primary;
+}
+
+element selected.urgent {
+    text-color:                     @surface;
+}
+
+element selected.active {
+    text-color:                     @surface;
 }
