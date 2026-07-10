@@ -1,24 +1,17 @@
 @import "~/.config/rofi/colors.rasi"
 
 configuration {
-    modi:                        "drun,filebrowser,window,run";
-    show-icons:                  true;
-    display-drun:                " ";
-    display-run:                 " ";
-    display-filebrowser:         " ";
-    display-window:              " ";
-    drun-display-format:         "{name}";
-    font:                        "JetBrainsMono Nerd Font 10";
-    icon-theme:                  "Tela-circle-dracula";
+    font:                        "JetBrainsMono Nerd Font 13";
+    show-icons:                  false;
+    kb-row-tab:                  "";
 }
 
 window {
-    width:                       380px;
-    height:                      620px;
+    width:                       440px;
+    height:                      640px;
     transparency:                "real";
     fullscreen:                  false;
-    border:                      0px;
-    border-radius:               24px;
+    border-radius:               28px;
     background-color:            @surface;
     location:                    center;
     anchor:                      center;
@@ -26,35 +19,35 @@ window {
 
 mainbox {
     spacing:                     0px;
-    padding:                     20px;
+    padding:                     16px;
     orientation:                 vertical;
     children:                    [ "inputbar", "listview" ];
     background-color:            transparent;
 }
 
 inputbar {
-    spacing:                     12px;
-    padding:                     0px 0px 16px 0px;
+    spacing:                     0px;
+    padding:                     0px 0px 12px 0px;
     children:                    [ "entry" ];
     background-color:            transparent;
 }
 
 entry {
-    background-color:            @primary;
-    text-color:                  @on-primary;
+    background-color:            @surface-container-high;
+    text-color:                  @on-surface;
     cursor:                      text;
     vertical-align:              0.5;
-    placeholder:                 "Search...";
-    placeholder-color:           @outline;
-    padding:                     12px 16px;
-    border-radius:               12px;
+    placeholder:                 "    Search...";
+    placeholder-color:           @on-surface-variant;
+    padding:                     14px 16px;
+    border-radius:               16px;
 }
 
 listview {
     enabled:                     true;
     columns:                     1;
-    lines:                       6;
-    spacing:                     8px;
+    lines:                       15;
+    spacing:                     4px;
     padding:                     0px;
     cycle:                       true;
     dynamic:                     true;
@@ -66,16 +59,16 @@ listview {
 
 element {
     spacing:                     0px;
-    padding:                     12px 16px;
+    padding:                     10px 14px;
     cursor:                      pointer;
     background-color:            transparent;
     text-color:                  @on-surface;
-    border-radius:               12px;
+    border-radius:               14px;
 }
 
 element selected.normal {
-    background-color:            @primary;
-    text-color:                  @on-primary;
+    background-color:            @secondary-container;
+    text-color:                  @on-secondary-container;
 }
 
 element-icon {
@@ -91,7 +84,7 @@ element-text {
     cursor:                      inherit;
     background-color:            transparent;
     text-color:                  inherit;
-    margin:                      0px 0px 0px 12px;
+    margin:                      0px 0px 0px 14px;
 }
 
 textbox {

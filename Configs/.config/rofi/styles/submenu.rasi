@@ -1,17 +1,14 @@
 @import "~/.config/rofi/colors.rasi"
 
 configuration {
-    font:                        "JetBrainsMono Nerd Font 13";
+    font:                        "JetBrainsMono Nerd Font 12";
     show-icons:                  false;
-    kb-row-tab:                  "";
 }
 
 window {
-    width:                       440px;
-    height:                      640px;
+    width:                       380px;
     transparency:                "real";
-    fullscreen:                  false;
-    border-radius:               28px;
+    border-radius:               24px;
     background-color:            @surface;
     location:                    center;
     anchor:                      center;
@@ -19,7 +16,7 @@ window {
 
 mainbox {
     spacing:                     0px;
-    padding:                     16px;
+    padding:                     14px;
     orientation:                 vertical;
     children:                    [ "inputbar", "listview" ];
     background-color:            transparent;
@@ -27,7 +24,7 @@ mainbox {
 
 inputbar {
     spacing:                     0px;
-    padding:                     0px 0px 12px 0px;
+    padding:                     0px 0px 10px 0px;
     children:                    [ "entry" ];
     background-color:            transparent;
 }
@@ -39,14 +36,13 @@ entry {
     vertical-align:              0.5;
     placeholder:                 "    Search...";
     placeholder-color:           @on-surface-variant;
-    padding:                     14px 16px;
-    border-radius:               16px;
+    padding:                     10px 14px;
+    border-radius:               14px;
 }
 
 listview {
     enabled:                     true;
     columns:                     1;
-    lines:                       15;
     spacing:                     4px;
     padding:                     0px;
     cycle:                       true;
@@ -59,11 +55,11 @@ listview {
 
 element {
     spacing:                     0px;
-    padding:                     10px 14px;
+    padding:                     8px 12px;
     cursor:                      pointer;
     background-color:            transparent;
     text-color:                  @on-surface;
-    border-radius:               14px;
+    border-radius:               12px;
 }
 
 element selected.normal {
@@ -72,7 +68,7 @@ element selected.normal {
 }
 
 element-icon {
-    size:                        28px;
+    size:                        24px;
     cursor:                      inherit;
     background-color:            transparent;
     text-color:                  inherit;
@@ -84,7 +80,7 @@ element-text {
     cursor:                      inherit;
     background-color:            transparent;
     text-color:                  inherit;
-    margin:                      0px 0px 0px 14px;
+    margin:                      0px 0px 0px 10px;
 }
 
 textbox {

@@ -18,21 +18,21 @@ sample_rate = 44100
 
 [color]
 background = 'default'
-foreground = '#c1c1ff'
+foreground = '#bbcf82'
 
 ; gradient = 0
 gradient = 1
-gradient_color_1 = '#404178'
-gradient_color_2 = '#c1c1ff'
-gradient_color_3 = '#e2dfff'
+gradient_color_1 = '#3d4c0d'
+gradient_color_2 = '#bbcf82'
+gradient_color_3 = '#d6eb9b'
 
 horizontal_gradient = 0
 ; horizontal_gradient = 1
-horizontal_gradient_color_1 = '#404178'
-horizontal_gradient_color_2 = '#c1c1ff'
-horizontal_gradient_color_3 = '#e2dfff'
-horizontal_gradient_color_4 = '#c1c1ff'
-horizontal_gradient_color_5 = '#404178'
+horizontal_gradient_color_1 = '#3d4c0d'
+horizontal_gradient_color_2 = '#bbcf82'
+horizontal_gradient_color_3 = '#d6eb9b'
+horizontal_gradient_color_4 = '#bbcf82'
+horizontal_gradient_color_5 = '#3d4c0d'
 [style]
 bars = classic
 bar_width = 2

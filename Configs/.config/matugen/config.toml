@@ -35,9 +35,9 @@ input_path = '~/.config/matugen/templates/nvim.lua'
 output_path = '~/.config/nvim/generated.lua'
 # post_hook = 'pkill -SIGUSR1 nvim'
 
-[tempates.clipse]
+[templates.clipse]
 input_path = '~/.config/matugen/templates/clipse_theme.json'
-output_path = '~/.config/clipse/clipse_theme.json'
+output_path = '~/.config/clipse/custom_theme.json'
 
 # [templates.nvim]
 # input_path = '~/.config/matugen/templates/nvim.lua'
