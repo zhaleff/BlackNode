@@ -102,11 +102,10 @@
       "type": "custom",
       "format": "╰─────────────────────────────────────────────╯"
     },
-    "break",
     {
       "type": "colors",
       "symbol": "circle",
-      "paddingLeft": 3,
+      "paddingLeft": 0,
       "colors": [
         "blue",
         "magenta",
