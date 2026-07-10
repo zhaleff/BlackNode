@@ -1,124 +1,115 @@
 @import "../colors.rasi"
 
 configuration {
-  modi: "drun,filebrowser,window,run";
-  show-icons: true;
-  display-drun: " ";
-  display-run: " ";
-  display-filebrowser: " ";
-  display-window: " ";
-  drun-display-format: "{name}";
-  window-format: "{w}{t}";
-  font: "JetBrainsMono Nerd Font 10";
-  icon-theme: "Tela-circle-dracula";
+    modi:                        "drun,filebrowser,window,run";
+    show-icons:                  true;
+    display-drun:                " ";
+    display-run:                 " ";
+    display-filebrowser:         " ";
+    display-window:              " ";
+    drun-display-format:         "{name}";
+    window-format:               "{w}{t}";
+    font:                        "JetBrainsMono Nerd Font 12";
+    icon-theme:                  "Tela-circle-dracula";
 }
 
 window {
-  height: 480px;
-  width: 928px;
-  transparency: "real";
-  fullscreen: false;
-  border-color: @primary;
-  background-color: transparent;
-  spacing: 0px;
-  padding: 0px;
+    height:                      520px;
+    width:                       520px;
+    transparency:                "real";
+    border-radius:               28px;
+    background-color:            @surface;
+    padding:                    12px;
 }
 
 mainbox {
-  enabled: true;
-  spacing: 0px;
-  padding: 13px;
-  orientation: horizontal;
-  children: [ "inputbar", "listbox" ];
-  background-color: transparent;
+    spacing:                    0px;
+    padding:                    0px;
+    orientation:                vertical;
+    children:                   [ "inputbar", "listview" ];
+    background-color:           transparent;
 }
 
 inputbar {
-  enabled: true;
-  width: 456px;
-  spacing: 0px;
-  padding: 0px;
-  children: [ "entry" ];
-  expand: false;
-  background-color: @surface;
-  background-image: url("../../wallpaper.png", height);
-  border-radius: 14px;
+    spacing:                    0px;
+    padding:                    0px;
+    margin:                     0px 0px 12px 0px;
+    background-color:           @surface-container-high;
+    border-radius:              16px;
+    children:                   [ "textbox-prompt-colon", "entry" ];
+}
+
+textbox-prompt-colon {
+    expand:                     false;
+    str:                        "󰀻";
+    padding:                    10px 0px 10px 16px;
+    background-color:           transparent;
+    text-color:                 @on-surface-variant;
+    vertical-align:             0.5;
 }
 
 entry {
-  enabled: false;
-}
-
-listbox {
-  spacing: 0px;
-  padding: 0px;
-  children: [ "dummy", "listview", "dummy" ];
-  background-color: @surface;
-  border-radius: 14px;
+    expand:                     true;
+    padding:                    14px 16px;
+    background-color:           transparent;
+    text-color:                 @on-surface;
+    cursor:                     text;
+    placeholder:                "Search apps...";
+    placeholder-color:          @on-surface-variant;
 }
 
 listview {
-  enabled: true;
-  spacing: 0px;
-  padding: 16px 32px 16px 32px;
-  columns: 1;
-  lines: 8;
-  cycle: true;
-  dynamic: true;
-  scrollbar: false;
-  layout: vertical;
-  reverse: false;
-  expand: false;
-  fixed-height: true;
-  fixed-columns: true;
-  cursor: "default";
-  background-color: transparent;
-  text-color: @on-surface;
-}
-
-dummy {
-  background-color: transparent;
+    spacing:                    4px;
+    padding:                    0px;
+    columns:                    1;
+    lines:                      8;
+    cycle:                      true;
+    dynamic:                    true;
+    scrollbar:                  false;
+    layout:                     vertical;
+    background-color:           transparent;
+    text-color:                 @on-surface;
 }
 
 element {
-  enabled: true;
-  spacing: 16px;
-  padding: 8px 24px 8px 8px;
-  cursor: pointer;
-  background-color: transparent;
-  text-color: @on-surface;
+    spacing:                    12px;
+    padding:                    8px 12px;
+    border-radius:              14px;
+    cursor:                     pointer;
+    background-color:           transparent;
+    text-color:                 @on-surface;
 }
 
 element selected.normal {
-  background-color: @primary;
-  text-color: @on-primary;
-  border-radius: 14px;
+    background-color:           @secondary-container;
+    text-color:                 @on-secondary-container;
 }
 
 element-icon {
-  size: 35px;
-  cursor: inherit;
-  background-color: transparent;
-  text-color: inherit;
+    size:                       32px;
+    border-radius:              10px;
+    background-color:           transparent;
+    text-color:                 inherit;
 }
 
 element-text {
-  vertical-align: 0.5;
-  horizontal-align: 0.0;
-  cursor: inherit;
-  background-color: transparent;
-  text-color: inherit;
+    vertical-align:             0.5;
+    horizontal-align:           0;
+    background-color:           transparent;
+    text-color:                 inherit;
 }
 
 error-message {
-  text-color: @on-surface;
-  background-color: @surface;
-  children: [ "textbox" ];
+    text-color:                 @on-surface;
+    background-color:           @surface;
+    children:                   [ "textbox" ];
+    border-radius:              14px;
+    padding:                    8px;
 }
 
 textbox {
-  text-color: inherit;
-  background-color: inherit;
-  vertical-align: 0.5;
-  horizontal-align: 0.5;
+    text-color:                 inherit;
+    background-color:           inherit;
+    vertical-align:             0.5;
+    horizontal-align:           0.5;
 }
