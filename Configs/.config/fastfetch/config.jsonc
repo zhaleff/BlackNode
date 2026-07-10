@@ -4,139 +4,117 @@
     "type": "kitty",
     "source": "$HOME/.config/fastfetch/assets/Silksong.png",
     "height": 18,
+    "padding": {
+      "right": 2
+    }
   },
   "display": {
-    "color": "cyan",
+    "color": "blue"
   },
   "modules": [
     {
+      "type": "custom",
+      "format": "╭─────────────────────────────────────────────╮"
+    },
+    {
       "type": "title",
-      "format": "   󰢚 HollowSec the coffee race at dawn...",
-      "keyColor": "magenta",
-      "color": "magenta"
+      "key": "   󰢚 ",
+      "keyColor": "blue",
+      "format": "HollowSec — coffee race at dawn",
+      "color": "blue"
     },
     {
       "type": "custom",
-      "format": "╭────────────────────────────────────────────────────╮"
+      "format": "├─────────────────────────────────────────────┤",
+      "color": "gray"
     },
     {
       "type": "title",
-      "key": "    User",
+      "key": "    ",
       "keyColor": "blue",
       "format": "{1}@{2}",
       "color": "white"
     },
     {
       "type": "os",
-      "key": "   󰣇 OS",
-      "keyColor": "blue",
-      "format": "{2}",
-      "color": "white"
-    },
-    {
-      "type": "   kernel",
-      "key": "    Kernel",
+      "key": "   󰣇 ",
       "keyColor": "blue",
       "format": "{2}",
       "color": "white"
     },
     {
       "type": "packages",
-      "key": "   󰏗 Packages",
+      "key": "   󰏗 ",
       "keyColor": "blue",
       "color": "white"
     },
     {
       "type": "cpu",
-      "key": "    CPU",
+      "key": "    ",
       "keyColor": "blue",
       "format": "{1} ({3}) @ {7}",
       "color": "white"
     },
     {
-      "type": "gpu",
-      "key": "   󰊴 GPU",
-      "keyColor": "blue",
-      "format": "{1} {2}",
-      "color": "white"
-    },
-    {
       "type": "memory",
-      "key": "   󰍛 Memory",
+      "key": "   󰍛 ",
       "keyColor": "blue",
       "format": "{1} / {2} ({3})",
       "color": "white"
     },
     {
       "type": "custom",
-      "format": "╰────────────────────────────────────────────────────╯"
+      "format": "╰─────────────────────────────────────────────╯"
     },
     {
       "type": "custom",
-      "format": "╭────────────────────────────────────────────────────╮"
-    },
-    {
-      "type": "display",
-      "key": "   󰍹 Display",
-      "keyColor": "yellow",
-      "format": "{1}x{2} @ {3}Hz ({7})",
-      "color": "white"
+      "format": "╭─────────────────────────────────────────────╮"
     },
     {
       "type": "wm",
-      "key": "   󱗃 WM",
-      "keyColor": "yellow",
+      "key": "   󱗃 ",
+      "keyColor": "blue",
       "format": "{2}",
       "color": "white"
     },
     {
       "type": "terminal",
-      "key": "    Terminal",
-      "keyColor": "yellow",
+      "key": "    ",
+      "keyColor": "blue",
       "format": "{2}",
       "color": "white"
     },
     {
       "type": "uptime",
-      "key": "   󰅐 Uptime",
-      "keyColor": "magenta",
+      "key": "   󰅐 ",
+      "keyColor": "blue",
       "color": "white"
     },
     {
       "type": "disk",
-      "key": "   OS Age",
-      "keyColor": "magenta",
-      "format": "{days} days",
-      "folders": "/",
-      "color": "white"
-    },
-    {
-      "type": "disk",
-      "key": "   󱦟 Disk",
-      "keyColor": "magenta",
+      "key": "   󱦟 ",
+      "keyColor": "blue",
       "format": "{1} / {2} ({3})",
       "folders": "/",
       "color": "white"
     },
     {
       "type": "custom",
-      "format": "╰────────────────────────────────────────────────────╯"
+      "format": "╰─────────────────────────────────────────────╯"
     },
+    "break",
     {
       "type": "colors",
       "symbol": "circle",
-      "paddingLeft": 2,
+      "paddingLeft": 3,
       "colors": [
-        "black",
-        "red",
-        "green",
-        "yellow",
         "blue",
         "magenta",
         "cyan",
+        "green",
+        "yellow",
         "white"
       ]
-    },
-    "break"
+    }
   ]
 }
