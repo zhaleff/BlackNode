@@ -5,16 +5,16 @@
   border-radius: 0;
   box-shadow: none;
   font-family: "JetBrainsMono Nerd Font", Roboto, Helvetica, Arial, sans-serif;
-  font-size: 13px;
-  font-weight: 700;
-  margin: 0px 2px;
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0px 4px;
   transition: all 0.25s cubic-bezier(0.3, 0.0, 0.0, 1.0);
   min-height: 0;
 }
 
 window#waybar {
   background-color: @surface;
-  border-radius: 10px;
+  border-radius: 999px;
   margin: 4px 6px;
   padding: 0 4px;
 }
@@ -48,9 +48,25 @@ tooltip label {
 #hollow-right-4,
 #hollow-right-5 {
   background-color: alpha(@outline, 0.12);
-  border-radius: 8px;
+  border-radius: 0px;
   padding: 4px 8px;
-  margin: 5px 3px;
+  margin: 8px 2px;
+}
+
+#hollow-right-5 {
+  border-radius: 999px 0px 0px 999px;
+}
+
+#hollow-right-3 {
+  border-radius: 0px 999px 999px 0px;
+}
+
+#hollow-left-2 {
+  border-radius: 999px 0px 0px 999px;
+}
+
+#hollow-left-1 {
+  border-radius: 0px 999px 999px 0px;
 }
 
 #hollow-left-1:hover,
@@ -96,7 +112,6 @@ tooltip label {
   transition: background-color 0.4s cubic-bezier(.55, -0.68, .48, 1.682),
     padding 0.4s cubic-bezier(.55, -0.68, .48, 1.682),
     border-radius 0.4s cubic-bezier(.55, -0.68, .48, 1.682);
-
 }
 
 #workspaces button.active {
@@ -110,7 +125,6 @@ tooltip label {
     border-radius 0.4s cubic-bezier(.55, -0.68, .48, 1.682);
 }
 
-
 #workspaces button:hover {
   background-color: @primary;
   color: @on-primary;
@@ -120,5 +134,4 @@ tooltip label {
   transition: background-color 0.3s cubic-bezier(.55, -0.68, .48, 1.682),
     padding 0.3s cubic-bezier(.55, -0.68, .48, 1.682),
     border-radius 0.3s cubic-bezier(.55, -0.68, .48, 1.682);
-
 }

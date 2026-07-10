@@ -1,7 +1,7 @@
 {
   "hyprland/window": {
     "format": " 󰶞 {}",
-    "max-length": 32,
+    "max-length": 46,
     "separate-outputs": false
   }
 }

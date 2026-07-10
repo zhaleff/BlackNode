@@ -10,7 +10,7 @@
   "margin-right": 10,
   "margin-top": 5,
   "margin-bottom": 0,
-  "spacing": 15,
+  "spacing": 5,
   "reload_style_on_change": true,
 
   "modules-left": [
