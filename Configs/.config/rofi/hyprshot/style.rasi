@@ -15,49 +15,69 @@ configuration {
 
 window {
     transparency:                   "real";
-    border-radius:                  12px;
+    background-color:               transparent;
+    border-radius:                  32px;
     location:                       east;
     anchor:                         east;
     width:                          100px;
-    x-offset:                       -15px;
+    x-offset:                       -22px;
     y-offset:                       0px;
 }
 
-listview {
-    columns:                        1;
-    lines:                          3;
-    spacing:                        0px;
-    cycle:                          true;
-    dynamic:                        true;
-    layout:                         vertical;
-}
+
 
 mainbox {
     children:                       [ listview ];
-    spacing:                        10px;
-    margin:                         8px;
-}
-
-element {
-    text-color:                     @on-surface;
-    orientation:                    vertical;
-    border-radius:                  8px;
+    spacing:                        0px;
+    margin:                         0px;
     background-color:               transparent;
 }
 
-element-text {
-    font:                           "feather 20";
-    expand:                         true;
-    horizontal-align:               0.5;
-    vertical-align:                 0.5;
-    padding:                        12px 0px 25px 7px;
-    margin:                         4px 0px 4px 0px;
+listview {
+    columns:                1;
+    lines:                  3;
+    border:                 0px;
+    layout:                 vertical;
+    spacing:                8px;
+    padding:                10px;
+    outline:                0px;
+    background-color:       @surface-container-lowest;
+    border-radius:          28px;
 }
+
+
+element {
+    background-color: transparent;
+    border-radius: 32px;
+    border: 0px;
+    padding: 0px;
+    margin: 0px;
+    outline: 0px;
+}
+
+element-text {
+    font: "feather 18";
+    horizontal-align: 0.5;
+    vertical-align: 0.5;
+    border: 0px;
+    outline: 0px;
+    padding: 38px 0px;
+    margin: 0px;
+}
+
+element-icon {
+    size: -2px;
+    border: 0px;
+    margin: 0px;
+    padding: 0px;
+    background-color: transparent;
+}
+
 
 element normal.urgent,
 element alternate.urgent {
     text-color:                     @surface;
-    border-radius:                  12px;
+    border-radius:                  16px;
 }
 
 element normal.active,
@@ -66,10 +86,11 @@ element alternate.active {
 }
 
 element selected {
-    text-color:                     @primary;
-    border-radius:                  8px;
-    border:                         1px;
-    border-color:                   @primary;
+    background-color: @primary;
+    text-color: @primary;
+    border: 0px;
+    outline: 0px;
+    border-radius: 18px;
 }
 
 element selected.urgent {
@@ -78,84 +99,5 @@ element selected.urgent {
 
 element selected.active {
     text-color:                     @surface;
-}@import "../../colors.rasi"
 
-configuration {
-    font:                           "Comfortaa 12";
-    disable-history:                false;
-    fullscreen:                     false;
-    hide-scrollbar:                 true;
-    sidebar-mode:                   false;
-}
-
-* {
-    background-color:               @surface;
-    text-color:                     @on-surface;
-}
-
-window {
-    transparency:                   "real";
-    border-radius:                  12px;
-    location:                       east;
-    anchor:                         east;
-    width:                          100px;
-    x-offset:                       -15px;
-    y-offset:                       0px;
-}
-
-listview {
-    columns:                        1;
-    lines:                          3;
-    spacing:                        0px;
-    cycle:                          true;
-    dynamic:                        true;
-    layout:                         vertical;
-}
-
-mainbox {
-    children:                       [ listview ];
-    spacing:                        10px;
-    margin:                         8px;
-}
-
-element {
-    text-color:                     @on-surface;
-    orientation:                    vertical;
-    border-radius:                  8px;
-    background-color:               transparent;
-}
-
-element-text {
-    font:                           "feather 20";
-    expand:                         true;
-    horizontal-align:               0.5;
-    vertical-align:                 0.5;
-    padding:                        12px 0px 25px 7px;
-    margin:                         4px 0px 4px 0px;
-}
-
-element normal.urgent,
-element alternate.urgent {
-    text-color:                     @surface;
-    border-radius:                  12px;
-}
-
-element normal.active,
-element alternate.active {
-    text-color:                     @surface;
-}
-
-element selected {
-    text-color:                     @primary;
-    border-radius:                  8px;
-    border:                         1px;
-    border-color:                   @primary;
-}
-
-element selected.urgent {
-    text-color:                     @surface;
-}
-
-element selected.active {
-    text-color:                     @surface;
 }
