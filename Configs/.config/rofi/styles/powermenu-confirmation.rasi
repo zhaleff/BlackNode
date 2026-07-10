@@ -1,0 +1,22 @@
+@import "../colors.rasi"
+@import "../shared/config.rasi"
+@import "../shared/sidebar.rasi"
+
+listview {
+    lines: 2;
+}
+
+element-text {
+    padding:                        24px 0px;
+}
+
+element selected {
+    background-color:               @primary-container;
+    text-color:                     inherit;
+    border-color:                   @primary;
+}
+
+element selected.urgent,
+element selected.active {
+    text-color:                     inherit;
+}

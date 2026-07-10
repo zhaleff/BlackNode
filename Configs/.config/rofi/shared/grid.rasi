@@ -1,0 +1,71 @@
+window {
+    enabled:          true;
+    fullscreen:       false;
+    width:          100%;
+    transparency:   "real";
+    cursor:         "default";
+    spacing:        0px;
+    padding:       0px;
+    border:        0px;
+    border-radius:   0px;
+    background-color: transparent;
+}
+
+mainbox {
+    enabled:          true;
+    spacing:         0px;
+    padding:        0px;
+    children:       [ "listview" ];
+    background-color: transparent;
+}
+
+listview {
+    enabled:          true;
+    spacing:        32px;
+    padding:        20px 24px;
+    cycle:          true;
+    dynamic:        false;
+    scrollbar:      false;
+    layout:         vertical;
+    reverse:        false;
+    fixed-height:   true;
+    fixed-columns:  true;
+    cursor:        "default";
+    background-color: transparent;
+}
+
+element {
+    enabled:           true;
+    orientation:       horizontal;
+    spacing:           0px;
+    padding:           0px;
+    border-radius:     16px;
+    cursor:            pointer;
+    background-color: transparent;
+}
+
+element-icon {
+    cursor:          inherit;
+    border-radius:   0px;
+    background-color: transparent;
+    text-color:    inherit;
+}
+
+element-text {
+    cursor:      inherit;
+    background-color: transparent;
+    text-color:  inherit;
+    vertical-align:   0.5;
+    horizontal-align: 0.5;
+    padding:     16px;
+}
+
+error-message {
+    children:      [ "textbox" ];
+}
+
+textbox {
+    background-color: inherit;
+    vertical-align:   0.5;
+    horizontal-align: 0.5;
+}

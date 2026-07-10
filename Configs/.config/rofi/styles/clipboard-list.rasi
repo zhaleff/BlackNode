@@ -1,0 +1,77 @@
+configuration {
+    show-icons: false;
+}
+
+@import "~/.cache/wallust/rofi.rasi"
+@import "../shared/dialog.rasi"
+
+window {
+    location:            southeast;
+    anchor:              center;
+    width:               380px;
+    x-offset:            -18px;
+    y-offset:            -18px;
+    background-color:     var(background);
+}
+
+inputbar {
+    spacing:         0px;
+    padding:        16px 16px 0px 16px;
+    text-color:     var(foreground);
+    children:       [ "textbox-prompt", "entry" ];
+}
+
+textbox-prompt {
+    enabled:          true;
+    expand:          false;
+    str:            "󰑔";
+    padding:        10px 14px;
+    border-radius: 12px;
+    background-color: var(color5);
+    text-color:     var(background);
+    vertical-align:  0.5;
+}
+
+entry {
+    enabled:           true;
+    expand:           false;
+    width:            280px;
+    padding:          10px 14px;
+    border-radius:   12px;
+    margin:           0px 0px 0px 8px;
+    background-color: var(color0);
+    text-color:       var(foreground);
+    cursor:           text;
+    placeholder:     "Search clipboard...";
+    placeholder-color: var(color7);
+}
+
+listview {
+    lines:            5;
+    margin:         16px;
+    border-radius:  12px;
+    background-color: transparent;
+    text-color:     var(foreground);
+}
+
+element {
+    spacing:          0px;
+    padding:         12px;
+    border-radius:   12px;
+    text-color:      var(foreground);
+}
+
+element selected {
+    background-color: var(color5);
+    text-color:     var(background);
+}
+
+element-icon {
+    size:            24px;
+    background-color: transparent;
+    text-color:     var(foreground);
+}
+
+element-text {
+    padding:         0px 12px;
+}

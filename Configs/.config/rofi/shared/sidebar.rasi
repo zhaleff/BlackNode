@@ -1,0 +1,87 @@
+* {
+    background-color:               @surface-container;
+    text-color:                     @on-surface;
+}
+
+window {
+    transparency:                   "real";
+    background-color:               transparent;
+    border-radius:                  32px;
+    location:                       east;
+    anchor:                         east;
+    width:                          100px;
+    x-offset:                       -22px;
+    y-offset:                       0px;
+}
+
+mainbox {
+    children:                       [ listview ];
+    spacing:                        0px;
+    margin:                         0px;
+    background-color:               transparent;
+}
+
+listview {
+    columns:                        1;
+    border:                         0px;
+    layout:                         vertical;
+    spacing:                        8px;
+    padding:                        10px;
+    outline:                        0px;
+    background-color:               @surface-container-lowest;
+    border-radius:                  28px;
+}
+
+element {
+    background-color:               transparent;
+    border-radius:                  32px;
+    border:                         0px;
+    padding:                        0px;
+    margin:                         0px;
+    outline:                        0px;
+}
+
+element-text {
+    font:                           "feather 20";
+    horizontal-align:               0.6;
+    vertical-align:                 0.6;
+    border:                         0px;
+    outline:                        0px;
+    padding:                        38px 0px;
+    margin:                         0px;
+}
+
+element-icon {
+    size:                           -3px;
+    border:                         0px;
+    margin:                         0px;
+    padding:                        0px;
+    background-color:               transparent;
+}
+
+element normal.urgent,
+element alternate.urgent {
+    text-color:                     @surface;
+    border-radius:                  16px;
+}
+
+element normal.active,
+element alternate.active {
+    text-color:                     @surface;
+}
+
+element selected {
+    background-color:               @primary;
+    text-color:                     @primary;
+    border:                         0px;
+    outline:                        0px;
+    border-radius:                  18px;
+}
+
+element selected.urgent {
+    text-color:                     @surface;
+}
+
+element selected.active {
+    text-color:                     @surface;
+}

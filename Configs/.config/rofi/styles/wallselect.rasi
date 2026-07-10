@@ -1,0 +1,75 @@
+configuration {
+    show-icons:          true;
+    drun-display-format: "{name}";
+    font:                "JetBrainsMono Nerd Font Bold 12";
+}
+
+@import "../colors.rasi"
+
+window {
+    width:                 100%;
+    transparency:         "real";
+    cursor:               "default";
+    padding:              0px;
+    border-radius:        48px;
+    background-color:     transparent;
+}
+
+mainbox {
+    children:            [ "listview" ];
+    background-color:     @surface;
+}
+
+listview {
+    columns:              4;
+    lines:                1;
+    spacing:              24px;
+    padding:              20px 24px;
+    cycle:                true;
+    dynamic:              false;
+    scrollbar:            false;
+    layout:               vertical;
+    fixed-height:         true;
+    fixed-columns:        true;
+    cursor:              "default";
+    background-color:     transparent;
+    text-color:           @on-surface;
+}
+
+element {
+    padding:              4px;
+    border-radius:        32px;
+    cursor:               pointer;
+    background-color:     @surface-container-low;
+}
+
+element selected.normal {
+    background-color:     @secondary-container;
+    border:               1px;
+    border-color:         @secondary-container;
+}
+
+element-icon {
+    size:                300px;
+    cursor:              inherit;
+    expand: true;
+    border-radius:        52px;
+    background-color:     transparent;
+}
+
+element-text {
+    enabled:              false;
+}
+
+error-message {
+    text-color:           @on-surface;
+    background-color:     @surface;
+    children:            [ "textbox" ];
+}
+
+textbox {
+    text-color:           inherit;
+    background-color:     inherit;
+    vertical-align:       0.5;
+    horizontal-align:     0.5;
+}
