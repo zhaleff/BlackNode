@@ -63,7 +63,6 @@ require("settings/rules")
   -- env
 require("settings/env")
 
-
-
-
+-- runtime overrides (from config-hud)
+pcall(require, "settings/overrides")
 
