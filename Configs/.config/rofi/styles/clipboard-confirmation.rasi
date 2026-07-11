@@ -1,90 +1,51 @@
-configuration {
-    show-icons:                 false;
-}
-
-* {
-    font:                       "JetBrains Mono Nerd Font 12";
-    background:                  #11111b;
-    foreground:                  #cdd6f4;
-    selected:                    #cba6f7;
-    active:                      #f5e0dc;
-    urgent:                      #f38ba8;
-}
+@import "../colors.rasi"
 
 window {
-    transparency:                "real";
-    location:                    center;
-    anchor:                      center;
-    fullscreen:                  false;
-    width:                       280px;
-    x-offset:                    0px;
-    y-offset:                    0px;
-    padding:                     0px;
-    border:                      0px solid;
-    border-radius:               16px;
-    border-color:                @selected;
-    cursor:                      "default";
-    background-color:            @background;
+    transparency: "real";
+    location: center;
+    anchor: center;
+    width: 260px;
+    border-radius: 24px;
+    background-color: @surface;
 }
 
 mainbox {
-    enabled:                     true;
-    spacing:                     0px;
-    margin:                      0px;
-    padding:                     0px;
-    border:                      0px solid;
-    border-radius:               0px;
-    border-color:                @selected;
-    background-color:            transparent;
-    children:                    [ "message", "listview" ];
+    spacing: 0px;
+    background-color: transparent;
+    orientation: vertical;
+    children: [ "message", "listview" ];
 }
 
 message {
-    enabled:                     true;
-    margin:                      12px 20px;
-    padding:                     10px 16px;
-    border-radius:               12px 12px 0px 0px;
-    background-color:            @selected;
-    text-color:                  @background;
+    padding: 16px 20px 0px 20px;
+    text-color: @on-surface;
+    font: "JetBrains Mono Nerd Font 12";
 }
 
 listview {
-    enabled:                     true;
-    columns:                     2;
-    lines:                       1;
-    cycle:                       true;
-    dynamic:                     true;
-    scrollbar:                   false;
-    layout:                      vertical;
-    reverse:                     false;
-    fixed-height:                true;
-    fixed-columns:               true;
-    spacing:                     12px;
-    padding:                     16px;
-    margin:                      0px;
-    background-color:            transparent;
-    cursor:                      "default";
+    columns: 2;
+    lines: 1;
+    spacing: 12px;
+    padding: 16px;
+    background-color: transparent;
 }
 
 element {
-    enabled:                     true;
-    padding:                     12px 16px;
-    border-radius:               12px;
-    background-color:            #313244;
-    text-color:                  #eff1f5;
-    cursor:                      pointer;
+    padding: 12px 16px;
+    border-radius: 100px;
+    background-color: @surface-container-low;
+    text-color: @on-surface;
+    font: "JetBrains Mono Nerd Font 12";
+}
+
+element selected {
+    background-color: @primary;
+    text-color: @on-primary;
 }
 
 element-text {
-    font:                        "JetBrains Mono Nerd Font 12";
-    background-color:            transparent;
-    text-color:                  inherit;
-    cursor:                      inherit;
-    vertical-align:              0.5;
-    horizontal-align:            0.5;
-}
-
-element selected.normal {
-    background-color:            @selected;
-    text-color:                  @background;
+    background-color: transparent;
+    text-color: inherit;
+    vertical-align: 0.5;
+    horizontal-align: 0.5;
 }

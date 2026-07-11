@@ -1,115 +1,111 @@
 @import "../colors.rasi"
 
 configuration {
-    modi:                        "drun,filebrowser,window,run";
-    show-icons:                  true;
-    display-drun:                " ";
-    display-run:                 " ";
-    display-filebrowser:         " ";
-    display-window:              " ";
-    drun-display-format:         "{name}";
-    window-format:               "{w}{t}";
-    font:                        "JetBrainsMono Nerd Font 12";
-    icon-theme:                  "Tela-circle-dracula";
+  modi:                        "drun,run";
+  show-icons:                  true;
+  display-drun:                " 󰀻 ";
+  display-run:                 "  ";
+  drun-display-format:         "{name}";
+  window-format:               "{w}{t}";
+  font:                        "JetBrainsMono Nerd Font 13";
+  icon-theme:                  "Tela-circle-dracula";
+  kb-row-tab:                  "";
 }
 
 window {
-    height:                      520px;
-    width:                       520px;
-    transparency:                "real";
-    border-radius:               28px;
-    background-color:            @surface;
-    padding:                    12px;
+  height:                      520px;
+  width:                       480px;
+  transparency:                "real";
+  border-radius:               28px;
+  background-color:            @surface;
+  padding:                     16px;
 }
 
 mainbox {
-    spacing:                    0px;
-    padding:                    0px;
-    orientation:                vertical;
-    children:                   [ "inputbar", "listview" ];
-    background-color:           transparent;
+  spacing:                     0px;
+  padding:                     0px;
+  orientation:                 vertical;
+  children:                    [ "inputbar", "listview" ];
+  background-color:            transparent;
 }
 
 inputbar {
-    spacing:                    0px;
-    padding:                    0px;
-    margin:                     0px 0px 12px 0px;
-    background-color:           @surface-container-high;
-    border-radius:              16px;
-    children:                   [ "textbox-prompt-colon", "entry" ];
+  spacing:                     0px;
+  padding:                     0px;
+  margin:                      0px 0px 12px 0px;
+  background-color:            @surface-container-high;
+  border-radius:               16px;
+  children:                    [ "textbox-prompt-colon", "entry" ];
 }
 
 textbox-prompt-colon {
-    expand:                     false;
-    str:                        "󰀻";
-    padding:                    10px 0px 10px 16px;
-    background-color:           transparent;
-    text-color:                 @on-surface-variant;
-    vertical-align:             0.5;
+  expand:                      false;
+  str:                         "󰀻";
+  padding:                     10px 0px 10px 16px;
+  background-color:            transparent;
+  text-color:                  @on-surface-variant;
+  vertical-align:              0.5;
 }
 
 entry {
-    expand:                     true;
-    padding:                    14px 16px;
-    background-color:           transparent;
-    text-color:                 @on-surface;
-    cursor:                     text;
-    placeholder:                "Search apps...";
-    placeholder-color:          @on-surface-variant;
+  expand:                      true;
+  padding:                     14px 16px;
+  background-color:            transparent;
+  text-color:                  @on-surface;
+  cursor:                      text;
+  placeholder:                 "Search...";
+  placeholder-color:           @on-surface-variant;
 }
 
 listview {
-    spacing:                    4px;
-    padding:                    0px;
-    columns:                    1;
-    lines:                      8;
-    cycle:                      true;
-    dynamic:                    true;
-    scrollbar:                  false;
-    layout:                     vertical;
-    background-color:           transparent;
-    text-color:                 @on-surface;
+  spacing:                     8px;
+  padding:                     0px;
+  columns:                     3;
+  cycle:                       true;
+  dynamic:                     true;
+  scrollbar:                   false;
+  layout:                      vertical;
+  background-color:            transparent;
+  text-color:                  @on-surface;
 }
 
 element {
-    spacing:                    12px;
-    padding:                    8px 12px;
-    border-radius:              14px;
-    cursor:                     pointer;
-    background-color:           transparent;
-    text-color:                 @on-surface;
+  spacing:                     0px;
+  padding:                     12px;
+  cursor:                      pointer;
+  background-color:            transparent;
+  text-color:                  @on-surface;
+  border-radius:               16px;
+  orientation:                 vertical;
 }
 
 element selected.normal {
-    background-color:           @secondary-container;
-    text-color:                 @on-secondary-container;
+  background-color:            @secondary-container;
+  text-color:                  @on-secondary-container;
 }
 
 element-icon {
-    size:                       32px;
-    border-radius:              10px;
-    background-color:           transparent;
-    text-color:                 inherit;
+  size:                        48px;
+  border-radius:               14px;
+  background-color:            transparent;
+  text-color:                  inherit;
 }
 
 element-text {
-    vertical-align:             0.5;
-    horizontal-align:           0;
-    background-color:           transparent;
-    text-color:                 inherit;
+  enabled:                     false;
 }
 
 error-message {
-    text-color:                 @on-surface;
-    background-color:           @surface;
-    children:                   [ "textbox" ];
-    border-radius:              14px;
-    padding:                    8px;
+  text-color:                  @on-surface;
+  background-color:            @surface;
+  children:                    [ "textbox" ];
+  border-radius:               14px;
+  padding:                     8px;
 }
 
 textbox {
-    text-color:                 inherit;
-    background-color:           inherit;
-    vertical-align:             0.5;
-    horizontal-align:           0.5;
+  text-color:                  inherit;
+  background-color:            inherit;
+  vertical-align:              0.5;
+  horizontal-align:            0.5;
 }

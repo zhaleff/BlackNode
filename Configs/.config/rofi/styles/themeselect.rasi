@@ -1,47 +1,15 @@
-/*****----- Configuration -----*****/
-configuration {
-    show-icons:          true;
-    display-drun:        "";
-    display-filebrowser: "";
-    display-window:      "";
-    drun-display-format: "{name}";
-    font:              "JetBrainsMono Nerd Font Bold 12";
-}
-
-/*****----- Import Wallust -----*****/
-@import "~/.cache/wallust/rofi.rasi"
-
-/*****----- Grid Layout -----*****/
+@import "../colors.rasi"
 @import "../shared/grid.rasi"
 
-mainbox {
-    background-color: var(background);
+window {
+    background-color: @surface;
 }
 
 listview {
-    columns:        6;
-    lines:          1;
-    text-color:    var(foreground);
-}
-
-element {
-    text-color:    var(foreground);
+    columns: 6;
+    lines: 1;
 }
 
 element selected.normal {
-    background-color: var(color5);
-    text-color:    var(background);
-}
-
-element-icon {
-    size:             30%;
-}
-
-error-message {
-    text-color:       var(foreground);
-    background-color: var(background);
-}
-
-textbox {
-    text-color:       inherit;
+    background-color: @secondary-container;
 }

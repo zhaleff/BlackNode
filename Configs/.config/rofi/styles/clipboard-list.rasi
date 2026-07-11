@@ -1,77 +1,68 @@
-configuration {
-    show-icons: false;
-}
-
-@import "~/.cache/wallust/rofi.rasi"
+@import "../colors.rasi"
 @import "../shared/dialog.rasi"
 
 window {
-    location:            southeast;
-    anchor:              center;
-    width:               380px;
-    x-offset:            -18px;
-    y-offset:            -18px;
-    background-color:     var(background);
+    background-color: @surface;
+    width: 380px;
+    border-radius: 24px;
 }
 
 inputbar {
-    spacing:         0px;
-    padding:        16px 16px 0px 16px;
-    text-color:     var(foreground);
-    children:       [ "textbox-prompt", "entry" ];
+    spacing: 0px;
+    padding: 16px 16px 0px 16px;
+    text-color: @on-surface;
+    children: [ "textbox-prompt", "entry" ];
 }
 
 textbox-prompt {
-    enabled:          true;
-    expand:          false;
-    str:            "󰑔";
-    padding:        10px 14px;
+    expand: false;
+    str: "󰑔";
+    padding: 10px 14px;
     border-radius: 12px;
-    background-color: var(color5);
-    text-color:     var(background);
-    vertical-align:  0.5;
+    background-color: @secondary-container;
+    text-color: @on-secondary-container;
+    vertical-align: 0.5;
 }
 
 entry {
-    enabled:           true;
-    expand:           false;
-    width:            280px;
-    padding:          10px 14px;
-    border-radius:   12px;
-    margin:           0px 0px 0px 8px;
-    background-color: var(color0);
-    text-color:       var(foreground);
-    cursor:           text;
-    placeholder:     "Search clipboard...";
-    placeholder-color: var(color7);
+    expand: false;
+    width: 260px;
+    padding: 10px 14px;
+    border-radius: 12px;
+    margin: 0px 0px 0px 8px;
+    background-color: @surface-container-low;
+    text-color: @on-surface;
+    cursor: text;
+    placeholder: "Search clipboard...";
+    placeholder-color: @on-surface-variant;
 }
 
 listview {
-    lines:            5;
-    margin:         16px;
-    border-radius:  12px;
-    background-color: transparent;
-    text-color:     var(foreground);
+    lines: 5;
+    margin: 16px;
+    border-radius: 16px;
+    spacing: 4px;
+    padding: 6px;
+    background-color: @surface-container-lowest;
 }
 
 element {
-    spacing:          0px;
-    padding:         12px;
-    border-radius:   12px;
-    text-color:      var(foreground);
+    padding: 10px 12px;
+    border-radius: 100px;
+    text-color: @on-surface;
 }
 
 element selected {
-    background-color: var(color5);
-    text-color:     var(background);
+    background-color: @secondary-container;
+    text-color: @on-secondary-container;
 }
 
 element-icon {
-    size:            24px;
+    size: 20px;
     background-color: transparent;
-    text-color:     var(foreground);
+    text-color: @on-surface;
 }
 
 element-text {
-    padding:         0px 12px;
+    padding: 0px 12px;
 }
