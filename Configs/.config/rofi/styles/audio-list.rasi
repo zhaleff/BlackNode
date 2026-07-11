@@ -1,0 +1,40 @@
+@import "../colors.rasi"
+@import "../shared/list.rasi"
+
+configuration {
+    show-icons: true;
+}
+
+entry {
+    placeholder: "Search songs...";
+}
+
+element {
+    padding: 8px 12px;
+}
+
+element-icon {
+    size: 36px;
+    border-radius: 6px;
+    margin: 0px 8px 0px 0px;
+    background-color: @surface-container-low;
+}
+
+element selected {
+    background-color: @secondary-container;
+    text-color: @on-secondary-container;
+}
+
+element selected.urgent {
+    background-color: @error-container;
+    text-color: @on-error-container;
+}
+
+element selected.urgent element-icon {
+    background-color: @error;
+}
+
+element-text {
+    padding: 4px 0px;
+    vertical-align: 0.5;
+}
