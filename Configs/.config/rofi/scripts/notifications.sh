@@ -13,7 +13,7 @@ sidebar() {
     choice=$(printf "󰅇 \n󰆴 \n${pause_icon}\n󰋼 " | rofi -dmenu -p "Notif" -theme-str "listview { lines: 4; }" -theme "$MENU_THEME")
     case "$choice" in
         "󰅇 ") history ;;
-        "󰆴 ") dunstctl close-all && notify-send "Notifications" "Cleared" && sidebar ;;
+        "󰆴 ") dunstctl history-clear && notify-send "Notifications" "Cleared" && sidebar ;;
         "󰂛 "|"󰂚 ") dunstctl set-paused toggle && sidebar ;;
         "󰋼 ") stats ;;
     esac
@@ -47,7 +47,7 @@ with open('/tmp/notif-ids', 'w') as f:
 " 2>/dev/null)
     [[ -z "$list" ]] && notify-send "Notifications" "History is empty" && sidebar && return
     local selected
-    selected=$(echo "$list" | rofi -dmenu -p "Notifications" -theme-str "listview { lines: 10; }" -theme "$LIST_THEME")
+    selected=$(echo "$list" | rofi -dmenu -p "Notifications" -theme "$LIST_THEME")
     [[ -z "$selected" ]] && sidebar && return
     local id
     id=$(grep -F "$selected" "$IDS" 2>/dev/null | head -1 | cut -d'	' -f1)
