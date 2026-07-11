@@ -10,7 +10,7 @@ main() {
         "󰂱  Scan for Devices" \
         "󰑐  Disconnect All" \
         "󰅖  Bluetooth Toggle" \
-        | rofi -dmenu -i -p "Bluetooth" -theme "$ROFI_SUB_THEME")
+        | rofi -dmenu -i -p "" -theme "$ROFI_SUB_THEME")
 
     case "$choice" in
         "󰂯  Paired Devices") paired_menu ;;
