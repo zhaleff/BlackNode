@@ -1,0 +1,95 @@
+configuration {
+    show-icons: false;
+}
+
+window {
+    transparency:     "real";
+    location:         center;
+    anchor:           center;
+    width:            440px;
+    border-radius:    28px;
+    padding:          0px;
+    background-color: @surface;
+}
+
+mainbox {
+    spacing:          0px;
+    padding:          16px;
+    background-color: transparent;
+    orientation:      vertical;
+    children:         [ "inputbar", "listview" ];
+}
+
+inputbar {
+    spacing:          0px;
+    padding:          0px 16px;
+    margin:           0px 0px 12px 0px;
+    background-color: @surface-container-high;
+    text-color:       @on-surface;
+    orientation:      horizontal;
+    border-radius:    16px;
+    children:         [ "entry" ];
+}
+
+entry {
+    expand:          true;
+    padding:         18px 0px;
+    background-color: transparent;
+    text-color:      @on-surface;
+    cursor:          text;
+    placeholder:     "Search...";
+    placeholder-color: @on-surface-variant;
+    font:            "JetBrains Mono Nerd Font 13";
+}
+
+listview {
+    columns:          1;
+    lines:            8;
+    cycle:            true;
+    dynamic:          true;
+    scrollbar:        false;
+    layout:           vertical;
+    spacing:          6px;
+    padding:          8px;
+    border-radius:    20px;
+    background-color: @surface-container-lowest;
+    text-color:       @on-surface;
+}
+
+element {
+    padding:          14px 18px;
+    border-radius:    100px;
+    background-color: transparent;
+    text-color:       @on-surface;
+    font:             "JetBrains Mono Nerd Font 13";
+}
+
+element selected {
+    background-color: @secondary-container;
+    text-color:       @on-secondary-container;
+}
+
+element selected.active {
+    background-color: @primary-container;
+    text-color:       @on-primary-container;
+}
+
+element active {
+    text-color:       @primary;
+}
+
+element urgent {
+    text-color:       @error;
+}
+
+element selected.urgent {
+    background-color: @error-container;
+    text-color:       @on-error-container;
+}
+
+element-text {
+    padding:          4px 0px;
+    background-color: transparent;
+    text-color:       inherit;
+    vertical-align:   0.5;
+}
