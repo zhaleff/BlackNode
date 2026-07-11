@@ -110,10 +110,10 @@ rounding_menu() {
     fi
 }
 
-CHOICE=$(printf "󰐥\n󰡟\n󰏘\n" | rofi -dmenu -p "Config" -theme-str "listview { lines: 4; }" -theme "$R/shared/menu.rasi")
+CHOICE=$(printf "󰐥 \n󰡟 \n󰏘 \n " | rofi -dmenu -p "Config" -theme-str "listview { lines: 4; }" -theme "$R/shared/menu.rasi")
 case "$CHOICE" in
-    "󰐥") animation_menu ;;
-    "󰡟") visuals_menu ;;
-    "󰏘") layout_menu ;;
-    "") rounding_menu ;;
+    "󰐥 ") animation_menu ;;
+    "󰡟 ") visuals_menu ;;
+    "󰏘 ") layout_menu ;;
+    " ") rounding_menu ;;
 esac
