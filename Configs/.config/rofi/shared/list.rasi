@@ -27,7 +27,7 @@ inputbar {
     background-color: @surface-container-high;
     text-color:       @on-surface;
     orientation:      horizontal;
-    border-radius:    16px;
+    border-radius:    28px 28px 10px 10px;
     children:         [ "entry" ];
 }
 
@@ -51,14 +51,15 @@ listview {
     layout:           vertical;
     spacing:          6px;
     padding:          8px;
-    border-radius:    20px;
+    border-radius:    10px 10px 28px 28px;
+
     background-color: @surface-container-lowest;
     text-color:       @on-surface;
 }
 
 element {
     padding:          14px 18px;
-    border-radius:    100px;
+    border-radius:    12px;
     background-color: transparent;
     text-color:       @on-surface;
     font:             "JetBrains Mono Nerd Font 13";
