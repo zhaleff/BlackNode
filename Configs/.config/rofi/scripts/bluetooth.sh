@@ -1,68 +1,92 @@
 #!/bin/bash
 
-STYLE="$HOME/.config/rofi/styles/bluetooth.rasi"
+R="$HOME/.config/rofi"
+MENU_THEME="$R/shared/menu.rasi"
+LIST_THEME="$R/styles/bluetooth-list.rasi"
 
-notify() { dunstify -a "bluetooth" -t 3000 "$1" "$2"; }
+check_bt() {
+    if ! systemctl is-active --quiet bluetooth; then
+        notify-send "Error" "Bluetooth is not running."
+        exit 1
+    fi
+}
+
+main_menu() {
+    local bt_status
+    bt_status=$(bluetoothctl show | grep -c "Powered: yes")
+    if [[ "$bt_status" -gt 0 ]]; then
+        local options=" \n󰂯 \n󰅖 \n "
+    else
+        local options=" \n󰂯 \n󰂲 \n "
+    fi
+    local choice
+    choice=$(printf '%b' "$options" | rofi -dmenu -p "󰂯" -theme-str "listview { lines: 4; }" -theme "$MENU_THEME")
+    case "$choice" in
+        " ") scan_devices ;;
+        "󰂯 ") paired_devices ;;
+        "󰅖 ") bluetoothctl power off && notify-send "Bluetooth" "Disabled" && main_menu ;;
+        "󰂲 ") bluetoothctl power on && notify-send "Bluetooth" "Enabled" && main_menu ;;
+        " ") exit 0 ;;
+    esac
+}
 
 scan_devices() {
     bluetoothctl scan on &>/dev/null &
-    sleep 4
+    sleep 3
     kill %1 &>/dev/null
+    local devices
+    devices=$(bluetoothctl devices | sort -u)
+    if [ -z "$devices" ]; then
+        notify-send "Bluetooth" "No devices found."
+        main_menu
+        return
+    fi
+    local selected
+    selected=$(echo "$devices" | rofi -dmenu -p "Devices" -theme "$LIST_THEME")
+    if [ -n "$selected" ]; then
+        local mac
+        mac=$(echo "$selected" | awk '{print $2}')
+        connect_device "$mac"
+    else
+        main_menu
+    fi
 }
 
-list_devices() {
-    bluetoothctl devices | while read -r _ mac name; do
+paired_devices() {
+    local devices
+    devices=$(bluetoothctl paired-devices | sort -u)
+    if [ -z "$devices" ]; then
+        notify-send "Bluetooth" "No paired devices."
+        main_menu
+        return
+    fi
+    local selected
+    selected=$(echo "$devices" | rofi -dmenu -p "Paired" -theme "$LIST_THEME")
+    if [ -n "$selected" ]; then
+        local mac
+        mac=$(echo "$selected" | awk '{print $2}')
+        local connected
         connected=$(bluetoothctl info "$mac" | grep -c "Connected: yes")
-        paired=$(bluetoothctl info "$mac" | grep -c "Paired: yes")
         if [[ "$connected" -gt 0 ]]; then
-            echo "󰂱  $name ($mac)"
-        elif [[ "$paired" -gt 0 ]]; then
-            echo "󰂯  $name ($mac)"
+            bluetoothctl disconnect "$mac" && notify-send "Bluetooth" "Disconnected"
         else
-            echo "󰂲  $name ($mac)"
+            bluetoothctl connect "$mac" && notify-send "Bluetooth" "Connected" || notify-send "Bluetooth" "Failed"
         fi
-    done
+    fi
+    main_menu
 }
 
-POWER=$(bluetoothctl show | grep -c "Powered: yes")
+connect_device() {
+    local mac="$1"
+    local paired
+    paired=$(bluetoothctl paired-devices | grep -c "$mac")
+    if [[ "$paired" -gt 0 ]]; then
+        bluetoothctl connect "$mac" && notify-send "Bluetooth" "Connected" || notify-send "Bluetooth" "Failed"
+    else
+        bluetoothctl pair "$mac" && bluetoothctl connect "$mac" && notify-send "Bluetooth" "Paired & connected" || notify-send "Bluetooth" "Failed"
+    fi
+    main_menu
+}
 
-if [[ "$POWER" -eq 0 ]]; then
-    MENU="󰂯  Enable Bluetooth"
-else
-    MENU="󰂲  Disable Bluetooth\n󰂱  Scan devices\n$(list_devices)"
-fi
-
-CHOICE=$(echo -e "$MENU" | rofi -dmenu -i -p "󰂯" -theme "$STYLE")
-[[ -z "$CHOICE" ]] && exit 0
-
-MAC=$(echo "$CHOICE" | grep -o '[A-F0-9:]\{17\}')
-
-case "$CHOICE" in
-    *"Enable Bluetooth"*)
-        bluetoothctl power on
-        notify "Bluetooth on" ""
-        ;;
-    *"Disable Bluetooth"*)
-        bluetoothctl power off
-        notify "Bluetooth off" ""
-        ;;
-    *"Scan devices"*)
-        notify "Scanning..." "Looking for devices"
-        scan_devices
-        exec "$0"
-        ;;
-    *"󰂱"*)
-        bluetoothctl disconnect "$MAC"
-        notify "Disconnected" "$(echo "$CHOICE" | sed 's/󰂱  //;s/ (.*//')"
-        ;;
-    *"󰂯"*)
-        bluetoothctl connect "$MAC" && \
-            notify "Connected" "$(echo "$CHOICE" | sed 's/󰂯  //;s/ (.*//')" || \
-            notify "Failed" "Could not connect"
-        ;;
-    *"󰂲"*)
-        bluetoothctl pair "$MAC" && bluetoothctl connect "$MAC" && \
-            notify "Paired & connected" "$(echo "$CHOICE" | sed 's/󰂲  //;s/ (.*//')" || \
-            notify "Failed" "Could not pair"
-        ;;
-esac
+check_bt
+main_menu
