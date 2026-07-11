@@ -1,6 +1,8 @@
-# Keybindings
+# Keybindings — BlackNode
 
-All keybinds use the `SUPER` key (Windows key) as the primary modifier. Application paths are defined in `~/.config/hypr/settings/programs.lua` (or `keybinds.lua`).
+All keybinds use `SUPER` (Windows key) as the primary modifier.
+Application and script paths are defined in `keybinds.lua`.
+
 
 ## Window Management
 
@@ -9,71 +11,91 @@ All keybinds use the `SUPER` key (Windows key) as the primary modifier. Applicat
 | `SUPER + Q` | Kill active window |
 | `SUPER + F` | Toggle floating/tiling |
 | `SUPER + P` | Toggle pseudo-tiling |
-| `SUPER + J` | Toggle split orientation |
 | `SUPER + SHIFT + F` | Fullscreen |
+| `SUPER + left click (drag)` | Move window |
+| `SUPER + right click (drag)` | Resize window |
 
 ## Focus & Navigation
 
 | Key | Action |
 |-----|--------|
-| `SUPER + arrow` | Move focus (left/right/up/down) |
-| `SUPER + 1–0` | Switch to workspace 1–10 |
-| `SUPER + SHIFT + 1–0` | Move window to workspace 1–10 |
-| `SUPER + S` | Toggle special workspace (scratchpad) |
+| `SUPER + ←/→/↑/↓` | Move focus between windows |
+| `SUPER + 1–9` | Switch to workspace 1–9 |
+| `SUPER + SHIFT + 1–9` | Move window to workspace 1–9 |
+| `SUPER + scroll` | Switch workspace |
+| `SUPER + S` | Toggle special workspace (scratchpad "magic") |
 | `SUPER + SHIFT + S` | Move window to special workspace |
 
 ## Applications
 
 | Key | Action |
 |-----|--------|
+| `SUPER + B` | Firefox |
 | `SUPER + D` | Terminal (Kitty) |
-| `SUPER + B` | Browser |
-| `SUPER + E` | File manager |
-| `SUPER + Y` | Music player (Spotify) |
-| `SUPER + R` | Rofi launcher (bn-menu) |
-| `SUPER + C` | Clipboard manager (clipse) |
-| `SUPER + H` | Screenshot (hyprshot) |
-| `SUPER + L` | Lock screen (hyprlock) |
-| `SUPER + W` | Wallpaper selector (swww) |
-| `SUPER + SHIFT + X` | Logout menu (wlogout) |
-| `SUPER + SPACE` | bn-menu main hub |
+| `SUPER + E` | File manager (Dolphin) |
+| `SUPER + Y` | Spotify |
+| `SUPER + C` | Clipboard manager (clipse, in Kitty) |
+
+## Launchers & Menus
+
+| Key | Action |
+|-----|--------|
+| `SUPER + R` | Rofi drun (app launcher) |
+| `SUPER + SHIFT + R` | Custom launcher (`rofi/launcher/launcher.sh`) |
+| `SUPER + SPACE` | bn-menu (main hub) |
+| `SUPER + SHIFT + SPACE` | Keyboard layout selector |
+| `CTRL + ALT + ↑` | Waybar launcher (`waybar/Scripts/launcher/launch.sh`) |
+| `SUPER + CTRL + ALT + ↑` | Waybar script (`waybar/Scripts/launcher/script.sh`) |
 
 ## Rofi Sidebars
 
 | Key | Action |
 |-----|--------|
-| `SUPER + A` | Wi-Fi menu |
-| `SUPER + B` | Bluetooth menu |
+| `SUPER + A` | Wi-Fi |
+| `SUPER + SHIFT + A` | Audio control (pavucontrol) |
+| `SUPER + SHIFT + B` | Bluetooth |
+| `SUPER + K` | Music player |
+| `SUPER + G` | Bookmarks |
+| `SUPER + J` | Notes |
 | `SUPER + N` | Notifications |
-| `SUPER + SHIFT + A` | Audio controller |
-| `SUPER + SHIFT + N` | Notes |
-| `SUPER + SHIFT + F` | Search |
-| `SUPER + SHIFT + K` | Keyboard layout |
-| `SUPER + SHIFT + I` | Config HUD |
-| `SUPER + SHIFT + O` | Dashboard |
+| `SUPER + V` | Config HUD |
+| `SUPER + SHIFT + L` | Search |
+| `SUPER + SHIFT + X` | Power menu (wlogout) |
 
-## Media Keys
+## Screenshots & Recording
 
 | Key | Action |
 |-----|--------|
-| `XF86AudioRaiseVolume` | Volume up (`wpctl`) |
-| `XF86AudioLowerVolume` | Volume down |
-| `XF86AudioMute` | Toggle mute |
-| `XF86AudioMicMute` | Toggle mic mute |
-| `XF86MonBrightnessUp` | Brightness up (`brightnessctl`) |
-| `XF86MonBrightnessDown` | Brightness down |
+| `SUPER + H` | Screenshot (hyprshot) |
+| `SUPER + SHIFT + H` | Screen recording (wf-recorder) |
+
+## System
+
+| Key | Action |
+|-----|--------|
+| `SUPER + X` | Power menu (wlogout) |
+| `SUPER + L` | Lock screen (hyprlock) |
+
+## Wallpaper, Theming & Appearance
+
+| Key | Action |
+|-----|--------|
+| `SUPER + W` | Wallpaper selector |
+| `SUPER + SHIFT + I` | Theme selector |
+| `SUPER + SHIFT + O` | Dashboard (Quickshell) |
+
+## Media Keys (work on lock screen)
+
+| Key | Action |
+|-----|--------|
 | `XF86AudioNext` | Next track |
 | `XF86AudioPrev` | Previous track |
-| `XF86AudioPlay` / `XF86AudioPause` | Play/pause (`playerctl`) |
+| `XF86AudioPlay` / `XF86AudioPause` | Play/pause |
+| `XF86AudioRaiseVolume` | Volume up (repeating) |
+| `XF86AudioLowerVolume` | Volume down (repeating) |
+| `XF86AudioMute` | Toggle mute (repeating) |
+| `XF86MonBrightnessUp` | Brightness up (repeating) |
+| `XF86MonBrightnessDown` | Brightness down (repeating) |
 
-## Mouse
+---
 
-| Key | Action |
-|-----|--------|
-| `SUPER + left click` | Move window |
-| `SUPER + right click` | Resize window |
-| `SUPER + scroll` | Switch workspace |
-
-## Dashboard
-
-Dashboard is a quickshell window (820x680, floating, centred). Triggered by `SUPER + SHIFT + O`. Shows git stats, system metrics, and activity timeline.
