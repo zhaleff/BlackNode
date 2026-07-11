@@ -3,5 +3,5 @@
 @import "../shared/sidebar.rasi"
 
 listview {
-    lines: 4;
+    lines: 3;
 }

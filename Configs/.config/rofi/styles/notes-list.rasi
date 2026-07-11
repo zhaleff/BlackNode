@@ -2,5 +2,5 @@
 @import "../shared/list.rasi"
 
 entry {
-    placeholder: "Search networks...";
+    placeholder: "Search notes...";
 }

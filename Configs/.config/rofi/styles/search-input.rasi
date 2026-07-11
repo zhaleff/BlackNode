@@ -1,0 +1,10 @@
+@import "../colors.rasi"
+@import "../shared/input-dialog.rasi"
+
+textbox-prompt-colon {
+    str: "󰇮";
+}
+
+entry {
+    placeholder: "Search query...";
+}

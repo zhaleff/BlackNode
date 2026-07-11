@@ -1,0 +1,13 @@
+@import "../colors.rasi"
+@import "../shared/config.rasi"
+@import "../shared/sidebar.rasi"
+
+listview {
+    lines: 2;
+}
+
+element-text {
+    font: "JetBrains Mono Nerd Font 13";
+    horizontal-align: 0.5;
+    padding: 28px 0px;
+}
