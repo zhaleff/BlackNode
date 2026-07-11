@@ -50,26 +50,26 @@
     mouse_middle_click = close_all
     mouse_right_click = close_current
     browser = firefox
-    progress_bar_color = "#bbcf82"
-    progress_bar_frame_color = "#12140d"
+    progress_bar_color = "#c0ce7e"
+    progress_bar_frame_color = "#13140d"
 
 [experimental]
     per_monitor_dpi = false
 
 [urgency_low]
-    background = "#12140d"
-    foreground = "#e3e3d7"
-    highlight = "#bbcf82"
+    background = "#13140d"
+    foreground = "#e4e3d6"
+    highlight = "#c0ce7e"
     timeout = 4
 
 [urgency_normal]
-    background = "#12140d"
-    foreground = "#e3e3d7"
-    highlight = "#bbcf82"
+    background = "#13140d"
+    foreground = "#e4e3d6"
+    highlight = "#c0ce7e"
     timeout = 6
 
 [urgency_critical]
-    background = "#12140d"
+    background = "#13140d"
     foreground = "#ffb4ab"
     highlight = "#ffb4ab"
     timeout = 0

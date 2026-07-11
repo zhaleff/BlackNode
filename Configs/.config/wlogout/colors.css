@@ -1,25 +1,25 @@
 /* Matugen template for wlogout */
 
-@define-color primary rgba(187, 207, 130, 0.98);
-@define-color on-primary #283500;
+@define-color primary rgba(192, 206, 126, 0.98);
+@define-color on-primary #2c3400;
 
-@define-color surface rgba(18, 20, 13, 0.98);
-@define-color on-surface #e3e3d7;
+@define-color surface rgba(19, 20, 13, 0.98);
+@define-color on-surface #e4e3d6;
 
-@define-color primary-container #3d4c0d;
-@define-color on-primary-container #d6eb9b;
+@define-color primary-container #414c08;
+@define-color on-primary-container #dcea97;
 
-@define-color secondary #c3caa9;
-@define-color on-secondary #2d331c;
+@define-color secondary #c5c9a8;
+@define-color on-secondary #2e321b;
 
-@define-color secondary-container #434931;
-@define-color on-secondary-container #dfe6c4;
+@define-color secondary-container #45492f;
+@define-color on-secondary-container #e1e5c2;
 
-@define-color tertiary #a1d0c6;
-@define-color on-tertiary #023731;
+@define-color tertiary #a2d0c3;
+@define-color on-tertiary #05372f;
 
-@define-color tertiary-container #204e47;
-@define-color on-tertiary-container #bcece2;
+@define-color tertiary-container #214e45;
+@define-color on-tertiary-container #bdecdf;
 
 @define-color error #ffb4ab;
 @define-color on-error #690005;
@@ -27,4 +27,4 @@
 @define-color error-container #93000a;
 @define-color on-error-container #ffdad6;
 
-@define-color outline #909284;
+@define-color outline #919283;

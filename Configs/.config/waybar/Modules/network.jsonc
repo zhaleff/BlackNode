@@ -8,7 +8,7 @@
     "format-alt": "󰛳 {ifname}",
     "tooltip-format-wifi": " {bandwidthDownBytes}  {bandwidthUpBytes}",
     "tooltip-format-ethernet": "󰌗 {ifname} | IP: {ipaddr}/{cidr} | GW: {gwaddr}",
-    "on-click": "~/.config/rofi/wifi/script.sh",
+    "on-click": "~/.config/rofi/scripts/wifi.sh",
     "format-icons": {
       "wifi": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
       "ethernet": ["󰌗"],

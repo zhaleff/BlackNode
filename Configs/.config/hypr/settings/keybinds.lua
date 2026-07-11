@@ -32,6 +32,7 @@ hl.bind(mainMod .. " + Y", hl.dsp.exec_cmd("spotify"))
 
 
 -- Launchers and menus
+hl.bind(mainMod .. " + SHIFT + SPACE", hl.dsp.exec_cmd("~/.config/rofi/scripts/kb-layout.sh"))
 hl.bind(mainMod .. " + R",     hl.dsp.exec_cmd("rofi -show drun"))
 hl.bind(mainMod .. " + SPACE", hl.dsp.exec_cmd("~/.local/bin/bn-menu"))
 hl.bind(mainMod .. " + SHIFT + R", hl.dsp.exec_cmd("~/.config/rofi/launcher/launcher.sh"))
@@ -39,8 +40,11 @@ hl.bind(" + CTRL + ALT + UP", hl.dsp.exec_cmd("~/.config/waybar/Scripts/launcher
 hl.bind(mainMod .. " + T",     hl.dsp.exec_cmd("~/.config/rofi/scripts/musicPlayer.sh"))
 hl.bind(mainMod .. " + A",     hl.dsp.exec_cmd("~/.config/rofi/scripts/wifi.sh"))
 hl.bind(mainMod .. " + SHIFT + X",     hl.dsp.exec_cmd("~/.config/rofi/scripts/powermenu.sh"))
+hl.bind(mainMod .. " + K", hl.dsp.exec_cmd("~/.config/rofi/scripts/audio.sh"))
 hl.bind(mainMod .. " + G", hl.dsp.exec_cmd("~/.config/rofi/scripts/bookmarks.sh"))
-hl.bind(mainMod .. " + J", hl.dsp.exec_cmd("~/.config/rofi/scripts/battery.sh"))
+hl.bind(mainMod .. " + SHIFT + L", hl.dsp.exec_cmd("~/.config/rofi/scripts/search.sh"))
+hl.bind(mainMod .. " + J", hl.dsp.exec_cmd("~/.config/rofi/scripts/notes.sh"))
+hl.bind(mainMod .. " + SHIFT + B", hl.dsp.exec_cmd("~/.config/rofi/scripts/bluetooth.sh"))
 
 -- Clipboard
 hl.bind(mainMod .. " + C",         hl.dsp.exec_cmd("kitty --class clipse -e clipse"))
@@ -55,7 +59,7 @@ hl.bind(mainMod .. " + SHIFT + H", hl.dsp.exec_cmd("~/.config/rofi/scripts/wf-re
 -- System
 -- hl.bind(mainMod .. " + SHIFT + P", hl.dsp.exec_cmd("hyprpicker")
 hl.bind(mainMod .. " + X", hl.dsp.exec_cmd("wlogout -b 6"))
-hl.bind(mainMod .. " + L", hl.dsp.exec_cmd("hyprpicker"))
+hl.bind(mainMod .. " + L", hl.dsp.exec_cmd("hyprlock"))
 hl.bind(mainMod .. " + Q", hl.dsp.window.close())
 hl.bind(mainMod .. " + F", hl.dsp.window.float({ action = "toggle" }))
 hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
