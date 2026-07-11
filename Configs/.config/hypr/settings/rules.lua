@@ -147,6 +147,13 @@ hl.window_rule({
     title = ".*([Ll]ogin|[Ss]ign.?in|[Aa]uth|OAuth|Google).*",
   },
 })
+hl.window_rule({
+  name = "windowrule-git-dashboard",
+  float = true,
+  center = true,
+  size = "820 680",
+  match = { title = "Dashboard" },
+})
 -- rules layerrule
 
 hl.layer_rule({
