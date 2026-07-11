@@ -1,12 +1,13 @@
-#!/bin/bash
-
+#!/usr/bin/env bash
 R="$HOME/.config/rofi"
 MENU_THEME="$R/shared/menu.rasi"
 LIST_THEME="$R/styles/audio-list.rasi"
 LOG="$HOME/.local/share/blacknode/music_history"
 COVERS="/tmp/rofi_covers"
 INPUT="/tmp/rofi_audio_input"
-mkdir -p "$(dirname "$LOG")"
+WATCHER_PID="/tmp/blacknode_audio_watcher.pid"
+mkdir -p "$(dirname "$LOG")" "$COVERS"
+MAX_LOG=12
 
 FALLBACK=""
 make_fallback() {
@@ -34,6 +35,27 @@ is_ad() {
     return 1
 }
 
+start_watcher() {
+    [ -f "$WATCHER_PID" ] && kill -0 "$(cat "$WATCHER_PID")" 2>/dev/null && return
+    (
+        while true; do
+            playerctl --follow metadata title 2>/dev/null | while IFS= read -r title; do
+                [ -z "$title" ] && continue
+                ARTIST=$(playerctl metadata artist 2>/dev/null)
+                is_ad "$title" || is_ad "$ARTIST" && continue
+                ALBUM=$(playerctl metadata album 2>/dev/null)
+                ART=$(playerctl metadata mpris:artUrl 2>/dev/null)
+                PLAYER=$(playerctl -l 2>/dev/null | head -1)
+                LAST=$(tail -1 "$LOG" 2>/dev/null | cut -d'|' -f2)
+                [ "$title" = "$LAST" ] && continue
+                echo "$(date +'%s')|${title}|${ARTIST}|${ALBUM}|${ART}|${PLAYER}" >> "$LOG"
+            done
+            sleep 5
+        done
+    ) &>/dev/null &
+    echo $! > "$WATCHER_PID"
+}
+
 track_current() {
     PLAYER=$(playerctl -l 2>/dev/null | head -1)
     [ -z "$PLAYER" ] && return
@@ -58,9 +80,9 @@ download_art() {
 }
 
 show_list() {
+    start_watcher
     track_current
-    tail -10 "$LOG" 2>/dev/null > "$LOG.tmp" && mv "$LOG.tmp" "$LOG"
-    mkdir -p "$COVERS"
+    tail -n "$MAX_LOG" "$LOG" 2>/dev/null > "$LOG.tmp" && mv "$LOG.tmp" "$LOG"
     make_fallback
     > "$INPUT"
     HASHS=""
