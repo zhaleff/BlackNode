@@ -92,8 +92,7 @@ BlackNode is designed for a minimal [Arch Linux](https://wiki.archlinux.org/titl
 > Installing BlackNode alongside another DE or WM should work, but it **will** overwrite your GTK, Qt, SDDM, shell and Zsh configuration. Proceed at your own risk.
 
 > [!NOTE]
-> `blacknode.sh` is the main entry point. It presents you with options and calls individual component scripts based on your choices. Nothing is installed without your input.
-
+> ```linkdots.sh``` will create symbolic links for your configuration files—from blacknode—for the installation.
 Clone the repository and run the main installer:
 
 ```bash
@@ -110,9 +109,7 @@ cd $HOME/BlackNode
 
 Please reboot after the installer completes for all changes to take effect.
 
-
-
-
+#
 <a id="words"></a>
 <img src="https://readme-typing-svg.herokuapp.com?font=Lexend+Giga&size=22&pause=1000&color=6CB6FF&vCenter=true&width=435&height=25&lines=A+WORD+TO+YOU" width="435"/>
 
