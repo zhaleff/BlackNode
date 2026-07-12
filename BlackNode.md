@@ -8,7 +8,7 @@ Arch Linux + Hyprland dotfiles with Material You theming, an updated version of 
 
 For documentation, see `INSTALLATION.md`, `KEYBINDS.md`, `ROFI.md`, `PACKAGES.md`, and `MODULES.md`.
 
-Blacknode is a clean, classic environment built using classic elements—without QuickShell—allowing it to run on modest hardware.
+Blacknode is a clean, classic environment built using classic elements, allowing it to run on modest hardware.
 
 # Why?
 

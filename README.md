@@ -68,7 +68,7 @@ Every tool in this setup was chosen deliberately. Nothing is here just because i
 | Lockscreen | Hyprlock + Hypridle | GPU-accelerated lock with idle management |
 | File Manager | Yazi | Blazing-fast terminal file manager |
 | Editor | Neovim | Extensible modal text editor |
-| Theming | Wallust | Colour schemes generated from your wallpaper |
+| Theming | Matugen | Material You colours generated from your wallpaper |
 | Wallpaper | awww | GPU-accelerated Wayland wallpaper daemon |
 | Clipboard | Clipse | Persistent clipboard history for Wayland |
 | Audio | Cava | Terminal audio visualiser |

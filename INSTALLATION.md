@@ -106,7 +106,6 @@ What it does:
 ├── hypr/          → Hyprland 0.55+ Lua config (keybinds, rules, input, overrides)
 ├── rofi/          → M3-themed launcher, bn-menu, sidebar scripts, shared themes
 ├── waybar/        → 3 bar styles (Classic, Hacking, Minimal)
-├── quickshell/    → Dashboard overlay with Git/system stats
 ├── kitty/         → Terminal with Catppuccin theme
 ├── alacritty/     → Terminal (optional)
 ├── dunst/         → M3 notification daemon
@@ -118,8 +117,6 @@ What it does:
 ├── cava/          → Audio visualiser
 ├── clipse/        → Clipboard manager
 ├── matugen/       → Colour generation templates
-├── gtk-3.0/       → Catppuccin Mocha GTK
-├── gtk-4.0/       → Catppuccin Mocha GTK
 ├── qt5ct/         → Qt5 theming
 ├── powerlevel10k/ → Prompt config
 ├── grub/          → Bootloader theme
@@ -195,13 +192,6 @@ Run matugen on a wallpaper to regenerate the colour palette:
 
 ```bash
 matugen image ~/Pictures/Wallpapers/your-wallpaper.jpg
-```
-
-### Dashboard does not open
-Make sure quickshell is installed (`pacman -Q quickshell`). Launch manually:
-
-```bash
-quickshell -p ~/.config/quickshell/dashboard/
 ```
 
 ### bn-menu not found

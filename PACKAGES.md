@@ -29,7 +29,7 @@
 - **wireplumber** — audio session management.
 - **pavucontrol** — PulseAudio volume control GUI.
 - **grim + slurp + hyprshot** — screenshots.
-- **swww** — wallpaper setter.
+- **awww** — GPU-accelerated Wayland wallpaper daemon.
 - **pacman-contrib** — provides `checkupdates` for Waybar update module.
 
 ## Development
@@ -63,6 +63,6 @@
 ## Installation Dependencies
 For a fresh install, install all of the above via:
 ```bash
-sudo pacman -S hyprland kitty rofi waybar dunst fzf playerctl brightnessctl wireplumber pavucontrol grim slurp swww pacman-contrib npm python git zsh exa bat networkmanager bluez blueman noto-fonts
+sudo pacman -S hyprland kitty rofi waybar dunst fzf playerctl brightnessctl wireplumber pavucontrol grim slurp awww pacman-contrib npm python git zsh exa bat networkmanager bluez blueman noto-fonts
 yay -S matugen clipse wlogout hyprshot yt-dlp pnpm powerlevel10k
 ```
