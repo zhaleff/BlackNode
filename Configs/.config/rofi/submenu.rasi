@@ -1,3 +1,23 @@
+/*
+ * BlackNode Dotfiles
+ * Copyright (c) 2026 zhaleff
+ *
+ * Licensed under the MIT License.
+ * You are free to use, copy, modify, merge, publish, distribute,
+ * sublicense, and/or sell copies of this software, provided that
+ * the original license and copyright notice are preserved.
+ *
+ * Created by: zhaleff
+ * Project: BlackNode
+ *
+ * HollowSec is a Spanish-speaking cybersecurity community created for
+ * people interested in cybersecurity, ethical hacking, programming,
+ * and related technologies. It is a community only, not a company
+ * or an organization.
+ *
+ * Repository: https://github.com/zhaleff/BlackNode
+ */
+
 @import "~/.config/rofi/colors.rasi"
 
 configuration {
@@ -6,7 +26,7 @@ configuration {
 }
 
 window {
-    width:                       380px;
+    width:                       540px;
     transparency:                "real";
     border-radius:               28px;
     background-color:            @surface;
