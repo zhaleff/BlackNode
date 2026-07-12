@@ -1,18 +1,39 @@
 #!/usr/bin/env bash
 
-ASSETS_DIR="$HOME/.config/fastfetch/assets"
+ASSETS_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/fastfetch/assets"
 CURRENT_LINK="$ASSETS_DIR/current.png"
 
 IMAGES=()
-while IFS= read -r img; do
+while IFS= read -r -d '' img; do
     name=$(basename "$img")
     [[ "$name" == "current.png" ]] && continue
     IMAGES+=("$img")
-done < <(find "$ASSETS_DIR" -type f \( -iname "*.png" -o -iname "*.jpg" -o -iname "*.jpeg" \) | sort)
+done < <(find "$ASSETS_DIR" -maxdepth 1 -type f \( -iname "*.png" -o -iname "*.jpg" -o -iname "*.jpeg" \) -print0 2>/dev/null | sort -z 2>/dev/null)
 
 if [[ ${#IMAGES[@]} -gt 0 ]]; then
     RANDOM_IMG=${IMAGES[$RANDOM % ${#IMAGES[@]}]}
     ln -sf "$RANDOM_IMG" "$CURRENT_LINK"
+elif [[ ! -f "$CURRENT_LINK" ]]; then
+    mkdir -p "$ASSETS_DIR"
+    python3 -c "
+import struct, zlib, sys, random
+w, h = 640, 320
+r1, g1, b1 = 25, 25, 35
+r2, g2, b2 = 40, 35, 55
+raw = b''
+for y in range(h):
+    t = y / h
+    r = int(r1 + (r2 - r1) * t)
+    g = int(g1 + (g2 - g1) * t)
+    b = int(b1 + (b2 - b1) * t)
+    raw += b'\x00' + bytes([r, g, b]) * w
+def ck(t, d):
+    c = t + d
+    return struct.pack('>I', len(d)) + c + struct.pack('>I', zlib.crc32(c) & 0xffffffff)
+ihdr = struct.pack('>IIBBBBB', w, h, 8, 2, 0, 0, 0)
+with open(sys.argv[1], 'wb') as f:
+    f.write(b'\x89PNG\r\n\x1a\n' + ck(b'IHDR', ihdr) + ck(b'IDAT', zlib.compress(raw)) + ck(b'IEND', b''))
+" "$CURRENT_LINK" 2>/dev/null
 fi
 
-/usr/bin/fastfetch "$@"
+exec /usr/bin/fastfetch "$@"
