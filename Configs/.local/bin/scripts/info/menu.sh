@@ -22,6 +22,7 @@ main() {
         "󱛡  View README" \
         "󰈙  Browse Dotfiles" \
         "󰏗  Package List" \
+        "󰊤  Repository" \
         | rofi -dmenu -i -p "About" -theme "$ROFI_SUB_THEME")
 
     case "$choice" in
@@ -33,6 +34,7 @@ main() {
         "󱛡  View README")     kitty -e nvim "$HOME/BlackNode/README.md" & ;;
         "󰈙  Browse Dotfiles")  kitty -e yazi "$HOME/BlackNode" & ;;
         "󰏗  Package List")    show_packages ;;
+        "󰊤  Repository")      show_repo ;;
     esac
 }
 
@@ -162,6 +164,28 @@ EOF
 )
     rofi -dmenu -i -p "Waybar" -theme "$ROFI_SUB_THEME" \
         -mesg "$mods" -lines 16
+}
+
+show_repo() {
+    local choice
+    choice=$(printf '%s\n' \
+        "  Open GitHub Repository" \
+        "  zhaleff/BlackNode" \
+        "󰊤  https://github.com/zhaleff/BlackNode" \
+        "" \
+        "  Branch: master" \
+        "󰒋  License: MIT" \
+        "󰈙  Config files: $(find "$HOME/BlackNode" -type f | wc -l)" \
+        "󰛥  Lines of config: $(find "$HOME/BlackNode" -type f -exec wc -l {} + 2>/dev/null | tail -1 | awk '{print $1}')" \
+        "󰣇  System: Arch Linux + Hyprland" \
+        "󰚥  Author: zhaleff" \
+        "󱂅  Community: HollowSec" \
+        | rofi -dmenu -i -p "Repository" -theme "$ROFI_SUB_THEME")
+
+    case "$choice" in
+        "  Open GitHub Repository"|"  zhaleff/BlackNode"|"󰊤  https://github.com/zhaleff/BlackNode")
+            xdg-open "https://github.com/zhaleff/BlackNode" & ;;
+    esac
 }
 
 show_packages() {
