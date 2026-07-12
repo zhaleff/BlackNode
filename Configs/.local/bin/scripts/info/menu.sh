@@ -149,9 +149,7 @@ show_modules() {
 show_repo() {
     local choice
     choice=$(printf '%s\n' \
-        "  Open GitHub Repository" \
         "  zhaleff/BlackNode" \
-        "󰊤  https://github.com/zhaleff/BlackNode" \
         "  Branch: master" \
         "󰒋  License: MIT" \
         "󰈙  Config files: $(find "$HOME/BlackNode" -type f | wc -l)" \
@@ -162,7 +160,7 @@ show_repo() {
         | rofi -dmenu -i -p "Repository" -theme "$ROFI_SUB_THEME")
 
     case "$choice" in
-        "  Open GitHub Repository"|"  zhaleff/BlackNode"|"󰊤  https://github.com/zhaleff/BlackNode")
+        "  zhaleff/BlackNode")
             xdg-open "https://github.com/zhaleff/BlackNode" & ;;
     esac
 }
