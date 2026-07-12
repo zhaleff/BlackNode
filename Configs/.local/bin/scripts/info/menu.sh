@@ -41,25 +41,24 @@ main() {
 show_about() {
     local pkgs=$1 flatpak=$2 uptime=$3 kernel=$4
     local mem=$(free -h | awk '/Mem:/ {print $3 "/" $2}')
-    local info
-    info=$(cat <<EOF
-  BlackNode
-󰚥  by Zhaleff · HollowSec
-󰣇  Arch Linux · $kernel
-  Hyprland · Lua Config
-󰌌  Material You — Matugen
-󰄉  Waybar · Rofi · Kitty
-󰏗  $pkgs pacman · $flatpak flatpak
-󰅐  $uptime ·   All services running
-
-A modular, human-readable dotfile
-collection. Material You theming
-with automatic color generation
-from your wallpaper via Matugen.
-EOF
-)
-    rofi -dmenu -i -p "BlackNode" -theme "$ROFI_SUB_THEME" \
-        -mesg "$info" -lines 14
+    local choice
+    choice=$(printf '%s\n' \
+        "  BlackNode — Modular Dotfiles" \
+        "󰚥  Author: zhaleff · HollowSec" \
+        "󰣇  System: Arch Linux · $kernel" \
+        "  WM: Hyprland · Lua Config" \
+        "󰌌  Theme: Material You · Matugen" \
+        "󰏗  Packages: $pkgs pacman · $flatpak flatpak" \
+        "󰅐  Uptime: $uptime" \
+        "󰈙  Config: $HOME/BlackNode" \
+        "󰋼  A modular, human-readable dotfile" \
+        "󰋼  collection with automatic color" \
+        "󰋼  generation from wallpaper via Matugen." \
+        | rofi -dmenu -i -p "BlackNode" -theme "$ROFI_SUB_THEME")
+    case "$choice" in
+        "󰈙  Config: $HOME/BlackNode")
+            kitty -e yazi "$HOME/BlackNode" & ;;
+    esac
 }
 
 show_stats() {
@@ -69,101 +68,82 @@ show_stats() {
     local disks=$(df -h / | awk 'NR==2 {print $3 "/" $2}')
     local procs=$(ps aux | wc -l)
     local config_files=$(find "$HOME/BlackNode" -type f | wc -l)
-
-    local info
-    info=$(cat <<EOF
-  Project Stats
-
-󰏗  Packages: $pkgs (pacman) · $flatpak (flatpak)
-  CPU: $cpu
-󰍛  Memory: $mem
-󱦟  Disk: $disks
-󱖫  Processes: $procs
-󰅐  Uptime: $uptime
-󰈙  Config files: $config_files
-󰣇  Kernel: $kernel
-EOF
-)
-    rofi -dmenu -i -p "Stats" -theme "$ROFI_SUB_THEME" \
-        -mesg "$info" -lines 13
+    local choice
+    choice=$(printf '%s\n' \
+        "  Project Stats" \
+        "󰏗  Packages: $pkgs pacman · $flatpak flatpak" \
+        "  CPU: $cpu" \
+        "󰍛  Memory: $mem" \
+        "󱦟  Disk: $disks" \
+        "󱖫  Processes: $procs" \
+        "󰅐  Uptime: $uptime" \
+        "󰈙  Config files: $config_files" \
+        "󰣇  Kernel: $kernel" \
+        | rofi -dmenu -i -p "Stats" -theme "$ROFI_SUB_THEME")
 }
 
 show_theme() {
-    local info
-    info=$(cat <<'EOF'
-󰌌  Theme System — Material You
-
-Colors are generated automatically
-from your wallpaper using Matugen.
-
-┌────────────────────────────────┐
-│  ● Primary   ● Secondary       │
-│  ● Tertiary  ● Error           │
-│  ● Surface   ● Outline         │
-└────────────────────────────────┘
-
-Every component uses M3 tokens:
-  waybar/colors.css
-  rofi/colors.rasi
-  wlogout/colors.css
-  hypr/themes/colors.lua
-  kitty/colors.conf
-  dunst/dunstrc
-  cava/config
-  nvim/generated.lua
-
-Change wallpaper → colors update.
-EOF
-)
-    rofi -dmenu -i -p "Theme" -theme "$ROFI_SUB_THEME" \
-        -mesg "$info" -lines 19
+    local choice
+    choice=$(printf '%s\n' \
+        "󰌌  Theme System — Material You" \
+        "󰋼  Colors from wallpaper via Matugen" \
+        "󰌌  Primary      Secondary" \
+        "󰌌  Tertiary     Error" \
+        "󰌌  Surface      Outline" \
+        "󰄉  waybar/colors.css" \
+        "󰋼  rofi/colors.rasi" \
+        "󰋼  wlogout/colors.css" \
+        "󰋼  hypr/themes/colors.lua" \
+        "󰋼  kitty/colors.conf" \
+        "󰋼  dunst/dunstrc" \
+        "󰋼  cava/config" \
+        "󰋼  nvim/core/wallust_colors.lua" \
+        "󰋼  Change wallpaper → colors update" \
+        | rofi -dmenu -i -p "Theme" -theme "$ROFI_SUB_THEME")
 }
 
 show_keybinds() {
-    local binds
-    binds=$(cat <<'EOF'
-  Hyprland Keybinds (main)
-
-SUPER + SPACE    → bn-menu
-SUPER + ENTER    → Terminal (kitty)
-SUPER + Q        → Kill active
-SUPER + 1-9      → Switch workspace
-SUPER + S        → Screenshot area
-SUPER + V        → Toggle float
-SUPER + F        → Fullscreen
-SUPER + L        → Lock (hyprlock)
-SUPER + E        → File manager
-SUPER + R        → Rofi launcher
-SUPER + T        → Toggle split
-SUPER + M        → Exit Hyprland
-
-Full list: KEYBINDS.md
-EOF
-)
-    rofi -dmenu -i -p "Keybinds" -theme "$ROFI_SUB_THEME" \
-        -mesg "$binds" -lines 17
+    local choice
+    choice=$(printf '%s\n' \
+        "  Hyprland Keybinds" \
+        "󰋼  SUPER + SPACE    → bn-menu" \
+        "󰋼  SUPER + ENTER    → Terminal (kitty)" \
+        "󰋼  SUPER + Q        → Kill active" \
+        "󰋼  SUPER + 1-9      → Switch workspace" \
+        "󰋼  SUPER + S        → Screenshot area" \
+        "󰋼  SUPER + V        → Toggle float" \
+        "󰋼  SUPER + F        → Fullscreen" \
+        "󰋼  SUPER + L        → Lock (hyprlock)" \
+        "󰋼  SUPER + E        → File manager" \
+        "󰋼  SUPER + R        → Rofi launcher" \
+        "󰋼  SUPER + T        → Toggle split" \
+        "󰋼  SUPER + M        → Exit Hyprland" \
+        "󰋼  Open KEYBINDS.md for full list" \
+        | rofi -dmenu -i -p "Keybinds" -theme "$ROFI_SUB_THEME")
+    case "$choice" in
+        "󰋼  Open KEYBINDS.md for full list")
+            kitty -e nvim "$HOME/BlackNode/KEYBINDS.md" & ;;
+    esac
 }
 
 show_modules() {
-    local mods
-    mods=$(cat <<'EOF'
-󰄉  Waybar — 3 Styles
-
-Classic:    workspace layout
-Hacking:    compact, minimal
-Modern:     floating modules
-
-Modules:
-  Left:   Workspaces, Window
-  Center: Clock, Media Player
-  Right:  Network, Volume, Battery,
-          Bluetooth, Tray, CPU, RAM
-
-All styled with M3 dynamic colors.
-EOF
-)
-    rofi -dmenu -i -p "Waybar" -theme "$ROFI_SUB_THEME" \
-        -mesg "$mods" -lines 16
+    local choice
+    choice=$(printf '%s\n' \
+        "󰄉  Waybar — 3 Styles" \
+        "󰋼  Classic: workspace padding layout" \
+        "󰋼  Hacking: compact minimal style" \
+        "󰋼  Modern:  floating modules" \
+        "󰋼  Left:    Workspaces, Window" \
+        "󰋼  Center:  Clock, Media Player" \
+        "󰋼  Right:   Network, Volume, Battery" \
+        "󰋼  Right:   Bluetooth, Tray, CPU, RAM" \
+        "󰋼  All styled with M3 dynamic colors" \
+        "󰄉  Open waybar config folder" \
+        | rofi -dmenu -i -p "Waybar" -theme "$ROFI_SUB_THEME")
+    case "$choice" in
+        "󰄉  Open waybar config folder")
+            kitty -e yazi "$HOME/.config/waybar" & ;;
+    esac
 }
 
 show_repo() {
@@ -172,7 +152,6 @@ show_repo() {
         "  Open GitHub Repository" \
         "  zhaleff/BlackNode" \
         "󰊤  https://github.com/zhaleff/BlackNode" \
-        "" \
         "  Branch: master" \
         "󰒋  License: MIT" \
         "󰈙  Config files: $(find "$HOME/BlackNode" -type f | wc -l)" \
