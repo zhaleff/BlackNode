@@ -2,6 +2,11 @@
 
 ROFI_SUB_THEME="$HOME/.config/rofi/submenu.rasi"
 notify() { notify-send "$1" "$2"; }
+bt_connect() {
+    local mac="$1"
+    local path="org/bluez/hci0/dev_$(echo "$mac" | tr ':' '_')"
+    busctl call org.bluez "/$path" org.bluez.Device1 Connect &>/dev/null
+}
 
 main() {
     local choice
@@ -45,7 +50,7 @@ paired_menu() {
     fi
 
     case "$action" in
-        "Connect") bluetoothctl connect "$mac" && notify "Bluetooth" "Connected: $choice" ;;
+        "Connect") bt_connect "$mac" && notify "Bluetooth" "Connected: $choice" ;;
         "Disconnect") bluetoothctl disconnect "$mac" && notify "Bluetooth" "Disconnected: $choice" ;;
         "Info")
             local bat battery
@@ -72,8 +77,11 @@ scan_devices() {
     if [[ -n "$choice" ]]; then
         local mac
         mac=$(bluetoothctl devices | grep "$choice" | awk '{print $2}')
-        bluetoothctl pair "$mac" && bluetoothctl trust "$mac" && bluetoothctl connect "$mac" && \
-            notify "Bluetooth" "Paired: $choice"
+        bluetoothctl info "$mac" 2>/dev/null | grep -q "Paired: yes" && already_paired=true || already_paired=false
+        if ! "$already_paired"; then
+            bluetoothctl pair "$mac" || { notify "Bluetooth" "Failed to pair"; return; }
+        fi
+        bluetoothctl trust "$mac" && bt_connect "$mac" && notify "Bluetooth" "Connected: $choice"
     fi
 }
 
