@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+ASSETS_DIR="$HOME/.config/fastfetch/assets"
+CURRENT_LINK="$ASSETS_DIR/current.png"
+
+IMAGES=()
+while IFS= read -r img; do
+    name=$(basename "$img")
+    [[ "$name" == "current.png" ]] && continue
+    IMAGES+=("$img")
+done < <(find "$ASSETS_DIR" -type f \( -iname "*.png" -o -iname "*.jpg" -o -iname "*.jpeg" \) | sort)
+
+if [[ ${#IMAGES[@]} -gt 0 ]]; then
+    RANDOM_IMG=${IMAGES[$RANDOM % ${#IMAGES[@]}]}
+    ln -sf "$RANDOM_IMG" "$CURRENT_LINK"
+fi
+
+/usr/bin/fastfetch "$@"
