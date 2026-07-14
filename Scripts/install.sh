@@ -624,21 +624,19 @@ setup_nvidia() {
         dim "  nvidia_drm.modeset=1 nvidia.NVreg_PreserveVideoMemoryAllocations=1"
     fi
 
-    local env_dir="${HOME}/.config/hypr/env"
-    mkdir -p "${env_dir}"
-    local env_file="${env_dir}/nvidia.conf"
-    if [[ ! -f "${env_file}" ]]; then
-        cat > "${env_file}" << 'EOF'
-env = LIBVA_DRIVER_NAME,nvidia
-env = XDG_SESSION_TYPE,wayland
-env = GBM_BACKEND,nvidia-drm
-env = __GLX_VENDOR_LIBRARY_NAME,nvidia
-env = WLR_NO_HARDWARE_CURSORS,1
+    local env_file="${HOME}/.config/hypr/settings/env.lua"
+    if ! grep -q "nvidia" "${env_file}" 2>/dev/null; then
+        cat >> "${env_file}" << 'EOF'
+
+hl.env("LIBVA_DRIVER_NAME", "nvidia")
+hl.env("XDG_SESSION_TYPE", "wayland")
+hl.env("GBM_BACKEND", "nvidia-drm")
+hl.env("__GLX_VENDOR_LIBRARY_NAME", "nvidia")
+hl.env("WLR_NO_HARDWARE_CURSORS", "1")
 EOF
-        ok "NVIDIA env vars created: ${env_file}"
-        tip "Make sure hyprland.conf includes: source = ~/.config/hypr/env/nvidia.conf"
+        ok "NVIDIA env vars added to settings/env.lua"
     else
-        ok "NVIDIA env vars already exist"
+        ok "NVIDIA env vars already in env.lua"
     fi
 
     echo ""
@@ -671,7 +669,7 @@ setup_keyboard() {
                 ok "Keyboard layout set: ${layout}"
             else
                 err "Can't find hyprland input config: ${target}"
-                tip "You'll need to set kb_layout manually in hyprland.conf"
+                tip "You'll need to set kb_layout manually in hyprland.lua"
             fi
         fi
     else
@@ -898,9 +896,9 @@ show_troubleshooting() {
     hr
     echo ""
     dim "  ${BOLD}Hyprland won't start${NC}"
-    dim "  • cat ~/.config/hypr/hyprland.conf"
+    dim "  • cat ~/.config/hypr/hyprland.lua"
     dim "  • Try: Hyprland (verbose)"
-    dim "  • Rename ~/.config/hypr to reset"
+    dim "  • mv ~/.config/hypr/hyprland.lua{,.bak}"
     echo ""
     dim "  ${BOLD}No audio${NC}"
     dim "  • sudo pacman -S pipewire pipewire-pulse wireplumber"
