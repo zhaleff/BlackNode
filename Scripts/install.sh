@@ -918,6 +918,7 @@ show_troubleshooting() {
     dim "  • Default: SUPER = Windows key, SUPER + SPACE = menu"
     echo ""
     dim "  ${BOLD}Need more help?${NC}"
+    dim "  • Run diagnostic: bash ${REPO}/Scripts/failed.sh"
     dim "  • Open an issue: https://github.com/zhaleff/BlackNode/issues"
     dim "  • Discord: https://discord.gg/hollowsec"
     dim "  • Include the log: ${LOG}"
