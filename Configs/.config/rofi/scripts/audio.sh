@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+
 R="$HOME/.config/rofi"
 MENU_THEME="$R/shared/menu.rasi"
 LIST_THEME="$R/styles/audio-list.rasi"
@@ -138,8 +139,36 @@ list_sessions() {
     [ -n "$APP_ID" ] && pactl set-sink-input-mute "$APP_ID" toggle && list_sessions
 }
 
-CHOICE=$(printf "󰋲 \n󰝚 " | rofi -dmenu -p "Audio" -theme-str "listview { lines: 2; }" -theme "$MENU_THEME")
-case "$CHOICE" in
-    "󰋲 ") show_list ;;
-    "󰝚 ") list_sessions ;;
-esac
+volume_control() {
+    local vol muted icon
+    vol=$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{printf "%d", $2 * 100}')
+    muted=$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep -c MUTED)
+    [ "$muted" -gt 0 ] && icon="󰝟" || icon="󰕾"
+
+    CHOICE=$(printf '󰕾  Volume: %d%%\n󰝝  +10%%\n󰝞  -10%%\n󰝟  Toggle Mute\n󰝚  App Sessions\n󰋲  Music History' "$vol" | \
+        rofi -dmenu -p "Audio" -theme "$MENU_THEME" -theme-str "listview { lines: 6; } window { width: 320px; }")
+
+    case "$CHOICE" in
+        "󰕾  Volume: "*)
+            volume_control ;;
+        "󰝝  +10%")
+            wpctl set-volume @DEFAULT_AUDIO_SINK@ 10%+
+            notify-send "Volume" "+10%" -h int:value:"$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{printf "%d", $2 * 100}')"
+            volume_control ;;
+        "󰝞  -10%")
+            wpctl set-volume @DEFAULT_AUDIO_SINK@ 10%-
+            notify-send "Volume" "-10%" -h int:value:"$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{printf "%d", $2 * 100}')"
+            volume_control ;;
+        "󰝟  Toggle Mute")
+            wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+            local m=$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep -o MUTED || echo "unmuted")
+            notify-send "Audio" "$m"
+            volume_control ;;
+        "󰝚  App Sessions")
+            list_sessions ;;
+        "󰋲  Music History")
+            show_list ;;
+    esac
+}
+
+volume_control
