@@ -32,11 +32,11 @@
   },
   "group/hollow-right-5": {
     "orientation": "horizontal",
-    "modules": ["cpu", "memory", "temperature"]
+    "modules": ["custom/target", "custom/htb-vpn", "custom/user"]
   },
   "group/hollow-right-4": {
     "orientation": "horizontal",
-    "modules": ["network"]
+    "modules": ["cpu", "memory", "temperature"]
   },
   "group/hollow-right-1": {
     "orientation": "horizontal",

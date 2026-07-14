@@ -12,8 +12,7 @@
   "spacing": 2,
   "reload_style_on_change": true,
   "modules-left": [
-    "group/hollow-left-2",
-    "group/hollow-left-1"
+    "group/hollow-left-2"
   ],
   "modules-center": [],
   "modules-right": [
@@ -23,10 +22,6 @@
   "group/hollow-left-2": {
     "orientation": "horizontal",
     "modules": ["hyprland/workspaces"]
-  },
-  "group/hollow-left-1": {
-    "orientation": "horizontal",
-    "modules": ["hyprland/window"]
   },
   "group/hollow-right-5": {
     "orientation": "horizontal",

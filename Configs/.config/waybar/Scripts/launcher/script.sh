@@ -5,9 +5,9 @@ config_file="$HOME/.config/waybar/config.jsonc"
 
 declare -A DESCS
 DESCS[blacknode]="Default — workspaces, media, system, clock"
-DESCS[minimal]="Clean — workspaces, window, network, clock"
-DESCS[full]="Everything — workspaces, media, system, tray, clock"
-DESCS[dev]="Dev mode — workspaces, window, cpu/mem, network, clock"
+DESCS[minimal]="Clean — workspaces, window, clock, idle"
+DESCS[full]="Everything — workspaces, media, updates, weather, cpu, system, tray, clock"
+DESCS[dev]="Dev mode — workspaces, window, target, htb-vpn, cpu/mem, clock"
 DESCS[compact]="Tiny — workspaces, clock, menu"
 
 entries=""

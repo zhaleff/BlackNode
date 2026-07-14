@@ -31,11 +31,11 @@
   },
   "group/hollow-right-5": {
     "orientation": "horizontal",
-    "modules": ["backlight", "wireplumber", "network", "battery"]
+    "modules": ["clock"]
   },
   "group/hollow-right-1": {
     "orientation": "horizontal",
-    "modules": ["clock"]
+    "modules": ["idle_inhibitor"]
   },
   "group/hollow-right-3": {
     "orientation": "horizontal",
