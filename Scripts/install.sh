@@ -1,21 +1,10 @@
 #!/usr/bin/env bash
-#
-# ⏣  BlackNode Installer  —  by zhaleff · HollowSec
-#
-# Usage:
-#   bash <(curl -fsSL https://raw.githubusercontent.com/zhaleff/BlackNode/master/Scripts/install.sh)
-#   bash Scripts/install.sh
-#   bash Scripts/install.sh --minimal
-#   bash Scripts/install.sh --help
-#
-# Need help?  →  https://github.com/zhaleff/BlackNode/issues
-#                https://discord.gg/hollowsec
-#
+# BlackNode Installer - by zhaleff HollowSec
+# Usage: bash <(curl -fsSL https://raw.githubusercontent.com/zhaleff/BlackNode/master/Scripts/install.sh)
+#        bash Scripts/install.sh [--minimal] [--nvidia] [--no-nvidia] [--help]
 
 set -u
 set -o pipefail
-
-# ──────────────────────────── Config ────────────────────────────
 
 REPO="${HOME}/BlackNode"
 BACKUP="${HOME}/.config/blacknode-backup-$(date +%Y%m%d%H%M%S)"
@@ -24,19 +13,13 @@ FLAGS="${*}"
 STEP=0
 TOTAL_STEPS=10
 
-# ──────────────────────────── Colors ────────────────────────────
-
 BOLD='\033[1m'; DIM='\033[2m'; NC='\033[0m'
 PURPLE='\033[0;35m'; BLUE='\033[0;34m'; GREEN='\033[0;32m'
 YELLOW='\033[1;33m'; RED='\033[0;31m'; TEAL='\033[0;36m'
 BG_PURPLE='\033[45m'; ORANGE='\033[38;5;208m'
 
-# ──────────────────────────── Logger ────────────────────────────
-
 : > "$LOG"
 log()  { echo "[$(date +%H:%M:%S)] ${*}" >> "$LOG"; }
-
-# ──────────────────────────── UI ────────────────────────────
 
 header() {
     echo ""
@@ -84,8 +67,6 @@ press_enter() {
     read -r _
 }
 
-# ──────────────────────────── Hints ────────────────────────────
-
 hint_for() {
     local cmd="${1}" rc="${2:-0}"
     case "${cmd}" in
@@ -130,8 +111,6 @@ hint_for() {
     echo -e "  ${ORANGE}☰${NC}  Need more help?  →  https://github.com/zhaleff/BlackNode/issues"
 }
 
-# ──────────────────────────── Execution ────────────────────────────
-
 run() {
     local cmd="${*}" rc hint_shown=0
     log "$ ${cmd}"
@@ -142,8 +121,8 @@ run() {
         err "Command failed (exit ${rc})"
         dim "${cmd}"
         dim "Log: ${LOG}"
-        [[ ${rc} -eq 126 ]] && dim "Caused by: permission denied — check 'which' or execute bit"
-        [[ ${rc} -eq 127 ]] && dim "Caused by: command not found — is it installed?"
+        [[ ${rc} -eq 126 ]] && dim "Caused by: permission denied"
+        [[ ${rc} -eq 127 ]] && dim "Caused by: command not found"
         echo ""
         if [[ ${hint_shown} -eq 0 ]]; then
             hint_for "${cmd}" "${rc}"
@@ -166,8 +145,6 @@ run() {
     fi
     return 0
 }
-
-# ──────────────────────────── Pre-flight ────────────────────────────
 
 check_flags() {
     case " ${FLAGS} " in
@@ -193,7 +170,7 @@ check_flags() {
 check_root() {
     if [[ ${EUID} -eq 0 ]]; then
         err "Don't run as root."
-        err "Run as a normal user — sudo will be called when needed."
+        err "Run as a normal user. sudo will be called when needed."
         exit 1
     fi
 }
@@ -220,7 +197,6 @@ check_distro() {
         *)
             warn "Unknown distro: ${OS_NAME:-$distro}"
             info "You have pacman, so trying to proceed..."
-            info "If something breaks, check the issue tracker."
             if ! confirm "Continue anyway?" "N"; then
                 err "Cancelled. BlackNode targets Arch-based distros."
                 exit 1
@@ -240,7 +216,6 @@ check_internet() {
     done
     if [[ ${ok} -eq 0 ]]; then
         err "No internet connection. Check your network."
-        err "Need help? → https://github.com/zhaleff/BlackNode/issues"
         exit 1
     fi
     ok "Internet reachable"
@@ -261,7 +236,7 @@ check_sudo() {
         if ! sudo -v; then
             err "Sudo failed. Cannot continue."
             err "Make sure you have sudo rights:"
-            dim "  Run: sudo usermod -aG wheel $(whoami)"
+            dim "  sudo usermod -aG wheel $(whoami)"
             dim "  Then log out and back in."
             exit 1
         fi
@@ -280,20 +255,19 @@ check_user_groups() {
         warn "You are NOT in the following groups: ${missing[*]}"
         info "Hyprland may need these for keyboard/mouse/display access."
         info "Fix: sudo usermod -aG ${missing[*]} $(whoami)"
-        info "Then log out and back in."
         if confirm "Continue anyway?"; then
-            info "OK, but expect to log out after install to apply group changes."
+            info "Log out after install to apply group changes."
         fi
     fi
 }
 
 check_disk_space() {
-    local needed=3000000  # 3GB in KB
+    local needed=3000000
     local avail
     avail=$(df "${HOME}" | awk 'NR==2 {print $4}')
     if [[ ${avail} -lt ${needed} ]]; then
         warn "Low disk space: $((avail / 1024))MB available in ${HOME}"
-        info "Recommended: at least 3GB free for packages + configs."
+        info "Recommended: at least 3GB free."
         if ! confirm "Continue anyway?" "N"; then
             err "Free up space or install fewer packages."
             exit 1
@@ -357,9 +331,6 @@ detect_gpu() {
 detect_resolution() {
     MONITOR_RES=""
     MONITOR_NAME=""
-    if command -v systemd-resolve &>/dev/null; then :; fi  # noop, just checking
-
-    # Try multiple methods to detect resolution
     if command -v xrandr &>/dev/null && [[ -n "${DISPLAY:-}" ]]; then
         MONITOR_RES=$(xrandr 2>/dev/null | grep '*' | awk '{print $1}' | head -1)
         MONITOR_NAME=$(xrandr 2>/dev/null | grep '*' | awk '{print $2}' | head -1)
@@ -370,16 +341,13 @@ detect_resolution() {
         mode_file=$(ls /sys/class/drm/*/modes 2>/dev/null | head -1)
         [[ -n "${mode_file}" ]] && MONITOR_RES=$(head -1 "${mode_file}" 2>/dev/null)
     fi
-
     if [[ -z "${MONITOR_RES}" ]]; then
-        # Try with udev or edid
         local edid
         edid=$(find /sys/class/drm -name "edid" 2>/dev/null | head -1)
         if [[ -n "${edid}" ]]; then
             MONITOR_RES=$(hexdump -s 54 -n 4 -e '2/2 "%d"' "${edid}" 2>/dev/null | awk '{print $1"x"$2}')
         fi
     fi
-
     [[ -z "${MONITOR_RES}" ]] && MONITOR_RES="unknown"
     [[ -z "${MONITOR_NAME}" ]] && MONITOR_NAME=""
 }
@@ -392,17 +360,14 @@ detect_language() {
 
 detect_desktop_env() {
     if [[ -z "${XDG_CURRENT_DESKTOP:-}" ]] && [[ -z "${WAYLAND_DISPLAY:-}" ]] && [[ -z "${DISPLAY:-}" ]]; then
-        warn "No desktop detected — looks like you're in a TTY."
+        warn "No desktop detected — you might be in a TTY."
         info "You can install from here, then reboot into Hyprland."
-        info "If you want a GUI to test mid-install, that won't work here."
         if ! confirm "Continue with installation?" "N"; then
-            warn "Cancelled. Run the installer from within a desktop environment."
+            warn "Cancelled. Run from a desktop environment."
             exit 0
         fi
     fi
 }
-
-# ──────────────────────────── Rollback ────────────────────────────
 
 rollback() {
     if [[ -d "${BACKUP}" ]]; then
@@ -433,14 +398,12 @@ cleanup() {
     echo ""
     warn "Installation interrupted (Ctrl+C)"
     if confirm "Rollback config symlinks?" "N"; then rollback; fi
-    info "If something broke, check the log: ${DIM}${LOG}"
+    info "Check the log: ${DIM}${LOG}"
     tip "Report issues: https://github.com/zhaleff/BlackNode/issues"
     exit 1
 }
 
 trap cleanup SIGINT SIGTERM
-
-# ──────────────────────────── Steps ────────────────────────────
 
 install_aur_helper() {
     step "AUR Helper"
@@ -464,7 +427,6 @@ install_aur_helper() {
     info "Installing ${AUR} (needs base-devel + git)"
     run "sudo pacman -S --needed --noconfirm base-devel git"
 
-    # Clean old clone if it exists
     [[ -d "/tmp/${AUR}" ]] && rm -rf "/tmp/${AUR}"
 
     run "git clone --depth 1 https://aur.archlinux.org/${AUR}.git /tmp/${AUR}"
@@ -502,7 +464,6 @@ install_core_packages() {
     hr
     echo ""
 
-    # NVIDIA override
     if [[ "${GPU_VENDOR}" == "nvidia" ]] && ! [[ " ${FLAGS} " == *" --no-nvidia "* ]]; then
         warn "NVIDIA GPU: ${GPU_NAME:-detected}"
         info "Standard hyprland works with NVIDIA via XWayland."
@@ -527,7 +488,6 @@ install_core_packages() {
         fi
     fi
 
-    # Verify critical packages
     local critical=(hyprland kitty)
     local missing=()
     for pkg in "${critical[@]}"; do
@@ -557,7 +517,6 @@ install_aur_packages() {
         if [[ -z "${AUR:-}" ]]; then
             dim "Install manually:"
             dim "  yay -S ${aur_pkgs[*]}"
-            info "Or install the AUR helper first, then re-run this step."
             return
         fi
     fi
@@ -612,7 +571,6 @@ setup_nvidia() {
     hr
     echo ""
 
-    # NVIDIA driver
     if ! pacman -Q nvidia-dkms nvidia-open-dkms 2>/dev/null; then
         info "Choose your NVIDIA driver:"
         dim "  nvidia-dkms      — proprietary, works on all GPUs"
@@ -627,7 +585,6 @@ setup_nvidia() {
         ok "NVIDIA driver already installed"
     fi
 
-    # mkinitcpio
     local modconf="/etc/mkinitcpio.conf"
     if [[ -f "${modconf}" ]]; then
         if grep -q "^MODULES=.*nvidia.*nvidia_modeset.*nvidia_uvm.*nvidia_drm" "${modconf}"; then
@@ -639,11 +596,10 @@ setup_nvidia() {
             ok "Initramfs rebuilt with NVIDIA modules"
         fi
     else
-        warn "mkinitcpio.conf not found — can't add NVIDIA modules automatically"
+        warn "mkinitcpio.conf not found"
         tip "Check your initramfs setup manually"
     fi
 
-    # Kernel parameter
     local kdir=""
     if [[ -f /etc/default/grub ]]; then
         kdir="/etc/default/grub"
@@ -658,7 +614,6 @@ setup_nvidia() {
             info "Adding nvidia_drm.modeset=1 to GRUB..."
             sudo sed -i 's/GRUB_CMDLINE_LINUX_DEFAULT="/&nvidia_drm.modeset=1 /' "${kdir}"
             warn "GRUB config updated"
-            info "Run this (or the installer will do it):"
             dim "  sudo grub-mkconfig -o /boot/grub/grub.cfg"
             if confirm "Run grub-mkconfig now?"; then
                 run "sudo grub-mkconfig -o /boot/grub/grub.cfg"
@@ -669,7 +624,6 @@ setup_nvidia() {
         dim "  nvidia_drm.modeset=1 nvidia.NVreg_PreserveVideoMemoryAllocations=1"
     fi
 
-    # Hyprland env vars
     local env_dir="${HOME}/.config/hypr/env"
     mkdir -p "${env_dir}"
     local env_file="${env_dir}/nvidia.conf"
@@ -695,7 +649,6 @@ EOF
     dim "    - Remove 'nvidia' from MODULES in /etc/mkinitcpio.conf"
     dim "    - Rebuild: sudo mkinitcpio -P"
     dim "    - Use env = WLR_NO_HARDWARE_CURSORS,1"
-    dim "  • If nothing works, drop by Discord for help"
     hr
     echo ""
     press_enter
@@ -725,13 +678,12 @@ setup_keyboard() {
         ok "Using default: us,es"
     fi
 
-    # Locale hint
     if [[ -n "${SYS_LOCALE:-}" ]]; then
         local lang_code
         lang_code=$(echo "${SYS_LOCALE}" | cut -d_ -f1)
         if [[ "${lang_code}" != "en" ]] && [[ "${lang_code}" != "us" ]]; then
             info "Your system language is ${SYS_LOCALE}."
-            info "If you want keybindings in your layout, set it now or later in:"
+            info "If you want keybindings in your layout, set it later in:"
             dim "  ~/.config/hypr/settings/input.lua"
         fi
     fi
@@ -744,8 +696,7 @@ setup_resolution() {
 
     if [[ "${MONITOR_RES}" == "unknown" ]] || [[ -z "${MONITOR_RES}" ]]; then
         info "Could not auto-detect resolution."
-        info "You'll set it later in Hyprland settings."
-        tip "Use: SUPER + R → search 'monitor' or edit ~/.config/hypr/settings/monitor.lua"
+        tip "Edit ~/.config/hypr/settings/monitor.lua manually later."
         return
     fi
 
@@ -755,14 +706,13 @@ setup_resolution() {
         if confirm "Write ${MONITOR_RES} to monitor settings?"; then
             mkdir -p "$(dirname "${target}")"
             cat > "${target}" << EOF
--- Monitor configuration (auto-configured by installer)
+-- auto-configured by installer
 monitor = ,${MONITOR_RES},auto,1
 EOF
             ok "Monitor config written: ${target}"
         fi
     else
         ok "Monitor config exists: ${target}"
-        info "Current: $(grep -o 'monitor = .*' "${target}" 2>/dev/null || dim 'unknown')"
         if confirm "Update to ${MONITOR_RES}?" "N"; then
             sed -i "s/monitor = .*/monitor = ,${MONITOR_RES},auto,1/" "${target}"
             ok "Monitor resolution updated: ${MONITOR_RES}"
@@ -779,12 +729,11 @@ setup_shell() {
     fi
 
     info "BlackNode uses ZSH with powerlevel10k theme."
-    info "This only affects new terminals — existing ones keep their shell."
     echo ""
 
     if confirm "Make ZSH your default shell?"; then
         if ! command -v zsh &>/dev/null; then
-            warn "ZSH not installed (should be in core packages)"
+            warn "ZSH not installed"
             if confirm "Install ZSH now?"; then
                 run "sudo pacman -S --noconfirm zsh"
             else
@@ -798,7 +747,6 @@ setup_shell() {
         info "Log out and back in (or open a new terminal) to use ZSH."
     fi
 
-    # Back up existing .zshrc
     if [[ -f "${HOME}/.zshrc" && ! -L "${HOME}/.zshrc" ]]; then
         warn "Existing .zshrc found"
         if confirm "Back it up before linking BlackNode's?"; then
@@ -821,9 +769,8 @@ setup_wallpaper_dir() {
         run "mkdir -p \"${wp}\""
         ok "Created: ${wp}"
         tip "Set a wallpaper with: SUPER + W"
-        info "Or from terminal: ~/.config/rofi/scripts/wallselect.sh"
     else
-        warn "No wallpaper directory. Create it later with: mkdir -p ~/Pictures/Wallpapers"
+        warn "No wallpaper directory. Create later: mkdir -p ~/Pictures/Wallpapers"
     fi
 }
 
@@ -879,7 +826,6 @@ link_configs() {
         ok "${linked} linked, ${backed} backed up, ${skipped} already up-to-date"
     fi
 
-    # PATH check
     if [[ ":$PATH:" != *":${HOME}/.local/bin:"* ]]; then
         warn "${HOME}/.local/bin not in PATH"
         if [[ -f "${HOME}/.zshrc" ]]; then
@@ -901,7 +847,6 @@ link_configs() {
 run_post_install() {
     step "Post-Install"
 
-    # SDDM
     if [[ -f /etc/systemd/system/display-manager.service ]]; then
         local dm; dm=$(readlink -f /etc/systemd/system/display-manager.service 2>/dev/null || echo "")
         if [[ "${dm}" != *sddm* ]]; then
@@ -920,7 +865,6 @@ run_post_install() {
         fi
     fi
 
-    # Bluetooth
     if command -v systemctl &>/dev/null; then
         if systemctl is-enabled bluetooth &>/dev/null; then
             ok "Bluetooth service enabled"
@@ -929,7 +873,6 @@ run_post_install() {
         fi
     fi
 
-    # Default profile
     local profile_dir="${HOME}/.config/hypr/profiles"
     mkdir -p "${profile_dir}"
     if [[ ! -f "${profile_dir}/.active" ]]; then
@@ -937,13 +880,11 @@ run_post_install() {
         ok "Default profile set"
     fi
 
-    # PipeWire check
     if ! command -v pipewire &>/dev/null; then
         warn "PipeWire not found — audio may not work"
         info "Install: sudo pacman -S pipewire pipewire-pulse wireplumber"
     fi
 
-    # Font check
     if ! fc-list | grep -qi "JetBrains Mono" &>/dev/null; then
         warn "JetBrains Mono font not found — UI may look off"
         info "Install: sudo pacman -S ttf-jetbrains-mono"
@@ -956,35 +897,30 @@ show_troubleshooting() {
     echo -e "  ${ORANGE}${BOLD}☰  Troubleshooting${NC}"
     hr
     echo ""
-    info "Something not working? Here are common issues:"
-    echo ""
     dim "  ${BOLD}Hyprland won't start${NC}"
-    dim "  • Check: cat ~/.config/hypr/hyprland.conf"
-    dim "  • Try: Hyprland (without DIM) for verbose errors"
-    dim "  • Remove or rename: ~/.config/hypr/hyprland.conf to reset"
+    dim "  • cat ~/.config/hypr/hyprland.conf"
+    dim "  • Try: Hyprland (verbose)"
+    dim "  • Rename ~/.config/hypr to reset"
     echo ""
     dim "  ${BOLD}No audio${NC}"
-    dim "  • Install: sudo pacman -S pipewire pipewire-pulse wireplumber"
-    dim "  • Enable: systemctl --user enable --now pipewire pipewire-pulse"
+    dim "  • sudo pacman -S pipewire pipewire-pulse wireplumber"
+    dim "  • systemctl --user enable --now pipewire pipewire-pulse"
     echo ""
     dim "  ${BOLD}Wallpapers not working${NC}"
     dim "  • Put images in ~/Pictures/Wallpapers/"
     dim "  • Run: ~/.config/rofi/scripts/wallselect.sh"
-    dim "  • Or just: hyprctl hyprpaper wallpaper ,~/image.jpg"
     echo ""
     dim "  ${BOLD}Bluetooth not working${NC}"
-    dim "  • Check: sudo systemctl status bluetooth"
-    dim "  • Fix: sudo systemctl enable --now bluetooth"
+    dim "  • sudo systemctl enable --now bluetooth"
     echo ""
     dim "  ${BOLD}Weird keybindings${NC}"
-    dim "  • Check layout: cat ~/.config/hypr/settings/input.lua"
+    dim "  • Check: cat ~/.config/hypr/settings/input.lua"
     dim "  • Default: SUPER = Windows key, SUPER + SPACE = menu"
     echo ""
     dim "  ${BOLD}Need more help?${NC}"
     dim "  • Open an issue: https://github.com/zhaleff/BlackNode/issues"
     dim "  • Discord: https://discord.gg/hollowsec"
-    dim "  • Describe what happened + include the log:"
-    dim "    ${LOG}"
+    dim "  • Include the log: ${LOG}"
     echo ""
     press_enter
 }
@@ -999,7 +935,6 @@ show_summary() {
     echo -e "  ${BOLD}Configs${NC}      ${DIM}${HOME}/.config/ → BlackNode${NC}"
     echo -e "  ${BOLD}Backup${NC}       ${DIM}${BACKUP}${NC}"
     echo -e "  ${BOLD}Log${NC}          ${DIM}${LOG}${NC}"
-    echo -e "  ${BOLD}Layout${NC}       ${DIM}See ~/.config/hypr/settings/input.lua${NC}"
     echo ""
     hr
     echo -e "  ${BOLD}Quick start:${NC}"
@@ -1021,15 +956,12 @@ show_summary() {
     echo ""
 }
 
-# ──────────────────────────── Main ────────────────────────────
-
 main() {
     echo ""
     echo -e "  ${BG_PURPLE}${BOLD}  ⏣  BlackNode Installer  ${NC}"
     echo -e "  ${DIM}  by zhaleff · HollowSec${NC}"
     echo ""
 
-    # Pre-flight
     check_flags
     check_root
     check_distro
@@ -1044,7 +976,6 @@ main() {
     detect_desktop_env
     check_existing_install
 
-    # System summary
     echo ""
     hr
     echo -e "  ${BOLD}System${NC}"
@@ -1058,7 +989,6 @@ main() {
     hr
     echo ""
 
-    # Repo
     if [[ ! -d "${REPO}" ]]; then
         warn "BlackNode not cloned yet"
         if confirm "Clone BlackNode to ${REPO}?"; then
@@ -1076,16 +1006,13 @@ main() {
         warn "Cancelled"; exit 0
     fi
 
-    # Detect AUR helper
     AUR=$(command -v yay &>/dev/null && echo "yay" || command -v paru &>/dev/null && echo "paru" || echo "")
 
-    # Calculate steps dynamically
     TOTAL_STEPS=10
     [[ -n "${AUR}" ]] && TOTAL_STEPS=$((TOTAL_STEPS - 1))
     [[ " ${FLAGS} " == *" --minimal "* ]] && TOTAL_STEPS=$((TOTAL_STEPS - 1))
     [[ "${GPU_VENDOR}" != "nvidia" ]] && TOTAL_STEPS=$((TOTAL_STEPS - 1))
 
-    # Run
     if [[ -z "${AUR}" ]]; then install_aur_helper; fi
     install_core_packages
     install_aur_packages
