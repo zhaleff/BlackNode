@@ -20,6 +20,8 @@ main() {
         "󰑐  Reload" \
         "󱖫  Services" \
         "󰌌  Theme" \
+        "  Profiles" \
+        "󱑀  Pomodoro" \
         "󰋼  About" \
         "󰍃  Session" \
         "󰂯  Bluetooth" \
@@ -39,6 +41,8 @@ main() {
         "󰑐  Reload")        "$SCRIPTS/reload/menu.sh" ;;
         "󱖫  Services")      "$SCRIPTS/services/menu.sh" ;;
         "󰌌  Theme")         "$SCRIPTS/theme/menu.sh" ;;
+        "  Profiles")      "$HOME/.config/rofi/scripts/profiles.sh" ;;
+        "󱑀  Pomodoro")     "$HOME/.config/rofi/scripts/pomodoro.sh" ;;
         "󰋼  About")         "$SCRIPTS/info/menu.sh" ;;
         "󰍃  Session")       "$SCRIPTS/session/menu.sh" ;;
         "󰂯  Bluetooth")     "$SCRIPTS/bluetooth/menu.sh" ;;
