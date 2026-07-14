@@ -5,14 +5,27 @@ REPO="$HOME/BlackNode"
 BACKUP="$HOME/.config/blacknode-backup-$(date +%Y%m%d%H%M%S)"
 LOG="/tmp/blacknode-install.log"
 
-RED='\033[0;31m'; GREEN='\033[0;32m'; YELLOW='\033[1;33m'
-CYAN='\033[0;36m'; NC='\033[0m'
+BOLD='\033[1m'; DIM='\033[2m'; NC='\033[0m'
+PURPLE='\033[0;35m'; BLUE='\033[0;34m'; CYAN='\033[0;36m'
+GREEN='\033[0;32m'; YELLOW='\033[1;33m'; RED='\033[0;31m'
+BG_PURPLE='\033[45m'; BG_BLUE='\033[44m'
 
-info()  { echo -e "${CYAN}[INFO]${NC} $1"; }
-ok()    { echo -e "${GREEN}[OK]${NC} $1"; }
-warn()  { echo -e "${YELLOW}[WARN]${NC} $1"; }
-err()   { echo -e "${RED}[ERR]${NC} $1"; }
-ask()   { echo -ne "${CYAN}[?]${NC} $1"; }
+info()  { echo -e "${BLUE}┃${NC} $1"; }
+ok()    { echo -e "${GREEN}┃${NC} $1"; }
+warn()  { echo -e "${YELLOW}┃${NC} $1"; }
+err()   { echo -e "${RED}┃${NC} $1"; }
+ask()   { echo -ne "${PURPLE}┃${NC} $1"; }
+
+title() {
+    echo ""
+    echo -e "  ${BG_PURPLE}${BOLD} ${1} ${NC}"
+    echo ""
+}
+subtitle() {
+    echo ""
+    echo -e "  ${PURPLE}${BOLD}◆${NC} ${BOLD}$1${NC}"
+    echo ""
+}
 
 > "$LOG"
 
@@ -22,14 +35,17 @@ run() {
     eval "$cmd" 2>&1 | tee -a "$LOG"
     local rc=${PIPESTATUS[0]}
     if [[ $rc -ne 0 ]]; then
-        err "Command failed (exit $rc): $cmd"
-        warn "Check $LOG for details"
+        echo ""
+        echo -e "  ${RED}${BOLD}✕ Command failed (exit $rc)${NC}"
+        echo -e "  ${DIM}${cmd}${NC}"
+        echo -e "  ${DIM}Details: $LOG${NC}"
+        echo ""
         while true; do
-            ask "[R]etry, [S]kip, or [A]bort? [R/s/a]: "; read -r choice
+            ask "${BOLD}R${NC}etry, ${BOLD}S${NC}kip, ${BOLD}A${NC}bort? ${DIM}[R/s/a]${NC} "; read -r choice
             case "$choice" in
                 [Rr]|"") run "$cmd"; return $? ;;
-                [Ss]) warn "Skipped: $cmd"; return 1 ;;
-                [Aa]) err "Aborted by user"; exit 1 ;;
+                [Ss]) echo -e "  ${YELLOW}─ Skipped${NC}"; return 1 ;;
+                [Aa]) echo -e "  ${RED}─ Aborted${NC}"; exit 1 ;;
             esac
         done
     fi
@@ -38,9 +54,9 @@ run() {
 
 section() {
     echo ""
-    echo -e "${CYAN}──────────────────────────────────────────${NC}"
-    echo -e "${CYAN}  $1${NC}"
-    echo -e "${CYAN}──────────────────────────────────────────${NC}"
+    echo -e "  ${DIM}${PURPLE}┌─────────────────────────────────────┐${NC}"
+    echo -e "  ${PURPLE}│${NC}  ${BOLD}$1${NC}"
+    echo -e "  ${DIM}${PURPLE}└─────────────────────────────────────┘${NC}"
     echo ""
 }
 
@@ -85,9 +101,9 @@ install_aur_helper() {
 install_core_packages() {
     section "Core Packages"
     info "Essential packages for BlackNode:"
-    echo "  hyprland, waybar, rofi-wayland, kitty, neovim, dunst,"
-    echo "  hyprlock, hypridle, fastfetch, yazi, zsh, fzf, matugen,"
-    echo "  sddm, gtk3, gtk4, ttf-jetbrains-mono"
+    echo -e "  ${DIM}hyprland, waybar, rofi-wayland, kitty, neovim, dunst,${NC}"
+    echo -e "  ${DIM}hyprlock, hypridle, fastfetch, yazi, zsh, fzf, matugen,${NC}"
+    echo -e "  ${DIM}sddm, gtk3, gtk4, ttf-jetbrains-mono${NC}"
     echo ""
     ask "Install core packages? [Y/n]: "; read -r ans
     if [[ "$ans" =~ ^[Nn] ]]; then
@@ -122,14 +138,14 @@ install_aur_packages() {
 
 install_optional_packages() {
     section "Optional Packages"
-    echo "  playerctl     — media keys (recommended)"
-    echo "  brightnessctl — brightness keys (recommended)"
-    echo "  wireplumber   — audio (recommended)"
-    echo "  grim+slurp    — screenshots for hyprshot"
-    echo "  pacman-contrib— update count in waybar"
-    echo "  bluez+blueman — bluetooth"
-    echo "  pamixer       — volume in waybar"
-    echo "  firefox       — browser (config has themes)"
+    echo -e "  ${DIM}playerctl     — media keys (recommended)${NC}"
+    echo -e "  ${DIM}brightnessctl — brightness keys (recommended)${NC}"
+    echo -e "  ${DIM}wireplumber   — audio (recommended)${NC}"
+    echo -e "  ${DIM}grim+slurp    — screenshots for hyprshot${NC}"
+    echo -e "  ${DIM}pacman-contrib— update count in waybar${NC}"
+    echo -e "  ${DIM}bluez+blueman — bluetooth${NC}"
+    echo -e "  ${DIM}pamixer       — volume in waybar${NC}"
+    echo -e "  ${DIM}firefox       — browser (config has themes)${NC}"
     echo ""
     ask "Install all optional packages? [Y/n]: "; read -r ans
     if [[ "$ans" =~ ^[Nn] ]]; then
@@ -249,38 +265,39 @@ post_install() {
 }
 
 show_summary() {
-    section "Done"
-    echo -e "${GREEN}BlackNode installed.${NC}"
     echo ""
-    echo "  Configs:    $HOME/.config/ → BlackNode"
-    echo "  Backup:     $BACKUP"
-    echo "  Wallpapers: $HOME/Pictures/Wallpapers/"
-    echo "  Log:        $LOG"
+    echo -e "  ${GREEN}${BOLD}✔  BlackNode installed${NC}"
     echo ""
-    echo "Next:"
-    echo "  1. Log out, select Hyprland in SDDM"
-    echo "  2. Set wallpaper: SUPER + W"
-    echo "  3. Open menu: SUPER + SPACE"
-    echo "  4. bn-menu → About → Keybinds"
+    echo -e "  ${BOLD}Configs${NC}    ${DIM}$HOME/.config/ → BlackNode${NC}"
+    echo -e "  ${BOLD}Backup${NC}     ${DIM}$BACKUP${NC}"
+    echo -e "  ${BOLD}Wallpapers${NC} ${DIM}$HOME/Pictures/Wallpapers/${NC}"
+    echo -e "  ${BOLD}Log${NC}        ${DIM}$LOG${NC}"
     echo ""
-    echo "  Issues: https://github.com/zhaleff/BlackNode/issues"
-    echo "  Help:   https://discord.gg/hollowsec"
+    echo -e "  ${PURPLE}── Next steps ──${NC}"
+    echo -e "  ${BOLD}1.${NC} Log out, select Hyprland in SDDM"
+    echo -e "  ${BOLD}2.${NC} Set wallpaper: ${DIM}SUPER + W${NC}"
+    echo -e "  ${BOLD}3.${NC} Open menu: ${DIM}SUPER + SPACE${NC}"
+    echo -e "  ${BOLD}4.${NC} bn-menu → About → Keybinds"
+    echo ""
+    echo -e "  ${DIM}Issues: https://github.com/zhaleff/BlackNode/issues${NC}"
+    echo -e "  ${DIM}Help:   https://discord.gg/hollowsec${NC}"
 }
 
 main() {
     echo ""
-    echo -e "${CYAN}  BlackNode Installer — zhaleff / HollowSec${NC}"
+    echo -e "  ${PURPLE}${BOLD}⏣  BlackNode Installer${NC}   ${DIM}by zhaleff · HollowSec${NC}"
     echo ""
 
     if [[ ! -d "$REPO" ]]; then
-        err "BlackNode not found at $REPO"
-        echo "  git clone https://github.com/zhaleff/BlackNode.git $REPO"
+        echo -e "  ${RED}${BOLD}✕ BlackNode not found${NC}"
+        echo -e "  ${DIM}Clone it first:${NC}"
+        echo -e "  ${BOLD}git clone https://github.com/zhaleff/BlackNode.git $REPO${NC}"
         exit 1
     fi
 
-    ask "Install BlackNode? [Y/n]: "; read -r ans
+    ask "${BOLD}Install BlackNode?${NC} ${DIM}[Y/n]${NC} "; read -r ans
     if [[ "$ans" =~ ^[Nn] ]]; then
-        info "Cancelled."; exit 0
+        echo -e "  ${YELLOW}─ Cancelled${NC}"; exit 0
     fi
 
     AUR=$(detect_aur_helper)
