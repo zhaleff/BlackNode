@@ -1,6 +1,7 @@
 {
   "include": [
-    "~/.config/waybar/Modules/all_modules.jsonc"
+    "~/.config/waybar/Modules/all_modules.jsonc",
+    "~/.config/waybar/Layouts/active.jsonc"
   ],
   "layer": "top",
   "position": "top",
@@ -10,52 +11,5 @@
   "margin-top": 5,
   "margin-bottom": 0,
   "spacing": 2,
-  "reload_style_on_change": true,
-
-  "modules-left": [
-    "group/hollow-left-2",
-    "group/hollow-left-4",
-    "group/hollow-left-5",
-    "group/hollow-left-1"
-  ],
-  "modules-center": [],
-  "modules-right": [
-    "group/hollow-right-5",
-    "group/hollow-right-4",
-    "group/hollow-right-1",
-    "group/hollow-right-3"
-  ],
-
-  "group/hollow-left-1": {
-    "orientation": "horizontal",
-    "modules": ["custom/pacman", "custom/pkg-aur", "custom/media_dashboard"]
-  },
-  "group/hollow-left-2": {
-    "orientation": "horizontal",
-    "modules": ["hyprland/workspaces"]
-  },
-  "group/hollow-left-4": {
-    "orientation": "horizontal",
-    "modules": ["mpris", "custom/previous", "custom/pause", "custom/next"]
-  },
-  "group/hollow-left-5": {
-    "orientation": "horizontal",
-    "modules": ["backlight", "wireplumber", "network", "custom/power", "battery"]
-  },
-  "group/hollow-right-1": {
-    "orientation": "horizontal",
-    "modules": ["cpu", "temperature", "memory"]
-  },
-  "group/hollow-right-3": {
-    "orientation": "horizontal",
-    "modules": ["custom/weather"]
-  },
-  "group/hollow-right-4": {
-    "orientation": "horizontal",
-    "modules": ["idle_inhibitor", "clock", "custom/waybar-rofi" ]
-  },
-  "group/hollow-right-5": {
-    "orientation": "horizontal",
-    "modules": ["hyprland/window"]
-  }
+  "reload_style_on_change": true
 }

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 layouts_dir="$HOME/.config/waybar/Layouts"
-config_file="$HOME/.config/waybar/config.jsonc"
+active_file="$layouts_dir/active.jsonc"
 
 declare -A DESCS
 DESCS[blacknode]="Default — workspaces, media, system, clock"
@@ -13,6 +13,7 @@ DESCS[compact]="Tiny — workspaces, clock, menu"
 entries=""
 for f in "$layouts_dir"/*.jsonc; do
   name=$(basename "$f" .jsonc)
+  [[ "$name" == "active" ]] && continue
   desc="${DESCS[$name]:-}"
   if [[ -n "$desc" ]]; then
     entries+="$name  ─  $desc\n"
@@ -27,12 +28,11 @@ chosen=$(echo -e "$entries" | rofi -dmenu -i -p " Layout" -theme "$HOME/.config/
 
 name="${chosen%% ─ *}"
 
-cat <<EOF > "$config_file"
-// Copyright (c) 2026 Zhaleff && HollowSec. All Rights Reserved.
+cat <<EOF > "$active_file"
 {
-    "include": [
-        "$layouts_dir/$name.jsonc"
-    ]
+  "include": [
+    "~/.config/waybar/Layouts/$name.jsonc"
+  ]
 }
 EOF
 

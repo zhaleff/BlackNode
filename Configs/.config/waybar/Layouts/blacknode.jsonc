@@ -1,18 +1,4 @@
-// Copyright (c) 2025 Zhaleff && HollowSec. All Rights Reserved.
 {
-  "include": [
-    "~/.config/waybar/Modules/all_modules.jsonc"
-  ],
-  "layer": "top",
-  "position": "top",
-  "height": 30,
-  "margin-left": 10,
-  "margin-right": 10,
-  "margin-top": 5,
-  "margin-bottom": 0,
-  "spacing": 2,
-  "reload_style_on_change": true,
-
   "modules-left": [
     "group/hollow-left-2",
     "group/hollow-left-4",
@@ -26,7 +12,6 @@
     "group/hollow-right-1",
     "group/hollow-right-3"
   ],
-
   "group/hollow-left-1": {
     "orientation": "horizontal",
     "modules": ["custom/pacman", "custom/pkg-aur", "custom/media_dashboard"]

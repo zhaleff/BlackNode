@@ -1,16 +1,4 @@
 {
-  "include": [
-    "~/.config/waybar/Modules/all_modules.jsonc"
-  ],
-  "layer": "top",
-  "position": "top",
-  "height": 30,
-  "margin-left": 10,
-  "margin-right": 10,
-  "margin-top": 5,
-  "margin-bottom": 0,
-  "spacing": 2,
-  "reload_style_on_change": true,
   "modules-left": [
     "group/hollow-left-2",
     "group/hollow-left-4",
