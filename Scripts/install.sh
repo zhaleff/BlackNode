@@ -4,9 +4,12 @@
 #
 # Usage:
 #   bash <(curl -fsSL https://raw.githubusercontent.com/zhaleff/BlackNode/master/Scripts/install.sh)
-#   bash Scripts/install.sh          # if already cloned
-#   bash Scripts/install.sh --minimal  # skip optional blocks
-#   bash Scripts/install.sh --help     # show flags
+#   bash Scripts/install.sh
+#   bash Scripts/install.sh --minimal
+#   bash Scripts/install.sh --help
+#
+# Need help?  →  https://github.com/zhaleff/BlackNode/issues
+#                https://discord.gg/hollowsec
 #
 
 set -u
@@ -19,22 +22,21 @@ BACKUP="${HOME}/.config/blacknode-backup-$(date +%Y%m%d%H%M%S)"
 LOG="/tmp/blacknode-install.log"
 FLAGS="${*}"
 STEP=0
-TOTAL_STEPS=9
+TOTAL_STEPS=10
 
 # ──────────────────────────── Colors ────────────────────────────
 
 BOLD='\033[1m'; DIM='\033[2m'; NC='\033[0m'
 PURPLE='\033[0;35m'; BLUE='\033[0;34m'; GREEN='\033[0;32m'
 YELLOW='\033[1;33m'; RED='\033[0;31m'; TEAL='\033[0;36m'
-BG_PURPLE='\033[45m'
+BG_PURPLE='\033[45m'; ORANGE='\033[38;5;208m'
 
 # ──────────────────────────── Logger ────────────────────────────
 
 : > "$LOG"
-
 log()  { echo "[$(date +%H:%M:%S)] ${*}" >> "$LOG"; }
 
-# ──────────────────────────── UI Helpers ────────────────────────────
+# ──────────────────────────── UI ────────────────────────────
 
 header() {
     echo ""
@@ -56,6 +58,7 @@ warn()  { echo -e "  ${YELLOW}▲${NC}  ${*}"; }
 err()   { echo -e "  ${RED}✖${NC}  ${*}"; }
 dim()   { echo -e "  ${DIM}${*}${NC}"; }
 hr()    { echo -e "  ${DIM}────────────────────────────────────────${NC}"; }
+tip()   { echo -e "  ${ORANGE}☰${NC}  ${BOLD}TIP:${NC} ${*}"; }
 
 confirm() {
     local msg="${1}" default="${2:-Y}"
@@ -81,10 +84,56 @@ press_enter() {
     read -r _
 }
 
+# ──────────────────────────── Hints ────────────────────────────
+
+hint_for() {
+    local cmd="${1}" rc="${2:-0}"
+    case "${cmd}" in
+        *makepkg*)
+            echo -e "  ${ORANGE}☰${NC}  Often fails if missing 'base-devel' or running as root."
+            echo -e "  ${ORANGE}☰${NC}  Fix: sudo pacman -S --needed base-devel"
+            echo -e "  ${ORANGE}☰${NC}  Or try: ${DIM}SKIP_PACMAN_CHECK=y makepkg -si${NC}"
+            ;;
+        *pacman*)
+            echo -e "  ${ORANGE}☰${NC}  Could be a mirror issue. Try:"
+            echo -e "  ${ORANGE}☰${NC}  ${DIM}sudo pacman -Syy${NC}  (refresh mirrors)"
+            echo -e "  ${ORANGE}☰${NC}  If that fails, check: ${DIM}sudo pacman-mirrors --fasttrack${NC}"
+            ;;
+        *chsh*)
+            echo -e "  ${ORANGE}☰${NC}  chsh requires the shell to be in /etc/shells."
+            echo -e "  ${ORANGE}☰${NC}  Fix: echo \$(which zsh) | sudo tee -a /etc/shells"
+            ;;
+        *git\ clone*)
+            echo -e "  ${ORANGE}☰${NC}  Check your internet or github access."
+            echo -e "  ${ORANGE}☰${NC}  Try: ${DIM}git clone --depth 1${NC}"
+            ;;
+        *systemctl*)
+            echo -e "  ${ORANGE}☰${NC}  You may need to log out and back in."
+            echo -e "  ${ORANGE}☰${NC}  Or try: ${DIM}sudo systemctl restart ${cmd##* }${NC}"
+            ;;
+        *grub-mkconfig*)
+            echo -e "  ${ORANGE}☰${NC}  If grub-mkconfig fails, update manually:"
+            echo -e "  ${ORANGE}☰${NC}  ${DIM}sudo grub-mkconfig -o /boot/grub/grub.cfg${NC}"
+            ;;
+        *nvidia*)
+            echo -e "  ${ORANGE}☰${NC}  NVIDIA issues? Common fixes:"
+            echo -e "  ${ORANGE}☰${NC}  1. Rebuild initramfs: ${DIM}sudo mkinitcpio -P${NC}"
+            echo -e "  ${ORANGE}☰${NC}  2. Check nvidia_drm.modeset=1 kernel param"
+            echo -e "  ${ORANGE}☰${NC}  3. See wiki: ${DIM}https://wiki.hyprland.org/Nvidia${NC}"
+            ;;
+        *sddm*)
+            echo -e "  ${ORANGE}☰${NC}  Fix SDDM: ${DIM}sudo systemctl enable --now sddm${NC}"
+            echo -e "  ${ORANGE}☰${NC}  If it fails, try: ${DIM}sddm --example-config${NC}"
+            ;;
+        *) ;;
+    esac
+    echo -e "  ${ORANGE}☰${NC}  Need more help?  →  https://github.com/zhaleff/BlackNode/issues"
+}
+
 # ──────────────────────────── Execution ────────────────────────────
 
 run() {
-    local cmd="${*}" rc
+    local cmd="${*}" rc hint_shown=0
     log "$ ${cmd}"
     eval "${cmd}" 2>&1 | tee -a "${LOG}"
     rc=${PIPESTATUS[0]}
@@ -93,9 +142,16 @@ run() {
         err "Command failed (exit ${rc})"
         dim "${cmd}"
         dim "Log: ${LOG}"
+        [[ ${rc} -eq 126 ]] && dim "Caused by: permission denied — check 'which' or execute bit"
+        [[ ${rc} -eq 127 ]] && dim "Caused by: command not found — is it installed?"
         echo ""
+        if [[ ${hint_shown} -eq 0 ]]; then
+            hint_for "${cmd}" "${rc}"
+            hint_shown=1
+            echo ""
+        fi
         while true; do
-            echo -ne "  ${YELLOW}?${NC}  ${BOLD}R${NC}etry  ${BOLD}S${NC}kip  ${BOLD}A${NC}bort  ${DIM}[R/s/a]${NC} "
+            echo -ne "  ${YELLOW}?${NC}  ${BOLD}R${NC}etry  ${S}${NC}kip  ${BOLD}A${NC}bort  ${DIM}[R/s/a]${NC} "
             read -r choice
             case "${choice}" in
                 [Rr]|"") run "${cmd}"; return ${?} ;;
@@ -111,25 +167,6 @@ run() {
     return 0
 }
 
-spinner() {
-    # Simple spinner while a command runs — fallback to no-op if not interactive
-    local msg="${1}" pid
-    shift
-    log "SPINNER: ${*}"
-    eval "${*}" &
-    pid=${!}
-    local spin='-\|/'
-    local i=0
-    while kill -0 "${pid}" 2>/dev/null; do
-        i=$(( (i+1) % 4 ))
-        printf "\r  ${BLUE}i${NC}  ${msg} ${spin:${i}:1}"
-        sleep 0.15
-    done
-    wait "${pid}"
-    printf "\r  ${GREEN}✔${NC}  ${msg} done    \n"
-    return ${?}
-}
-
 # ──────────────────────────── Pre-flight ────────────────────────────
 
 check_flags() {
@@ -138,10 +175,15 @@ check_flags() {
             echo ""
             echo -e "  ${BOLD}Usage:${NC}  bash install.sh [flags]"
             echo ""
-            echo "  --minimal     Skip optional packages and extras"
-            echo "  --nvidia      Auto-select NVIDIA optimizations"
-            echo "  --no-nvidia   Skip NVIDIA setup even if detected"
-            echo "  --help        Show this message"
+            dim "  --minimal     Skip optional packages and extras"
+            dim "  --nvidia      Auto-select NVIDIA optimizations"
+            dim "  --no-nvidia   Skip NVIDIA setup even if detected"
+            dim "  --help        Show this message"
+            echo ""
+            dim "Examples:"
+            dim "  bash install.sh"
+            dim "  bash install.sh --minimal"
+            dim "  bash install.sh --nvidia"
             echo ""
             exit 0
             ;;
@@ -150,22 +192,55 @@ check_flags() {
 
 check_root() {
     if [[ ${EUID} -eq 0 ]]; then
-        err "Don't run as root. Run as a normal user (sudo will be called when needed)."
+        err "Don't run as root."
+        err "Run as a normal user — sudo will be called when needed."
         exit 1
     fi
 }
 
 check_distro() {
+    local distro=""
+    if [[ -f /etc/os-release ]]; then
+        distro=$(grep ^ID= /etc/os-release | cut -d= -f2 | tr -d '"')
+    fi
+    OS_NAME=$(grep ^NAME= /etc/os-release 2>/dev/null | cut -d= -f2 | tr -d '"')
+    OS_ID="${distro}"
+
     if ! command -v pacman &>/dev/null; then
-        err "This installer is for Arch Linux and derivatives only."
+        err "This installer requires pacman (Arch Linux or derivative)."
+        err "Detected: ${OS_NAME:-unknown}"
+        err "BlackNode is designed for Arch Linux, EndeavourOS, or similar."
         exit 1
     fi
+
+    case "${distro,,}" in
+        arch|endeavouros|artix|manjaro|arcolinux|garuda|cachyos)
+            ok "${OS_NAME} detected — compatible"
+            ;;
+        *)
+            warn "Unknown distro: ${OS_NAME:-$distro}"
+            info "You have pacman, so trying to proceed..."
+            info "If something breaks, check the issue tracker."
+            if ! confirm "Continue anyway?" "N"; then
+                err "Cancelled. BlackNode targets Arch-based distros."
+                exit 1
+            fi
+            ;;
+    esac
 }
 
 check_internet() {
-    if ! ping -c 1 -W 3 archlinux.org &>/dev/null && \
-       ! ping -c 1 -W 3 github.com &>/dev/null; then
-        err "No internet connection. Check your network and try again."
+    local hosts=(archlinux.org github.com aur.archlinux.org)
+    local ok=0
+    for host in "${hosts[@]}"; do
+        if ping -c 1 -W 2 "${host}" &>/dev/null; then
+            ok=1
+            break
+        fi
+    done
+    if [[ ${ok} -eq 0 ]]; then
+        err "No internet connection. Check your network."
+        err "Need help? → https://github.com/zhaleff/BlackNode/issues"
         exit 1
     fi
     ok "Internet reachable"
@@ -174,7 +249,7 @@ check_internet() {
 check_pacman_lock() {
     if [[ -f /var/lib/pacman/db.lck ]]; then
         err "Pacman is locked (another package operation is running)."
-        warn "Wait for it to finish, or remove the lock file:"
+        warn "Either wait, or remove the lock file if you're sure:"
         dim "  sudo rm /var/lib/pacman/db.lck"
         exit 1
     fi
@@ -182,65 +257,147 @@ check_pacman_lock() {
 
 check_sudo() {
     if ! sudo -n true 2>/dev/null; then
-        info "Sudo access required for package installation."
+        info "Sudo access is needed for package installation."
         if ! sudo -v; then
             err "Sudo failed. Cannot continue."
+            err "Make sure you have sudo rights:"
+            dim "  Run: sudo usermod -aG wheel $(whoami)"
+            dim "  Then log out and back in."
             exit 1
         fi
     fi
     ok "Sudo access granted"
 }
 
+check_user_groups() {
+    local missing=()
+    for g in video input; do
+        if ! groups | grep -qw "${g}"; then
+            missing+=("${g}")
+        fi
+    done
+    if [[ ${#missing[@]} -gt 0 ]]; then
+        warn "You are NOT in the following groups: ${missing[*]}"
+        info "Hyprland may need these for keyboard/mouse/display access."
+        info "Fix: sudo usermod -aG ${missing[*]} $(whoami)"
+        info "Then log out and back in."
+        if confirm "Continue anyway?"; then
+            info "OK, but expect to log out after install to apply group changes."
+        fi
+    fi
+}
+
+check_disk_space() {
+    local needed=3000000  # 3GB in KB
+    local avail
+    avail=$(df "${HOME}" | awk 'NR==2 {print $4}')
+    if [[ ${avail} -lt ${needed} ]]; then
+        warn "Low disk space: $((avail / 1024))MB available in ${HOME}"
+        info "Recommended: at least 3GB free for packages + configs."
+        if ! confirm "Continue anyway?" "N"; then
+            err "Free up space or install fewer packages."
+            exit 1
+        fi
+    else
+        ok "Disk space: $((avail / 1024))MB available"
+    fi
+}
+
 check_existing_install() {
     local existing=0
-    local msg=""
+    local found=""
     for item in "${REPO}/Configs/.config"/*; do
         local name; name=$(basename "${item}")
         local dst="${HOME}/.config/${name}"
         if [[ -L "${dst}" && "$(readlink "${dst}")" == "${item}" ]]; then
             existing=1
-            msg="${name}"
+            found="${name}"
+            break
         fi
     done
     if [[ ${existing} -eq 1 ]]; then
-        warn "Existing BlackNode configs detected (${msg})"
+        warn "BlackNode configs already linked (${found})"
         if confirm "Re-link configs? (backups will be made)" "N"; then
-            return 0
+            SKIP_LINK=0
         else
-            warn "Skipping config linking"
+            info "Keeping existing links."
             SKIP_LINK=1
         fi
+    else
+        SKIP_LINK=0
     fi
 }
 
 detect_gpu() {
     GPU_VENDOR=""
-    if [[ -f /sys/class/drm/card0/device/vendor ]]; then
-        local ven; ven=$(cat /sys/class/drm/card0/device/vendor)
-        case "${ven}" in
-            0x10de) GPU_VENDOR="nvidia" ;;
-            0x1002) GPU_VENDOR="amd" ;;
-            0x8086) GPU_VENDOR="intel" ;;
-        esac
+    GPU_NAME=""
+    if command -v lspci &>/dev/null; then
+        local gpu_line
+        gpu_line=$(lspci -nn 2>/dev/null | grep -iE "VGA|3D|Display" | head -1)
+        GPU_NAME=$(echo "${gpu_line}" | sed 's/.*: //; s/ \[.*//')
+        if echo "${gpu_line}" | grep -qi "NVIDIA"; then
+            GPU_VENDOR="nvidia"
+        elif echo "${gpu_line}" | grep -qiE "AMD|Radeon|ATI"; then
+            GPU_VENDOR="amd"
+        elif echo "${gpu_line}" | grep -qi "Intel"; then
+            GPU_VENDOR="intel"
+        elif [[ -f /sys/class/drm/card0/device/vendor ]]; then
+            local ven; ven=$(cat /sys/class/drm/card0/device/vendor)
+            case "${ven}" in
+                0x10de) GPU_VENDOR="nvidia" ;;
+                0x1002) GPU_VENDOR="amd" ;;
+                0x8086) GPU_VENDOR="intel" ;;
+            esac
+        fi
     fi
-    if lspci -nn 2>/dev/null | grep -qi "VGA.*NVIDIA"; then
-        GPU_VENDOR="nvidia"
+    [[ -z "${GPU_VENDOR}" ]] && GPU_VENDOR="other"
+    [[ -z "${GPU_NAME}" ]] && GPU_NAME="${GPU_VENDOR}"
+}
+
+detect_resolution() {
+    MONITOR_RES=""
+    MONITOR_NAME=""
+    if command -v systemd-resolve &>/dev/null; then :; fi  # noop, just checking
+
+    # Try multiple methods to detect resolution
+    if command -v xrandr &>/dev/null && [[ -n "${DISPLAY:-}" ]]; then
+        MONITOR_RES=$(xrandr 2>/dev/null | grep '*' | awk '{print $1}' | head -1)
+        MONITOR_NAME=$(xrandr 2>/dev/null | grep '*' | awk '{print $2}' | head -1)
+    elif command -v hyprctl &>/dev/null; then
+        MONITOR_RES=$(hyprctl monitors 2>/dev/null | grep -m1 "resolution" | awk '{print $2}')
+    elif [[ -d /sys/class/drm ]]; then
+        local mode_file
+        mode_file=$(ls /sys/class/drm/*/modes 2>/dev/null | head -1)
+        [[ -n "${mode_file}" ]] && MONITOR_RES=$(head -1 "${mode_file}" 2>/dev/null)
     fi
-    if lspci -nn 2>/dev/null | grep -qi "VGA.*AMD\|VGA.*Radeon"; then
-        [[ "${GPU_VENDOR}" != "nvidia" ]] && GPU_VENDOR="amd"
+
+    if [[ -z "${MONITOR_RES}" ]]; then
+        # Try with udev or edid
+        local edid
+        edid=$(find /sys/class/drm -name "edid" 2>/dev/null | head -1)
+        if [[ -n "${edid}" ]]; then
+            MONITOR_RES=$(hexdump -s 54 -n 4 -e '2/2 "%d"' "${edid}" 2>/dev/null | awk '{print $1"x"$2}')
+        fi
     fi
-    if [[ -z "${GPU_VENDOR}" ]]; then
-        GPU_VENDOR="other"
-    fi
+
+    [[ -z "${MONITOR_RES}" ]] && MONITOR_RES="unknown"
+    [[ -z "${MONITOR_NAME}" ]] && MONITOR_NAME=""
+}
+
+detect_language() {
+    SYS_LANG="${LANG:-${LC_ALL:-unknown}}"
+    SYS_LOCALE="$(locale 2>/dev/null | grep LANG= | cut -d= -f2 | tr -d '\"')"
+    [[ -z "${SYS_LOCALE}" ]] && SYS_LOCALE="${SYS_LANG}"
 }
 
 detect_desktop_env() {
-    if [[ -z "${XDG_CURRENT_DESKTOP:-}" ]] && [[ -z "${WAYLAND_DISPLAY:-}" ]]; then
-        warn "No desktop detected — you might be in a TTY."
-        info "It's recommended to install from within an existing desktop."
-        info "If you continue, reboot into Hyprland after installation."
-        if ! confirm "Continue anyway?" "N"; then
-            warn "Cancelled"; exit 0
+    if [[ -z "${XDG_CURRENT_DESKTOP:-}" ]] && [[ -z "${WAYLAND_DISPLAY:-}" ]] && [[ -z "${DISPLAY:-}" ]]; then
+        warn "No desktop detected — looks like you're in a TTY."
+        info "You can install from here, then reboot into Hyprland."
+        info "If you want a GUI to test mid-install, that won't work here."
+        if ! confirm "Continue with installation?" "N"; then
+            warn "Cancelled. Run the installer from within a desktop environment."
+            exit 0
         fi
     fi
 }
@@ -255,7 +412,7 @@ rollback() {
                 local name; name=$(basename "${item}")
                 local dst="${HOME}/.config/${name}"
                 rm -f "${dst}"
-                mv "${item}" "${dst}"
+                mv "${item}" "${dst}" 2>/dev/null
             done
         fi
         if [[ -d "${BACKUP}/.local/bin" ]]; then
@@ -263,10 +420,10 @@ rollback() {
                 local name; name=$(basename "${item}")
                 local dst="${HOME}/.local/bin/${name}"
                 rm -f "${dst}"
-                mv "${item}" "${dst}"
+                mv "${item}" "${dst}" 2>/dev/null
             done
         fi
-        ok "Backups restored (${BACKUP})"
+        ok "Backups restored from: ${BACKUP}"
     else
         info "No backups to restore"
     fi
@@ -274,8 +431,10 @@ rollback() {
 
 cleanup() {
     echo ""
-    warn "Installation interrupted"
+    warn "Installation interrupted (Ctrl+C)"
     if confirm "Rollback config symlinks?" "N"; then rollback; fi
+    info "If something broke, check the log: ${DIM}${LOG}"
+    tip "Report issues: https://github.com/zhaleff/BlackNode/issues"
     exit 1
 }
 
@@ -285,7 +444,8 @@ trap cleanup SIGINT SIGTERM
 
 install_aur_helper() {
     step "AUR Helper"
-    info "BlackNode needs an AUR helper (yay or paru) for some packages."
+
+    info "BlackNode needs yay or paru for packages like wlogout and powerlevel10k."
     hr
     echo ""
     info "Pick one:"
@@ -298,12 +458,16 @@ install_aur_helper() {
     case "${pick}" in
         yay|Yay|YAY) AUR="yay" ;;
         paru|Paru|PARU) AUR="paru" ;;
-        *) warn "Unknown choice, defaulting to yay"; AUR="yay" ;;
+        *) warn "Unknown choice, using yay"; AUR="yay" ;;
     esac
 
     info "Installing ${AUR} (needs base-devel + git)"
     run "sudo pacman -S --needed --noconfirm base-devel git"
-    run "git clone https://aur.archlinux.org/${AUR}.git /tmp/${AUR}"
+
+    # Clean old clone if it exists
+    [[ -d "/tmp/${AUR}" ]] && rm -rf "/tmp/${AUR}"
+
+    run "git clone --depth 1 https://aur.archlinux.org/${AUR}.git /tmp/${AUR}"
     run "(cd /tmp/${AUR} && makepkg -si --noconfirm)"
     cd "${REPO}"
 
@@ -311,10 +475,14 @@ install_aur_helper() {
         ok "${AUR} ready"
     else
         err "${AUR} installation failed"
-        warn "You can install it manually later:"
-        dim "  git clone https://aur.archlinux.org/${AUR}.git && cd ${AUR} && makepkg -si"
+        warn "Manual install:"
+        dim "  git clone https://aur.archlinux.org/${AUR}.git"
+        dim "  cd ${AUR} && makepkg -si"
         AUR=""
-        if ! confirm "Continue without AUR helper?"; then exit 1; fi
+        if ! confirm "Continue without AUR helper?"; then
+            err "Can't proceed without AUR helper."
+            exit 1
+        fi
     fi
 }
 
@@ -327,7 +495,7 @@ install_core_packages() {
         zsh fzf matugen sddm gtk3 gtk4 ttf-jetbrains-mono
     )
 
-    info "These packages are required for BlackNode:"
+    info "Required packages for BlackNode:"
     dim ""
     echo -e "  ${DIM}${packages[*]}${NC}"
     dim ""
@@ -336,9 +504,9 @@ install_core_packages() {
 
     # NVIDIA override
     if [[ "${GPU_VENDOR}" == "nvidia" ]] && ! [[ " ${FLAGS} " == *" --no-nvidia "* ]]; then
-        warn "NVIDIA GPU detected"
-        info "You can use the standard hyprland (XWayland + NVIDIA works) or"
-        info "install hyprland-nvidia-git (AUR) with NVIDIA patches baked in."
+        warn "NVIDIA GPU: ${GPU_NAME:-detected}"
+        info "Standard hyprland works with NVIDIA via XWayland."
+        info "Or install hyprland-nvidia-git (AUR) with NVIDIA patches."
         echo ""
         if confirm "Use hyprland-nvidia-git instead of hyprland?"; then
             packages=("${packages[@]/hyprland/hyprland-nvidia-git}")
@@ -350,13 +518,26 @@ install_core_packages() {
         run "sudo pacman -S --needed --noconfirm ${packages[*]}"
         ok "Core packages installed"
     else
-        warn "Core packages are required for BlackNode. Skipping may break things."
+        warn "Core packages are required. Skipping will likely break things."
         if ! confirm "Really skip?" "N"; then
             run "sudo pacman -S --needed --noconfirm ${packages[*]}"
             ok "Core packages installed"
         else
-            warn "Skipped core packages"
+            warn "Core packages skipped. You'll need to install them manually."
         fi
+    fi
+
+    # Verify critical packages
+    local critical=(hyprland kitty)
+    local missing=()
+    for pkg in "${critical[@]}"; do
+        if ! pacman -Q "${pkg}" &>/dev/null; then
+            missing+=("${pkg}")
+        fi
+    done
+    if [[ ${#missing[@]} -gt 0 ]]; then
+        warn "Critical packages missing: ${missing[*]}"
+        info "BlackNode may not work without them."
     fi
 }
 
@@ -364,7 +545,7 @@ install_aur_packages() {
     step "AUR Packages"
 
     local aur_pkgs=(wlogout clipse-bin powerlevel10k-git)
-    if [[ "${NVIDIA_SETUP:-0}" -eq 1 ]] && ! [[ " ${packages[*]} " == *" hyprland-nvidia-git "* ]]; then
+    if [[ "${NVIDIA_SETUP:-0}" -eq 1 ]]; then
         aur_pkgs+=(hyprland-nvidia-git)
     fi
 
@@ -374,13 +555,14 @@ install_aur_packages() {
             install_aur_helper
         fi
         if [[ -z "${AUR:-}" ]]; then
-            dim "Manual install later:"
-            dim "  ${AUR:-yay} -S ${aur_pkgs[*]}"
+            dim "Install manually:"
+            dim "  yay -S ${aur_pkgs[*]}"
+            info "Or install the AUR helper first, then re-run this step."
             return
         fi
     fi
 
-    info "AUR packages:"
+    info "AUR packages needed:"
     dim "  ${aur_pkgs[*]}"
     echo ""
 
@@ -388,38 +570,34 @@ install_aur_packages() {
         run "${AUR} -S --needed --noconfirm ${aur_pkgs[*]}"
         ok "AUR packages installed"
     else
-        dim "Skip or later: ${AUR} -S ${aur_pkgs[*]}"
+        dim "Install later: ${AUR} -S ${aur_pkgs[*]}"
     fi
 }
 
 install_optional_packages() {
     if [[ " ${FLAGS} " == *" --minimal "* ]]; then
-        SKIP_OPTIONAL=1
-    fi
-
-    if [[ "${SKIP_OPTIONAL:-0}" -eq 1 ]]; then
         info "Skipping optional packages (--minimal mode)"
         return
     fi
 
     step "Optional Packages"
 
-    echo -e "  ${DIM}playerctl      — media keys${NC}"
-    echo -e "  ${DIM}brightnessctl  — brightness keys${NC}"
-    echo -e "  ${DIM}wireplumber    — audio (recommended)${NC}"
+    echo -e "  ${DIM}playerctl      — media keys (play/pause/next)${NC}"
+    echo -e "  ${DIM}brightnessctl  — brightness keys on laptops${NC}"
+    echo -e "  ${DIM}wireplumber    — audio (strongly recommended)${NC}"
     echo -e "  ${DIM}grim + slurp   — screenshots${NC}"
     echo -e "  ${DIM}pacman-contrib — update count in waybar${NC}"
     echo -e "  ${DIM}bluez + blueman — bluetooth${NC}"
-    echo -e "  ${DIM}pamixer        — volume in waybar${NC}"
-    echo -e "  ${DIM}firefox        — browser${NC}"
+    echo -e "  ${DIM}pamixer        — volume control${NC}"
+    echo -e "  ${DIM}firefox        — browser (themes included)${NC}"
     echo ""
 
     if confirm "Install all optional packages?"; then
         run "sudo pacman -S --needed --noconfirm playerctl brightnessctl wireplumber grim slurp pacman-contrib bluez bluez-utils blueman pamixer firefox"
         ok "Optional packages installed"
     else
-        info "Install later per-package as needed:"
-        dim "  sudo pacman -S playerctl brightnessctl wireplumber grim slurp pacman-contrib bluez blueman pamixer firefox"
+        info "Install later per-package:"
+        dim "  sudo pacman -S <package-name>"
     fi
 }
 
@@ -429,85 +607,166 @@ setup_nvidia() {
 
     step "NVIDIA Configuration"
 
-    warn "NVIDIA GPU detected — additional setup recommended"
+    warn "NVIDIA GPU detected (${GPU_NAME:-unknown})"
+    info "Setting up NVIDIA for Hyprland..."
+    hr
+    echo ""
 
-    # nvidia-dkms or nvidia-open-dkms
+    # NVIDIA driver
     if ! pacman -Q nvidia-dkms nvidia-open-dkms 2>/dev/null; then
-        info "You need NVIDIA drivers."
+        info "Choose your NVIDIA driver:"
+        dim "  nvidia-dkms      — proprietary, works on all GPUs"
+        dim "  nvidia-open-dkms — open source, for Turing+ (RTX 2000+)"
         echo ""
         local nv_pkg
         nv_pkg=$(choose "Which driver?" "nvidia-dkms" "nvidia-dkms / nvidia-open-dkms")
-        case "${nv_pkg}" in
-            *open*) nv_pkg="nvidia-open-dkms" ;;
-            *) nv_pkg="nvidia-dkms" ;;
-        esac
-        run "sudo pacman -S --needed --noconfirm ${nv_pkg} nvidia-utils"
+        [[ "${nv_pkg}" == *"open"* ]] && nv_pkg="nvidia-open-dkms" || nv_pkg="nvidia-dkms"
+        run "sudo pacman -S --needed --noconfirm ${nv_pkg} nvidia-utils nvidia-settings"
+        ok "NVIDIA driver installed: ${nv_pkg}"
     else
-        ok "NVIDIA drivers already installed"
+        ok "NVIDIA driver already installed"
     fi
 
-    # mkinitcpio nvidia modules
-    info "Adding NVIDIA modules to mkinitcpio..."
+    # mkinitcpio
     local modconf="/etc/mkinitcpio.conf"
     if [[ -f "${modconf}" ]]; then
         if grep -q "^MODULES=.*nvidia.*nvidia_modeset.*nvidia_uvm.*nvidia_drm" "${modconf}"; then
             ok "NVIDIA modules already in mkinitcpio.conf"
         else
+            info "Adding NVIDIA modules to mkinitcpio.conf..."
             sudo sed -i 's/^MODULES=(/&nvidia nvidia_modeset nvidia_uvm nvidia_drm /' "${modconf}"
             run "sudo mkinitcpio -P"
+            ok "Initramfs rebuilt with NVIDIA modules"
         fi
+    else
+        warn "mkinitcpio.conf not found — can't add NVIDIA modules automatically"
+        tip "Check your initramfs setup manually"
     fi
 
-    # Kernel parameter for DRM modeset
-    info "Ensuring nvidia_drm.modeset=1 is set..."
-    local kdir="/etc/default/grub"
-    if [[ -f "${kdir}" ]]; then
+    # Kernel parameter
+    local kdir=""
+    if [[ -f /etc/default/grub ]]; then
+        kdir="/etc/default/grub"
+    elif [[ -d /boot/loader/entries ]]; then
+        kdir="systemd-boot"
+    fi
+
+    if [[ "${kdir}" == "/etc/default/grub" ]]; then
         if grep -q "nvidia_drm.modeset=1" "${kdir}"; then
-            ok "Already set in GRUB"
+            ok "nvidia_drm.modeset=1 already in GRUB"
         else
+            info "Adding nvidia_drm.modeset=1 to GRUB..."
             sudo sed -i 's/GRUB_CMDLINE_LINUX_DEFAULT="/&nvidia_drm.modeset=1 /' "${kdir}"
-            warn "GRUB config updated — run: sudo grub-mkconfig -o /boot/grub/grub.cfg"
+            warn "GRUB config updated"
+            info "Run this (or the installer will do it):"
+            dim "  sudo grub-mkconfig -o /boot/grub/grub.cfg"
+            if confirm "Run grub-mkconfig now?"; then
+                run "sudo grub-mkconfig -o /boot/grub/grub.cfg"
+            fi
         fi
+    elif [[ "${kdir}" == "systemd-boot" ]]; then
+        warn "Systemd-boot detected. Add manually:"
+        dim "  nvidia_drm.modeset=1 nvidia.NVreg_PreserveVideoMemoryAllocations=1"
     fi
 
-    # Hyprland env vars for NVIDIA
-    local env_file="${HOME}/.config/hypr/env/nvidia.conf"
-    mkdir -p "$(dirname "${env_file}")"
+    # Hyprland env vars
+    local env_dir="${HOME}/.config/hypr/env"
+    mkdir -p "${env_dir}"
+    local env_file="${env_dir}/nvidia.conf"
     if [[ ! -f "${env_file}" ]]; then
         cat > "${env_file}" << 'EOF'
 env = LIBVA_DRIVER_NAME,nvidia
 env = XDG_SESSION_TYPE,wayland
 env = GBM_BACKEND,nvidia-drm
 env = __GLX_VENDOR_LIBRARY_NAME,nvidia
-env = NVD_BACKEND,direct
+env = WLR_NO_HARDWARE_CURSORS,1
 EOF
-        ok "NVIDIA env vars created at ${env_file}"
-        info "Add this to hyprland.conf if not already:"
-        dim "  source = ~/.config/hypr/env/nvidia.conf"
+        ok "NVIDIA env vars created: ${env_file}"
+        tip "Make sure hyprland.conf includes: source = ~/.config/hypr/env/nvidia.conf"
     else
         ok "NVIDIA env vars already exist"
     fi
 
     echo ""
-    info "NVIDIA notes:"
-    dim "  • The first launch may take a few seconds"
-    dim "  • If you get blank screen, try removing 'nvidia' from MODULES in mkinitcpio.conf"
-    dim "  • Use 'nvidia-offload' for apps that need the dGPU"
+    hr
+    echo -e "  ${ORANGE}☰${NC}  ${BOLD}NVIDIA checklist:${NC}"
+    dim "  • First launch may take a few seconds (shader compilation)"
+    dim "  • If you get a black screen:"
+    dim "    - Remove 'nvidia' from MODULES in /etc/mkinitcpio.conf"
+    dim "    - Rebuild: sudo mkinitcpio -P"
+    dim "    - Use env = WLR_NO_HARDWARE_CURSORS,1"
+    dim "  • If nothing works, drop by Discord for help"
+    hr
+    echo ""
+    press_enter
 }
 
 setup_keyboard() {
     step "Keyboard Layout"
-    info "Default layout: 'us,es' — US English with Spanish toggle"
+
+    info "System locale: ${SYS_LOCALE:-not set}"
+    info "Default BlackNode layout: 'us,es' (US English + Spanish toggle)"
+    echo ""
+
     if confirm "Change keyboard layout?" "N"; then
         local layout
-        layout=$(choose "Layout code" "us" "e.g. us, es, latam, de, us,ru")
+        layout=$(choose "Layout code" "us" "e.g. us, es, latam, de, us,ru, br")
         if [[ -n "${layout}" ]]; then
-            sed -i "s/kb_layout = \".*\"/kb_layout = \"${layout}\"/" \
-                "${REPO}/Configs/.config/hypr/settings/input.lua"
-            ok "Keyboard layout: ${layout}"
+            local target="${REPO}/Configs/.config/hypr/settings/input.lua"
+            if [[ -f "${target}" ]]; then
+                sed -i "s/kb_layout = \".*\"/kb_layout = \"${layout}\"/" "${target}"
+                ok "Keyboard layout set: ${layout}"
+            else
+                err "Can't find hyprland input config: ${target}"
+                tip "You'll need to set kb_layout manually in hyprland.conf"
+            fi
         fi
     else
-        ok "Using default layout"
+        ok "Using default: us,es"
+    fi
+
+    # Locale hint
+    if [[ -n "${SYS_LOCALE:-}" ]]; then
+        local lang_code
+        lang_code=$(echo "${SYS_LOCALE}" | cut -d_ -f1)
+        if [[ "${lang_code}" != "en" ]] && [[ "${lang_code}" != "us" ]]; then
+            info "Your system language is ${SYS_LOCALE}."
+            info "If you want keybindings in your layout, set it now or later in:"
+            dim "  ~/.config/hypr/settings/input.lua"
+        fi
+    fi
+}
+
+setup_resolution() {
+    step "Display / Resolution"
+
+    info "Detected: ${MONITOR_RES:-unknown}${MONITOR_NAME:+ (${MONITOR_NAME})}"
+
+    if [[ "${MONITOR_RES}" == "unknown" ]] || [[ -z "${MONITOR_RES}" ]]; then
+        info "Could not auto-detect resolution."
+        info "You'll set it later in Hyprland settings."
+        tip "Use: SUPER + R → search 'monitor' or edit ~/.config/hypr/settings/monitor.lua"
+        return
+    fi
+
+    local target="${REPO}/Configs/.config/hypr/settings/monitor.lua"
+    if [[ ! -f "${target}" ]]; then
+        info "No monitor config yet — auto-detected: ${MONITOR_RES}"
+        if confirm "Write ${MONITOR_RES} to monitor settings?"; then
+            mkdir -p "$(dirname "${target}")"
+            cat > "${target}" << EOF
+-- Monitor configuration (auto-configured by installer)
+monitor = ,${MONITOR_RES},auto,1
+EOF
+            ok "Monitor config written: ${target}"
+        fi
+    else
+        ok "Monitor config exists: ${target}"
+        info "Current: $(grep -o 'monitor = .*' "${target}" 2>/dev/null || dim 'unknown')"
+        if confirm "Update to ${MONITOR_RES}?" "N"; then
+            sed -i "s/monitor = .*/monitor = ,${MONITOR_RES},auto,1/" "${target}"
+            ok "Monitor resolution updated: ${MONITOR_RES}"
+        fi
     fi
 }
 
@@ -520,23 +779,32 @@ setup_shell() {
     fi
 
     info "BlackNode uses ZSH with powerlevel10k theme."
-    info "Changing the shell only affects new terminals."
+    info "This only affects new terminals — existing ones keep their shell."
     echo ""
 
     if confirm "Make ZSH your default shell?"; then
         if ! command -v zsh &>/dev/null; then
-            warn "ZSH is not installed (should be in core packages)"
+            warn "ZSH not installed (should be in core packages)"
             if confirm "Install ZSH now?"; then
                 run "sudo pacman -S --noconfirm zsh"
             else
-                warn "Shell not changed. Do it later:"
-                dim "  sudo pacman -S zsh && chsh -s \$(which zsh)"
+                warn "Shell not changed."
+                dim "Manual: sudo pacman -S zsh && chsh -s \$(which zsh)"
                 return
             fi
         fi
         run "chsh -s $(which zsh)"
         ok "Default shell changed to ZSH"
-        info "Log out and back in (or open a new terminal) to see the change."
+        info "Log out and back in (or open a new terminal) to use ZSH."
+    fi
+
+    # Back up existing .zshrc
+    if [[ -f "${HOME}/.zshrc" && ! -L "${HOME}/.zshrc" ]]; then
+        warn "Existing .zshrc found"
+        if confirm "Back it up before linking BlackNode's?"; then
+            cp "${HOME}/.zshrc" "${HOME}/.zshrc.blacknode-backup"
+            ok "Backed up: .zshrc → .zshrc.blacknode-backup"
+        fi
     fi
 }
 
@@ -545,18 +813,17 @@ setup_wallpaper_dir() {
 
     local wp="${HOME}/Pictures/Wallpapers"
     if [[ -d "${wp}" ]]; then
-        ok "Wallpaper directory already exists: ${wp}"
+        ok "Wallpaper directory exists: ${wp}"
         return
     fi
 
     if confirm "Create wallpaper directory?"; then
         run "mkdir -p \"${wp}\""
         ok "Created: ${wp}"
-        info "Place wallpapers there, then set one with:"
-        dim "  ~/.config/rofi/scripts/wallselect.sh"
-        info "Or use SUPER + W to launch the wallpaper selector."
+        tip "Set a wallpaper with: SUPER + W"
+        info "Or from terminal: ~/.config/rofi/scripts/wallselect.sh"
     else
-        warn "No wallpaper directory. You can create it later."
+        warn "No wallpaper directory. Create it later with: mkdir -p ~/Pictures/Wallpapers"
     fi
 }
 
@@ -564,20 +831,20 @@ link_configs() {
     step "Link Configs"
 
     if [[ "${SKIP_LINK:-0}" -eq 1 ]]; then
-        warn "Skipping config linking (already linked)"
+        info "Configs already linked (skipping)"
         return
     fi
 
-    warn "Configs in ~/.config/ will be backed up to:"
+    warn "Existing configs will be backed up to:"
     dim "  ${BACKUP}"
     echo ""
 
-    if ! confirm "Link configs now?"; then
+    if ! confirm "Link BlackNode configs now?"; then
         warn "Manual: bash ${REPO}/Scripts/linkdots.sh"
         return
     fi
 
-    local item name dst linked=0 backed=0 skipped=0
+    local item name dst linked=0 backed=0 skipped=0 errors=0
 
     for item in "${REPO}/Configs/.config"/*; do
         name=$(basename "${item}"); dst="${HOME}/.config/${name}"
@@ -587,10 +854,9 @@ link_configs() {
         fi
         if [[ -e "${dst}" || -L "${dst}" ]]; then
             mkdir -p "${BACKUP}/.config"
-            mv "${dst}" "${BACKUP}/.config/${name}"
-            backed=$((backed + 1))
+            mv "${dst}" "${BACKUP}/.config/${name}" 2>/dev/null && backed=$((backed + 1))
         fi
-        ln -sf "${item}" "${dst}" && linked=$((linked + 1))
+        ln -sf "${item}" "${dst}" 2>/dev/null && linked=$((linked + 1)) || errors=$((errors + 1))
     done
 
     for item in "${REPO}/Configs/.local/bin"/*; do
@@ -601,19 +867,34 @@ link_configs() {
         fi
         if [[ -e "${dst}" || -L "${dst}" ]]; then
             mkdir -p "${BACKUP}/.local/bin"
-            mv "${dst}" "${BACKUP}/.local/bin/${name}"
-            backed=$((backed + 1))
+            mv "${dst}" "${BACKUP}/.local/bin/${name}" 2>/dev/null && backed=$((backed + 1))
         fi
-        ln -sf "${item}" "${dst}" && linked=$((linked + 1))
+        ln -sf "${item}" "${dst}" 2>/dev/null && linked=$((linked + 1)) || errors=$((errors + 1))
     done
 
-    ok "${linked} linked, ${backed} backed up, ${skipped} already up-to-date"
+    if [[ ${errors} -gt 0 ]]; then
+        warn "${linked} linked, ${backed} backed up, ${errors} errors"
+        info "Check permissions or disk space for the failed items."
+    else
+        ok "${linked} linked, ${backed} backed up, ${skipped} already up-to-date"
+    fi
 
-    # Ensure ~/.local/bin is in PATH
+    # PATH check
     if [[ ":$PATH:" != *":${HOME}/.local/bin:"* ]]; then
-        warn "${HOME}/.local/bin is not in PATH"
-        info "Add this to your shell rc file:"
-        dim "  export PATH=\"\$HOME/.local/bin:\$PATH\""
+        warn "${HOME}/.local/bin not in PATH"
+        if [[ -f "${HOME}/.zshrc" ]]; then
+            info "Appending to .zshrc..."
+            echo "" >> "${HOME}/.zshrc"
+            echo "# BlackNode" >> "${HOME}/.zshrc"
+            echo "export PATH=\"\$HOME/.local/bin:\$PATH\"" >> "${HOME}/.zshrc"
+            ok "Added to .zshrc"
+        elif [[ -f "${HOME}/.bashrc" ]]; then
+            echo "export PATH=\"\$HOME/.local/bin:\$PATH\"" >> "${HOME}/.bashrc"
+            ok "Added to .bashrc"
+        else
+            info "Add this to your shell rc file:"
+            dim "  export PATH=\"\$HOME/.local/bin:\$PATH\""
+        fi
     fi
 }
 
@@ -624,15 +905,16 @@ run_post_install() {
     if [[ -f /etc/systemd/system/display-manager.service ]]; then
         local dm; dm=$(readlink -f /etc/systemd/system/display-manager.service 2>/dev/null || echo "")
         if [[ "${dm}" != *sddm* ]]; then
-            warn "Current display manager is not SDDM"
-            if confirm "Enable SDDM as display manager?"; then
+            warn "Current display manager: $(basename "${dm}" 2>/dev/null || echo 'unknown')"
+            info "BlackNode is styled for SDDM."
+            if confirm "Switch to SDDM?"; then
                 run "sudo systemctl enable --now sddm"
             fi
         else
             ok "SDDM is active"
         fi
     else
-        info "No display manager detected"
+        info "No display manager enabled"
         if confirm "Enable SDDM?"; then
             run "sudo systemctl enable --now sddm"
         fi
@@ -641,7 +923,7 @@ run_post_install() {
     # Bluetooth
     if command -v systemctl &>/dev/null; then
         if systemctl is-enabled bluetooth &>/dev/null; then
-            ok "Bluetooth service already enabled"
+            ok "Bluetooth service enabled"
         elif confirm "Enable Bluetooth service?"; then
             run "sudo systemctl enable --now bluetooth"
         fi
@@ -655,11 +937,56 @@ run_post_install() {
         ok "Default profile set"
     fi
 
-    # PipeWire (common issue: not installed)
+    # PipeWire check
     if ! command -v pipewire &>/dev/null; then
         warn "PipeWire not found — audio may not work"
         info "Install: sudo pacman -S pipewire pipewire-pulse wireplumber"
     fi
+
+    # Font check
+    if ! fc-list | grep -qi "JetBrains Mono" &>/dev/null; then
+        warn "JetBrains Mono font not found — UI may look off"
+        info "Install: sudo pacman -S ttf-jetbrains-mono"
+    fi
+}
+
+show_troubleshooting() {
+    echo ""
+    hr
+    echo -e "  ${ORANGE}${BOLD}☰  Troubleshooting${NC}"
+    hr
+    echo ""
+    info "Something not working? Here are common issues:"
+    echo ""
+    dim "  ${BOLD}Hyprland won't start${NC}"
+    dim "  • Check: cat ~/.config/hypr/hyprland.conf"
+    dim "  • Try: Hyprland (without DIM) for verbose errors"
+    dim "  • Remove or rename: ~/.config/hypr/hyprland.conf to reset"
+    echo ""
+    dim "  ${BOLD}No audio${NC}"
+    dim "  • Install: sudo pacman -S pipewire pipewire-pulse wireplumber"
+    dim "  • Enable: systemctl --user enable --now pipewire pipewire-pulse"
+    echo ""
+    dim "  ${BOLD}Wallpapers not working${NC}"
+    dim "  • Put images in ~/Pictures/Wallpapers/"
+    dim "  • Run: ~/.config/rofi/scripts/wallselect.sh"
+    dim "  • Or just: hyprctl hyprpaper wallpaper ,~/image.jpg"
+    echo ""
+    dim "  ${BOLD}Bluetooth not working${NC}"
+    dim "  • Check: sudo systemctl status bluetooth"
+    dim "  • Fix: sudo systemctl enable --now bluetooth"
+    echo ""
+    dim "  ${BOLD}Weird keybindings${NC}"
+    dim "  • Check layout: cat ~/.config/hypr/settings/input.lua"
+    dim "  • Default: SUPER = Windows key, SUPER + SPACE = menu"
+    echo ""
+    dim "  ${BOLD}Need more help?${NC}"
+    dim "  • Open an issue: https://github.com/zhaleff/BlackNode/issues"
+    dim "  • Discord: https://discord.gg/hollowsec"
+    dim "  • Describe what happened + include the log:"
+    dim "    ${LOG}"
+    echo ""
+    press_enter
 }
 
 show_summary() {
@@ -668,22 +995,27 @@ show_summary() {
     echo -e "  ${GREEN}${BOLD}✔  BlackNode is ready${NC}"
     hr
     echo ""
-    echo -e "  ${BOLD}Configs${NC}    ${DIM}${HOME}/.config/ symlinked${NC}"
-    echo -e "  ${BOLD}Backup${NC}     ${DIM}${BACKUP}${NC}"
-    echo -e "  ${BOLD}Log${NC}        ${DIM}${LOG}${NC}"
+    echo -e "  ${BOLD}System${NC}       ${OS_NAME:-Arch} / ${GPU_VENDOR} / ${MONITOR_RES:-auto}"
+    echo -e "  ${BOLD}Configs${NC}      ${DIM}${HOME}/.config/ → BlackNode${NC}"
+    echo -e "  ${BOLD}Backup${NC}       ${DIM}${BACKUP}${NC}"
+    echo -e "  ${BOLD}Log${NC}          ${DIM}${LOG}${NC}"
+    echo -e "  ${BOLD}Layout${NC}       ${DIM}See ~/.config/hypr/settings/input.lua${NC}"
     echo ""
     hr
-    echo -e "  ${BOLD}Next steps:${NC}"
+    echo -e "  ${BOLD}Quick start:${NC}"
     echo ""
-    echo -e "  ${BOLD}1${NC}  Log out and select Hyprland in SDDM"
+    echo -e "  ${BOLD}1${NC}  Log out → select Hyprland in SDDM"
     echo -e "  ${BOLD}2${NC}  Set wallpaper        ${DIM}SUPER + W${NC}"
     echo -e "  ${BOLD}3${NC}  Open BlackNode menu  ${DIM}SUPER + SPACE${NC}"
     echo -e "  ${BOLD}4${NC}  Browse keybinds      ${DIM}bn-menu → About → Keybinds${NC}"
     echo -e "  ${BOLD}5${NC}  Switch profiles      ${DIM}bn-menu → Profiles${NC}"
     echo ""
     hr
-    echo -e "  ${DIM}Issues: https://github.com/zhaleff/BlackNode/issues${NC}"
-    echo -e "  ${DIM}Help:   https://discord.gg/hollowsec${NC}"
+    echo -e "  ${DIM}╷                                                          ╷${NC}"
+    echo -e "  ${DIM}│${NC}  ${BOLD}Need help?${NC}                                         ${DIM}│${NC}"
+    echo -e "  ${DIM}│${NC}  Issues:  ${DIM}https://github.com/zhaleff/BlackNode/issues${NC}  ${DIM}│${NC}"
+    echo -e "  ${DIM}│${NC}  Discord: ${DIM}https://discord.gg/hollowsec${NC}                ${DIM}│${NC}"
+    echo -e "  ${DIM}╵                                                          ╵${NC}"
     echo ""
     echo -e "  ${PURPLE}${BOLD}⏣  Thanks for installing BlackNode${NC}  ${DIM}— zhaleff${NC}"
     echo ""
@@ -704,25 +1036,35 @@ main() {
     check_internet
     check_pacman_lock
     check_sudo
+    check_user_groups
+    check_disk_space
     detect_gpu
+    detect_resolution
+    detect_language
     detect_desktop_env
+    check_existing_install
 
+    # System summary
     echo ""
     hr
-    echo -e "  ${BOLD}System info:${NC}"
-    dim "  OS:       $(grep ^NAME= /etc/os-release 2>/dev/null | cut -d= -f2 | tr -d '\"')"
+    echo -e "  ${BOLD}System${NC}"
+    dim "  OS:       ${OS_NAME:-unknown}"
     dim "  Kernel:   $(uname -r)"
-    dim "  GPU:      ${GPU_VENDOR}"
+    dim "  GPU:      ${GPU_NAME:-${GPU_VENDOR}}"
+    dim "  Display:  ${MONITOR_RES:-unknown}"
+    dim "  Lang:     ${SYS_LOCALE:-${SYS_LANG:-unknown}}"
     dim "  Shell:    ${SHELL}"
+    dim "  Home:     ${HOME}"
     hr
     echo ""
 
+    # Repo
     if [[ ! -d "${REPO}" ]]; then
         warn "BlackNode not cloned yet"
         if confirm "Clone BlackNode to ${REPO}?"; then
-            run "git clone https://github.com/zhaleff/BlackNode.git \"${REPO}\""
+            run "git clone --depth 1 https://github.com/zhaleff/BlackNode.git \"${REPO}\""
         else
-            err "BlackNode repository required. Clone it:"
+            err "Repository required. Clone manually:"
             dim "  git clone https://github.com/zhaleff/BlackNode.git \"${REPO}\""
             exit 1
         fi
@@ -737,22 +1079,25 @@ main() {
     # Detect AUR helper
     AUR=$(command -v yay &>/dev/null && echo "yay" || command -v paru &>/dev/null && echo "paru" || echo "")
 
-    # Reset step counter with actual total
-    TOTAL_STEPS=9
-    [[ -n "${AUR}" ]] && TOTAL_STEPS=$((TOTAL_STEPS - 1))   # skip AUR helper step
+    # Calculate steps dynamically
+    TOTAL_STEPS=10
+    [[ -n "${AUR}" ]] && TOTAL_STEPS=$((TOTAL_STEPS - 1))
     [[ " ${FLAGS} " == *" --minimal "* ]] && TOTAL_STEPS=$((TOTAL_STEPS - 1))
+    [[ "${GPU_VENDOR}" != "nvidia" ]] && TOTAL_STEPS=$((TOTAL_STEPS - 1))
 
-    # Run install blocks
+    # Run
     if [[ -z "${AUR}" ]]; then install_aur_helper; fi
     install_core_packages
     install_aur_packages
     install_optional_packages
     setup_nvidia
     setup_keyboard
+    setup_resolution
     setup_shell
     setup_wallpaper_dir
     link_configs
     run_post_install
+    show_troubleshooting
     show_summary
 }
 
