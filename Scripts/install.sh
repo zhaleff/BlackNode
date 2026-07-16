@@ -114,8 +114,7 @@ hint_for() {
 run() {
     local cmd="${*}" rc hint_shown=0
     log "$ ${cmd}"
-    eval "${cmd}" 2>&1 | tee -a "${LOG}"
-    rc=${PIPESTATUS[0]}
+    eval "${cmd}" 2>&1 | tee -a "${LOG}"; rc=${PIPESTATUS[0]}
     if [[ ${rc} -ne 0 ]]; then
         echo ""
         err "Command failed (exit ${rc})"
@@ -431,7 +430,7 @@ install_aur_helper() {
 
     run "git clone --depth 1 https://aur.archlinux.org/${AUR}.git /tmp/${AUR}"
     run "(cd /tmp/${AUR} && makepkg -si --noconfirm)"
-    cd "${REPO}"
+    cd "${REPO}" || { err "Can't find ${REPO}"; exit 1; }
 
     if command -v "${AUR}" &>/dev/null; then
         ok "${AUR} ready"
@@ -663,6 +662,12 @@ setup_keyboard() {
         local layout
         layout=$(choose "Layout code" "us" "e.g. us, es, latam, de, us,ru, br")
         if [[ -n "${layout}" ]]; then
+            layout="${layout//[^a-z,A-Z0-9,_-]/}"
+            if [[ -z "${layout}" ]]; then
+                err "Invalid layout code"
+                tip "Use something like: us, es, latam, de, us,ru, br"
+                return
+            fi
             local target="${REPO}/Configs/.config/hypr/settings/input.lua"
             if [[ -f "${target}" ]]; then
                 sed -i "s/kb_layout = \".*\"/kb_layout = \"${layout}\"/" "${target}"
@@ -824,22 +829,25 @@ link_configs() {
         ok "${linked} linked, ${backed} backed up, ${skipped} already up-to-date"
     fi
 
-    if [[ ":$PATH:" != *":${HOME}/.local/bin:"* ]]; then
-        warn "${HOME}/.local/bin not in PATH"
-        if [[ -f "${HOME}/.zshrc" ]]; then
-            info "Appending to .zshrc..."
-            echo "" >> "${HOME}/.zshrc"
-            echo "# BlackNode" >> "${HOME}/.zshrc"
-            echo "export PATH=\"\$HOME/.local/bin:\$PATH\"" >> "${HOME}/.zshrc"
-            ok "Added to .zshrc"
-        elif [[ -f "${HOME}/.bashrc" ]]; then
-            echo "export PATH=\"\$HOME/.local/bin:\$PATH\"" >> "${HOME}/.bashrc"
-            ok "Added to .bashrc"
-        else
-            info "Add this to your shell rc file:"
-            dim "  export PATH=\"\$HOME/.local/bin:\$PATH\""
+        if [[ ":$PATH:" != *":${HOME}/.local/bin:"* ]]; then
+            warn "${HOME}/.local/bin not in PATH"
+            local rc_file=""
+            [[ -f "${HOME}/.zshrc" ]] && rc_file="${HOME}/.zshrc"
+            [[ -f "${HOME}/.bashrc" && -z "$rc_file" ]] && rc_file="${HOME}/.bashrc"
+            if [[ -n "$rc_file" ]]; then
+                if grep -q 'export PATH="\$HOME/.local/bin:\$PATH"' "$rc_file" 2>/dev/null; then
+                    ok "PATH entry already in $(basename "$rc_file")"
+                else
+                    echo "" >> "$rc_file"
+                    echo "# BlackNode" >> "$rc_file"
+                    echo 'export PATH="$HOME/.local/bin:$PATH"' >> "$rc_file"
+                    ok "Added to $(basename "$rc_file")"
+                fi
+            else
+                info "Add this to your shell rc file:"
+                dim '  export PATH="$HOME/.local/bin:$PATH"'
+            fi
         fi
-    fi
 }
 
 run_post_install() {
