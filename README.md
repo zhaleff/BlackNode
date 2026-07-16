@@ -128,7 +128,7 @@ BlackNode is released under the [MIT Licence](./LICENSE). You are free to use, m
 
 <div align="center">
   <p>Made with ❤️ by <a href="https://github.com/zhaleff">zhaleff</a></p>
-  <p><i>Happy hacking.</i></p>
+  <p><i>Happy configuring.</i></p>
 </div>
 
 <div align="right">
