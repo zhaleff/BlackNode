@@ -18,16 +18,27 @@ main() {
     esac
 }
 
+apply_wall() {
+    local wall="$1"
+    if ! pgrep -x "awww" > /dev/null; then
+        awww &
+        sleep 0.2
+    fi
+    awww img "$wall" --transition-type=random
+    cp "$wall" ~/.config/hypr/hyprlock.png
+    matugen image "$wall" -m dark --source-color-index 0
+    killall -SIGUSR2 waybar && killall dunst && dunst &
+    pkill -USR1 cava
+    killall -SIGUSR1 kitty && pkill -USR1 firefox 2>/dev/null || killall -USR1 firefox 2>/dev/null
+    notify "Wallpaper" "$(basename "$wall")"
+}
+
 set_wall() {
     local dir="${WALLPAPER_DIR:-$HOME/Pictures/Wallpapers}"
     [[ -d "$dir" ]] || dir="$HOME/Pictures"
     local wall
     wall=$(find "$dir" -maxdepth 1 -type f \( -name '*.png' -o -name '*.jpg' -o -name '*.jpeg' \) | rofi -dmenu -i -p "Wallpaper" -theme "$ROFI_SUB_THEME")
-    if [[ -n "$wall" ]]; then
-        awww img "$wall" --transition-type=random
-        matugen image "$wall"
-        notify "Wallpaper" "$(basename "$wall")"
-    fi
+    [[ -n "$wall" ]] && apply_wall "$wall"
 }
 
 random_wall() {
@@ -35,11 +46,7 @@ random_wall() {
     [[ -d "$dir" ]] || dir="$HOME/Pictures"
     local wall
     wall=$(find "$dir" -maxdepth 1 -type f \( -name '*.png' -o -name '*.jpg' -o -name '*.jpeg' \) | shuf -n 1)
-    if [[ -n "$wall" ]]; then
-        awww img "$wall" --transition-type=random
-        matugen image "$wall"
-        notify "Wallpaper" "Random: $(basename "$wall")"
-    fi
+    [[ -n "$wall" ]] && apply_wall "$wall"
 }
 
 main
