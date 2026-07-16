@@ -32,8 +32,9 @@ main_menu() {
 
 scan_devices() {
     bluetoothctl scan on &>/dev/null &
+    local scan_pid=$!
     sleep 3
-    kill %1 &>/dev/null
+    kill "$scan_pid" &>/dev/null
     local devices
     devices=$(bluetoothctl devices | sort -u)
     if [ -z "$devices" ]; then
