@@ -2,8 +2,8 @@
   "custom/target_pro": {
     "format": "{}",
     "return-type": "json",
-    "exec": "~/.config/waybar/Scripts/hacking/target_manager.rb",
-    "on-click": "~/.config/waybar/Scripts/hacking/target_manager.rb --menu",
+    "exec": "~/.config/waybar/Scripts/dev/target_manager.rb",
+    "on-click": "~/.config/waybar/Scripts/dev/target_manager.rb --menu",
     "interval": 2
   },
   "custom/vpn_pro": {
