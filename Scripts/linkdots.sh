@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
+set -euo pipefail
 
-REPO="$(cd "$(dirname "$0")" && pwd)"
+REPO="$(cd "$(dirname "$0")/.." && pwd)"
 BACKUP="$HOME/.config/blacknode-backup-$(date +%Y%m%d%H%M%S)"
 
 link_item() {
@@ -24,6 +25,7 @@ echo "Repo: $REPO"
 echo "Backup: $BACKUP"
 echo ""
 
+shopt -s nullglob
 for item in "$REPO/Configs/.config"/*; do
     link_item "$item" "$HOME/.config/$(basename "$item")" ".config/$(basename "$item")"
 done
