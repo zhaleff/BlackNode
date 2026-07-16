@@ -44,7 +44,7 @@ show_about() {
     local choice
     choice=$(printf '%s\n' \
         "  BlackNode — Modular Dotfiles" \
-        "󰚥  Author: zhaleff · HollowSec" \
+        "󰚥  Author: zhaleff" \
         "󰣇  System: Arch Linux · $kernel" \
         "  WM: Hyprland · Lua Config" \
         "󰌌  Theme: Material You · Matugen" \
@@ -156,7 +156,7 @@ show_repo() {
         "󰛥  Lines of config: $(find "$HOME/BlackNode" -type f -exec wc -l {} + 2>/dev/null | tail -1 | awk '{print $1}')" \
         "󰣇  System: Arch Linux + Hyprland" \
         "󰚥  Author: zhaleff" \
-        "󱂅  Community: HollowSec" \
+        "󱂅  Community: Discord" \
         | rofi -dmenu -i -p "Repository" -theme "$ROFI_SUB_THEME")
 
     case "$choice" in
