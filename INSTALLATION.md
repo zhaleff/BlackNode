@@ -188,7 +188,7 @@ The backup is at `~/.config/blacknode-backup-<timestamp>/`. Restore individual f
 
 <div align="center">
   <p>Made with &hearts; by <a href="https://github.com/zhaleff">zhaleff</a></p>
-  <p><i>Happy hacking.</i></p>
+  <p><i>Happy configuring.</i></p>
 </div>
 
 <div align="right">
