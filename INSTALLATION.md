@@ -2,7 +2,7 @@
   <img src="./Assets/BlackNode-Logo.png" width="100%" alt="BlackNode Banner">
 </p>
 
-###### _<div align="right"><sub>// by zhaleff · HollowSec</sub></div>_
+
 <h1 align="center">BlackNode // Installation Guide</h1>
 <div align="center">
 
@@ -11,7 +11,7 @@
 <a href="https://github.com/zhaleff/BlackNode/issues"><img src="https://img.shields.io/github/issues/zhaleff/BlackNode?style=for-the-badge&logo=github&logoColor=eba0ac&label=Issues&labelColor=302D41&color=eba0ac" alt="issues"></a>&nbsp;&nbsp;
 <a href="https://github.com/zhaleff/BlackNode/commits/main"><img src="https://img.shields.io/github/last-commit/zhaleff/BlackNode?style=for-the-badge&logo=github&logoColor=white&label=Last%20Commit&labelColor=302D41&color=A6E3A1" alt="last commit"></a>&nbsp;&nbsp;
 <a href="https://github.com/zhaleff/BlackNode/blob/main/LICENSE"><img src="https://img.shields.io/github/license/zhaleff/BlackNode?style=for-the-badge&logo=open-source-initiative&color=CBA6F7&logoColor=CBA6F7&labelColor=302D41" alt="license"></a>&nbsp;&nbsp;
-<a href="https://discord.gg/hollowsec"><img src="https://img.shields.io/badge/chat-discord-5865F2?style=for-the-badge&logo=discord&logoColor=white&labelColor=302D41" alt="discord"></a>
+
 
 </div>
 
@@ -24,7 +24,7 @@
 <a href="#3--link-configs"><kbd> <br> 3. Link Configs <br> </kbd></a>&ensp;&ensp;
 <a href="#4--first-login"><kbd> <br> 4. First Login <br> </kbd></a>&ensp;&ensp;
 <a href="#troubleshooting"><kbd> <br> Troubleshooting <br> </kbd></a>&ensp;&ensp;
-<a href="https://discord.gg/hollowsec"><kbd> <br> Discord <br> </kbd></a>
+
 
 </div>
 
@@ -43,12 +43,7 @@ cd $HOME/BlackNode
 > [!IMPORTANT]
 > BlackNode targets **Arch Linux**. It may work on derivatives but this has not been tested.
 
-<div align="right">
-  <br>
-  <a href="#-by-zhaleff--hollowsec"><kbd> <br> &uparrow; <br> </kbd></a>
-</div>
 
-#
 
 <a id="2--install-dependencies"></a>
 <img src="https://readme-typing-svg.herokuapp.com?font=Lexend+Giga&size=22&pause=1000&color=6CB6FF&vCenter=true&width=435&height=25&lines=2.+INSTALL+DEPENDENCIES" width="435"/>
@@ -73,12 +68,7 @@ yay -S --needed wlogout clipse-bin powerlevel10k-git
 > [!TIP]
 > If you already have these packages, skip straight to step 3.
 
-<div align="right">
-  <br>
-  <a href="#-by-zhaleff--hollowsec"><kbd> <br> &uparrow; <br> </kbd></a>
-</div>
 
-#
 
 <a id="3--link-configs"></a>
 <img src="https://readme-typing-svg.herokuapp.com?font=Lexend+Giga&size=22&pause=1000&color=6CB6FF&vCenter=true&width=435&height=25&lines=3.+LINK+CONFIGS" width="435"/>
@@ -128,12 +118,7 @@ What it does:
 └── *.sh           → Utility scripts (brightness, volume, media, weather, etc.)
 ```
 
-<div align="right">
-  <br>
-  <a href="#-by-zhaleff--hollowsec"><kbd> <br> &uparrow; <br> </kbd></a>
-</div>
 
-#
 
 <a id="4--first-login"></a>
 <img src="https://readme-typing-svg.herokuapp.com?font=Lexend+Giga&size=22&pause=1000&color=6CB6FF&vCenter=true&width=435&height=25&lines=4.+FIRST+LOGIN" width="435"/>
@@ -174,12 +159,7 @@ Full list: [KEYBINDS.md](./KEYBINDS.md)
 > [!NOTE]
 > If the keyboard layout does not match your hardware, edit `~/.config/hypr/settings/input.lua` and change `kb_layout` then run `hyprctl reload`.
 
-<div align="right">
-  <br>
-  <a href="#-by-zhaleff--hollowsec"><kbd> <br> &uparrow; <br> </kbd></a>
-</div>
 
-#
 
 <a id="troubleshooting"></a>
 <img src="https://readme-typing-svg.herokuapp.com?font=Lexend+Giga&size=22&pause=1000&color=6CB6FF&vCenter=true&width=435&height=25&lines=TROUBLESHOOTING" width="435"/>
@@ -204,15 +184,10 @@ bash Scripts/linkdots.sh
 ### Restoring your old configs
 The backup is at `~/.config/blacknode-backup-<timestamp>/`. Restore individual files or entire directories from there.
 
-<div align="right">
-  <br>
-  <a href="#-by-zhaleff--hollowsec"><kbd> <br> &uparrow; <br> </kbd></a>
-</div>
 
-#
 
 <div align="center">
-  <p>Made with &hearts; by <a href="https://github.com/zhaleff">zhaleff</a> and the HollowSec community.</p>
+  <p>Made with &hearts; by <a href="https://github.com/zhaleff">zhaleff</a></p>
   <p><i>Happy hacking.</i></p>
 </div>
 
