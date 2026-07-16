@@ -3,7 +3,7 @@
   <img src="./Assets/BlackNode-Logo.png" width="100%" alt="BlackNode Banner">
 </p>
 
-###### _<div align="right"><sub>// by zhaleff · HollowSec</sub></div>_
+
 <h1 align="center">BlackNode // Your Setup</h1>
 <div align="center">
 
@@ -12,7 +12,7 @@
 <a href="https://github.com/zhaleff/BlackNode/issues"><img src="https://img.shields.io/github/issues/zhaleff/BlackNode?style=for-the-badge&logo=github&logoColor=eba0ac&label=Issues&labelColor=302D41&color=eba0ac" alt="issues"></a>&nbsp;&nbsp;
 <a href="https://github.com/zhaleff/BlackNode/commits/main"><img src="https://img.shields.io/github/last-commit/zhaleff/BlackNode?style=for-the-badge&logo=github&logoColor=white&label=Last%20Commit&labelColor=302D41&color=A6E3A1" alt="last commit"></a>&nbsp;&nbsp;
 <a href="https://github.com/zhaleff/BlackNode/blob/main/LICENSE"><img src="https://img.shields.io/github/license/zhaleff/BlackNode?style=for-the-badge&logo=open-source-initiative&color=CBA6F7&logoColor=CBA6F7&labelColor=302D41" alt="license"></a>&nbsp;&nbsp;
-<a href="https://discord.gg/hollowsec"><img src="https://img.shields.io/badge/chat-discord-5865F2?style=for-the-badge&logo=discord&logoColor=white&labelColor=302D41" alt="discord"></a>
+
 
 </div>
 
@@ -27,7 +27,7 @@
 <a href="./WAYBAR.md"><kbd> <br> Waybar <br> </kbd></a>&ensp;&ensp;
 <a href="./MODULES.md"><kbd> <br> Modules <br> </kbd></a>&ensp;&ensp;
 <a href="./REFERENCE.md"><kbd> <br> Reference <br> </kbd></a>&ensp;&ensp;
-<a href="https://discord.gg/hollowsec"><kbd> <br> Discord <br> </kbd></a>
+
 
 </div>
 
@@ -47,10 +47,7 @@ BlackNode is my personal Linux configuration. It grew from years of tweaking, br
 
 Every tool in this setup was chosen deliberately. Nothing is here just because it is popular. Each component has its own independent install script — you run only what you need, nothing runs without your input.
 
-<div align="right">
-  <br>
-  <a href="#-by-zhaleff--hollowsec"><kbd> <br> 🡅 <br> </kbd></a>
-</div>
+
 
 #
 
@@ -76,10 +73,7 @@ Every tool in this setup was chosen deliberately. Nothing is here just because i
 | System Info | Fastfetch | Fast, customisable fetch tool |
 | AUR Helper | yay | AUR package manager |
 
-<div align="right">
-  <br>
-  <a href="#-by-zhaleff--hollowsec"><kbd> <br> 🡅 <br> </kbd></a>
-</div>
+
 
 #
 
@@ -121,10 +115,7 @@ BlackNode is not the answer. It is just a starting point. The real answer is ins
 
 Now go. Explore. Break things. Fix them. And make this your own.
 
-<div align="right">
-  <br>
-  <a href="#-by-zhaleff--hollowsec"><kbd> <br> 🡅 <br> </kbd></a>
-</div>
+
 
 #
 
@@ -136,7 +127,7 @@ BlackNode is released under the [MIT Licence](./LICENSE). You are free to use, m
 #
 
 <div align="center">
-  <p>Made with ❤️ by <a href="https://github.com/zhaleff">zhaleff</a> and the HollowSec community.</p>
+  <p>Made with ❤️ by <a href="https://github.com/zhaleff">zhaleff</a></p>
   <p><i>Happy hacking.</i></p>
 </div>
 
