@@ -24,9 +24,9 @@ set_wall() {
     local dir="${WALLPAPER_DIR:-$HOME/Pictures/Wallpapers}"
     [[ -d "$dir" ]] || dir="$HOME/Pictures"
     local wall
-    wall=$(find "$dir" -type f \( -name '*.png' -o -name '*.jpg' -o -name '*.jpeg' \) | rofi -dmenu -i -p "Wallpaper" -theme "$ROFI_SUB_THEME")
+    wall=$(find "$dir" -maxdepth 1 -type f \( -name '*.png' -o -name '*.jpg' -o -name '*.jpeg' \) | rofi -dmenu -i -p "Wallpaper" -theme "$ROFI_SUB_THEME")
     if [[ -n "$wall" ]]; then
-        swww img "$wall" --transition-fps 60 --transition-type wipe
+        awww img "$wall" --transition-type=random
         matugen image "$wall"
         notify "Wallpaper" "$(basename "$wall")"
     fi
@@ -36,9 +36,9 @@ random_wall() {
     local dir="${WALLPAPER_DIR:-$HOME/Pictures/Wallpapers}"
     [[ -d "$dir" ]] || dir="$HOME/Pictures"
     local wall
-    wall=$(find "$dir" -type f \( -name '*.png' -o -name '*.jpg' -o -name '*.jpeg' \) | shuf -n 1)
+    wall=$(find "$dir" -maxdepth 1 -type f \( -name '*.png' -o -name '*.jpg' -o -name '*.jpeg' \) | shuf -n 1)
     if [[ -n "$wall" ]]; then
-        swww img "$wall" --transition-fps 60 --transition-type wipe
+        awww img "$wall" --transition-type=random
         matugen image "$wall"
         notify "Wallpaper" "Random: $(basename "$wall")"
     fi
@@ -46,7 +46,7 @@ random_wall() {
 
 matugen_gen() {
     local wall
-    wall=$(swww query | head -1 | grep -oP 'image: \K.*' || echo "")
+    wall=$(awww query | head -1 | grep -oP 'image: \K.*' || echo "")
     if [[ -n "$wall" ]]; then
         matugen image "$wall"
         notify "Matugen" "Colors regenerated"

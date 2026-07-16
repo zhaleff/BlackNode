@@ -29,13 +29,13 @@ main() {
 pkg_install() {
     local pkg
     pkg=$(rofi -dmenu -i -p "Install" -theme "$ROFI_SUB_THEME")
-    [[ -n "$pkg" ]] && alacritty -e sudo pacman -S "$pkg"
+    [[ -n "$pkg" ]] && kitty -e sudo pacman -S "$pkg"
 }
 
 pkg_remove() {
     local pkg
     pkg=$(pacman -Qq | rofi -dmenu -i -p "Remove" -theme "$ROFI_SUB_THEME")
-    [[ -n "$pkg" ]] && alacritty -e sudo pacman -Rns "$pkg"
+    [[ -n "$pkg" ]] && kitty -e sudo pacman -Rns "$pkg"
 }
 
 pkg_search() {

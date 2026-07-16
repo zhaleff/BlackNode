@@ -2,6 +2,7 @@
 
 ASSETS="$HOME/.config/dunst/assets"
 PREV=""
+trap "rm -f '${XDG_RUNTIME_DIR:-/tmp}/media-art-$$.jpg'" EXIT
 
 while true; do
     STATUS=$(playerctl status 2>/dev/null)
@@ -14,8 +15,8 @@ while true; do
 
         if [[ "$KEY" != "$PREV" ]]; then
             if [[ "$ART" == https://* ]]; then
-                ICON="/tmp/media-art.jpg"
-                curl -sf -o "$ICON" "$ART"
+                ICON="${XDG_RUNTIME_DIR:-/tmp}/media-art-$$.jpg"
+                curl -sf --max-time 3 -o "$ICON" "$ART"
             elif [[ "$ART" == file://* ]]; then
                 ICON="${ART#file://}"
             else
