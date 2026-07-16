@@ -48,4 +48,3 @@ rofi sidebar → pick action → neovim
 - No search index, no tags, no metadata.  The list view shows filename + last-modified date.
 - To move or delete a note, use your file manager (or `rm` in the terminal).
 
-**— HollowSec**
