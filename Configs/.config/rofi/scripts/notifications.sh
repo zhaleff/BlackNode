@@ -3,8 +3,8 @@
 R="$HOME/.config/rofi"
 MENU_THEME="$R/shared/menu.rasi"
 LIST_THEME="$R/styles/notifications-list.rasi"
-RAW="/tmp/notif-raw.json"
-IDS="/tmp/notif-ids"
+RAW="${XDG_RUNTIME_DIR:-/tmp}/notif-raw.json"
+IDS="${XDG_RUNTIME_DIR:-/tmp}/notif-ids"
 
 sidebar() {
     local paused=$(dunstctl is-paused)
@@ -23,15 +23,15 @@ history() {
     dunstctl history > "$RAW" 2>/dev/null
     > "$IDS"
     local list
-    list=$(python3 -c "
-import json
-with open('/tmp/notif-raw.json') as f:
+    RAW="$RAW" IDS="$IDS" list=$(python3 -c "
+import os, json
+with open(os.environ['RAW']) as f:
     d = json.load(f)
 all_notifs = d.get('data', [])
 if not all_notifs:
     exit(0)
 notifs = all_notifs[0]
-with open('/tmp/notif-ids', 'w') as f:
+with open(os.environ['IDS'], 'w') as f:
     for n in notifs[-10:]:
         i = n.get('id', {}).get('data', '')
         a = n.get('appname', {}).get('data', '')
@@ -59,12 +59,13 @@ with open('/tmp/notif-ids', 'w') as f:
                 dunstctl close "$id" && notify-send "Notif" "Closed #$id"
                 ;;
             "󰋼  Info")
-                python3 -c "
-import json
-with open('/tmp/notif-raw.json') as f:
+                RAW="$RAW" python3 -c "
+import os, json
+with open(os.environ['RAW']) as f:
     d = json.load(f)
+id='$id'
 for n in d.get('data', [[]])[0]:
-    if str(n.get('id', {}).get('data', '')) == '$id':
+    if str(n.get('id', {}).get('data', '')) == id:
         print('App: ' + n.get('appname', {}).get('data', ''))
         print('Summary: ' + n.get('summary', {}).get('data', ''))
         print('Body: ' + n.get('body', {}).get('data', ''))
@@ -73,12 +74,13 @@ for n in d.get('data', [[]])[0]:
                 ;;
             "󰈙  Open app")
                 local app
-                app=$(python3 -c "
-import json
-with open('/tmp/notif-raw.json') as f:
+                RAW="$RAW" app=$(python3 -c "
+import os, json
+with open(os.environ['RAW']) as f:
     d = json.load(f)
+id='$id'
 for n in d.get('data', [[]])[0]:
-    if str(n.get('id', {}).get('data', '')) == '$id':
+    if str(n.get('id', {}).get('data', '')) == id:
         print(n.get('appname', {}).get('data', '').lower())
 ")
                 [[ -n "$app" ]] && notify-send "Notif" "App: $app"
