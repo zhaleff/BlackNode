@@ -4,9 +4,9 @@ R="$HOME/.config/rofi"
 MENU_THEME="$R/shared/menu.rasi"
 LIST_THEME="$R/styles/audio-list.rasi"
 LOG="$HOME/.local/share/blacknode/music_history"
-COVERS="/tmp/rofi_covers"
-INPUT="/tmp/rofi_audio_input"
-WATCHER_PID="/tmp/blacknode_audio_watcher.pid"
+COVERS="${XDG_RUNTIME_DIR:-/tmp}/rofi_covers"
+INPUT="${XDG_RUNTIME_DIR:-/tmp}/rofi_audio_input"
+WATCHER_PID="${XDG_RUNTIME_DIR:-/tmp}/blacknode_audio_watcher.pid"
 mkdir -p "$(dirname "$LOG")" "$COVERS"
 MAX_LOG=12
 
@@ -83,7 +83,8 @@ download_art() {
 show_list() {
     start_watcher
     track_current
-    tail -n "$MAX_LOG" "$LOG" 2>/dev/null > "$LOG.tmp" && mv "$LOG.tmp" "$LOG"
+    local logtmp; logtmp=$(mktemp "${LOG}.XXXXXX")
+    tail -n "$MAX_LOG" "$LOG" 2>/dev/null > "$logtmp" && mv "$logtmp" "$LOG"
     make_fallback
     > "$INPUT"
     HASHS=""
