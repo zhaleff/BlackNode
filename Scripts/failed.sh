@@ -341,7 +341,7 @@ dim "    ${LOG}"
 echo ""
 info "4. Get help"
 dim "    Open an issue: https://github.com/zhaleff/BlackNode/issues"
-dim "    Discord:       https://discord.gg/hollowsec"
+
 dim "    Include the log: ${LOG}"
 echo ""
 hr
