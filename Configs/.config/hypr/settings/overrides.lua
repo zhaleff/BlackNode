@@ -1,9 +1,9 @@
 hl.config({
     decoration = {
         rounding = 12,
-        dim_special = off,
+        dim_special = false,
         blur = { enabled = true },
-        shadow = { enabled = off },
+        shadow = { enabled = false },
     },
     general = {
         gaps_in = 3,

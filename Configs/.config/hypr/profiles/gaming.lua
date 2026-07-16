@@ -1,8 +1,5 @@
--- Gaming profile
--- Disables animations, forces full performance, fullscreen on focused.
-
 hl.config({
-    animation = {
+    animations = {
         "workspaces,0",
         "fade,0",
         "border,0",
@@ -14,10 +11,7 @@ hl.config({
         key_press_enables_dpms = true,
         always_follow_on_dpi = true,
     },
-    windowrule = {
-        "fullscreen,.*",
-    },
-    windowrulev2 = {
-        "noanim,.*",
-    },
 })
+
+hl.window_rule("fullscreen,.*")
+hl.window_rule("noanim,.*")

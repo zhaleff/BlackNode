@@ -22,7 +22,7 @@ for f in "$layouts_dir"/*.jsonc; do
   fi
 done
 
-chosen=$(echo -e "$entries" | rofi -dmenu -i -p " Layout" -theme "$HOME/.config/rofi/launcher/themes/selector.rasi")
+chosen=$(echo -e "$entries" | rofi -dmenu -i -p " Layout" -theme "$HOME/.config/rofi/styles/submenu.rasi")
 
 [[ -z "$chosen" ]] && exit 0
 

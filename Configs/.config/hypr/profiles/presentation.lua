@@ -1,6 +1,3 @@
--- Presentation profile
--- No notifications, no screen blanking, do-not-disturb, clean borders.
-
 hl.config({
     misc = {
         disable_autoreload = true,
@@ -11,10 +8,6 @@ hl.config({
         border_size = 0,
         no_border_on_floating = true,
     },
-    bindl = {
-        ",switch:off:Lid Switch,exec,hyprctl dispatch dpms on",
-    },
-    windowrule = {
-        "fullscreen,.*",
-    },
 })
+
+hl.window_rule("fullscreen,.*")
