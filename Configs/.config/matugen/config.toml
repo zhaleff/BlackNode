@@ -43,6 +43,10 @@ output_path = '~/.config/clipse/custom_theme.json'
 # input_path = '~/.config/matugen/templates/nvim.lua'
 # output_path = '~/.config/nvim/lua/core/config/colors.lua'
 
+[templates.hyprlock]
+input_path = '~/.config/matugen/templates/hyprlock.conf'
+output_path = '~/.config/hypr/hyprlock.conf'
+
 [templates.btop]
 input_path = '~/.config/matugen/templates/btop'
 output_path = '~/.config/btop/themes/colors.theme'
