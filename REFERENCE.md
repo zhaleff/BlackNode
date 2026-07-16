@@ -22,7 +22,7 @@ BlackNode is a set of dotfiles for Arch Linux + Hyprland. It uses Material You c
   plugins/                ← clone plugin repos here
 
 ~/.config/waybar/         ← Waybar
-  classic/ minimal/ hacking/  ← style variants
+  classic/ minimal/ dev/  ← style variants
 
 ~/.config/matugen/        ← colour generation
   config.toml             ← template configuration
