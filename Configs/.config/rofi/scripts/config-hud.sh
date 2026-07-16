@@ -7,7 +7,13 @@ CACHE="$HOME/.cache/blacknode/hud-state"
 mkdir -p "$(dirname "$CACHE")"
 
 read_state() {
-    [ -f "$CACHE" ] && source "$CACHE"
+    [[ -f "$CACHE" ]] || return 0
+    while IFS='=' read -r key val; do
+        case "$key" in
+            ANIM|BLUR|SHADOW) declare -g "$key=$val" ;;
+            DIM|GAPS_IN|GAPS_OUT|BORDER|ROUND) declare -g "$key=$val" ;;
+        esac
+    done < "$CACHE"
 }
 read_state
 : "${ANIM:=true}" "${BLUR:=true}" "${SHADOW:=false}" "${DIM:=0.3}" "${GAPS_IN:=3}" "${GAPS_OUT:=7}" "${BORDER:=1}" "${ROUND:=10}"
