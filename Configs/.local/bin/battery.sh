@@ -2,7 +2,7 @@
 
 ASSETS="$HOME/.config/dunst/assets"
 BAT="/sys/class/power_supply"
-LOCKFILE="/tmp/battery_notify.lock"
+LOCKFILE="${XDG_RUNTIME_DIR:-/tmp}/battery_notify.lock"
 
 if [ -f "$LOCKFILE" ] && kill -0 $(cat "$LOCKFILE") 2>/dev/null; then
     exit 1
