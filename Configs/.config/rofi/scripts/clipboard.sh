@@ -24,7 +24,7 @@ if [[ $choice == *"Wipe Clipboard"* ]]; then
   exit
 elif [[ -n $choice ]]; then
   cliphist decode "$choice" | wl-copy
-  wtype -M ctrl -M shift -P v -s 500 -p v -m shift -m ctrl
+  dunstify -h string:x-dunst-stack-tag:clip_notif -t 2000 "Clipboard" "Copied — press Ctrl+V to paste"
 else
   exit
 fi
