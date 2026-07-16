@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# BlackNode Installer - by zhaleff HollowSec
+# BlackNode Installer
 # Usage: bash <(curl -fsSL https://raw.githubusercontent.com/zhaleff/BlackNode/master/Scripts/install.sh)
 #        bash Scripts/install.sh [--minimal] [--nvidia] [--no-nvidia] [--help]
 
@@ -918,7 +918,7 @@ show_troubleshooting() {
     dim "  ${BOLD}Need more help?${NC}"
     dim "  • Run diagnostic: bash ${REPO}/Scripts/failed.sh"
     dim "  • Open an issue: https://github.com/zhaleff/BlackNode/issues"
-    dim "  • Discord: https://discord.gg/hollowsec"
+
     dim "  • Include the log: ${LOG}"
     echo ""
     press_enter
@@ -948,17 +948,17 @@ show_summary() {
     echo -e "  ${DIM}╷                                                          ╷${NC}"
     echo -e "  ${DIM}│${NC}  ${BOLD}Need help?${NC}                                         ${DIM}│${NC}"
     echo -e "  ${DIM}│${NC}  Issues:  ${DIM}https://github.com/zhaleff/BlackNode/issues${NC}  ${DIM}│${NC}"
-    echo -e "  ${DIM}│${NC}  Discord: ${DIM}https://discord.gg/hollowsec${NC}                ${DIM}│${NC}"
+
     echo -e "  ${DIM}╵                                                          ╵${NC}"
     echo ""
-    echo -e "  ${PURPLE}${BOLD}⏣  Thanks for installing BlackNode${NC}  ${DIM}— zhaleff${NC}"
+    echo -e "  ${PURPLE}${BOLD}⏣  Thanks for installing BlackNode${NC}"
     echo ""
 }
 
 main() {
     echo ""
     echo -e "  ${BG_PURPLE}${BOLD}  ⏣  BlackNode Installer  ${NC}"
-    echo -e "  ${DIM}  by zhaleff · HollowSec${NC}"
+
     echo ""
 
     check_flags
