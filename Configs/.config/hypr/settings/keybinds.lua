@@ -74,7 +74,7 @@ hl.bind(mainMod .. " + SHIFT + A", hl.dsp.exec_cmd("pavucontrol"))
 
 
 -- Waybar launcher
-hl.bind(mainMod .. " + CTRL + ALT + up", hl.dsp.exec_cmd("~/.config/waybar/Scripts/launcher/script.sh"))
+hl.bind(mainMod .. " + CTRL + ALT + DOWN", hl.dsp.exec_cmd("~/.config/waybar/Scripts/launcher/script.sh"))
 
 
 -- Workspaces 1-9: focus and move window
