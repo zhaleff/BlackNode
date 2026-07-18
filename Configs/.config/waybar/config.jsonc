@@ -1,7 +1,6 @@
 {
   "include": [
-    "~/.config/waybar/Modules/all_modules.jsonc",
-    "~/.config/waybar/Layouts/active.jsonc"
+    "~/.config/waybar/Layouts/blacknode.jsonc"
   ],
   "layer": "top",
   "position": "top",

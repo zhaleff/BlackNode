@@ -1,4 +1,7 @@
 {
+  "include": [
+    "~/.config/waybar/Modules/all_modules.jsonc"
+  ],
   "modules-left": [
     "group/hollow-left-2",
     "group/hollow-left-4",

@@ -1,5 +1,0 @@
-{
-  "include": [
-    "~/.config/waybar/Layouts/blacknode.jsonc"
-  ]
-}
