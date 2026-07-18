@@ -1,6 +1,6 @@
 {
   "include": [
-    "~/.config/waybar/Layouts/blacknode.jsonc"
+    "/home/zhaleff/.config/waybar/Profiles/astronomy.jsonc"
   ],
   "layer": "top",
   "position": "top",

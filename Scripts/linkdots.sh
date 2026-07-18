@@ -34,5 +34,11 @@ for item in "$REPO/Configs/.local/bin"/*; do
     link_item "$item" "$HOME/.local/bin/$(basename "$item")" ".local/bin/$(basename "$item")"
 done
 
+if [[ -d "$REPO/Configs/.local/share/blacknode" ]]; then
+    for item in "$REPO/Configs/.local/share/blacknode"/*; do
+        link_item "$item" "$HOME/.local/share/blacknode/$(basename "$item")" ".local/share/blacknode/$(basename "$item")"
+    done
+fi
+
 echo ""
 echo "Done."
