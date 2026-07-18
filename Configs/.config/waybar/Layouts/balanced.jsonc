@@ -4,34 +4,34 @@
   ],
   "modules-left": [
     "group/hollow-left-2",
+    "group/hollow-left-4",
     "group/hollow-left-1"
   ],
   "modules-center": [],
   "modules-right": [
     "group/hollow-right-5",
-    "group/hollow-right-4",
     "group/hollow-right-1",
     "group/hollow-right-3"
   ],
-  "group/hollow-left-2": {
-    "orientation": "horizontal",
-    "modules": ["hyprland/workspaces"]
-  },
   "group/hollow-left-1": {
     "orientation": "horizontal",
     "modules": ["hyprland/window"]
   },
+  "group/hollow-left-2": {
+    "orientation": "horizontal",
+    "modules": ["hyprland/workspaces"]
+  },
+  "group/hollow-left-4": {
+    "orientation": "horizontal",
+    "modules": ["mpris", "custom/previous", "custom/pause", "custom/next"]
+  },
   "group/hollow-right-5": {
     "orientation": "horizontal",
-    "modules": ["custom/target", "custom/htb-vpn", "custom/user"]
-  },
-  "group/hollow-right-4": {
-    "orientation": "horizontal",
-    "modules": ["cpu", "memory", "temperature"]
+    "modules": ["cpu", "temperature", "memory"]
   },
   "group/hollow-right-1": {
     "orientation": "horizontal",
-    "modules": ["clock"]
+    "modules": ["idle_inhibitor", "clock"]
   },
   "group/hollow-right-3": {
     "orientation": "horizontal",

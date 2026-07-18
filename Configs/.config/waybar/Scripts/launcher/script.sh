@@ -7,8 +7,15 @@ declare -A DESCS
 DESCS[blacknode]="Default — workspaces, media, system, clock"
 DESCS[minimal]="Clean — workspaces, window, clock, idle"
 DESCS[full]="Everything — workspaces, media, updates, weather, cpu, system, tray, clock"
-DESCS[dev]="Dev mode — workspaces, window, target, htb-vpn, cpu/mem, clock"
 DESCS[compact]="Tiny — workspaces, clock, menu"
+DESCS[balanced]="Media left, system right, clean center"
+DESCS[modern]="Minimal left, full hardware and tray right"
+DESCS[classic]="Hardware left, clock and weather right"
+DESCS[wide]="All modules, full layout, system focus"
+DESCS[twin]="Media and window left, hardware right"
+DESCS[split]="Heavy left side, window and weather right"
+DESCS[edge]="Minimal edges, workspaces and window left, cpu and weather right"
+DESCS[blend]="Media and info left, window and idle right"
 
 entries=""
 for f in "$layouts_dir"/*.jsonc; do
