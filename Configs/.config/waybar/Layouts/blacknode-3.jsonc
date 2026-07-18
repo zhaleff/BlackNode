@@ -1,0 +1,40 @@
+{
+  "include": [
+    "~/.config/waybar/Modules/all_modules.jsonc"
+  ],
+  "modules-left": [
+    "group/hollow-left-2",
+    "group/hollow-left-1"
+  ],
+  "modules-center": [],
+  "modules-right": [
+    "group/hollow-right-5",
+    "group/hollow-right-4",
+    "group/hollow-right-1",
+    "group/hollow-right-3"
+  ],
+  "group/hollow-left-2": {
+    "orientation": "horizontal",
+    "modules": ["hyprland/workspaces"]
+  },
+  "group/hollow-left-1": {
+    "orientation": "horizontal",
+    "modules": ["clock"]
+  },
+  "group/hollow-right-5": {
+    "orientation": "horizontal",
+    "modules": ["tray", "idle_inhibitor"]
+  },
+  "group/hollow-right-4": {
+    "orientation": "horizontal",
+    "modules": ["mpris", "custom/previous", "custom/pause", "custom/next"]
+  },
+  "group/hollow-right-1": {
+    "orientation": "horizontal",
+    "modules": ["cpu", "memory", "temperature"]
+  },
+  "group/hollow-right-3": {
+    "orientation": "horizontal",
+    "modules": ["backlight", "wireplumber", "network", "battery", "custom/waybar-rofi"]
+  }
+}
