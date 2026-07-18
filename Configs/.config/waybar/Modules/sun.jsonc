@@ -1,0 +1,10 @@
+{
+  "custom/sun": {
+    "format": "{}",
+    "tooltip": true,
+    "return-type": "json",
+    "exec": "~/.config/waybar/Scripts/astronomy/sun.py",
+    "on-click": "~/.config/waybar/Scripts/astronomy/sun.py --open",
+    "interval": 3600
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "custom/apod": {
+    "format": "{}",
+    "tooltip": true,
+    "return-type": "json",
+    "exec": "~/.config/waybar/Scripts/astronomy/apod.py",
+    "on-click": "~/.config/waybar/Scripts/astronomy/apod.py --open",
+    "interval": 43200
+  }
+}

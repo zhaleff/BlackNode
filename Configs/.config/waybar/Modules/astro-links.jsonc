@@ -1,0 +1,10 @@
+{
+  "custom/astro-links": {
+    "format": "{}",
+    "tooltip": true,
+    "return-type": "json",
+    "exec": "~/.config/waybar/Scripts/astronomy/astro-links.py",
+    "on-click": "~/.config/waybar/Scripts/astronomy/astro-links.py --next",
+    "interval": 86400
+  }
+}

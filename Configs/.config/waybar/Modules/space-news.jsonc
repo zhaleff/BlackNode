@@ -1,0 +1,10 @@
+{
+  "custom/space-news": {
+    "format": "{}",
+    "tooltip": true,
+    "return-type": "json",
+    "exec": "~/.config/waybar/Scripts/astronomy/space-news.py",
+    "on-click": "~/.config/waybar/Scripts/astronomy/space-news.py --open",
+    "interval": 1800
+  }
+}

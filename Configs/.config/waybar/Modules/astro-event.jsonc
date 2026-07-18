@@ -1,0 +1,10 @@
+{
+  "custom/astro-event": {
+    "format": "{}",
+    "tooltip": true,
+    "return-type": "json",
+    "exec": "~/.config/waybar/Scripts/astronomy/astro-event.py",
+    "on-click": "~/.config/waybar/Scripts/astronomy/astro-event.py --open",
+    "interval": 86400
+  }
+}

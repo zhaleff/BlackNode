@@ -24,6 +24,11 @@
     "~/.config/waybar/Modules/weather.jsonc",
     "~/.config/waybar/Modules/window.jsonc",
     "~/.config/waybar/Modules/wirepumbler.jsonc",
-    "~/.config/waybar/Modules/workspaces.jsonc"
+    "~/.config/waybar/Modules/workspaces.jsonc",
+    "~/.config/waybar/Modules/space-news.jsonc",
+    "~/.config/waybar/Modules/apod.jsonc",
+    "~/.config/waybar/Modules/sun.jsonc",
+    "~/.config/waybar/Modules/astro-event.jsonc",
+    "~/.config/waybar/Modules/astro-links.jsonc"
   ]
 }
