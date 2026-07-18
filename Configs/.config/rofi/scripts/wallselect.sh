@@ -1,6 +1,19 @@
 #!/usr/bin/env bash
 
-WALL_DIR="$HOME/Pictures/Wallpapers/"
+PROFILES_BASE="$HOME/.local/share/blacknode"
+ACTIVE_FILE="$PROFILES_BASE/active_profile"
+
+if [[ -f "$ACTIVE_FILE" ]]; then
+    active=$(cat "$ACTIVE_FILE")
+    profile_walls="$PROFILES_BASE/profiles/$active/walls"
+    if [[ -d "$profile_walls" ]]; then
+        WALL_DIR="$profile_walls"
+    else
+        WALL_DIR="$HOME/Pictures/Wallpapers/"
+    fi
+else
+    WALL_DIR="$HOME/Pictures/Wallpapers/"
+fi
 
 SELECTED=$(find "$WALL_DIR" -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" \) \
     | while read -r img; do
