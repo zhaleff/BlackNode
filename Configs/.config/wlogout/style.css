@@ -29,37 +29,46 @@ button {
 button:hover,
 button:focus {
   background-color: @primary;
-  background-size: 60%;
+  background-size: 70%;
 }
 
 #lock {
   padding: 1.8rem;
+  border-radius: 20px;
+
   background-image: image(url("./icons/lock.png"));
-  border-radius: 70px 0 0 70px;
+  border-radius: 70px 20px 20px 70px;
 }
 
 #suspend {
+  border-radius: 20px;
+
   background-image: image(url("./icons/sleep.png"));
   padding: 1rem;
 }
 
 #shutdown {
   padding: 0.7rem;
+  border-radius: 20px;
+
   background-image: image(url("./icons/power.png"));
 }
 
 #reboot {
   padding: 1.3rem;
+  border-radius: 20px;
+
   background-image: image(url("./icons/restart.png"));
 }
 
 #logout {
   padding: 1.3rem;
   background-image: image(url("./icons/logout.png"));
+  border-radius: 20px;
 }
 
 #hibernate {
   padding: 0.8rem;
   background-image: image(url("./icons/hibernate.png"));
-  border-radius: 0 70px 70px 0;
+  border-radius: 20px 70px 70px 20px;
 }
