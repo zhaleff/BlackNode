@@ -24,7 +24,7 @@
   },
   "group/hollow-left-1": {
     "orientation": "horizontal",
-    "modules": ["memory", "temperature", "custom/weather"]
+    "modules": ["memory", "temperature", "custom/weather", "custom/moon"]
   },
   "group/hollow-right-5": {
     "orientation": "horizontal",
