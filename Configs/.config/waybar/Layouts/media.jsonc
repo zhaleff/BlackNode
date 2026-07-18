@@ -9,8 +9,6 @@
   ],
   "modules-center": [],
   "modules-right": [
-    "group/hollow-right-5",
-    "group/hollow-right-4",
     "group/hollow-right-3"
   ],
   "group/hollow-left-2": {
@@ -23,18 +21,10 @@
   },
   "group/hollow-left-1": {
     "orientation": "horizontal",
-    "modules": ["hyprland/window"]
-  },
-  "group/hollow-right-5": {
-    "orientation": "horizontal",
-    "modules": ["cpu", "temperature", "memory"]
-  },
-  "group/hollow-right-4": {
-    "orientation": "horizontal",
-    "modules": ["backlight", "wireplumber", "network", "battery", "custom/power"]
+    "modules": ["backlight", "wireplumber"]
   },
   "group/hollow-right-3": {
     "orientation": "horizontal",
-    "modules": ["custom/waybar-rofi"]
+    "modules": ["clock"]
   }
 }

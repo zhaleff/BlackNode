@@ -10,28 +10,23 @@
   "modules-center": [],
   "modules-right": [
     "group/hollow-right-5",
-    "group/hollow-right-1",
     "group/hollow-right-3"
   ],
-  "group/hollow-left-1": {
-    "orientation": "horizontal",
-    "modules": ["hyprland/window"]
-  },
   "group/hollow-left-2": {
     "orientation": "horizontal",
     "modules": ["hyprland/workspaces"]
   },
   "group/hollow-left-4": {
     "orientation": "horizontal",
-    "modules": ["mpris", "custom/previous", "custom/pause", "custom/next"]
+    "modules": ["mpris"]
+  },
+  "group/hollow-left-1": {
+    "orientation": "horizontal",
+    "modules": ["tray"]
   },
   "group/hollow-right-5": {
     "orientation": "horizontal",
-    "modules": ["cpu", "temperature", "memory"]
-  },
-  "group/hollow-right-1": {
-    "orientation": "horizontal",
-    "modules": ["idle_inhibitor", "clock"]
+    "modules": ["clock"]
   },
   "group/hollow-right-3": {
     "orientation": "horizontal",

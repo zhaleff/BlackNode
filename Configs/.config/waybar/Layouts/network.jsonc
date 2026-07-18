@@ -19,19 +19,19 @@
   },
   "group/hollow-left-1": {
     "orientation": "horizontal",
-    "modules": ["custom/pacman", "custom/pkg-aur", "custom/media_dashboard"]
+    "modules": ["hyprland/window"]
   },
   "group/hollow-right-5": {
     "orientation": "horizontal",
-    "modules": ["cpu", "temperature", "memory"]
+    "modules": ["network", "custom/target", "custom/htb-vpn"]
   },
   "group/hollow-right-4": {
     "orientation": "horizontal",
-    "modules": ["backlight", "wireplumber", "network", "battery", "custom/power"]
+    "modules": ["tray", "idle_inhibitor"]
   },
   "group/hollow-right-1": {
     "orientation": "horizontal",
-    "modules": ["tray", "idle_inhibitor", "clock"]
+    "modules": ["custom/user", "clock"]
   },
   "group/hollow-right-3": {
     "orientation": "horizontal",
