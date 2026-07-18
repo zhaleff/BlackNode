@@ -1,58 +1,39 @@
 [global]
     monitor = 0
     follow = none
-
-    # M3 usa tarjetas compactas pero flotantes
-    width = (300, 360)
+    width = (300, 380)
     height = (0, 150)
     origin = top-center
-    offset = "0x24"
-
-    # Alineación y espaciados amplios (muy característico de M3)
+    offset = "0x20"
     alignment = left
     vertical_alignment = center
     ellipsize = middle
-    padding = 20                 # Más aire interno
-    horizontal_padding = 24      # Mayor margen horizontal interno
-    text_icon_padding = 18       # Buen espacio entre el icono y el texto
-
-    # Iconos en M3 (Esquinas redondeadas medianas/grandes)
+    padding = 16
+    horizontal_padding = 16
+    text_icon_padding = 12
     icon_position = left
-    min_icon_size = 44
-    max_icon_size = 44
-    icon_corner_radius = 12      # Iconos redondeados estilo M3
-
-    # Barra de progreso integrada estilo Android (Píldora gruesa y minimalista)
+    min_icon_size = 40
+    max_icon_size = 48
+    icon_corner_radius = 32
     progress_bar = true
-    progress_bar_height = 6      # Un poco más gruesa
-    progress_bar_min_width = 220
+    progress_bar_height = 4
+    progress_bar_min_width = 200
     progress_bar_max_width = 280
-    progress_bar_corner_radius = 3 # Completamente redondeada para sus 6px de alto
+    progress_bar_corner_radius = 4
     progress_bar_corners = all
     progress_bar_frame_width = 0
-
-    # Bordes exteriores: SIN bordes duros (frame_width = 0)
     frame_width = 0
     separator_height = 0
-
-    # ESQUINAS: M3 utiliza esquinas "Extra Large" (24px por defecto) para las tarjetas
-    corner_radius = 24           # Radio M3 exacto para componentes contenedores grandes
-    gap_size = 12
-    line_height = 4
-
-    notification_limit = 3
+    corner_radius = 24
+    gap_size = 10
+    line_height = 3
+    notification_limit = 4
     idle_threshold = 120
     history_length = 50
     show_age_threshold = 60
     markup = full
-
-    # Tipografía limpia (JetBrains Mono cumple bien, pero M3 brilla con Sans-Serif)
-    font = "JetBrains Mono Nerd Font 10"
-    # Si tienes Roboto o Inter, usa: font = "Inter Regular 11" o "Roboto Regular 11"
-
-    # Formato M3: Título destacado en negrita y cuerpo abajo con separación limpia
-    format = "<span size='large' weight='bold'>%s</span>\n%b"
-
+    font = "JetBrains Mono Nerd Font Medium 10"
+    format = "<b>%s</b>\n%b"
     word_wrap = yes
     sort = yes
     shrink = no
@@ -65,36 +46,30 @@
     hide_duplicate_count = false
     ignore_dbusclose = false
     force_xwayland = false
-
     mouse_left_click = do_action
     mouse_middle_click = close_all
     mouse_right_click = close_current
     browser = firefox
-
-    # Esto mapea directo a tus colores de progreso (Asegúrate que tu script de colores los provea)
     progress_bar_color = "{{colors.primary.default.hex}}"
-    progress_bar_frame_color = "{{colors.surface_variant.default.hex}}"
+    progress_bar_frame_color = "{{colors.surface.default.hex}}"
 
 [experimental]
     per_monitor_dpi = false
 
 [urgency_low]
-    # Tonos apagados/secundarios
-    background = "{{colors.surface_container_low.hex}}"
-    foreground = "{{colors.on_surface_variant.hex}}"
-    highlight = "{{colors.outline.hex}}"
+    background = "{{colors.surface.default.hex}}"
+    foreground = "{{colors.on_surface.default.hex}}"
+    highlight = "{{colors.primary.default.hex}}"
     timeout = 4
 
 [urgency_normal]
-    # El contenedor estándar de Material You (Normalmente un color de fondo claro/oscuro suave)
-    background = "{{colors.surface_container.hex}}"
-    foreground = "{{colors.on_surface.hex}}"
-    highlight = "{{colors.primary.hex}}"
+    background = "{{colors.surface.default.hex}}"
+    foreground = "{{colors.on_surface.default.hex}}"
+    highlight = "{{colors.primary.default.hex}}"
     timeout = 6
 
 [urgency_critical]
-    # En M3 las alertas críticas usan tonos basados en el color de "Error" (Rojos/Anaranjados pastel)
-    background = "{{colors.error_container.hex}}"
-    foreground = "{{colors.on_error_container.hex}}"
-    highlight = "{{colors.error.hex}}"
+    background = "{{colors.surface.default.hex}}"
+    foreground = "{{colors.error.default.hex}}"
+    highlight = "{{colors.error.default.hex}}"
     timeout = 0

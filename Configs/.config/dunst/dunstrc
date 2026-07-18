@@ -1,32 +1,32 @@
 [global]
     monitor = 0
     follow = none
-    width = (0, 300)
+    width = (300, 380)
     height = (0, 150)
     origin = top-center
     offset = "0x20"
     alignment = left
     vertical_alignment = center
     ellipsize = middle
-    padding = 12
-    horizontal_padding = 14
-    text_icon_padding = 10
+    padding = 16
+    horizontal_padding = 16
+    text_icon_padding = 12
     icon_position = left
-    min_icon_size = 36
+    min_icon_size = 40
     max_icon_size = 48
-    icon_corner_radius = 6
+    icon_corner_radius = 32
     progress_bar = true
-    progress_bar_height = 6
+    progress_bar_height = 4
     progress_bar_min_width = 200
-    progress_bar_max_width = 260
+    progress_bar_max_width = 280
     progress_bar_corner_radius = 4
     progress_bar_corners = all
     progress_bar_frame_width = 0
     frame_width = 0
     separator_height = 0
-    corner_radius = 10
-    gap_size = 8
-    line_height = 2
+    corner_radius = 32
+    gap_size = 10
+    line_height = 3
     notification_limit = 4
     idle_threshold = 120
     history_length = 50
@@ -50,32 +50,26 @@
     mouse_middle_click = close_all
     mouse_right_click = close_current
     browser = firefox
-    progress_bar_color = "#e4c36c"
-    progress_bar_frame_color = "#16130b"
+    progress_bar_color = "#94cdf7"
+    progress_bar_frame_color = "#101417"
 
 [experimental]
     per_monitor_dpi = false
 
 [urgency_low]
-    background = "#16130b"
-    foreground = "#eae1d4"
-    highlight = "#e4c36c"
+    background = "#101417"
+    foreground = "#dfe3e8"
+    highlight = "#94cdf7"
     timeout = 4
 
 [urgency_normal]
-    background = "#16130b"
-    foreground = "#eae1d4"
-    highlight = "#e4c36c"
+    background = "#101417"
+    foreground = "#dfe3e8"
+    highlight = "#94cdf7"
     timeout = 6
 
 [urgency_critical]
-    background = "#16130b"
+    background = "#101417"
     foreground = "#ffb4ab"
     highlight = "#ffb4ab"
     timeout = 0
-
-[shortcuts]
-    close_notification = ctrl+space
-    close_all_notifications = ctrl+shift+space
-    history_pop = ctrl+grave
-    context_menu = ctrl+shift+period
