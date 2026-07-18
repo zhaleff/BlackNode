@@ -129,10 +129,12 @@ show_keybinds() {
 show_modules() {
     local choice
     choice=$(printf '%s\n' \
-        "󰄉  Waybar — 3 Styles" \
-        "󰋼  Classic: workspace padding layout" \
-        "󰋼  Hacking: compact minimal style" \
-        "󰋼  Modern:  floating modules" \
+        "󰄉  Waybar — 5 Layouts" \
+        "󰋼  blacknode: default layout" \
+        "󰋼  minimal: clean, compact" \
+        "󰋼  full: everything on screen" \
+        "󰋼  dev: dev mode layout" \
+        "󰋼  compact: tiny bar" \
         "󰋼  Left:    Workspaces, Window" \
         "󰋼  Center:  Clock, Media Player" \
         "󰋼  Right:   Network, Volume, Battery" \

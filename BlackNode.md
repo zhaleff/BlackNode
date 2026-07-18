@@ -1,6 +1,6 @@
 # BlackNode
 
-Arch Linux + Hyprland dotfiles with Material You theming, an updated version of HyprCraft
+Arch Linux + Hyprland dotfiles with Material You theming
 
 - Clear structure, well-organised directories.
 - No obscure hacks — readable configuration files.

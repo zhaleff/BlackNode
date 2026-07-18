@@ -22,7 +22,7 @@ BlackNode is a set of dotfiles for Arch Linux + Hyprland. It uses Material You c
   plugins/                ← clone plugin repos here
 
 ~/.config/waybar/         ← Waybar
-  classic/ minimal/ dev/  ← style variants
+  Layouts/                ← bar layout presets (blacknode, minimal, full, dev, compact)
 
 ~/.config/matugen/        ← colour generation
   config.toml             ← template configuration
@@ -37,6 +37,11 @@ See `PACKAGES.md`.
 
 See `INSTALLATION.md`.
 
-## Prior Work
+## Scripts
 
-BlackNode evolved from an earlier set of dotfiles called HyprCraft. The current version is a complete rewrite with Material You theming, modular structure, and Lua-based Hyprland configuration.
+| Script | Purpose |
+|--------|---------|
+| `Scripts/install.sh` | Automated installer with pre-flight checks, NVIDIA setup, rollback |
+| `Scripts/linkdots.sh` | Symlink Configs/ to ~/.config/ with automatic backup |
+| `Scripts/health.sh` | System health diagnostic (services, GPU, resources, config integrity) |
+| `Scripts/failed.sh` | Install log analyser with 25+ error patterns and fixes |

@@ -95,7 +95,7 @@ What it does:
 ~/.config/
 ├── hypr/          → Hyprland 0.55+ Lua config (keybinds, rules, input, overrides)
 ├── rofi/          → M3-themed launcher, bn-menu, sidebar scripts, shared themes
-├── waybar/        → 3 bar styles (Classic, Hacking, Minimal)
+├── waybar/        → 5 bar layouts (blacknode, minimal, full, dev, compact)
 ├── kitty/         → Terminal with Catppuccin theme
 ├── alacritty/     → Terminal (optional)
 ├── dunst/         → M3 notification daemon
@@ -146,7 +146,7 @@ Matugen generates the M3 colour palette from your wallpaper automatically.
 |---------|--------|
 | `SUPER + SPACE` | bn-menu (main hub) |
 | `SUPER + R` | App launcher |
-| `SUPER + SHIFT + O` | BlackNode Dashboard |
+| `SUPER + SHIFT + O` | Dashboard (quickshell) |
 | `SUPER + N` | Notification centre |
 | `SUPER + V` | Quick Config HUD |
 | `SUPER + D` | Kitty terminal |

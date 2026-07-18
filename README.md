@@ -58,7 +58,7 @@ Every tool in this setup was chosen deliberately. Nothing is here just because i
 |---|---|---|
 | Window Manager | Hyprland | Dynamic tiling Wayland compositor |
 | Status Bar | Waybar | Fully configurable bar |
-| Terminal | Kitty + Alacritty | GPU-accelerated terminal emulators |
+| Terminal | Kitty | GPU-accelerated terminal emulator |
 | Shell | Zsh + Powerlevel10k | Fast shell with a powerful prompt |
 | Launcher | Rofi | App launcher and dmenu replacement |
 | Notifications | Dunst | Lightweight notification daemon |
