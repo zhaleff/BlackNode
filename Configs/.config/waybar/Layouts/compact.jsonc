@@ -3,23 +3,33 @@
     "~/.config/waybar/Modules/all_modules.jsonc"
   ],
   "modules-left": [
-    "group/hollow-left-2"
+    "group/hollow-left-2",
+    "group/hollow-left-1"
   ],
   "modules-center": [],
   "modules-right": [
     "group/hollow-right-5",
+    "group/hollow-right-4",
     "group/hollow-right-3"
   ],
   "group/hollow-left-2": {
     "orientation": "horizontal",
-    "modules": ["hyprland/workspaces"]
+    "modules": ["hyprland/workspaces", "hyprland/window"]
   },
-  "group/hollow-right-5": {
+  "group/hollow-left-1": {
     "orientation": "horizontal",
     "modules": ["clock"]
   },
+  "group/hollow-right-5": {
+    "orientation": "horizontal",
+    "modules": ["cpu", "memory"]
+  },
+  "group/hollow-right-4": {
+    "orientation": "horizontal",
+    "modules": ["network", "battery"]
+  },
   "group/hollow-right-3": {
     "orientation": "horizontal",
-    "modules": ["custom/waybar-rofi"]
+    "modules": ["backlight", "wireplumber", "custom/waybar-rofi"]
   }
 }
