@@ -1,0 +1,12 @@
+{
+  "custom/music": {
+    "format": "{}",
+    "tooltip": true,
+    "return-type": "json",
+    "exec": "~/.config/waybar/Scripts/music/music.py",
+    "on-click": "~/.config/rofi/scripts/audio.sh",
+    "on-click-right": "~/.config/waybar/Scripts/music/now-playing.sh",
+    "interval": 1,
+    "max-length": 70
+  }
+}

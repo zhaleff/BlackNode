@@ -1,0 +1,8 @@
+{
+  "custom/music-progress": {
+    "format": "{}",
+    "return-type": "json",
+    "exec": "~/.config/waybar/Scripts/music/progress.py",
+    "interval": 1
+  }
+}

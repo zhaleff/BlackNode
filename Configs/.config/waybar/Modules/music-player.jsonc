@@ -1,0 +1,9 @@
+{
+  "custom/music-player": {
+    "format": "{}",
+    "tooltip": true,
+    "return-type": "json",
+    "exec": "~/.config/waybar/Scripts/music/player-icon.py",
+    "interval": 10
+  }
+}

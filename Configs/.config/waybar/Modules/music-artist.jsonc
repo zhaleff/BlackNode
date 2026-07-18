@@ -1,0 +1,9 @@
+{
+  "custom/music-artist": {
+    "format": "{}",
+    "tooltip": true,
+    "return-type": "json",
+    "exec": "~/.config/waybar/Scripts/music/artist.py",
+    "interval": 5
+  }
+}

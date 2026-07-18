@@ -25,10 +25,19 @@
     "~/.config/waybar/Modules/window.jsonc",
     "~/.config/waybar/Modules/wirepumbler.jsonc",
     "~/.config/waybar/Modules/workspaces.jsonc",
+    "~/.config/waybar/Modules/music.jsonc",
+    "~/.config/waybar/Modules/music-player.jsonc",
+    "~/.config/waybar/Modules/music-genre.jsonc",
+    "~/.config/waybar/Modules/music-daily.jsonc",
+    "~/.config/waybar/Modules/music-volume.jsonc",
+    "~/.config/waybar/Modules/music-artist.jsonc",
     "~/.config/waybar/Modules/space-news.jsonc",
     "~/.config/waybar/Modules/apod.jsonc",
     "~/.config/waybar/Modules/sun.jsonc",
     "~/.config/waybar/Modules/astro-event.jsonc",
-    "~/.config/waybar/Modules/astro-links.jsonc"
+    "~/.config/waybar/Modules/astro-links.jsonc",
+    "~/.config/waybar/Modules/shuffle.jsonc",
+    "~/.config/waybar/Modules/repeat.jsonc",
+    "~/.config/waybar/Modules/music-progress.jsonc"
   ]
 }

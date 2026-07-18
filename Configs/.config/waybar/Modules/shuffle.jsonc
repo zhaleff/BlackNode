@@ -1,0 +1,9 @@
+{
+  "custom/shuffle": {
+    "format": "{}",
+    "return-type": "json",
+    "exec": "~/.config/waybar/Scripts/music/shuffle.py",
+    "on-click": "playerctl shuffle",
+    "interval": 10
+  }
+}

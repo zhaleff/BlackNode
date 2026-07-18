@@ -1,0 +1,10 @@
+{
+  "custom/music-now": {
+    "format": "{}",
+    "tooltip": true,
+    "return-type": "json",
+    "exec": "~/.config/waybar/Scripts/music/music-now.py",
+    "on-click": "~/.config/waybar/Scripts/music/now-playing.sh",
+    "interval": 1
+  }
+}

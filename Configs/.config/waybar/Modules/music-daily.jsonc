@@ -1,0 +1,9 @@
+{
+  "custom/music-daily": {
+    "format": "{}",
+    "tooltip": true,
+    "return-type": "json",
+    "exec": "~/.config/waybar/Scripts/music/daily.py",
+    "interval": 60
+  }
+}

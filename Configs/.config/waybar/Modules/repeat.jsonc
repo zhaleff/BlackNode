@@ -1,0 +1,9 @@
+{
+  "custom/repeat": {
+    "format": "{}",
+    "return-type": "json",
+    "exec": "~/.config/waybar/Scripts/music/repeat.py",
+    "on-click": "playerctl repeat",
+    "interval": 10
+  }
+}

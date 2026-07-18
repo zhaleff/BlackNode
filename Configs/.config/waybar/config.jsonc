@@ -1,6 +1,6 @@
 {
   "include": [
-    "/home/zhaleff/.config/waybar/Profiles/astronomy.jsonc"
+    "/home/zhaleff/.config/waybar/Profiles/music.jsonc"
   ],
   "layer": "top",
   "position": "top",

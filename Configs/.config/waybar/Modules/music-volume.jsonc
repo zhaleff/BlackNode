@@ -1,0 +1,12 @@
+{
+  "custom/music-volume": {
+    "format": "{}",
+    "tooltip": true,
+    "return-type": "json",
+    "exec": "~/.config/waybar/Scripts/music/volume.py",
+    "on-click": "~/.config/rofi/scripts/audio.sh",
+    "on-scroll-up": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+",
+    "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-",
+    "interval": 5
+  }
+}

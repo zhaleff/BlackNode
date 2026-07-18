@@ -1,0 +1,9 @@
+{
+  "custom/music-genre": {
+    "format": "{}",
+    "tooltip": true,
+    "return-type": "json",
+    "exec": "~/.config/waybar/Scripts/music/genre.py",
+    "interval": 10
+  }
+}
