@@ -1,0 +1,9 @@
+{
+  "custom/moon": {
+    "format": "{}",
+    "tooltip": true,
+    "return-type": "json",
+    "exec": "~/.config/waybar/Scripts/moon/moon.sh",
+    "interval": 3600
+  }
+}
