@@ -16,7 +16,7 @@ window#waybar {
   background-color: @surface;
   border-radius: 999px;
   margin: 4px 6px;
-  padding: 0 4px;
+  padding: 0 8px;
 }
 
 tooltip {
@@ -48,9 +48,9 @@ tooltip label {
 #hollow-right-4,
 #hollow-right-5 {
   background-color: alpha(@outline, 0.12);
-  border-radius: 0px;
-  padding: 4px 8px;
-  margin: 8px 2px;
+  border-radius: 6px;
+  padding: 6px 10px;
+  margin: 6px 2px;
 }
 
 #hollow-right-5 {
