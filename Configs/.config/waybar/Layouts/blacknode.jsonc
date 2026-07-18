@@ -17,7 +17,7 @@
   ],
   "group/hollow-left-1": {
     "orientation": "horizontal",
-    "modules": ["custom/pacman", "custom/pkg-aur", "custom/media_dashboard"]
+    "modules": ["custom/pacman", "custom/pkg-aur", "tray"]
   },
   "group/hollow-left-2": {
     "orientation": "horizontal",
