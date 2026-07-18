@@ -6,7 +6,7 @@ MAX_LENGTH = 65
 
 def get_metadata():
     try:
-        fmt = "{{title}}|||{{artist}}|||{{album}}|||{{duration(position)}}|||{{duration(mpris:length)}}|||{{status}}|||{{mpris:artUrl}}"
+        fmt = "{{title}}|||{{artist}}|||{{album}}|||{{duration(position)}}|||{{status}}|||{{mpris:artUrl}}"
         output = subprocess.check_output(
             ["playerctl", "metadata", "--format", fmt, "--all-players"],
             stderr=subprocess.DEVNULL, timeout=2
