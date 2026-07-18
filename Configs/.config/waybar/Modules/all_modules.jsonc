@@ -7,6 +7,7 @@
     "~/.config/waybar/Modules/htb-vpn.jsonc",
     "~/.config/waybar/Modules/idle_inhibitor.jsonc",
     "~/.config/waybar/Modules/memory.jsonc",
+    "~/.config/waybar/Modules/moon.jsonc",
     "~/.config/waybar/Modules/mpris.jsonc",
     "~/.config/waybar/Modules/network.jsonc",
     "~/.config/waybar/Modules/pacman.jsonc",
