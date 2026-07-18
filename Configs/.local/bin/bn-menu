@@ -42,9 +42,9 @@ main() {
         "󰑐  Reload")        "$SCRIPTS/reload/menu.sh" ;;
         "󱖫  Services")      "$SCRIPTS/services/menu.sh" ;;
         "󰌌  Theme")         "$SCRIPTS/theme/menu.sh" ;;
-        "  Profiles")      "$HOME/.config/rofi/scripts/profiles.sh" ;;
-        "󱑀  Pomodoro")     "$HOME/.config/rofi/scripts/pomodoro.sh" ;;
-        "󱖫  System Health") bash "$HOME/BlackNode/Scripts/health.sh" | rofi -dmenu -i -p "Health" -theme "$ROFI_THEME" ;;
+        "  Profiles")      "$SCRIPTS/profiles/menu.sh" ;;
+        "󱑀  Pomodoro")     "$SCRIPTS/pomodoro/menu.sh" ;;
+        "󱖫  System Health") "$SCRIPTS/health/menu.sh" ;;
         "󰋼  About")         "$SCRIPTS/info/menu.sh" ;;
         "󰍃  Session")       "$SCRIPTS/session/menu.sh" ;;
         "󰂯  Bluetooth")     "$SCRIPTS/bluetooth/menu.sh" ;;
