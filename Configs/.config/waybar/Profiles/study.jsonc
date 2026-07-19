@@ -6,6 +6,7 @@
     "group/hollow-left-2",
     "group/hollow-left-3",
     "group/hollow-left-4",
+    "group/hollow-left-9",
     "group/hollow-left-1"
   ],
   "modules-center": [],
@@ -19,6 +20,10 @@
     "group/hollow-right-1",
     "group/hollow-right-3"
   ],
+  "group/hollow-left-9": {
+    "orientation": "horizontal",
+    "modules": ["custom/git-heat"]
+  },
   "group/hollow-left-2": {
     "orientation": "horizontal",
     "modules": ["custom/study-notes"]

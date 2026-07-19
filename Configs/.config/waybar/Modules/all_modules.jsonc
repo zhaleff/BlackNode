@@ -76,6 +76,7 @@
     "~/.config/waybar/Modules/coding-stack.jsonc",
     "~/.config/waybar/Modules/coding-pomodoro.jsonc",
     "~/.config/waybar/Modules/coding-calendar.jsonc",
-    "~/.config/waybar/Modules/coding-theme.jsonc"
+    "~/.config/waybar/Modules/coding-theme.jsonc",
+    "~/.config/waybar/Modules/git-heat.jsonc"
   ]
 }

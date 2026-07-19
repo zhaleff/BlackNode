@@ -1,0 +1,11 @@
+{
+  "custom/git-heat": {
+    "format": "{}",
+    "tooltip": true,
+    "escape": false,
+    "return-type": "json",
+    "exec": "~/.config/waybar/Scripts/git/git-heat.py",
+    "on-click": "~/.config/rofi/scripts/git-heat.sh",
+    "interval": 300
+  }
+}
