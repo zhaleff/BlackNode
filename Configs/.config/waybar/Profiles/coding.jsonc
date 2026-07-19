@@ -3,82 +3,47 @@
     "~/.config/waybar/Modules/all_modules.jsonc"
   ],
   "modules-left": [
-    "group/hollow-left-5",
-    "group/hollow-left-6",
-    "group/hollow-left-7",
-    "group/hollow-left-8",
-    "group/hollow-left-9",
+    "group/hollow-left-2",
+    "group/hollow-left-3",
     "group/hollow-left-1"
   ],
   "modules-center": [],
   "modules-right": [
-    "group/hollow-right-9",
-    "group/hollow-right-10",
-    "group/hollow-right-11",
-    "group/hollow-right-12",
-    "group/hollow-right-4",
-    "group/hollow-right-2",
+    "group/hollow-right-5",
+    "group/hollow-right-6",
+    "group/hollow-right-7",
     "group/hollow-right-8",
-    "group/hollow-right-1",
-    "group/hollow-right-3"
+    "group/hollow-right-1"
   ],
-  "group/hollow-left-9": {
+  "group/hollow-left-2": {
+    "orientation": "horizontal",
+    "modules": ["custom/coding-editor", "custom/coding-term", "custom/coding-files", "custom/coding-notes"]
+  },
+  "group/hollow-left-3": {
     "orientation": "horizontal",
     "modules": ["custom/git-heat"]
-  },
-  "group/hollow-left-5": {
-    "orientation": "horizontal",
-    "modules": ["custom/coding-editor"]
-  },
-  "group/hollow-left-6": {
-    "orientation": "horizontal",
-    "modules": ["custom/coding-term"]
-  },
-  "group/hollow-left-7": {
-    "orientation": "horizontal",
-    "modules": ["custom/coding-files"]
-  },
-  "group/hollow-left-8": {
-    "orientation": "horizontal",
-    "modules": ["custom/coding-notes"]
   },
   "group/hollow-left-1": {
     "orientation": "horizontal",
     "modules": ["hyprland/workspaces"]
   },
-  "group/hollow-right-9": {
+  "group/hollow-right-5": {
     "orientation": "horizontal",
-    "modules": ["custom/coding-docs", "custom/coding-roadmap"]
+    "modules": ["custom/coding-docs", "custom/coding-roadmap", "custom/coding-lang"]
   },
-  "group/hollow-right-10": {
+  "group/hollow-right-6": {
     "orientation": "horizontal",
-    "modules": ["custom/coding-lang", "custom/coding-git"]
+    "modules": ["custom/coding-git", "custom/coding-tools", "custom/coding-ai", "custom/coding-stack"]
   },
-  "group/hollow-right-11": {
+  "group/hollow-right-7": {
     "orientation": "horizontal",
-    "modules": ["custom/coding-tools", "custom/coding-ai"]
-  },
-  "group/hollow-right-12": {
-    "orientation": "horizontal",
-    "modules": ["custom/coding-stack"]
-  },
-  "group/hollow-right-4": {
-    "orientation": "horizontal",
-    "modules": ["custom/coding-pomodoro"]
-  },
-  "group/hollow-right-2": {
-    "orientation": "horizontal",
-    "modules": ["custom/coding-calendar"]
+    "modules": ["custom/coding-pomodoro", "custom/coding-calendar", "custom/coding-theme"]
   },
   "group/hollow-right-8": {
     "orientation": "horizontal",
-    "modules": ["custom/coding-theme"]
-  },
-  "group/hollow-right-1": {
-    "orientation": "horizontal",
     "modules": ["clock", "battery", "memory"]
   },
-  "group/hollow-right-3": {
+  "group/hollow-right-1": {
     "orientation": "horizontal",
     "modules": ["idle_inhibitor", "wirepumbler", "custom/waybar-rofi"]
   },
