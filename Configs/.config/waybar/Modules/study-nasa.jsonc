@@ -1,0 +1,10 @@
+{
+  "custom/study-nasa": {
+    "format": "{}",
+    "tooltip": true,
+    "return-type": "json",
+    "exec": "~/.config/waybar/Scripts/study/study-nasa.py",
+    "on-click": "xdg-open https://science.nasa.gov/",
+    "interval": 3600
+  }
+}

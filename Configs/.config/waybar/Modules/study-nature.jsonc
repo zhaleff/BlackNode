@@ -1,0 +1,10 @@
+{
+  "custom/study-nature": {
+    "format": "{}",
+    "tooltip": true,
+    "return-type": "json",
+    "exec": "~/.config/waybar/Scripts/study/study-nature.py",
+    "on-click": "xdg-open https://www.nature.com/",
+    "interval": 3600
+  }
+}

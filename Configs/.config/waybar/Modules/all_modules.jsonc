@@ -46,8 +46,22 @@
     "~/.config/waybar/Modules/study-wiki.jsonc",
     "~/.config/waybar/Modules/study-science.jsonc",
     "~/.config/waybar/Modules/study-pomodoro.jsonc",
-    "~/.config/waybar/Modules/study-research.jsonc",
-    "~/.config/waybar/Modules/study-tools.jsonc",
-    "~/.config/waybar/Modules/study-env.jsonc"
+    "~/.config/waybar/Modules/study-notes.jsonc",
+    "~/.config/waybar/Modules/study-docs.jsonc",
+    "~/.config/waybar/Modules/study-browser.jsonc",
+    "~/.config/waybar/Modules/study-code.jsonc",
+    "~/.config/waybar/Modules/study-markdown.jsonc",
+    "~/.config/waybar/Modules/study-wiki.jsonc",
+    "~/.config/waybar/Modules/study-dictionary.jsonc",
+    "~/.config/waybar/Modules/study-search.jsonc",
+    "~/.config/waybar/Modules/study-arxiv.jsonc",
+    "~/.config/waybar/Modules/study-nature.jsonc",
+    "~/.config/waybar/Modules/study-pubmed.jsonc",
+    "~/.config/waybar/Modules/study-nasa.jsonc",
+    "~/.config/waybar/Modules/study-khan.jsonc",
+    "~/.config/waybar/Modules/study-calculator.jsonc",
+    "~/.config/waybar/Modules/study-calendar.jsonc",
+    "~/.config/waybar/Modules/study-focus.jsonc",
+    "~/.config/waybar/Modules/study-theme.jsonc"
   ]
 }

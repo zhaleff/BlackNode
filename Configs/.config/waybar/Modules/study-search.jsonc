@@ -1,0 +1,10 @@
+{
+  "custom/study-search": {
+    "format": "{}",
+    "tooltip": true,
+    "return-type": "json",
+    "exec": "~/.config/waybar/Scripts/study/study-search.py",
+    "on-click": "~/.config/rofi/scripts/study.sh search",
+    "interval": 3600
+  }
+}

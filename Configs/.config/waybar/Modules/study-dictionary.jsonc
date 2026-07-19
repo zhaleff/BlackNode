@@ -1,0 +1,10 @@
+{
+  "custom/study-dictionary": {
+    "format": "{}",
+    "tooltip": true,
+    "return-type": "json",
+    "exec": "~/.config/waybar/Scripts/study/study-dictionary.py",
+    "on-click": "xdg-open https://en.wiktionary.org/wiki/Main_Page",
+    "interval": 3600
+  }
+}

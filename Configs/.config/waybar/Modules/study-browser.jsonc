@@ -4,7 +4,7 @@
     "tooltip": true,
     "return-type": "json",
     "exec": "~/.config/waybar/Scripts/study/study-browser.py",
-    "on-click": "~/.config/waybar/Scripts/study/study-launch.sh browser",
+    "on-click": "firefox",
     "interval": 3600
   }
 }

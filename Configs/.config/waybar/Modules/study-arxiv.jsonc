@@ -1,0 +1,10 @@
+{
+  "custom/study-arxiv": {
+    "format": "{}",
+    "tooltip": true,
+    "return-type": "json",
+    "exec": "~/.config/waybar/Scripts/study/study-arxiv.py",
+    "on-click": "xdg-open https://arxiv.org/",
+    "interval": 3600
+  }
+}

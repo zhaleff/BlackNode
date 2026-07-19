@@ -1,0 +1,10 @@
+{
+  "custom/study-pubmed": {
+    "format": "{}",
+    "tooltip": true,
+    "return-type": "json",
+    "exec": "~/.config/waybar/Scripts/study/study-pubmed.py",
+    "on-click": "xdg-open https://pubmed.ncbi.nlm.nih.gov/",
+    "interval": 3600
+  }
+}

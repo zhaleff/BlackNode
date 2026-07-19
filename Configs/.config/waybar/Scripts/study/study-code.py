@@ -1,10 +1,8 @@
 #!/usr/bin/env python3
 import json
-
 def main():
-    text = "\uf120"
-    tooltip = "Code — editor & terminal for practice"
-    print(json.dumps({"text": text, "tooltip": tooltip, "class": "code", "alt": "code"}, ensure_ascii=False))
-
+    text = chr(0xf121)
+    tooltip = "Code / Terminal — practice"
+    print(json.dumps({"text": text, "tooltip": tooltip, "class": "study-code", "alt": "study-code"}, ensure_ascii=False))
 if __name__ == "__main__":
     main()

@@ -4,7 +4,7 @@
     "tooltip": true,
     "return-type": "json",
     "exec": "~/.config/waybar/Scripts/study/study-pomodoro.py",
-    "on-click": "$SCRIPTS/pomodoro/menu.sh",
-    "interval": 1
+    "on-click": "~/.config/rofi/scripts/pomodoro.sh",
+    "interval": 3600
   }
 }

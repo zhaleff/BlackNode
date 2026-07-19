@@ -1,0 +1,10 @@
+{
+  "custom/study-theme": {
+    "format": "{}",
+    "tooltip": true,
+    "return-type": "json",
+    "exec": "~/.config/waybar/Scripts/study/study-theme.py",
+    "on-click": "~/.config/rofi/scripts/themeselect.sh",
+    "interval": 3600
+  }
+}

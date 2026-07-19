@@ -48,7 +48,8 @@ tooltip label {
 #hollow-right-4,
 #hollow-right-5,
 #hollow-right-6,
-#hollow-right-7 {
+#hollow-right-7,
+#hollow-right-8 {
   background-color: alpha(@outline, 0.12);
   border-radius: 6px;
   padding: 6px 10px;
@@ -86,7 +87,8 @@ tooltip label {
 #hollow-right-4:hover,
 #hollow-right-5:hover,
 #hollow-right-6:hover,
-#hollow-right-7:hover {
+#hollow-right-7:hover,
+#hollow-right-8:hover {
   background-color: alpha(@secondary-container, 0.5);
   border-radius: 999px;
   transition: all 0.25s cubic-bezier(0.3, 0.0, 0.0, 1.0);

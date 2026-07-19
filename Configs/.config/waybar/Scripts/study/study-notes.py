@@ -1,13 +1,8 @@
 #!/usr/bin/env python3
 import json
-import os
-
-NOTES_APP = os.environ.get("STUDY_NOTES", "obsidian")
-
 def main():
-    text = "\uf15c"
-    tooltip = "Notes — open your knowledge base (Markdown / Obsidian)"
-    print(json.dumps({"text": text, "tooltip": tooltip, "class": "notes", "alt": "notes"}, ensure_ascii=False))
-
+    text = chr(0xf0f34)
+    tooltip = "Notes — new / open / browse"
+    print(json.dumps({"text": text, "tooltip": tooltip, "class": "study-notes", "alt": "study-notes"}, ensure_ascii=False))
 if __name__ == "__main__":
     main()

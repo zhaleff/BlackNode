@@ -4,22 +4,32 @@
   ],
   "modules-left": [
     "group/hollow-left-2",
+    "group/hollow-left-3",
+    "group/hollow-left-4",
     "group/hollow-left-1"
   ],
   "modules-center": [],
   "modules-right": [
     "group/hollow-right-5",
+    "group/hollow-right-6",
+    "group/hollow-right-7",
     "group/hollow-right-4",
+    "group/hollow-right-2",
+    "group/hollow-right-8",
+    "group/hollow-right-1",
     "group/hollow-right-3"
   ],
   "group/hollow-left-2": {
     "orientation": "horizontal",
-    "modules": [
-      "custom/study-notes",
-      "custom/study-docs",
-      "custom/study-browser",
-      "custom/study-code"
-    ]
+    "modules": ["custom/study-notes"]
+  },
+  "group/hollow-left-3": {
+    "orientation": "horizontal",
+    "modules": ["custom/study-docs"]
+  },
+  "group/hollow-left-4": {
+    "orientation": "horizontal",
+    "modules": ["custom/study-browser", "custom/study-code", "custom/study-markdown"]
   },
   "group/hollow-left-1": {
     "orientation": "horizontal",
@@ -27,28 +37,35 @@
   },
   "group/hollow-right-5": {
     "orientation": "horizontal",
-    "modules": [
-      "custom/study-research",
-      "custom/study-science",
-      "custom/study-tools"
-    ]
+    "modules": ["custom/study-wiki"]
+  },
+  "group/hollow-right-6": {
+    "orientation": "horizontal",
+    "modules": ["custom/study-dictionary", "custom/study-search"]
+  },
+  "group/hollow-right-7": {
+    "orientation": "horizontal",
+    "modules": ["custom/study-arxiv", "custom/study-nature", "custom/study-pubmed", "custom/study-nasa", "custom/study-khan"]
   },
   "group/hollow-right-4": {
     "orientation": "horizontal",
-    "modules": [
-      "clock",
-      "battery",
-      "memory"
-    ]
+    "modules": ["custom/study-pomodoro"]
+  },
+  "group/hollow-right-2": {
+    "orientation": "horizontal",
+    "modules": ["custom/study-calculator", "custom/study-calendar"]
+  },
+  "group/hollow-right-8": {
+    "orientation": "horizontal",
+    "modules": ["custom/study-focus", "custom/study-theme"]
+  },
+  "group/hollow-right-1": {
+    "orientation": "horizontal",
+    "modules": ["clock", "battery", "memory"]
   },
   "group/hollow-right-3": {
     "orientation": "horizontal",
-    "modules": [
-      "custom/study-env",
-      "idle_inhibitor",
-      "wirepumbler",
-      "custom/waybar-rofi"
-    ]
+    "modules": ["idle_inhibitor", "wirepumbler", "custom/waybar-rofi"]
   },
   "custom/waybar-rofi": {
     "format": " ",

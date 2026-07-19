@@ -1,0 +1,10 @@
+{
+  "custom/study-markdown": {
+    "format": "{}",
+    "tooltip": true,
+    "return-type": "json",
+    "exec": "~/.config/waybar/Scripts/study/study-markdown.py",
+    "on-click": "kitty -e nvim /home/zhaleff/BlackNode/Notes",
+    "interval": 3600
+  }
+}
