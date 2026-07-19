@@ -48,5 +48,10 @@
       "wirepumbler",
       "custom/waybar-rofi"
     ]
+  },
+  "custom/waybar-rofi": {
+    "format": " ",
+    "on-click": "~/.config/rofi/scripts/study.sh",
+    "tooltip": "Study command center"
   }
 }

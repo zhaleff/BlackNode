@@ -3,6 +3,17 @@
 layouts_dir="$HOME/.config/waybar/Layouts"
 config_file="$HOME/.config/waybar/config.jsonc"
 
+# Profile-aware rofi: open the profile's dedicated command center if it exists.
+ACTIVE_FILE="$HOME/.local/share/blacknode/active_profile"
+if [[ -f "$ACTIVE_FILE" ]]; then
+    active_profile="$(cat "$ACTIVE_FILE")"
+    case "$active_profile" in
+        study)
+            exec "$HOME/.config/rofi/scripts/study.sh"
+            ;;
+    esac
+fi
+
 entries=""
 for f in "$layouts_dir"/*.jsonc; do
   name=$(basename "$f" .jsonc)
