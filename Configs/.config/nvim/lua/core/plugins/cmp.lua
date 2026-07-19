@@ -16,6 +16,7 @@ return {
       "lukas-reineke/cmp-under-comparator",
       "roobert/tailwindcss-colorizer-cmp.nvim",
       "Exafunction/codeium.nvim",
+      "windwp/nvim-autopairs",
     },
     event = { "InsertEnter", "CmdlineEnter" },
     config = function()
@@ -25,13 +26,17 @@ return {
       local colorful     = require("colorful-menu")
       local under        = require("cmp-under-comparator")
       local tw_colorizer = require("tailwindcss-colorizer-cmp")
+      local cmp_autopairs = require("nvim-autopairs.completion.cmp")
 
-      vim.api.nvim_set_hl(0, "CmpBorder", { fg = "#45475a" })
-      vim.api.nvim_set_hl(0, "CmpSel", { bg = "#585b70", bold = true })
+      vim.api.nvim_set_hl(0, "CmpBorder", { fg = "#2a2a2a" })
+      vim.api.nvim_set_hl(0, "CmpDocBorder", { fg = "#2a2a2a" })
+      vim.api.nvim_set_hl(0, "CmpSel", { bg = "#3a3a3a", bold = true })
+
       cmp.setup({
         enabled = function()
           if vim.api.nvim_get_mode().mode == "c" then return true end
-          if vim.api.nvim_get_option_value("buftype", { buf = 0 }) == "prompt" then return false end
+          local buftype = vim.api.nvim_get_option_value("buftype", { buf = 0 })
+          if buftype == "prompt" or buftype == "nofile" then return false end
           if vim.fn.reg_recording() ~= "" or vim.fn.reg_executing() ~= "" then return false end
           local ctx = require("cmp.config.context")
           return not ctx.in_treesitter_capture("comment") and not ctx.in_syntax_group("Comment")
@@ -43,7 +48,15 @@ return {
 
         mapping = cmp.mapping.preset.insert({
           ["<C-Space>"] = cmp.mapping.complete(),
-          ["<CR>"]      = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true }),
+
+          ["<CR>"] = cmp.mapping(function(fallback)
+            if cmp.visible() and cmp.get_active_entry() then
+              cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false })
+            else
+              fallback()
+            end
+          end, { "i", "s" }),
+
           ["<C-e>"]     = cmp.mapping.abort(),
           ["<C-b>"]     = cmp.mapping.scroll_docs(-4),
           ["<C-f>"]     = cmp.mapping.scroll_docs(4),
@@ -81,8 +94,8 @@ return {
         }),
 
         sources = cmp.config.sources({
-          { name = "codeium",          priority_weight = 110, max_item_count = 3  },
-          { name = "nvim_lsp",         priority_weight = 100, max_item_count = 10 },
+          { name = "nvim_lsp",         priority_weight = 110, max_item_count = 12 },
+          { name = "codeium",          priority_weight = 100, max_item_count = 3  },
           { name = "nvim_lsp_signature_help", priority_weight = 95 },
           { name = "luasnip",          priority_weight = 90,  max_item_count = 5  },
           { name = "nvim_lua",         priority_weight = 80 },
@@ -135,12 +148,12 @@ return {
 
             vim_item.menu = ({
               codeium   = "󰚩 AI",
-              nvim_lsp  = "󰒋 LSP",
-              luasnip   = " Snip",
-              nvim_lua  = " API",
-              path      = " Path",
+              nvim_lsp  = "󰈇 LSP",
+              luasnip   = "󰩫 Snip",
+              nvim_lua  = "󰢱 API",
+              path      = "󰉋 Path",
               buffer    = "󰈙 Buf",
-              latex_symbols = " LaTeX",
+              latex_symbols = "󰲹 LaTeX",
               spell     = "󰓆 Spell",
               nvim_lsp_signature_help = "󰊕 Sig",
             })[entry.source.name] or ""
@@ -208,6 +221,10 @@ return {
         },
       })
 
+      -- Puente con autopairs: al aceptar una función, auto-cierra () y
+      -- posiciona el cursor dentro, listo para escribir argumentos.
+      cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
+
       cmp.setup.cmdline({ "/", "?" }, {
         mapping = cmp.mapping.preset.cmdline(),
         sources = { { name = "buffer", keyword_length = 2 } },
@@ -221,6 +238,15 @@ return {
         ),
       })
     end,
+  },
+
+  {
+    "windwp/nvim-autopairs",
+    event = "InsertEnter",
+    opts = {
+      check_ts = true,
+      fast_wrap = {},
+    },
   },
 
   {

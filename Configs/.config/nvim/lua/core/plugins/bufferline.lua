@@ -4,7 +4,6 @@ return {
     version = "*",
     dependencies = {
       "nvim-tree/nvim-web-devicons",
-      "catppuccin/nvim",
     },
     event = "BufReadPost",
     config = function()
@@ -74,14 +73,6 @@ return {
         require("bufferline").cycle(-1)
       end, { desc = "Previous tab" })
 
-      require("catppuccin").setup({
-        integrations = {
-          bufferline = {
-            enabled = true,
-            highlight_inactive = false,
-          },
-        },
-      })
     end,
   },
 }

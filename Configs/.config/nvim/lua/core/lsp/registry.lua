@@ -1,4 +1,3 @@
-
 return {
   lua_ls = {
     settings = {
@@ -72,8 +71,12 @@ return {
       },
     },
   },
-
   marksman = {},
   bashls = { filetypes = { "sh", "bash", "zsh" } },
-
+  emmet_language_server = {
+    filetypes = {
+      "html", "css", "scss", "sass", "less", "javascriptreact", "typescriptreact",
+      "vue", "svelte", "astro", "php", "blade",
+    },
+  },
 }
