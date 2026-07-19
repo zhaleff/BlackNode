@@ -4,7 +4,7 @@
     "tooltip": true,
     "return-type": "json",
     "exec": "~/.config/waybar/Scripts/study/study-docs.py",
-    "on-click": "~/.config/waybar/Scripts/study/study-launch.sh docs",
+    "on-click": "~/.config/rofi/scripts/study.sh docs",
     "interval": 3600
   }
 }

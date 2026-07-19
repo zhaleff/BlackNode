@@ -45,6 +45,9 @@
     "~/.config/waybar/Modules/study-code.jsonc",
     "~/.config/waybar/Modules/study-wiki.jsonc",
     "~/.config/waybar/Modules/study-science.jsonc",
-    "~/.config/waybar/Modules/study-pomodoro.jsonc"
+    "~/.config/waybar/Modules/study-pomodoro.jsonc",
+    "~/.config/waybar/Modules/study-research.jsonc",
+    "~/.config/waybar/Modules/study-tools.jsonc",
+    "~/.config/waybar/Modules/study-env.jsonc"
   ]
 }

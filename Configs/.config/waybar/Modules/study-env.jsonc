@@ -1,0 +1,10 @@
+{
+  "custom/study-env": {
+    "format": "{}",
+    "tooltip": true,
+    "return-type": "json",
+    "exec": "~/.config/waybar/Scripts/study/study-env.py",
+    "on-click": "~/.config/rofi/scripts/study.sh env",
+    "interval": 3600
+  }
+}

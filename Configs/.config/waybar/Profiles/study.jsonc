@@ -28,9 +28,9 @@
   "group/hollow-right-5": {
     "orientation": "horizontal",
     "modules": [
-      "custom/study-wiki",
+      "custom/study-research",
       "custom/study-science",
-      "custom/study-pomodoro"
+      "custom/study-tools"
     ]
   },
   "group/hollow-right-4": {
@@ -44,6 +44,7 @@
   "group/hollow-right-3": {
     "orientation": "horizontal",
     "modules": [
+      "custom/study-env",
       "idle_inhibitor",
       "wirepumbler",
       "custom/waybar-rofi"
@@ -51,7 +52,7 @@
   },
   "custom/waybar-rofi": {
     "format": " ",
-    "on-click": "~/.config/rofi/scripts/study.sh",
-    "tooltip": "Study command center"
+    "on-click": "~/.local/bin/bn-menu",
+    "tooltip": "System menu"
   }
 }

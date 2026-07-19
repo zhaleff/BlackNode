@@ -4,7 +4,7 @@
     "tooltip": true,
     "return-type": "json",
     "exec": "~/.config/waybar/Scripts/study/study-science.py",
-    "on-click": "~/.config/waybar/Scripts/study/study-science.py --next",
+    "on-click": "~/.config/rofi/scripts/study.sh science",
     "interval": 3600
   }
 }

@@ -139,24 +139,13 @@ menu_env() {
     esac
 }
 
-# ---------- top level: groups only ----------
-main_menu() {
-    choice=$(printf '%s\n' \
-        "󰈙  Notes" \
-        "󰊄  Research" \
-        "󰛩  Science" \
-        "󰇮  Documents" \
-        "󰛠  Tools" \
-        "󰗀  Environment" \
-        | rofi -dmenu -i -p " Study" -theme "$THEME")
-    case "$choice" in
-        "󰈙  Notes") menu_notes ;;
-        "󰊄  Research") menu_research ;;
-        "󰛩  Science") menu_science ;;
-        "󰇮  Documents") menu_docs ;;
-        "󰛠  Tools") menu_tools ;;
-        "󰗀  Environment") menu_env ;;
-    esac
-}
-
-main_menu
+# ---------- dispatcher (each waybar group calls study.sh <group>) ----------
+case "${1:-}" in
+    notes) menu_notes ;;
+    docs) menu_docs ;;
+    research) menu_research ;;
+    science) menu_science ;;
+    tools) menu_tools ;;
+    env) menu_env ;;
+    *) main_menu ;;
+esac
