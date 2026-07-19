@@ -1,0 +1,10 @@
+{
+  "custom/coding-calendar": {
+    "format": "{}",
+    "tooltip": true,
+    "return-type": "json",
+    "exec": "~/.config/waybar/Scripts/coding/coding-calendar.py",
+    "on-click": "~/.config/rofi/scripts/coding.sh calendar",
+    "interval": 3600
+  }
+}

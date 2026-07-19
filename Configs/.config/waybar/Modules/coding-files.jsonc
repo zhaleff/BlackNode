@@ -1,0 +1,10 @@
+{
+  "custom/coding-files": {
+    "format": "{}",
+    "tooltip": true,
+    "return-type": "json",
+    "exec": "~/.config/waybar/Scripts/coding/coding-files.py",
+    "on-click": "kitty -e yazi",
+    "interval": 3600
+  }
+}

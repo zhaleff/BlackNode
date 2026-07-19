@@ -1,0 +1,10 @@
+{
+  "custom/coding-pomodoro": {
+    "format": "{}",
+    "tooltip": true,
+    "return-type": "json",
+    "exec": "~/.config/waybar/Scripts/coding/coding-pomodoro.py",
+    "on-click": "~/.config/rofi/scripts/pomodoro.sh",
+    "interval": 3600
+  }
+}

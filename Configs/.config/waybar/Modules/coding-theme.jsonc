@@ -1,0 +1,10 @@
+{
+  "custom/coding-theme": {
+    "format": "{}",
+    "tooltip": true,
+    "return-type": "json",
+    "exec": "~/.config/waybar/Scripts/coding/coding-theme.py",
+    "on-click": "~/.config/rofi/scripts/themeselect.sh",
+    "interval": 3600
+  }
+}

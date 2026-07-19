@@ -1,0 +1,10 @@
+{
+  "custom/coding-git": {
+    "format": "{}",
+    "tooltip": true,
+    "return-type": "json",
+    "exec": "~/.config/waybar/Scripts/coding/coding-git.py",
+    "on-click": "~/.config/rofi/scripts/coding.sh git",
+    "interval": 3600
+  }
+}

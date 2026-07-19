@@ -1,0 +1,10 @@
+{
+  "custom/coding-docs": {
+    "format": "{}",
+    "tooltip": true,
+    "return-type": "json",
+    "exec": "~/.config/waybar/Scripts/coding/coding-docs.py",
+    "on-click": "~/.config/rofi/scripts/coding.sh docs",
+    "interval": 3600
+  }
+}

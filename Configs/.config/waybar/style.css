@@ -49,7 +49,15 @@ tooltip label {
 #hollow-right-5,
 #hollow-right-6,
 #hollow-right-7,
-#hollow-right-8 {
+#hollow-right-8,
+#hollow-left-5,
+#hollow-left-6,
+#hollow-left-7,
+#hollow-left-8,
+#hollow-right-9,
+#hollow-right-10,
+#hollow-right-11,
+#hollow-right-12 {
   background-color: alpha(@outline, 0.12);
   border-radius: 6px;
   padding: 6px 10px;
@@ -88,7 +96,15 @@ tooltip label {
 #hollow-right-5:hover,
 #hollow-right-6:hover,
 #hollow-right-7:hover,
-#hollow-right-8:hover {
+#hollow-right-8:hover,
+#hollow-left-5:hover,
+#hollow-left-6:hover,
+#hollow-left-7:hover,
+#hollow-left-8:hover,
+#hollow-right-9:hover,
+#hollow-right-10:hover,
+#hollow-right-11:hover,
+#hollow-right-12:hover {
   background-color: alpha(@secondary-container, 0.5);
   border-radius: 999px;
   transition: all 0.25s cubic-bezier(0.3, 0.0, 0.0, 1.0);

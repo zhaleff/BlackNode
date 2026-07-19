@@ -62,6 +62,20 @@
     "~/.config/waybar/Modules/study-calculator.jsonc",
     "~/.config/waybar/Modules/study-calendar.jsonc",
     "~/.config/waybar/Modules/study-focus.jsonc",
-    "~/.config/waybar/Modules/study-theme.jsonc"
+    "~/.config/waybar/Modules/study-theme.jsonc",
+    "~/.config/waybar/Modules/coding-editor.jsonc",
+    "~/.config/waybar/Modules/coding-term.jsonc",
+    "~/.config/waybar/Modules/coding-files.jsonc",
+    "~/.config/waybar/Modules/coding-notes.jsonc",
+    "~/.config/waybar/Modules/coding-docs.jsonc",
+    "~/.config/waybar/Modules/coding-roadmap.jsonc",
+    "~/.config/waybar/Modules/coding-lang.jsonc",
+    "~/.config/waybar/Modules/coding-git.jsonc",
+    "~/.config/waybar/Modules/coding-tools.jsonc",
+    "~/.config/waybar/Modules/coding-ai.jsonc",
+    "~/.config/waybar/Modules/coding-stack.jsonc",
+    "~/.config/waybar/Modules/coding-pomodoro.jsonc",
+    "~/.config/waybar/Modules/coding-calendar.jsonc",
+    "~/.config/waybar/Modules/coding-theme.jsonc"
   ]
 }

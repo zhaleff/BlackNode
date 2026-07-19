@@ -1,0 +1,10 @@
+{
+  "custom/coding-lang": {
+    "format": "{}",
+    "tooltip": true,
+    "return-type": "json",
+    "exec": "~/.config/waybar/Scripts/coding/coding-lang.py",
+    "on-click": "~/.config/rofi/scripts/coding.sh lang",
+    "interval": 3600
+  }
+}

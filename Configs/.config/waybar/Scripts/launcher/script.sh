@@ -11,6 +11,9 @@ if [[ -f "$ACTIVE_FILE" ]]; then
         study)
             exec "$HOME/.config/rofi/scripts/study.sh"
             ;;
+        coding)
+            exec "$HOME/.config/rofi/scripts/coding.sh"
+            ;;
     esac
 fi
 

@@ -1,0 +1,10 @@
+{
+  "custom/coding-term": {
+    "format": "{}",
+    "tooltip": true,
+    "return-type": "json",
+    "exec": "~/.config/waybar/Scripts/coding/coding-term.py",
+    "on-click": "kitty",
+    "interval": 3600
+  }
+}

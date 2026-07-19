@@ -1,0 +1,10 @@
+{
+  "custom/coding-stack": {
+    "format": "{}",
+    "tooltip": true,
+    "return-type": "json",
+    "exec": "~/.config/waybar/Scripts/coding/coding-stack.py",
+    "on-click": "~/.config/rofi/scripts/coding.sh stack",
+    "interval": 3600
+  }
+}

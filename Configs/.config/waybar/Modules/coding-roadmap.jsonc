@@ -1,0 +1,10 @@
+{
+  "custom/coding-roadmap": {
+    "format": "{}",
+    "tooltip": true,
+    "return-type": "json",
+    "exec": "~/.config/waybar/Scripts/coding/coding-roadmap.py",
+    "on-click": "~/.config/rofi/scripts/coding.sh roadmap",
+    "interval": 3600
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "custom/coding-tools": {
+    "format": "{}",
+    "tooltip": true,
+    "return-type": "json",
+    "exec": "~/.config/waybar/Scripts/coding/coding-tools.py",
+    "on-click": "~/.config/rofi/scripts/coding.sh tools",
+    "interval": 3600
+  }
+}

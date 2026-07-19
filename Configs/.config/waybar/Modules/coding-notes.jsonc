@@ -1,0 +1,10 @@
+{
+  "custom/coding-notes": {
+    "format": "{}",
+    "tooltip": true,
+    "return-type": "json",
+    "exec": "~/.config/waybar/Scripts/coding/coding-notes.py",
+    "on-click": "kitty -e nvim /home/zhaleff/BlackNode/Notes",
+    "interval": 3600
+  }
+}
