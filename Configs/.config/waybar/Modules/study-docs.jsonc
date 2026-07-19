@@ -1,0 +1,10 @@
+{
+  "custom/study-docs": {
+    "format": "{}",
+    "tooltip": true,
+    "return-type": "json",
+    "exec": "~/.config/waybar/Scripts/study/study-docs.py",
+    "on-click": "~/.config/waybar/Scripts/study/study-launch.sh docs",
+    "interval": 3600
+  }
+}

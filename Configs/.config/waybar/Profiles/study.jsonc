@@ -1,0 +1,52 @@
+{
+  "include": [
+    "~/.config/waybar/Modules/all_modules.jsonc"
+  ],
+  "modules-left": [
+    "group/hollow-left-2",
+    "group/hollow-left-1"
+  ],
+  "modules-center": [],
+  "modules-right": [
+    "group/hollow-right-5",
+    "group/hollow-right-4",
+    "group/hollow-right-3"
+  ],
+  "group/hollow-left-2": {
+    "orientation": "horizontal",
+    "modules": [
+      "custom/study-notes",
+      "custom/study-docs",
+      "custom/study-browser",
+      "custom/study-code"
+    ]
+  },
+  "group/hollow-left-1": {
+    "orientation": "horizontal",
+    "modules": ["hyprland/workspaces"]
+  },
+  "group/hollow-right-5": {
+    "orientation": "horizontal",
+    "modules": [
+      "custom/study-wiki",
+      "custom/study-science",
+      "custom/study-pomodoro"
+    ]
+  },
+  "group/hollow-right-4": {
+    "orientation": "horizontal",
+    "modules": [
+      "clock",
+      "battery",
+      "memory"
+    ]
+  },
+  "group/hollow-right-3": {
+    "orientation": "horizontal",
+    "modules": [
+      "idle_inhibitor",
+      "wirepumbler",
+      "custom/waybar-rofi"
+    ]
+  }
+}

@@ -38,6 +38,13 @@
     "~/.config/waybar/Modules/astro-links.jsonc",
     "~/.config/waybar/Modules/shuffle.jsonc",
     "~/.config/waybar/Modules/repeat.jsonc",
-    "~/.config/waybar/Modules/music-progress.jsonc"
+    "~/.config/waybar/Modules/music-progress.jsonc",
+    "~/.config/waybar/Modules/study-notes.jsonc",
+    "~/.config/waybar/Modules/study-docs.jsonc",
+    "~/.config/waybar/Modules/study-browser.jsonc",
+    "~/.config/waybar/Modules/study-code.jsonc",
+    "~/.config/waybar/Modules/study-wiki.jsonc",
+    "~/.config/waybar/Modules/study-science.jsonc",
+    "~/.config/waybar/Modules/study-pomodoro.jsonc"
   ]
 }

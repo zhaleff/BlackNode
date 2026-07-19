@@ -1,0 +1,10 @@
+{
+  "custom/study-browser": {
+    "format": "{}",
+    "tooltip": true,
+    "return-type": "json",
+    "exec": "~/.config/waybar/Scripts/study/study-browser.py",
+    "on-click": "~/.config/waybar/Scripts/study/study-launch.sh browser",
+    "interval": 3600
+  }
+}

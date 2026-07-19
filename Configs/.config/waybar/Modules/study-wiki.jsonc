@@ -1,0 +1,10 @@
+{
+  "custom/study-wiki": {
+    "format": "{}",
+    "tooltip": true,
+    "return-type": "json",
+    "exec": "~/.config/waybar/Scripts/study/study-wiki.py",
+    "on-click": "~/.config/waybar/Scripts/study/study-wiki.py --next",
+    "interval": 3600
+  }
+}

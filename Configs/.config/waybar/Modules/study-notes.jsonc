@@ -1,0 +1,10 @@
+{
+  "custom/study-notes": {
+    "format": "{}",
+    "tooltip": true,
+    "return-type": "json",
+    "exec": "~/.config/waybar/Scripts/study/study-notes.py",
+    "on-click": "~/.config/waybar/Scripts/study/study-launch.sh notes",
+    "interval": 3600
+  }
+}
