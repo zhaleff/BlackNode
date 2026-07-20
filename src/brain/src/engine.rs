@@ -54,12 +54,16 @@ impl Engine {
         let Engine {
             bus,
             config: _,
-            context: _,
+            context,
             collectors,
             algorithms,
             decision,
             actions,
         } = self;
+
+        let ctx = Arc::clone(&context);
+        let bus_ctx = Arc::clone(&bus);
+        std::thread::spawn(move || crate::context::run(bus_ctx, ctx));
 
         for c in collectors {
             let bus = Arc::clone(&bus);
