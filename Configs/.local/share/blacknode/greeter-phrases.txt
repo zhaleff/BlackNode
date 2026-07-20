@@ -1,0 +1,39 @@
+# BlackNode Greeter — phrase pool
+# One phrase per line. Use $name for the user's name.
+# The greeter picks one at random per session (never the same twice in a row).
+# Edit freely — this IS your "database".
+
+[late]
+$name, the small hours. The machine is awake if you are. If not, rest — you earned it.
+Burning the midnight oil, $name? I kept your session exactly as you left it.
+$name, it's the dead of night. Whatever pulled you here, I've got it ready.
+
+[dawn]
+Early, $name. The world's still asleep and you're already moving. Respect.
+First light, $name. Your space is set — no noise, just you and the work.
+You beat the sun up, $name. Everything's right where you left it yesterday.
+
+[morning]
+Morning, $name. Fresh page. Make it yours.
+$name, new morning, same fire. Let's see what you build today.
+Morning. The board is clean, $name — go leave your mark on it.
+
+[noon]
+Midday, $name. Breathe a second — your session's still right here.
+$name, sun's high. You've already done the hard part: you showed up.
+Noon check, $name. Whatever you started this morning, it's still waiting for you.
+
+[afternoon]
+Late afternoon, $name. The day's still yours — keep pulling.
+$name, you're in the home stretch. Don't let the good idea slip.
+Afternoon, $name. Your workspace is dialed in. Just keep going.
+
+[evening]
+Evening, $name. Look at what you put on the board today — that's real.
+$name, the light's going down and so is your to-do. You did good work today.
+Evening. $name, be proud of the day — it's yours, and it shows.
+
+[night]
+Night, $name. Quiet mode. You showed up today, and that's what counts.
+$name, the screen's dimming for you. Close the loop when you're ready.
+Night falls, $name. The work's saved. The rest is yours.
