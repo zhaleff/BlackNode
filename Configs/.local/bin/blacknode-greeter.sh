@@ -9,10 +9,24 @@
 set -euo pipefail
 
 STATE_DIR="$HOME/.local/share/blacknode"
-PHRASES="$STATE_DIR/greeter-phrases.txt"
 LAST_FILE="$STATE_DIR/greeter_last.txt"
 ICON_DIR="$(mktemp -d)"
 trap 'rm -rf "$ICON_DIR"' EXIT
+
+# Phrase pool lives in the REAL GitHub repo, not a local file the user must edit.
+# We pull the freshest phrases from GitHub; fall back to the cloned repo if offline.
+RAW_URL="https://raw.githubusercontent.com/zhaleff/BlackNode/main/Configs/.local/share/blacknode/greeter-phrases.txt"
+CACHE="$STATE_DIR/greeter-phrases.cached.txt"
+REPO_LOCAL="$HOME/BlackNode/Configs/.local/share/blacknode/greeter-phrases.txt"
+
+PHRASES="$CACHE"
+if curl -fsSL --max-time 8 "$RAW_URL" -o "$CACHE" 2>/dev/null && [[ -s "$CACHE" ]]; then
+    PHRASES="$CACHE"
+elif [[ -s "$REPO_LOCAL" ]]; then
+    PHRASES="$REPO_LOCAL"
+elif [[ -s "$CACHE" ]]; then
+    PHRASES="$CACHE"
+fi
 
 USER_NAME="$(getent passwd "$USER" | cut -d: -f5)"
 [[ -z "$USER_NAME" || "$USER_NAME" == "$USER" ]] && USER_NAME="${USER^}"
