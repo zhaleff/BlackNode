@@ -52,6 +52,7 @@ pub fn run(bus: Arc<Bus>, ctx: Arc<Mutex<Context>>) {
     let mut distract = 0.0;
     let mut instability = 0.0;
     let mut context_label = String::new();
+    let mut top_app = String::new();
     let mut last_window_ts = now_ms();
     loop {
         while let Ok(k) = bus.knowledge_rx().try_recv() {
@@ -63,11 +64,14 @@ pub fn run(bus: Arc<Bus>, ctx: Arc<Mutex<Context>>) {
                 _ => {}
             }
         }
-        while let Ok(_s) = bus.signal_rx().try_recv() {
+        while let Ok(s) = bus.signal_rx().try_recv() {
             last_window_ts = now_ms();
+            if s.kind == "window" {
+                top_app = s.value.clone();
+            }
         }
         let idle_for = now_ms().saturating_sub(last_window_ts);
-        let (activity, conf) = infer(focus, distract, instability, idle_for);
+        let (activity, conf) = infer(focus, distract, instability, idle_for, &top_app);
         {
             let mut g = ctx.lock().unwrap();
             g.focus_min = focus * 25.0;
@@ -75,12 +79,19 @@ pub fn run(bus: Arc<Bus>, ctx: Arc<Mutex<Context>>) {
             g.activity = activity;
             g.confidence = conf;
             g.context_label = context_label.clone();
+            g.top_app = top_app.clone();
         }
         std::thread::sleep(std::time::Duration::from_millis(500));
     }
 }
 
-fn infer(focus: f64, _distract: f64, instability: f64, idle_for: u64) -> (Activity, f64) {
+const MEDIA_APPS: &[&str] = &["spotify", "vlc", "mpv", "youtube-music", "rhythmbox"];
+
+fn infer(focus: f64, _distract: f64, instability: f64, idle_for: u64, top_app: &str) -> (Activity, f64) {
+    let app = top_app.to_lowercase();
+    if MEDIA_APPS.iter().any(|m| app.contains(m)) {
+        return (Activity::Media, 0.9);
+    }
     if idle_for > 5 * 60 * 1000 {
         return (Activity::Idle, 0.8);
     }

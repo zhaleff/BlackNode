@@ -21,7 +21,7 @@ fn main() {
     for a in algorithm::register(&engine.config) {
         engine.add_algorithm(a);
     }
-    engine.set_decision(decision::DefaultDecisionEngine::new());
+    engine.set_decision(decision::DefaultDecisionEngine::new(engine.config.automation.launch_demo));
     for a in action::register(&engine.config) {
         engine.add_action(a);
     }

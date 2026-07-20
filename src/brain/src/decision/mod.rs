@@ -16,13 +16,17 @@ pub use engine_trait::DecisionEngine;
 pub struct DefaultDecisionEngine {
     last_dnd: bool,
     last_hud: String,
+    launch_demo: bool,
+    last_launch: String,
 }
 
 impl DefaultDecisionEngine {
-    pub fn new() -> Box<Self> {
+    pub fn new(launch_demo: bool) -> Box<Self> {
         Box::new(DefaultDecisionEngine {
             last_dnd: false,
             last_hud: String::new(),
+            launch_demo,
+            last_launch: String::new(),
         })
     }
 }
@@ -56,6 +60,20 @@ impl DecisionEngine for DefaultDecisionEngine {
         let mut out = Vec::new();
         let focus = latest(k, "focus");
         let instability = latest(k, "instability");
+
+        for kk in k {
+            if let Some(app) = kk.claim.strip_prefix("routine:") {
+                if kk.value >= 0.5 && self.last_launch != app {
+                    self.last_launch = app.to_string();
+                    out.push(
+                        Decision::new("LaunchApp")
+                            .param("app", app)
+                            .because(&format!("learned routine: you usually open {} now (p={:.0}%)", app, kk.value * 100.0))
+                            .confidence(kk.value.min(0.95)),
+                    );
+                }
+            }
+        }
 
         match ctx.activity {
             Activity::DeepWork => {
@@ -92,6 +110,17 @@ impl DecisionEngine for DefaultDecisionEngine {
                 if self.last_dnd {
                     self.last_dnd = false;
                     out.push(Decision::new("DisableDND").because("user is idle").confidence(0.8));
+                }
+            }
+            Activity::Media => {
+                if self.launch_demo && self.last_launch != "spotify" {
+                    self.last_launch = "spotify".to_string();
+                    out.push(
+                        Decision::new("LaunchApp")
+                            .param("app", "spotify")
+                            .because("media context detected, autonomously opening spotify")
+                            .confidence(0.9),
+                    );
                 }
             }
             _ => {}
