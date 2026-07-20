@@ -18,10 +18,16 @@ impl dyn Algorithm {
 }
 
 mod anomaly;
+mod bayes;
 mod ewma;
+mod kmeans;
+mod markov;
 
 pub use anomaly::Anomaly;
+pub use bayes::Bayes;
 pub use ewma::Ewma;
+pub use kmeans::Kmeans;
+pub use markov::Markov;
 
 use crate::config::Config;
 
@@ -33,6 +39,15 @@ pub fn register(config: &Config) -> Vec<Box<dyn Algorithm>> {
     }
     if config.algorithm_on("anomaly") {
         out.push(Anomaly::new());
+    }
+    if config.algorithm_on("markov") {
+        out.push(Markov::new());
+    }
+    if config.algorithm_on("bayes") {
+        out.push(Bayes::new());
+    }
+    if config.algorithm_on("kmeans") {
+        out.push(Kmeans::new());
     }
     out
 }
