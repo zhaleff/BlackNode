@@ -6,6 +6,7 @@
 
 use crate::algorithm::Algorithm;
 use crate::bus::{Bus, Knowledge};
+use crate::time::local_hour;
 use std::sync::Arc;
 
 pub struct Bayes;
@@ -14,15 +15,6 @@ impl Bayes {
     pub fn new() -> Box<Self> {
         Box::new(Bayes)
     }
-}
-
-fn hour_now() -> u8 {
-    use std::time::{SystemTime, UNIX_EPOCH};
-    let s = SystemTime::now()
-        .duration_since(UNIX_EPOCH)
-        .map(|d| d.as_secs())
-        .unwrap_or(0);
-    ((s / 3600) % 24) as u8
 }
 
 impl Algorithm for Bayes {
@@ -36,15 +28,15 @@ impl Algorithm for Bayes {
         loop {
             while let Ok(s) = sig.try_recv() {
                 if s.kind == "focus" {
-                    mem.observe_focus(hour_now(), true);
+                    mem.observe_focus(local_hour(), true);
                 } else if s.kind == "distract" {
-                    mem.observe_focus(hour_now(), false);
+                    mem.observe_focus(local_hour(), false);
                 }
             }
             let now = now_ms();
             if now - last_pub > 1000 {
                 last_pub = now;
-                let h = hour_now();
+                let h = local_hour();
                 let p = mem.focus_prob(h);
                 let conf = (mem.total_samples(h) / (mem.total_samples(h) + 10.0)).min(0.9);
                 bus.publish_knowledge(Knowledge::new("bayes", "focus_hour", p, conf));
