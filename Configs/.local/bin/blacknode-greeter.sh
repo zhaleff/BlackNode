@@ -115,55 +115,55 @@ SVG
 ICON="$ICON_DIR/greeter.svg"
 svg_icon "$FRANJA" "$COLOR" "$ICON"
 
-# ---------- mensaje no generico (psicologia: te conoce) ----------
-DOW_NAME="$(date +%A)"
+# ---------- message: real psychology, system feels alive (ENGLISH) ----------
 title="BlackNode"
 body=""
 
 case "$FRANJA" in
     late)
-        body="${USER_NAME}, son las de la madrugada. El equipo esta listo si lo necesitas; si no, descansa. 🌃"
+        body="It's the small hours, ${USER_NAME}. The machine is here if you need it. If not, rest. You earned it."
         ;;
     dawn)
         if [[ "$DOW" == "1" ]]; then
-            body="Lunes temprano, ${USER_NAME}. El sistema ya cargo tu perfil y bajó las distracciones. Empieza sin ruido."
+            body="Early Monday, ${USER_NAME}. Your space is already set — no noise, just you and the work."
         else
-            body="Madrugaste, ${USER_NAME}. Tu entorno esta exactamente como lo dejaste ayer."
+            body="You're up before the world, ${USER_NAME}. Everything is exactly where you left it yesterday."
         fi
         ;;
     morning)
         if [[ "$streak" -ge 3 ]]; then
-            body="Buenos dias, ${USER_NAME}. Vas $streak dias seguidos aqui — tu ritmo ya se nota. ☀"
+            body="Morning, ${USER_NAME}. ${streak} days running now — I can see the rhythm you've built. Keep it."
         else
-            body="Buenos dias, ${USER_NAME}. Hoy es una buena pagina en blanco."
+            body="Morning, ${USER_NAME}. Fresh page today. Make it yours."
         fi
         ;;
     noon)
-        body="Mediodia, ${USER_NAME}. Respira un momento; tu sesion sigue intacta del lado izquierdo."
+        body="Midday, ${USER_NAME}. Breathe a second — your session is still right there waiting for you."
         ;;
     afternoon)
         if [[ "$PROFILE" != "default" ]]; then
-            body="Tarde avanzada, ${USER_NAME}. Perfil '$PROFILE' activo y tu espacio de trabajo ya calibrado."
+            body="Late afternoon, ${USER_NAME}. Profile '$PROFILE' is live and your workspace is already dialed in."
         else
-            body="Buenas tardes, ${USER_NAME}. Si venias a trabajar, todo esta donde lo dejaste."
+            body="Good afternoon, ${USER_NAME}. If you came to build something, it's all still where you left it."
         fi
         ;;
     evening)
         if [[ "$DOW" == "5" ]]; then
-            body="Viernes por la noche, ${USER_NAME}. Cierra lo que abriste; el sistema guardo tu estado."
+            body="Friday night, ${USER_NAME}. Close what you opened — I saved your state so Monday meets you halfway."
         elif [[ "$COMMITS_TODAY" != "0" ]]; then
-            body="Buenas noches, ${USER_NAME}. Hoy dejaste $COMMITS_TODAY commit(s) en el camino verde. 🌙"
+            body="Evening, ${USER_NAME}. You left ${COMMITS_TODAY} commit(s) on the board today. That's real progress — be proud of it."
         else
-            body="Buenas noches, ${USER_NAME}. Luz baja activada — el sistema bajo el brillo por ti."
+            body="Evening, ${USER_NAME}. The light just dropped for you. Your tomorrow is already prepared."
         fi
         ;;
     night)
-        body="Noche, ${USER_NAME}. Modo calma ON: menos luz, menos ruido. Tu mañana estara lista."
+        body="Night, ${USER_NAME}. Quiet mode, lower light. You showed up today — that's what counts."
         ;;
 esac
 
-# linea de contexto discreta
-ctx="Perfil: $PROFILE   ·   Racha: $streak día(s)"
-[[ "$COMMITS_TODAY" != "0" ]] && ctx="$ctx   ·   Commits hoy: $COMMITS_TODAY"
+# discreet context line
+ctx="Profile: $PROFILE"
+[[ "$COMMITS_TODAY" != "0" ]] && ctx="$ctx   ·   Commits today: $COMMITS_TODAY"
+[[ "$streak" -ge 2 ]] && ctx="$ctx   ·   Streak: $streak days"
 
-notify-send -i "$ICON" -a "BlackNode" "$title" "$body"$'\n'"$ctx"
+notify-send -a "BlackNode" -i "$ICON" "$title" "$body"$'\n'"$ctx"

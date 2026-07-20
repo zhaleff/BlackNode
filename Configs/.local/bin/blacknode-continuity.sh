@@ -39,25 +39,25 @@ offer_restore() {
     dirty="$(python3 -c "import json;print(json.load(open('$STATE')).get('dirty_repo',0))")"
     rn="$(python3 -c "import json;print(json.load(open('$STATE')).get('recent_notes',0))")"
     active="$([[ -f "$STATE_DIR/active_profile" ]] && cat "$STATE_DIR/active_profile" || echo default)"
-
     lines=()
-    [[ "$profile" != "$active" && "$profile" != "default" ]] && lines+=("󰏔  Retomar perfil: $profile")
-    [[ "$dirty" == "1" ]] && lines+=("󰈙  Cambios sin commit en BlackNode")
-    [[ "$rn" -gt 0 ]] && lines+=("󰏟  Abrir notas recientes ($rn)")
+    [[ "$profile" != "$active" && "$profile" != "default" ]] && lines+=("󰏔  Resume profile: $profile")
+    [[ "$dirty" == "1" ]] && lines+=("󰈙  Uncommitted changes in BlackNode")
+    [[ "$rn" -gt 0 ]] && lines+=("󰏟  Open recent notes ($rn)")
+
     [[ ${#lines[@]} -eq 0 ]] && return 0
 
-    choice=$(printf '%s\n' "${lines[@]}" "󰸋  Ignorar" | rofi -dmenu -i -p " Retomar" -theme "$THEME")
-    [[ -z "$choice" || "$choice" == "󰸋  Ignorar" ]] && return 0
+    choice=$(printf '%s\n' "${lines[@]}" "󰸋  Dismiss" | rofi -dmenu -i -p " Resume" -theme "$THEME")
+    [[ -z "$choice" || "$choice" == "󰸋  Dismiss" ]] && return 0
 
     case "$choice" in
-        "󰏔  Retomar perfil: $profile")
+        "󰏔  Resume profile: $profile")
             echo "$profile" > "$STATE_DIR/active_profile"
             "$HOME/.config/rofi/scripts/profiles.sh" >/dev/null 2>&1 &
             ;;
-        "󰈙  Cambios sin commit en BlackNode")
+        "󰈙  Uncommitted changes in BlackNode")
             kitty -e bash -c "git -C '$REPO' status; exec bash" & disown
             ;;
-        "󰏟  Abrir notas recientes ($rn)")
+        "󰏟  Open recent notes ($rn)")
             kitty -e nvim "$HOME/BlackNode/Notes" & disown
             ;;
     esac
