@@ -14,7 +14,7 @@
     icon_position = left
     min_icon_size = 40
     max_icon_size = 48
-    icon_corner_radius = 32
+    icon_corner_radius = 24
     progress_bar = true
     progress_bar_height = 4
     progress_bar_min_width = 200

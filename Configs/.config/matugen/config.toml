@@ -33,11 +33,11 @@ output_path = '~/.config/cava/config'
 [templates.neovim]
 input_path = '~/.config/matugen/templates/nvim.lua'
 output_path = '~/.config/nvim/generated.lua'
-# post_hook = 'pkill -SIGUSR1 nvim'
+post_hook = 'pkill -SIGUSR1 nvim'
 
 [templates.clipse]
 input_path = '~/.config/matugen/templates/clipse_theme.json'
-output_path = '~/.config/clipse/custom_theme.json'
+output_path = '~/.config/clipse/blacknode.json'
 
 # [templates.nvim]
 # input_path = '~/.config/matugen/templates/nvim.lua'

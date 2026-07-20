@@ -21,12 +21,10 @@ REPO="$(resolve_repo)"
 version() {
     local vf="$REPO/version.json"
     [[ -f "$vf" ]] || { echo "BlackNode (unknown version)"; return; }
-    local ver tag accent
+    local ver tag
     ver="$(jq -r '.version' "$vf" 2>/dev/null)"
     tag="$(jq -r '.tagline' "$vf" 2>/dev/null)"
-    accent="$(jq -r '.accent' "$vf" 2>/dev/null)"
-    echo "BlackNode $ver — $tag"
-    [[ "$accent" != "null" && -n "$accent" ]] && echo "accent: #$accent"
+    echo "BlackNode $ver - $tag"
 }
 
 doctor() {
@@ -71,7 +69,28 @@ brain() {
     case "${1:-status}" in
         start)  pgrep -x blacknode-brain >/dev/null && echo "already running" || (blacknode-brain >/dev/null 2>&1 &) ;;
         stop)   pkill -x blacknode-brain ;;
-        status) pgrep -x blacknode-brain >/dev/null && echo "running (pid $(pgrep -x blacknode-brain | head -1))" || echo "not running" ;;
+        status)
+            if pgrep -x blacknode-brain >/dev/null; then
+                echo "status:   running (pid $(pgrep -x blacknode-brain | head -1))"
+            else
+                echo "status:   not running"
+            fi
+            echo "data dir: $BASE/brain"
+            if [[ -d "$BASE/brain" ]]; then
+                for f in "$BASE/brain"/*.json; do
+                    [[ -f "$f" ]] || continue
+                    name="$(basename "$f" .json)"
+                    case "$name" in
+                        ewma)    v="$(jq -r '.Ewma' "$f" 2>/dev/null)"; echo "  ewma    focus intensity: ${v:-?}" ;;
+                        anomaly) v="$(jq -r '.Anomaly[0]' "$f" 2>/dev/null)"; echo "  anomaly  mean: ${v:-?}" ;;
+                        markov)  n="$(jq -r '.Markov[1] | length' "$f" 2>/dev/null)"; echo "  markov   known states: ${n:-?}" ;;
+                        kmeans)  n="$(jq -r '.Cluster[1] | length' "$f" 2>/dev/null)"; echo "  kmeans   clusters: ${n:-?}" ;;
+                        bayes)   echo "  bayes    belief: $(jq -c '.Bayes' "$f" 2>/dev/null)" ;;
+                        *)       echo "  $name" ;;
+                    esac
+                done
+            fi
+            ;;
         state)  ls -la "$BASE/brain" 2>/dev/null ;;
         *) echo "usage: blacknode brain {start|stop|status|state}" ;;
     esac
@@ -91,22 +110,113 @@ theme() {
     "$BLACKNODE_BIN/scripts/theme/menu.sh"
 }
 
+patterns() {
+    local beh="$BASE/behavior.json"
+    [[ -f "$beh" ]] || { echo "no behavior data yet (run blacknode-learn or use the system)"; return; }
+    python3 - "$beh" <<'PY'
+import json, sys
+b = json.load(open(sys.argv[1]))
+s = b["sessions"]; ah = b["active_hours"]; fb = b["focus_blocks"]
+pu = b["profile_usage"]; dis = b["distraction"]["apps"]; ws = b["window_samples"]
+
+def top(d):
+    return max(d, key=lambda k: d[k]) if d else "none"
+
+print("Your Patterns")
+print("-------------")
+print(f"  streak        {s.get('streak_days', 0)} day(s)   sessions: {s.get('total', 0)}")
+print(f"  most active    {top(ah)}")
+print(f"  focus blocks   avg {fb.get('avg_min', 0)} min | longest {fb.get('longest_min', 0)} min | count {fb.get('count', 0)}")
+print(f"  top profile    {top(pu)} ({pu.get(top(pu), 0)} uses)")
+print(f"  top window     {top(ws)}")
+print(f"  top distract   {top(dis)}")
+print()
+print("  profile usage")
+for k in sorted(pu, key=lambda k: -pu[k]):
+    print(f"    {k:<12} {pu[k]}")
+print("  distraction apps")
+for k in sorted(dis, key=lambda k: -dis[k])[:5]:
+    print(f"    {k:<12} {dis[k]}")
+PY
+}
+
+whatsnew() {
+    local dir="$BASE"
+    local cache="$dir/changelog.cached.json"
+    local local_src="$REPO/Configs/.local/share/blacknode/changelog.json"
+    local raw="https://raw.githubusercontent.com/zhaleff/BlackNode/main/Configs/.local/share/blacknode/changelog.json"
+    local src=""
+    if curl -fsSL --max-time 8 "$raw" -o "$cache" 2>/dev/null && [[ -s "$cache" ]]; then src="$cache"
+    elif [[ -s "$local_src" ]]; then src="$local_src"
+    elif [[ -s "$cache" ]]; then src="$cache"
+    else echo "no changelog available"; return; fi
+
+    local seen="$dir/seen_changelog.json"
+    [[ -f "$seen" ]] || echo '{"seen":[]}' > "$seen"
+
+    if [[ "${1:-}" == "--ping" ]]; then
+        python3 - "$src" "$seen" <<'PY'
+import json, sys
+src, seen = sys.argv[1], sys.argv[2]
+entries = json.load(open(src)).get("entries", [])
+seen_ids = set(json.load(open(seen)).get("seen", []))
+n = len([e for e in entries if e["id"] not in seen_ids])
+print(f"you have {n} update(s) unseen" if n else "all caught up")
+PY
+        return
+    fi
+
+    python3 - "$src" "$seen" <<'PY'
+import json, sys
+src, seen = sys.argv[1], sys.argv[2]
+entries = json.load(open(src)).get("entries", [])
+seen_ids = set(json.load(open(seen)).get("seen", []))
+print("What's New")
+print("----------")
+for e in entries:
+    mark = " " if e["id"] in seen_ids else "*"
+    sev = e.get("severity", "info").upper()
+    print(f" [{mark}] {e.get('date','')}  {sev:<7} {e['title']}")
+    print(f"     {e.get('body','')}")
+print()
+print("(* = unseen)  run 'blacknode whatsnew --read' to mark all seen")
+PY
+}
+
+markseen() {
+    local dir="$BASE"
+    local cache="$dir/changelog.cached.json"
+    local local_src="$REPO/Configs/.local/share/blacknode/changelog.json"
+    local src=""
+    [[ -s "$cache" ]] && src="$cache" || src="$local_src"
+    [[ -f "$src" ]] || { echo "no changelog"; return; }
+    local seen="$dir/seen_changelog.json"
+    [[ -f "$seen" ]] || echo '{"seen":[]}' > "$seen"
+    python3 - "$src" "$seen" <<'PY'
+import json, sys
+src, seen = sys.argv[1], sys.argv[2]
+ids = [e["id"] for e in json.load(open(src)).get("entries", [])]
+json.dump({"seen": ids}, open(seen, "w"), indent=2)
+print("marked all entries as seen")
+PY
+}
+
 usage() {
     cat <<EOF
-BlackNode — your home in the terminal.
+BlackNode - your home in the terminal.
 
 Usage: blacknode <command> [args]
 
-  version         show ecosystem version + tagline
-  doctor          health check of the whole ecosystem
-  profile [name]  switch profile (music/study/coding/astronomy) or open picker
-  theme           open theme/wallpaper picker
+  version                   show ecosystem version + tagline
+  doctor                    health check of the whole ecosystem
+  profile [name]            switch profile (music/study/coding/astronomy) or open picker
+  theme                     open theme/wallpaper picker
   brain {start|stop|status|state}   control the local intelligence engine
-  patterns        open "Your Patterns" (behavior insight)
-  whatsnew        open the What's New center
-  greet           show the contextual greeter now
-  continuity {save|restore}   session continuity
-  health          quick system health menu
+  patterns                  show your behavior patterns (CLI)
+  whatsnew [--read]         show changelog in CLI (--read marks all seen)
+  greet                     show the contextual greeter now
+  continuity {save|restore} session continuity
+  health                    quick system health menu
 
 Each subcommand fronts an existing BlackNode module. The brain learns only
 locally; nothing leaves this machine.
@@ -119,8 +229,9 @@ case "${1:-help}" in
     profile) shift; profile "$@" ;;
     theme) theme ;;
     brain) shift; brain "$@" ;;
-    patterns) "$BLACKNODE_BIN/blacknode-insight.sh" ;;
-    whatsnew) "$BLACKNODE_BIN/blacknode-whatsnew.sh" "$2" ;;
+    patterns) patterns ;;
+    whatsnew) shift; case "${1:-}" in --read) markseen ;; *) whatsnew "$1" ;; esac ;;
+    brain-status) brain status ;;
     greet) "$BLACKNODE_BIN/blacknode-greeter.sh" "$2" ;;
     continuity) shift; "$BLACKNODE_BIN/blacknode-continuity.sh" "$@" ;;
     health) "$BLACKNODE_BIN/scripts/health/menu.sh" ;;

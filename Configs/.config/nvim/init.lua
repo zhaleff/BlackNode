@@ -6,17 +6,12 @@ if not vim.loop.fs_stat(lazypath) then
   })
 end
 vim.opt.rtp:prepend(lazypath)
-
 require("core.config.options")
 
 
 require("lazy").setup({
   -- plugins
-  -- require("core.plugins.lsplines"),
   require("core.plugins.cmp"),
-  require("core.plugins.autopairs"),
-  require("core.catppuccin.catppuccin"),
-  -- require("core.plugins.winbar"),
   require("core.plugins.autotag"),
   require("core.plugins.bufferline"),
   require("core.plugins.nvim-tree"),
@@ -24,8 +19,8 @@ require("lazy").setup({
   require("core.plugins.comment"),
   require("core.plugins.emmet"),
   require("core.plugins.notify"),
+  require("core.plugins.lush"),
   require("core.plugins.blackline"),
-  require("core.plugins.mini-surround"),
   require("core.plugins.tabout"),
   require("core.plugins.harpoon"),
   require("core.plugins.pets"),
@@ -52,3 +47,11 @@ require("lazy").setup({
 require("core.config.keymaps")
 require("core.config.emmet")
 
+dofile(vim.fn.stdpath("config") .. "/generated.lua")
+
+
+vim.api.nvim_create_autocmd({ "VimEnter", "ColorScheme" }, {
+  callback = function()
+    pcall(dofile, vim.fn.stdpath("config") .. "/generated.lua")
+  end,
+})

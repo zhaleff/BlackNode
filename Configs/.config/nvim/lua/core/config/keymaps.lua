@@ -15,7 +15,7 @@ local function setup_keymaps()
     { "<leader>fs", "<cmd>Telescope lsp_document_symbols<CR>",  desc = "Symbols (buffer)" },
     { "<leader>fS", "<cmd>Telescope lsp_workspace_symbols<CR>", desc = "Symbols (workspace)" },
     { "<leader>fr", "<cmd>Telescope resume<CR>",                desc = "Resume last search" },
-    { "<leader>ft", "<cmd>TodoTelescope<CR>",                   desc = "TODOs/FIXMEs" },
+
     { "<leader>v",  group = "Viewport / Motion" },
     { "<leader>vf", "gg",                                       desc = "First Line" },
     { "<leader>vl", "G",                                        desc = "Last Line" },
@@ -55,22 +55,6 @@ local function setup_keymaps()
   vim.keymap.set("n", "]h", "<cmd>Gitsigns next_hunk<CR>", { desc = "Next hunk" })
   vim.keymap.set("n", "[h", "<cmd>Gitsigns prev_hunk<CR>", { desc = "Prev hunk" })
 
-  vim.api.nvim_create_autocmd("LspAttach", {
-    callback = function(args)
-      local buf = args.buf
-      wk.add({
-        { "gd",         vim.lsp.buf.definition,                              desc = "Go to definition",  buffer = buf },
-        { "gD",         vim.lsp.buf.declaration,                             desc = "Go to declaration", buffer = buf },
-        { "K",          vim.lsp.buf.hover,                                   desc = "Hover",             buffer = buf },
-        { "<leader>ca", vim.lsp.buf.code_action,                             desc = "Code action",       buffer = buf },
-        { "<leader>rn", vim.lsp.buf.rename,                                  desc = "Rename",            buffer = buf },
-        { "gr",         vim.lsp.buf.references,                              desc = "References",        buffer = buf },
-        { "gi",         vim.lsp.buf.implementation,                          desc = "Implementation",    buffer = buf },
-        { "<leader>lf", function() vim.lsp.buf.format({ async = true }) end, desc = "Format buffer",     buffer = buf },
-        { "<C-s>",      vim.lsp.buf.signature_help,                          mode = "i",                 desc = "Signature help", buffer = buf },
-      }, { buffer = buf })
-    end,
-  })
 end
 
 vim.api.nvim_create_autocmd("VimEnter", {

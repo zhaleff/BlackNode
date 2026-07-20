@@ -14,7 +14,7 @@
     icon_position = left
     min_icon_size = 40
     max_icon_size = 48
-    icon_corner_radius = 32
+    icon_corner_radius = 24
     progress_bar = true
     progress_bar_height = 4
     progress_bar_min_width = 200
@@ -24,7 +24,7 @@
     progress_bar_frame_width = 0
     frame_width = 0
     separator_height = 0
-    corner_radius = 32
+    corner_radius = 24
     gap_size = 10
     line_height = 3
     notification_limit = 4
@@ -50,26 +50,26 @@
     mouse_middle_click = close_all
     mouse_right_click = close_current
     browser = firefox
-    progress_bar_color = "#94cdf7"
-    progress_bar_frame_color = "#101417"
+    progress_bar_color = "#94d5a8"
+    progress_bar_frame_color = "#0f1511"
 
 [experimental]
     per_monitor_dpi = false
 
 [urgency_low]
-    background = "#101417"
-    foreground = "#dfe3e8"
-    highlight = "#94cdf7"
+    background = "#0f1511"
+    foreground = "#dfe4dd"
+    highlight = "#94d5a8"
     timeout = 4
 
 [urgency_normal]
-    background = "#101417"
-    foreground = "#dfe3e8"
-    highlight = "#94cdf7"
+    background = "#0f1511"
+    foreground = "#dfe4dd"
+    highlight = "#94d5a8"
     timeout = 6
 
 [urgency_critical]
-    background = "#101417"
+    background = "#0f1511"
     foreground = "#ffb4ab"
     highlight = "#ffb4ab"
     timeout = 0
