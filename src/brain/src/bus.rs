@@ -40,6 +40,15 @@ pub struct Knowledge {
     pub ts: u64,
 }
 
+/// One piece of evidence a decision was based on. Reconstructs the reasoning.
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct Evidence {
+    pub source: String,
+    pub claim: String,
+    pub value: f64,
+    pub confidence: f64,
+}
+
 impl Knowledge {
     pub fn new(source: &str, claim: &str, value: f64, confidence: f64) -> Self {
         Knowledge {
@@ -58,6 +67,7 @@ pub struct Decision {
     pub action: String,
     pub params: std::collections::HashMap<String, String>,
     pub reason: Vec<String>,
+    pub evidence: Vec<Evidence>,
     pub confidence: f64,
     pub ts: u64,
 }
@@ -68,6 +78,7 @@ impl Decision {
             action: action.to_string(),
             params: std::collections::HashMap::new(),
             reason: Vec::new(),
+            evidence: Vec::new(),
             confidence: 1.0,
             ts: now_ms(),
         }
@@ -78,6 +89,10 @@ impl Decision {
     }
     pub fn because(mut self, line: &str) -> Self {
         self.reason.push(line.to_string());
+        self
+    }
+    pub fn with_evidence(mut self, e: Evidence) -> Self {
+        self.evidence.push(e);
         self
     }
     pub fn confidence(mut self, c: f64) -> Self {

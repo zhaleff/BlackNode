@@ -93,6 +93,8 @@ brain() {
             echo "confidence:    $(echo "$last" | jq -r '.confidence')"
             echo "why:"
             echo "$last" | jq -r '.reason[]?' 2>/dev/null | sed 's/^/  - /'
+            echo "evidence:"
+            echo "$last" | jq -r '.evidence[]? | "  - \(.source)/\(.claim) = \(.value) (conf \(.confidence))"' 2>/dev/null
             ;;
         state)  ls -la "$BASE/brain" 2>/dev/null ;;
         *) echo "usage: blacknode brain {start|stop|status|explain|state}" ;;
