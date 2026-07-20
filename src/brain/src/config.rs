@@ -47,8 +47,8 @@ impl Default for Config {
             actions.insert(a.to_string(), true);
         }
         let mut collectors = std::collections::HashMap::new();
-        for a in ["hyprland", "behavior_file", "fake_profile"] {
-            collectors.insert(a.to_string(), a != "fake_profile");
+        for a in ["hyprland", "behavior_file", "system"] {
+            collectors.insert(a.to_string(), true);
         }
         Config {
             enabled: true,

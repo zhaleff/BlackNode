@@ -18,6 +18,9 @@ fn main() {
     if engine.collector_on("behavior_file") {
         engine.add_collector(collector::BehaviorFile::new());
     }
+    if engine.collector_on("system") {
+        engine.add_collector(collector::System::new(5000));
+    }
     for a in algorithm::register(&engine.config) {
         engine.add_algorithm(a);
     }

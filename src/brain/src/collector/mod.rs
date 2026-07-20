@@ -122,3 +122,6 @@ fn forward(line: &str, bus: &Bus) {
     };
     bus.publish_signal(Signal::new(kind, line.trim()));
 }
+
+mod system;
+pub use system::System;
