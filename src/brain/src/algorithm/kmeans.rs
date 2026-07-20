@@ -31,8 +31,9 @@ impl Algorithm for Kmeans {
     fn run(self: Box<Self>, bus: std::sync::Arc<Bus>) {
         let mut k = *self;
         let mut last_ts = 0u64;
+        let sig = bus.signal_rx();
         loop {
-            while let Ok(s) = bus.signal_rx().try_recv() {
+            while let Ok(s) = sig.try_recv() {
                 if last_ts > 0 && s.ts > last_ts {
                     k.gaps.push((s.ts - last_ts) as f64 / 1000.0);
                     if k.gaps.len() > 256 {

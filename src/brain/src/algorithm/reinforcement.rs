@@ -43,8 +43,10 @@ impl Algorithm for Reinforcement {
     }
     fn run(self: Box<Self>, bus: std::sync::Arc<Bus>) {
         let r = *self;
+        let sig = bus.signal_rx();
+        let dec = bus.decision_rx();
         loop {
-            while let Ok(s) = bus.signal_rx().try_recv() {
+            while let Ok(s) = sig.try_recv() {
                 if s.kind == "focus" || s.kind == "distract" {
                     let reward = if s.kind == "focus" { 0.3 } else { -0.3 };
                     let mut pend = r.pending.lock().unwrap();
@@ -53,7 +55,7 @@ impl Algorithm for Reinforcement {
                     }
                 }
             }
-            while let Ok(d) = bus.decision_rx().try_recv() {
+            while let Ok(d) = dec.try_recv() {
                 let ctx = d
                     .params
                     .get("context")

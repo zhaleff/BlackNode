@@ -210,16 +210,16 @@ mod tests {
             mem.observe_window("spotify", 22);
         }
         mem.observe_window("dolphin", 22);
-        let (app, p) = mem.routine_for(22).unwrap();
+        let (app, prob) = mem.routine_for(22).unwrap();
         assert_eq!(app, "spotify");
-        assert!((0.9..=1.0).contains(&p));
+        assert!((0.9..=1.0).contains(&prob));
         let _ = std::fs::remove_file(&p);
     }
 
     #[test]
     fn old_habits_decay_below_new_ones() {
-        let p = tmp_path();
-        let mem = Memory::new(p.clone(), 0.0007);
+        let path = tmp_path();
+        let mem = Memory::new(path.clone(), 0.0007);
         mem.observe_window("oldapp", 9);
         // force the timestamp far in the past by rewriting last
         {
@@ -231,7 +231,7 @@ mod tests {
         mem.observe_window("newapp", 9);
         let (app, _) = mem.routine_for(9).unwrap();
         assert_eq!(app, "newapp");
-        let _ = std::fs::remove_file(&p);
+        let _ = std::fs::remove_file(&path);
     }
 
     #[test]

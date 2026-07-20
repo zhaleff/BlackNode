@@ -7,7 +7,9 @@
 //! A `Bus` is just crossbeam channels behind a small API. It is intentionally
 //! dumb: routing logic lives in the engine, not here.
 
+use crate::memory::Memory;
 use crossbeam_channel::{unbounded, Receiver, Sender};
+use std::sync::Arc;
 use std::time::{SystemTime, UNIX_EPOCH};
 
 /// A raw observation from a collector (window change, focus block, etc).
@@ -95,10 +97,11 @@ pub struct Bus {
     knowledge_rx: Receiver<Knowledge>,
     decision_tx: Sender<Decision>,
     decision_rx: Receiver<Decision>,
+    pub memory: Arc<Memory>,
 }
 
 impl Bus {
-    pub fn new() -> Self {
+    pub fn new(memory: Arc<Memory>) -> Self {
         let (signal_tx, signal_rx) = unbounded();
         let (knowledge_tx, knowledge_rx) = unbounded();
         let (decision_tx, decision_rx) = unbounded();
@@ -109,6 +112,7 @@ impl Bus {
             knowledge_rx,
             decision_tx,
             decision_rx,
+            memory,
         }
     }
 
@@ -130,6 +134,10 @@ impl Bus {
     }
     pub fn decision_rx(&self) -> Receiver<Decision> {
         self.decision_rx.clone()
+    }
+
+    pub fn memory(&self) -> Arc<Memory> {
+        Arc::clone(&self.memory)
     }
 }
 

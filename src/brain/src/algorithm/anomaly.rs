@@ -35,8 +35,9 @@ impl Algorithm for Anomaly {
     }
     fn run(self: Box<Self>, bus: std::sync::Arc<Bus>) {
         let mut st = *self;
+        let sig = bus.signal_rx();
         loop {
-            while let Ok(s) = bus.signal_rx().try_recv() {
+            while let Ok(s) = sig.try_recv() {
                 if s.kind == "window" {
                     if st.last_switch_ts > 0 {
                         let gap = s.ts.saturating_sub(st.last_switch_ts) as f64;

@@ -12,13 +12,18 @@ use crate::decision::DecisionEngine;
 use crate::action::Action;
 use crate::config::Config;
 use crate::context::Context;
+use crate::memory::Memory;
 use std::sync::{Arc, Mutex};
 
-fn decision_log_path() -> Option<std::path::PathBuf> {
-    let home = std::env::var("HOME").ok()?;
+fn data_dir() -> std::path::PathBuf {
+    let home = std::env::var("HOME").unwrap_or_else(|_| "/tmp".into());
     let dir = std::path::Path::new(&home).join(".local/share/blacknode/brain");
     let _ = std::fs::create_dir_all(&dir);
-    Some(dir.join("decisions.jsonl"))
+    dir
+}
+
+fn decision_log_path() -> Option<std::path::PathBuf> {
+    Some(data_dir().join("decisions.jsonl"))
 }
 
 pub struct Engine {
@@ -37,8 +42,12 @@ impl Engine {
     }
 
     pub fn new(config: Config) -> Self {
+        let memory = Arc::new(Memory::new(
+            data_dir().join("memory.json"),
+            config.learning.half_life_days,
+        ));
         Engine {
-            bus: Arc::new(Bus::new()),
+            bus: Arc::new(Bus::new(memory)),
             config,
             context: Arc::new(Mutex::new(Context::default())),
             collectors: Vec::new(),
@@ -75,6 +84,15 @@ impl Engine {
         let ctx = Arc::clone(&context);
         let bus_ctx = Arc::clone(&bus);
         std::thread::spawn(move || crate::context::run(bus_ctx, ctx));
+
+        // Durable-memory upkeep: persist and forget stale habits on a cadence
+        // so knowledge stays current without any user intervention.
+        let mem = bus.memory();
+        std::thread::spawn(move || loop {
+            std::thread::sleep(std::time::Duration::from_secs(60));
+            mem.forget();
+            mem.save();
+        });
 
         for c in collectors {
             let bus = Arc::clone(&bus);

@@ -26,10 +26,11 @@ impl Algorithm for Ewma {
     fn run(self: Box<Self>, bus: std::sync::Arc<Bus>) {
         let mut value = self.value;
         let alpha = self.alpha;
+        let sig = bus.signal_rx();
         loop {
             let signals = {
                 let mut v = Vec::new();
-                while let Ok(s) = bus.signal_rx().try_recv() {
+                while let Ok(s) = sig.try_recv() {
                     v.push(s);
                 }
                 v

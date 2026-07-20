@@ -11,9 +11,16 @@ use serde::{Deserialize, Serialize};
 pub struct Config {
     pub enabled: bool,
     pub automation: Automation,
+    pub learning: Learning,
     pub collectors: std::collections::HashMap<String, bool>,
     pub algorithms: std::collections::HashMap<String, bool>,
     pub actions: std::collections::HashMap<String, bool>,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct Learning {
+    /// Half-life in days for forgetting old habits (exponential decay).
+    pub half_life_days: f64,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -40,8 +47,8 @@ impl Default for Config {
             actions.insert(a.to_string(), true);
         }
         let mut collectors = std::collections::HashMap::new();
-        for a in ["hyprland", "behavior_file"] {
-            collectors.insert(a.to_string(), true);
+        for a in ["hyprland", "behavior_file", "fake_profile"] {
+            collectors.insert(a.to_string(), a != "fake_profile");
         }
         Config {
             enabled: true,
@@ -56,6 +63,7 @@ impl Default for Config {
                 profile: true,
                 launch_demo: false,
             },
+            learning: Learning { half_life_days: 30.0 },
             collectors,
             algorithms,
             actions,

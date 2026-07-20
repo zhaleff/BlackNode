@@ -40,8 +40,9 @@ impl Algorithm for Bayes {
     }
     fn run(self: Box<Self>, bus: std::sync::Arc<Bus>) {
         let mut b = *self;
+        let sig = bus.signal_rx();
         loop {
-            while let Ok(s) = bus.signal_rx().try_recv() {
+            while let Ok(s) = sig.try_recv() {
                 if s.kind == "focus" || s.kind == "distract" {
                     let h = Bayes::hour();
                     b.total[h] += 1;

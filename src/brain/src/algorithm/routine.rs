@@ -41,9 +41,10 @@ impl Algorithm for Routine {
     }
     fn run(self: Box<Self>, bus: std::sync::Arc<Bus>) {
         let mut r = *self;
+        let sig = bus.signal_rx();
         loop {
             let mut changed = false;
-            while let Ok(s) = bus.signal_rx().try_recv() {
+            while let Ok(s) = sig.try_recv() {
                 if s.kind == "window" {
                     let app = s.value.clone();
                     let h = hour_now();

@@ -54,8 +54,10 @@ pub fn run(bus: Arc<Bus>, ctx: Arc<Mutex<Context>>) {
     let mut context_label = String::new();
     let mut top_app = String::new();
     let mut last_window_ts = now_ms();
+    let sig = bus.signal_rx();
+    let kn = bus.knowledge_rx();
     loop {
-        while let Ok(k) = bus.knowledge_rx().try_recv() {
+        while let Ok(k) = kn.try_recv() {
             match k.claim.as_str() {
                 "focus" => focus = k.value,
                 "distract" => distract = k.value,
@@ -64,7 +66,7 @@ pub fn run(bus: Arc<Bus>, ctx: Arc<Mutex<Context>>) {
                 _ => {}
             }
         }
-        while let Ok(s) = bus.signal_rx().try_recv() {
+        while let Ok(s) = sig.try_recv() {
             last_window_ts = now_ms();
             if s.kind == "window" {
                 top_app = s.value.clone();

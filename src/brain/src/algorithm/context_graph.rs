@@ -32,8 +32,9 @@ impl Algorithm for ContextGraph {
     }
     fn run(self: Box<Self>, bus: std::sync::Arc<Bus>) {
         let mut g = *self;
+        let sig = bus.signal_rx();
         loop {
-            while let Ok(s) = bus.signal_rx().try_recv() {
+            while let Ok(s) = sig.try_recv() {
                 if s.kind == "window" {
                     let app = s.value.clone();
                     if let Some((prev, ts)) = g.last.take() {
