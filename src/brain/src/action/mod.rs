@@ -15,6 +15,8 @@ pub trait Action: Send + Sync + 'static {
 mod actions;
 pub use actions::*;
 
+pub use actions::LaunchApp;
+
 use crate::config::Config;
 
 /// Build the enabled action set from config.
@@ -43,6 +45,9 @@ pub fn register(config: &Config) -> Vec<Box<dyn Action>> {
     }
     if config.action_on("ChangeHUD") {
         out.push(Box::new(ChangeHud));
+    }
+    if config.action_on("LaunchApp") {
+        out.push(Box::new(LaunchApp));
     }
     out
 }

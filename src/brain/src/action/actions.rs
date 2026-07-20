@@ -109,3 +109,19 @@ impl Action for ChangeHud {
         }
     }
 }
+
+/// Launch a desktop application, but only after asking the user. The brain
+/// passes the learned routine app; we open `brain-suggest.sh`, a rofi prompt
+/// that lets the user accept or decline. The brain never launches anything
+/// blindly.
+pub struct LaunchApp;
+impl Action for LaunchApp {
+    fn name(&self) -> &str {
+        "LaunchApp"
+    }
+    fn execute(&self, dec: &Decision) {
+        if let Some(app) = dec.params.get("app") {
+            run("brain-suggest.sh", &[app]);
+        }
+    }
+}
