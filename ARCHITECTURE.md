@@ -35,12 +35,18 @@ is composed of three layers that share one identity: **BlackNode**, accent
 ### 3. Adaptive identity (the differentiator)
 Everything here is **local-only**: no network, no external models, nothing
 leaves the machine. State lives under `~/.local/share/blacknode/`.
-- `blacknode-brain` — incremental learning engine (EWMA, Markov, Bayes,
-  online KMeans, Welford anomaly). Captures the active window, learns
-  transitions and behavioral modes, and acts (ambient + focus suggestions).
-  Source lives in `src/brain/`; the release binary is built and installed to
-  `~/.local/bin` by `linkdots.sh`.
-- `blacknode-learn.py` — behavior learner writing `behavior.json`.
+- `blacknode-brain` — modular cognitive engine. Pipeline:
+  `Collector -> Algorithm -> DecisionEngine -> ActionEngine`. Each stage is a
+  trait (`Collector`, `Algorithm`, `DecisionEngine`, `Action`), so new
+  behavior is added without touching core. Algorithms (EWMA, Markov, Bayes,
+  KMeans, anomaly, context-graph, reinforcement) publish `Knowledge`; the
+  DecisionEngine fuses it into a `Context` belief and emits explainable
+  `Decision`s; the ActionEngine runs real desktop effects (DND, HUD, power,
+  wallpaper, brightness, profile). Config (`brain/config.toml`) toggles every
+  stage per-feature. Source in `src/brain/`; built/installed to `~/.local/bin`
+  by `linkdots.sh`.
+- `blacknode-learn.py` — behavior learner writing `behavior.json`; the brain's
+  `behavior_file` collector feeds on it.
 - `blacknode-greeter` — contextual login greeter (phrase pool from repo).
 - `blacknode-whatsnew` — changelog center (once-seen tracking).
 - `blacknode-continuity` — session save/restore across suspend/poweroff.
@@ -57,7 +63,7 @@ so the system feels like one product, not a folder of scripts:
 | `blacknode doctor` | health check of all layers |
 | `blacknode profile [name]` | `scripts/profiles/menu.sh` |
 | `blacknode theme` | `scripts/theme/menu.sh` |
-| `blacknode brain {start\|stop\|status\|state}` | `blacknode-brain` daemon |
+| `blacknode brain {start\|stop\|status\|explain\|state}` | `blacknode-brain` daemon |
 | `blacknode patterns` | `blacknode-insight.sh` |
 | `blacknode whatsnew` | `blacknode-whatsnew.sh` |
 | `blacknode greet` | `blacknode-greeter.sh` |
@@ -72,8 +78,6 @@ atomically under `~/.local/share/blacknode/brain/`.
 
 ## Roadmap (next)
 
-- Close the brain's action loop: consume `focus`/`distract`/`profile` events
-  from `blacknode-learn.py` + `pomodoro` + `profiles` so the engine drives
-  Do-Not-Disturb and pomodoro suggestions for real.
 - Branding kit (SVG/logo) shared across greeter, waybar, rofi, SDDM, GRUB.
 - `blacknode sync` to pull repo updates (phrases, changelog, profiles).
+- Richer HUD layouts per context (media, study, browsing) driven by the brain.
