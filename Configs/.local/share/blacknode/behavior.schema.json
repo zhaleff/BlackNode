@@ -1,0 +1,37 @@
+{
+  "version": 1,
+  "updated_at": "",
+  "sessions": {
+    "total": 0,
+    "streak_days": 0,
+    "last_session_date": "",
+    "avg_length_min": 0
+  },
+  "active_hours": {
+    "late": 0,
+    "dawn": 0,
+    "morning": 0,
+    "noon": 0,
+    "afternoon": 0,
+    "evening": 0,
+    "night": 0
+  },
+  "focus_blocks": {
+    "count": 0,
+    "total_min": 0,
+    "avg_min": 0,
+    "longest_min": 0
+  },
+  "distraction": {
+    "apps": {},
+    "after_focus_count": 0
+  },
+  "profile_usage": {
+    "study": 0,
+    "coding": 0,
+    "music": 0,
+    "astronomy": 0,
+    "default": 0
+  },
+  "window_samples": {}
+}

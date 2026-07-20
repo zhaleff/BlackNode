@@ -36,6 +36,7 @@ play_alarm() {
 
 timer_tick() {
     local mode="$1" remaining="$2"
+    local start_min=$((remaining / 60))
     while [[ "$remaining" -gt 0 ]]; do
         sleep 1
         remaining=$((remaining - 1))
@@ -43,6 +44,7 @@ timer_tick() {
     done
     play_alarm
     if [[ "$mode" == "work" ]]; then
+        ~/.local/bin/blacknode-learn.sh focus "$((start_min))"
         notify_timer "Pomodoro" "Work session done! Take a break."
         echo "break|$((5 * 60))|false|" > "$STATE_FILE"
     else
