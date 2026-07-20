@@ -19,8 +19,8 @@ pub struct AppCount {
 
 #[derive(Debug, Clone, Default, Serialize, Deserialize)]
 pub struct Model {
-    /// hour (0-23) -> apps the user opens then, with decaying weights.
-    pub routines: HashMap<u8, Vec<AppCount>>,
+    /// hour (0-23) as string -> apps the user opens then, with decaying weights.
+    pub routines: HashMap<String, Vec<AppCount>>,
     /// Per-hour accumulated focus weight and sample count.
     pub focus: [f64; 24],
     pub total: [f64; 24],

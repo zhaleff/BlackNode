@@ -50,7 +50,7 @@ impl Memory {
     pub fn observe_window(&self, app: &str, hour: u8) {
         let factor = self.decay_factor_atomically();
         let mut m = self.inner.write().unwrap();
-        let bucket = m.routines.entry(hour).or_default();
+        let bucket = m.routines.entry(hour.to_string()).or_default();
         if let Some(ac) = bucket.iter_mut().find(|a| a.app == app) {
             ac.weight = ac.weight * factor + 1.0;
             ac.last = now_ms();
@@ -68,7 +68,7 @@ impl Memory {
     /// Most likely app for `hour` and its decayed probability in [0,1].
     pub fn routine_for(&self, hour: u8) -> Option<(String, f64)> {
         let m = self.inner.read().unwrap();
-        let bucket = m.routines.get(&hour)?;
+        let bucket = m.routines.get(&hour.to_string())?;
         let mut total = 0.0;
         let mut best: Option<(String, f64)> = None;
         for ac in bucket {
@@ -228,7 +228,7 @@ mod tests {
         // force the timestamp far in the past by rewriting last
         {
             let mut m = mem.inner.write().unwrap();
-            for ac in m.routines.get_mut(&9u8).unwrap() {
+            for ac in m.routines.get_mut("9").unwrap() {
                 ac.last = now_ms() - 3_600_000 * 24 * 60; // ~60 days ago
             }
         }
@@ -247,6 +247,20 @@ mod tests {
         }
         mem.observe_focus(20, false);
         assert!((mem.focus_prob(20) - 0.888).abs() < 0.01);
+        let _ = std::fs::remove_file(&p);
+    }
+
+    #[test]
+    fn loads_string_keyed_hour_map() {
+        let p = tmp_path();
+        let last = now_ms() - 60_000;
+        let json = format!(
+            r#"{{"routines":{{"11":[{{"app":"spotify","weight":14.0,"last":{last}}}]}},"focus":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,12.0,0],"total":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,15.0,0],"transitions":{{}},"version":1}}"#
+        );
+        std::fs::write(&p, json).unwrap();
+        let mem = Memory::new(p.clone(), 30.0);
+        let r = mem.routine_for(11);
+        assert!(r.is_some(), "routine_for(11) should load from string key");
         let _ = std::fs::remove_file(&p);
     }
 }
