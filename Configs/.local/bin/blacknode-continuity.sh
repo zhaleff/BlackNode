@@ -1,8 +1,4 @@
 #!/usr/bin/env bash
-# BlackNode Session Continuity
-# Guarda el estado real de la sesion y, al entrar, ofrece RETOMAR con un click.
-#   blacknode-continuity.sh --save     -> persiste estado (suspend/reboot/shutdown)
-#   blacknode-continuity.sh --restore  -> ofrece retomar lo que quedo pendiente
 
 set -euo pipefail
 

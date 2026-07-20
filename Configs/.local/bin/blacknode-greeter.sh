@@ -1,10 +1,4 @@
 #!/usr/bin/env bash
-# BlackNode Contextual Greeter
-# Receives the user by time of day with a RANDOM phrase from a phrase pool
-# (no fixed text, no boring repeat, no "profile/commits" clutter in the note).
-# Phrase pool: ~/.local/share/blacknode/greeter-phrases.txt  (edit it freely)
-#
-# Fires on login (autostart) and on wake from suspend (hypridle after-sleep).
 
 set -euo pipefail
 
@@ -13,8 +7,6 @@ LAST_FILE="$STATE_DIR/greeter_last.txt"
 ICON_DIR="$(mktemp -d)"
 trap 'rm -rf "$ICON_DIR"' EXIT
 
-# Phrase pool lives in the REAL GitHub repo, not a local file the user must edit.
-# We pull the freshest phrases from GitHub; fall back to the cloned repo if offline.
 RAW_URL="https://raw.githubusercontent.com/zhaleff/BlackNode/main/Configs/.local/share/blacknode/greeter-phrases.txt"
 CACHE="$STATE_DIR/greeter-phrases.cached.txt"
 REPO_LOCAL="$HOME/BlackNode/Configs/.local/share/blacknode/greeter-phrases.txt"
@@ -43,7 +35,6 @@ case "$HOUR" in
     *)           FRANJA=night;  COLOR="#3a0ca3" ;;
 esac
 
-# ---------- themed SVG icon (vector, not an emoji) ----------
 svg_icon() {
     local f="$1" c="$2" out="$3"
     case "$f" in
@@ -96,7 +87,6 @@ SVG
 ICON="$ICON_DIR/greeter.svg"
 svg_icon "$FRANJA" "$COLOR" "$ICON"
 
-# ---------- pick a random phrase for this franja (no repeat of last) ----------
 if [[ -f "$PHRASES" ]]; then
     POOL=()
     while IFS= read -r line; do
