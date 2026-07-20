@@ -24,6 +24,7 @@ mod ewma;
 mod kmeans;
 mod markov;
 mod reinforcement;
+mod routine;
 
 pub use anomaly::Anomaly;
 pub use bayes::Bayes;
@@ -32,6 +33,7 @@ pub use ewma::Ewma;
 pub use kmeans::Kmeans;
 pub use markov::Markov;
 pub use reinforcement::Reinforcement;
+pub use routine::Routine;
 
 use crate::config::Config;
 
@@ -58,6 +60,9 @@ pub fn register(config: &Config) -> Vec<Box<dyn Algorithm>> {
     }
     if config.algorithm_on("reinforcement") {
         out.push(Reinforcement::new());
+    }
+    if config.algorithm_on("routine") {
+        out.push(Routine::new());
     }
     out
 }

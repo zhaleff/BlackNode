@@ -26,16 +26,17 @@ pub struct Automation {
     pub power_profile: bool,
     pub notifications: bool,
     pub profile: bool,
+    pub launch_demo: bool,
 }
 
 impl Default for Config {
     fn default() -> Self {
         let mut algorithms = std::collections::HashMap::new();
-        for a in ["ewma", "markov", "bayes", "kmeans", "anomaly", "context_graph", "reinforcement"] {
+        for a in ["ewma", "markov", "bayes", "kmeans", "anomaly", "context_graph", "reinforcement", "routine"] {
             algorithms.insert(a.to_string(), true);
         }
         let mut actions = std::collections::HashMap::new();
-        for a in ["EnableDND", "DisableDND", "ChangeHUD", "PowerProfile", "Wallpaper", "Brightness", "ProfileSuggest", "Notify"] {
+        for a in ["EnableDND", "DisableDND", "ChangeHUD", "PowerProfile", "Wallpaper", "Brightness", "ProfileSuggest", "Notify", "LaunchApp"] {
             actions.insert(a.to_string(), true);
         }
         let mut collectors = std::collections::HashMap::new();
@@ -53,6 +54,7 @@ impl Default for Config {
                 power_profile: true,
                 notifications: true,
                 profile: true,
+                launch_demo: false,
             },
             collectors,
             algorithms,
