@@ -26,6 +26,7 @@ main() {
         "󰋼  About" \
         "󰍃  Session" \
         "󰂯  Bluetooth" \
+        "󰏞  What's New" \
         | rofi -dmenu -i -p "" -theme "$ROFI_THEME")
 
     case "$choice" in
@@ -48,6 +49,7 @@ main() {
         "󰋼  About")         "$SCRIPTS/info/menu.sh" ;;
         "󰍃  Session")       "$SCRIPTS/session/menu.sh" ;;
         "󰂯  Bluetooth")     "$SCRIPTS/bluetooth/menu.sh" ;;
+        "󰏞  What's New")  "~/.local/bin/blacknode-whatsnew.sh" ;;
     esac
 }
 

@@ -1,0 +1,36 @@
+{
+  "entries": [
+    {
+      "id": "2026-07-19-coding-profile",
+      "version": "coding-profile",
+      "title": "Coding profile added",
+      "body": "New waybar profile with docs, roadmap.sh, language refs, git, dev tools, AI and Q&A groups.",
+      "severity": "feature",
+      "date": "2026-07-19"
+    },
+    {
+      "id": "2026-07-19-git-heat",
+      "version": "git-heat",
+      "title": "Git contribution heat strip",
+      "body": "A last-week commit heat strip on the left bar. Shows your green path; today is highlighted.",
+      "severity": "feature",
+      "date": "2026-07-19"
+    },
+    {
+      "id": "2026-07-19-greeter",
+      "version": "greeter",
+      "title": "Contextual greeter",
+      "body": "The system receives you with a random phrase pulled live from the GitHub repo. No fixed text.",
+      "severity": "feature",
+      "date": "2026-07-19"
+    },
+    {
+      "id": "2026-07-19-whatsnew",
+      "version": "whatsnew",
+      "title": "What's new center",
+      "body": "You are reading it. Open it anytime from the system menu to see BlackNode changes.",
+      "severity": "info",
+      "date": "2026-07-19"
+    }
+  ]
+}
