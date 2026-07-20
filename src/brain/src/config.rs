@@ -11,6 +11,7 @@ use serde::{Deserialize, Serialize};
 pub struct Config {
     pub enabled: bool,
     pub automation: Automation,
+    pub collectors: std::collections::HashMap<String, bool>,
     pub algorithms: std::collections::HashMap<String, bool>,
     pub actions: std::collections::HashMap<String, bool>,
 }
@@ -37,6 +38,10 @@ impl Default for Config {
         for a in ["EnableDND", "DisableDND", "ChangeHUD", "PowerProfile", "Wallpaper", "Brightness", "ProfileSuggest", "Notify"] {
             actions.insert(a.to_string(), true);
         }
+        let mut collectors = std::collections::HashMap::new();
+        for a in ["hyprland", "behavior_file"] {
+            collectors.insert(a.to_string(), true);
+        }
         Config {
             enabled: true,
             automation: Automation {
@@ -49,6 +54,7 @@ impl Default for Config {
                 notifications: true,
                 profile: true,
             },
+            collectors,
             algorithms,
             actions,
         }
@@ -56,6 +62,9 @@ impl Default for Config {
 }
 
 impl Config {
+    pub fn collector_on(&self, name: &str) -> bool {
+        self.enabled && *self.collectors.get(name).unwrap_or(&true)
+    }
     pub fn algorithm_on(&self, name: &str) -> bool {
         self.enabled && *self.algorithms.get(name).unwrap_or(&true)
     }
