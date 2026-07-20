@@ -28,6 +28,7 @@ main() {
         "󰂯  Bluetooth" \
         "󰏞  What's New" \
         "󰎓  Your Patterns" \
+        "󰡩  BlackNode" \
         | rofi -dmenu -i -p "" -theme "$ROFI_THEME")
 
     case "$choice" in
@@ -50,8 +51,9 @@ main() {
         "󰋼  About")         "$SCRIPTS/info/menu.sh" ;;
         "󰍃  Session")       "$SCRIPTS/session/menu.sh" ;;
         "󰂯  Bluetooth")     "$SCRIPTS/bluetooth/menu.sh" ;;
-        "󰏞  What's New")  "$HOME/.local/bin/blacknode-whatsnew.sh" ;;
-        "󰎓  Your Patterns") "$HOME/.local/bin/blacknode-insight.sh" ;;
+        "󰏞  What's New")  blacknode whatsnew ;;
+        "󰎓  Your Patterns") blacknode patterns ;;
+        "󰡩  BlackNode")    blacknode doctor | rofi -dmenu -p "BlackNode" ;;
     esac
 }
 

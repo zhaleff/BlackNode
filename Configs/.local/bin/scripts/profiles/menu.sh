@@ -84,6 +84,19 @@ set_active() {
 
 ACTIVE=$(get_active)
 
+if [[ "$1" == "select" && -n "$2" ]]; then
+    picked="$2"
+    [[ "$picked" == "Default" ]] && picked="default"
+    [[ "$picked" == "$ACTIVE" ]] && exit 0
+    if [[ "$picked" == "default" ]]; then
+        set_default
+    else
+        [[ -d "$PROFILE_DIR/$picked" ]] || exit 0
+        set_active "$picked"
+    fi
+    exit 0
+fi
+
 choices="Default\n"
 for d in "$PROFILE_DIR"/*/; do
     pname=$(basename "$d")

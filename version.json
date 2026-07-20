@@ -1,0 +1,12 @@
+{
+  "name": "BlackNode",
+  "tagline": "Your home in the terminal.",
+  "version": "2.4.0",
+  "channel": "stable",
+  "accent": "C9CBFF",
+  "updated": "2026-07-20",
+  "components": {
+    "brain": "0.1.0",
+    "adapt": "0.1.0"
+  }
+}

@@ -1,0 +1,128 @@
+#!/usr/bin/env bash
+
+BLACKNODE_BIN="$(cd "$(dirname "$0")" && pwd)"
+export PATH="$BLACKNODE_BIN:$PATH"
+
+BASE="$HOME/.local/share/blacknode"
+PROFILE_DIR="$BASE/profiles"
+ACTIVE_FILE="$BASE/active_profile"
+
+resolve_repo() {
+    local d="$BLACKNODE_BIN"
+    while [[ "$d" != "/" ]]; do
+        [[ -f "$d/version.json" ]] && { echo "$d"; return; }
+        d="$(dirname "$d")"
+    done
+    echo "$HOME/BlackNode"
+}
+
+REPO="$(resolve_repo)"
+
+version() {
+    local vf="$REPO/version.json"
+    [[ -f "$vf" ]] || { echo "BlackNode (unknown version)"; return; }
+    local ver tag accent
+    ver="$(jq -r '.version' "$vf" 2>/dev/null)"
+    tag="$(jq -r '.tagline' "$vf" 2>/dev/null)"
+    accent="$(jq -r '.accent' "$vf" 2>/dev/null)"
+    echo "BlackNode $ver — $tag"
+    [[ "$accent" != "null" && -n "$accent" ]] && echo "accent: #$accent"
+}
+
+doctor() {
+    local ok=0 warn=0 fail=0
+    check() {
+        local name="$1" cond="$2"
+        if eval "$cond" >/dev/null 2>&1; then
+            echo "  [ok]   $name"; ok=$((ok+1))
+        else
+            echo "  [FAIL] $name"; fail=$((fail+1))
+        fi
+    }
+    warn_fn() {
+        echo "  [warn] $1"; warn=$((warn+1))
+    }
+
+    echo "BlackNode doctor"
+    echo "repo: $REPO"
+    check "version.json present" "[[ -f '$REPO/version.json' ]]"
+    check "matugen installed" "command -v matugen"
+    check "hyprctl available" "command -v hyprctl"
+    check "waybar running" "pgrep -x waybar"
+    check "dunst running" "pgrep -x dunst"
+    check "brain state dir" "[[ -d '$BASE/brain' ]] || mkdir -p '$BASE/brain'"
+    check "behavior schema" "[[ -f '$REPO/Configs/.local/share/blacknode/behavior.schema.json' ]]"
+    check "active profile set" "[[ -f '$ACTIVE_FILE' ]]"
+    check "brain binary" "command -v blacknode-brain"
+
+    if command -v blacknode-brain >/dev/null && ! pgrep -x blacknode-brain >/dev/null; then
+        warn_fn "blacknode-brain not running (start it via profile/autostart)"
+    fi
+
+    local active profile_count
+    active="$([[ -f "$ACTIVE_FILE" ]] && cat "$ACTIVE_FILE" || echo none)"
+    profile_count="$(find -L "$PROFILE_DIR" -maxdepth 1 -mindepth 1 -type d 2>/dev/null | wc -l)"
+    echo "active profile: $active | profiles available: $profile_count"
+    echo "summary: $ok ok, $warn warn, $fail fail"
+    [[ "$fail" -eq 0 ]]
+}
+
+brain() {
+    case "${1:-status}" in
+        start)  pgrep -x blacknode-brain >/dev/null && echo "already running" || (blacknode-brain >/dev/null 2>&1 &) ;;
+        stop)   pkill -x blacknode-brain ;;
+        status) pgrep -x blacknode-brain >/dev/null && echo "running (pid $(pgrep -x blacknode-brain | head -1))" || echo "not running" ;;
+        state)  ls -la "$BASE/brain" 2>/dev/null ;;
+        *) echo "usage: blacknode brain {start|stop|status|state}" ;;
+    esac
+}
+
+profile() {
+    if [[ -z "$1" ]]; then
+        "$BLACKNODE_BIN/scripts/profiles/menu.sh"
+        return
+    fi
+    [[ -d "$PROFILE_DIR/$1" || "$1" == "default" ]] || { echo "unknown profile: $1"; return 1; }
+    "$BLACKNODE_BIN/scripts/profiles/menu.sh" select "$1" 2>/dev/null || \
+        echo "$1" > "$ACTIVE_FILE"
+}
+
+theme() {
+    "$BLACKNODE_BIN/scripts/theme/menu.sh"
+}
+
+usage() {
+    cat <<EOF
+BlackNode — your home in the terminal.
+
+Usage: blacknode <command> [args]
+
+  version         show ecosystem version + tagline
+  doctor          health check of the whole ecosystem
+  profile [name]  switch profile (music/study/coding/astronomy) or open picker
+  theme           open theme/wallpaper picker
+  brain {start|stop|status|state}   control the local intelligence engine
+  patterns        open "Your Patterns" (behavior insight)
+  whatsnew        open the What's New center
+  greet           show the contextual greeter now
+  continuity {save|restore}   session continuity
+  health          quick system health menu
+
+Each subcommand fronts an existing BlackNode module. The brain learns only
+locally; nothing leaves this machine.
+EOF
+}
+
+case "${1:-help}" in
+    version|--version|-v) version ;;
+    doctor) doctor ;;
+    profile) shift; profile "$@" ;;
+    theme) theme ;;
+    brain) shift; brain "$@" ;;
+    patterns) "$BLACKNODE_BIN/blacknode-insight.sh" ;;
+    whatsnew) "$BLACKNODE_BIN/blacknode-whatsnew.sh" "$2" ;;
+    greet) "$BLACKNODE_BIN/blacknode-greeter.sh" "$2" ;;
+    continuity) shift; "$BLACKNODE_BIN/blacknode-continuity.sh" "$@" ;;
+    health) "$BLACKNODE_BIN/scripts/health/menu.sh" ;;
+    help|--help|-h|*) usage ;;
+esac
