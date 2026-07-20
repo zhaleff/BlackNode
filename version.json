@@ -5,7 +5,6 @@
   "channel": "stable",
   "updated": "2026-07-20",
   "components": {
-    "brain": "0.1.0",
-    "adapt": "0.1.0"
+    "brain": "0.1.0"
   }
 }

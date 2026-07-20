@@ -45,7 +45,7 @@
   },
   "group/hollow-right-1": {
     "orientation": "horizontal",
-    "modules": ["idle_inhibitor", "wirepumbler", "custom/waybar-rofi"]
+    "modules": ["idle_inhibitor", "wireplumber", "custom/waybar-rofi"]
   },
   "custom/waybar-rofi": {
     "format": " ",

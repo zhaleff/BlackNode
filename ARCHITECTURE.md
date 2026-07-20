@@ -10,7 +10,7 @@ is composed of three layers that share one identity: **BlackNode**, accent
 ┌─────────────────────────────────────────────────────────────┐
 │  Identity / Orchestration   (blacknode CLI, version.json)    │
 ├─────────────────────────────────────────────────────────────┤
-│  Adaptive layer    blacknode-brain · blacknode-adapt · learn │
+│  Adaptive layer    blacknode-brain · blacknode-learn · greeter │
 │                    greeter · whatsnew · continuity · insight  │
 ├─────────────────────────────────────────────────────────────┤
 │  Surface           waybar (profiles/layouts) · rofi (bn-menu) │
@@ -38,6 +38,8 @@ leaves the machine. State lives under `~/.local/share/blacknode/`.
 - `blacknode-brain` — incremental learning engine (EWMA, Markov, Bayes,
   online KMeans, Welford anomaly). Captures the active window, learns
   transitions and behavioral modes, and acts (ambient + focus suggestions).
+  Source lives in `src/brain/`; the release binary is built and installed to
+  `~/.local/bin` by `linkdots.sh`.
 - `blacknode-learn.py` — behavior learner writing `behavior.json`.
 - `blacknode-greeter` — contextual login greeter (phrase pool from repo).
 - `blacknode-whatsnew` — changelog center (once-seen tracking).
@@ -71,7 +73,7 @@ atomically under `~/.local/share/blacknode/brain/`.
 ## Roadmap (next)
 
 - Close the brain's action loop: consume `focus`/`distract`/`profile` events
-  from `learn.py` + `pomodoro` + `profiles` so the engine drives Do-Not-
-  Disturb and pomodoro suggestions for real.
+  from `blacknode-learn.py` + `pomodoro` + `profiles` so the engine drives
+  Do-Not-Disturb and pomodoro suggestions for real.
 - Branding kit (SVG/logo) shared across greeter, waybar, rofi, SDDM, GRUB.
 - `blacknode sync` to pull repo updates (phrases, changelog, profiles).

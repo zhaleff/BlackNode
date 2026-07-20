@@ -1,6 +1,6 @@
 
 <p align="center">
-  <img src="./Assets/BlackNode-Logo.png" width="100%" alt="BlackNode Banner">
+  <img src="./assets/BlackNode-Logo.png" width="100%" alt="BlackNode Banner">
 </p>
 
 
@@ -23,10 +23,10 @@
 <a href="#installation"><kbd> <br> Installation <br> </kbd></a>&ensp;&ensp;
 <a href="#manual-install"><kbd> <br> Manual Install <br> </kbd></a>&ensp;&ensp;
 <a href="#showcase"><kbd> <br> Showcase <br> </kbd></a>&ensp;&ensp;
-<a href="./KEYBINDS.md"><kbd> <br> Keybindings <br> </kbd></a>&ensp;&ensp;
-<a href="./WAYBAR.md"><kbd> <br> Waybar <br> </kbd></a>&ensp;&ensp;
-<a href="./MODULES.md"><kbd> <br> Modules <br> </kbd></a>&ensp;&ensp;
-<a href="./REFERENCE.md"><kbd> <br> Reference <br> </kbd></a>&ensp;&ensp;
+<a href="./docs/KEYBINDS.md"><kbd> <br> Keybindings <br> </kbd></a>&ensp;&ensp;
+<a href="./docs/WAYBAR.md"><kbd> <br> Waybar <br> </kbd></a>&ensp;&ensp;
+<a href="./docs/MODULES.md"><kbd> <br> Modules <br> </kbd></a>&ensp;&ensp;
+<a href="./docs/REFERENCE.md"><kbd> <br> Reference <br> </kbd></a>&ensp;&ensp;
 
 
 </div>
@@ -45,7 +45,7 @@
 
 BlackNode is my personal Linux configuration. It grew from years of tweaking, breaking, and slowly understanding what makes a system feel like home. It is not a monolithic rice you copy and forget. It is a living set of files, each one written to be read, understood, and eventually changed by you.
 
-Every tool in this setup was chosen deliberately. Nothing is here just because it is popular. Each component has its own independent install script — you run only what you need, nothing runs without your input.
+Every tool in this setup was chosen deliberately. Nothing is here just because it is popular. The install is unified: a single installer links what you need and builds the local components. Nothing runs without your input.
 
 
 
@@ -73,6 +73,36 @@ Every tool in this setup was chosen deliberately. Nothing is here just because i
 | System Info | Fastfetch | Fast, customisable fetch tool |
 | AUR Helper | yay | AUR package manager |
 
+<a id="ecosystem"></a>
+
+## The BlackNode ecosystem
+
+BlackNode is not a folder of scripts — it is a small software system with a
+clear layout:
+
+```
+BlackNode/
+├── Configs/            # the actual dotfiles (symlinked by linkdots.sh)
+│   ├── .config/        # hypr, waybar, rofi, kitty, nvim, dunst, ...
+│   └── .local/bin/     # shell entrypoints (blacknode, bn-menu, daemons)
+├── src/                # source code (not symlinked)
+│   └── brain/          # blacknode-brain: Rust learning engine (Cargo)
+├── scripts/            # operator tooling: install, linkdots, health
+├── docs/               # architecture + reference documentation
+├── assets/             # logo and imagery
+├── version.json        # ecosystem version + component versions
+└── ARCHITECTURE.md     # how the layers fit together
+```
+
+The `blacknode` command is the front door to everything: `blacknode doctor`
+checks the whole system, `blacknode brain` controls the local intelligence
+engine, `blacknode profile` switches environments. See
+[ARCHITECTURE.md](./ARCHITECTURE.md) for the full picture.
+
+Everything in the adaptive layer is **local-only**: no network calls, no
+external models, no telemetry. Behavior data stays in
+`~/.local/share/blacknode/`.
+
 
 
 #
@@ -86,20 +116,26 @@ BlackNode is designed for a minimal [Arch Linux](https://wiki.archlinux.org/titl
 > Installing BlackNode alongside another DE or WM should work, but it **will** overwrite your GTK, Qt, SDDM, shell and Zsh configuration. Proceed at your own risk.
 
 > [!NOTE]
-> ```linkdots.sh``` will create symbolic links for your configuration files—from blacknode—for the installation.
-Clone the repository and run the main installer:
+> ```Scripts/linkdots.sh``` will create symbolic links from this repo into your
+> home directory. The Rust brain is built and installed automatically.
+
+Clone the repository and run the installer:
 
 ```bash
 git clone https://github.com/zhaleff/BlackNode.git $HOME/BlackNode
-cd $HOME/BlackNode 
+cd $HOME/BlackNode
+bash Scripts/install.sh
+```
 
-``` 
+For a manual link only (no package install), run:
+
+```bash
+bash Scripts/linkdots.sh
+```
 
 > [!TIP]
-> I recommend reading the preliminary documentation that explains in detail how to install the dotfile. 
-> 
-<a href="#installation"><kbd> <br> Installation <br> </kbd></a>&ensp;&ensp;
-
+> Read [docs/INSTALLATION.md](./docs/INSTALLATION.md) for the full, step-by-step
+> install guide.
 
 Please reboot after the installer completes for all changes to take effect.
 

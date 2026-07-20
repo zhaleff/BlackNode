@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./Assets/BlackNode-Logo.png" width="100%" alt="BlackNode Banner">
+  <img src="../assets/BlackNode-Logo.png" width="100%" alt="BlackNode Banner">
 </p>
 
 
@@ -95,10 +95,9 @@ What it does:
 ~/.config/
 ├── hypr/          → Hyprland 0.55+ Lua config (keybinds, rules, input, overrides)
 ├── rofi/          → M3-themed launcher, bn-menu, sidebar scripts, shared themes
-├── waybar/        → 5 bar layouts (blacknode, minimal, full, dev, compact)
-├── kitty/         → Terminal with Catppuccin theme
-├── alacritty/     → Terminal (optional)
-├── dunst/         → M3 notification daemon
+├── waybar/        → 13 layouts (blacknode, blacknode-2..8, compact, essential, full, minimal) + 4 profiles (music, study, coding, astronomy)
+├── kitty/         → Terminal with Matugen-coloured theme
+├── dunst/         → Material notification daemon
 ├── wlogout/       → Logout screen
 ├── fastfetch/     → M3 two-box fetch
 ├── zsh/           → Plugins, aliases, completions
@@ -146,7 +145,7 @@ Matugen generates the M3 colour palette from your wallpaper automatically.
 |---------|--------|
 | `SUPER + SPACE` | bn-menu (main hub) |
 | `SUPER + R` | App launcher |
-| `SUPER + SHIFT + O` | Dashboard (quickshell) |
+| `SUPER + SHIFT + O` | Dashboard (waybar profile / rofi) |
 | `SUPER + N` | Notification centre |
 | `SUPER + V` | Quick Config HUD |
 | `SUPER + D` | Kitty terminal |

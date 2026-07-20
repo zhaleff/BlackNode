@@ -43,7 +43,7 @@
   "group/hollow-right-3": {
     "orientation": "horizontal",
     "modules": [
-      "wirepumbler",
+      "wireplumber",
       "idle_inhibitor",
       "custom/waybar-rofi",
       "custom/weather"

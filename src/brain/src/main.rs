@@ -2,9 +2,9 @@
 //!
 //! Spawns the scheduler on its own thread, captures from Hyprland (or stdin
 //! for `--stdin` testing), runs the plugin ensemble, and persists state
-//! atomically. The `FocusCoach` plugin performs the system adaptation that
-//! previously lived in `blacknode-adapt`: focus suggestions + ambient via
-//! matugen, calm-by-default (low urgency, once per key).
+//! atomically. The `FocusCoach` plugin performs the system adaptation:
+//! focus suggestions + ambient via matugen, calm-by-default (low urgency,
+//! once per key).
 
 use blacknode_brain::api::{ActionSink, EngineApi};
 use blacknode_brain::capture::{ChannelSource, HyprlandSource};
@@ -119,7 +119,8 @@ fn ambient_mode(franja: &str) -> &'static str {
     }
 }
 
-/// Adaptation plugin: replaces blacknode-adapt. Acts on the live Prediction.
+/// Adaptation plugin: drives focus suggestions and ambient from the live
+/// Prediction.
 struct FocusCoach {
     last_ambient: Option<String>,
     last_focus_key: Option<String>,

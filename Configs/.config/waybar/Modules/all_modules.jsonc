@@ -23,7 +23,7 @@
     "~/.config/waybar/Modules/user.jsonc",
     "~/.config/waybar/Modules/weather.jsonc",
     "~/.config/waybar/Modules/window.jsonc",
-    "~/.config/waybar/Modules/wirepumbler.jsonc",
+    "~/.config/waybar/Modules/wireplumber.jsonc",
     "~/.config/waybar/Modules/workspaces.jsonc",
     "~/.config/waybar/Modules/music.jsonc",
     "~/.config/waybar/Modules/music-player.jsonc",

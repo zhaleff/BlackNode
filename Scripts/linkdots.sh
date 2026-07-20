@@ -31,13 +31,31 @@ for item in "$REPO/Configs/.config"/*; do
 done
 
 for item in "$REPO/Configs/.local/bin"/*; do
-    link_item "$item" "$HOME/.local/bin/$(basename "$item")" ".local/bin/$(basename "$item")"
+    name="$(basename "$item")"
+    [[ -d "$item" ]] && { echo "  · skip dir $name (not a binary)"; continue; }
+    link_item "$item" "$HOME/.local/bin/$name" ".local/bin/$name"
 done
 
 if [[ -d "$REPO/Configs/.local/share/blacknode" ]]; then
     for item in "$REPO/Configs/.local/share/blacknode"/*; do
         link_item "$item" "$HOME/.local/share/blacknode/$(basename "$item")" ".local/share/blacknode/$(basename "$item")"
     done
+fi
+
+echo ""
+echo "Building components"
+BRAIN_DIR="$REPO/src/brain"
+if [[ -f "$BRAIN_DIR/Cargo.toml" ]]; then
+    if command -v cargo >/dev/null 2>&1; then
+        echo "  → building blacknode-brain (rust)"
+        (cd "$BRAIN_DIR" && cargo build --release >/dev/null 2>&1) || echo "  ✗ brain build failed"
+        if [[ -x "$BRAIN_DIR/target/release/blacknode-brain" ]]; then
+            install -Dm755 "$BRAIN_DIR/target/release/blacknode-brain" "$HOME/.local/bin/blacknode-brain"
+            echo "  → blacknode-brain installed"
+        fi
+    else
+        echo "  ✗ cargo not found, skipping brain build"
+    fi
 fi
 
 echo ""

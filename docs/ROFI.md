@@ -21,10 +21,8 @@ All themes are modular. No standalone themes exist.
 └── styles/              ← per-feature themes importing from shared/
     ├── wifi-list.rasi
     ├── bluetooth-list.rasi
-    ├── notes-list.rasi
     ├── search-list.rasi
     ├── audio-list.rasi
-    ├── notes-input.rasi
     ├── search-input.rasi
     ├── notifications-list.rasi
     └── kb-layout.rasi
@@ -71,7 +69,7 @@ Icon-only panels, 100px wide, right edge of screen. Triggered by keybinds:
 | `wifi.sh` | `SUPER + A` | Wi-Fi scan, connect, saved networks |
 | `bluetooth.sh` | `SUPER + B` | Bluetooth power, scan, devices |
 | `audio.sh` | `SUPER + SHIFT + A` | Recently played (album art), audio apps |
-| `notes.sh` | `SUPER + SHIFT + N` | New note, view notes, open folder |
+| `themeselect.sh` | `SUPER + SHIFT + T` | Switch wallpaper / theme |
 | `search.sh` | `SUPER + SHIFT + F` | File, web, text, recent search |
 | `kb-layout.sh` | `SUPER + SHIFT + K` | Keyboard layout toggle (us/es) |
 | `notifications.sh` | `SUPER + N` | Notification history, clear, pause |
