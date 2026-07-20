@@ -49,7 +49,7 @@ main() {
         "󰋼  About")         "$SCRIPTS/info/menu.sh" ;;
         "󰍃  Session")       "$SCRIPTS/session/menu.sh" ;;
         "󰂯  Bluetooth")     "$SCRIPTS/bluetooth/menu.sh" ;;
-        "󰏞  What's New")  "~/.local/bin/blacknode-whatsnew.sh" ;;
+        "󰏞  What's New")  "$HOME/.local/bin/blacknode-whatsnew.sh" ;;
     esac
 }
 
