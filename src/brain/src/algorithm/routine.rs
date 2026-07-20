@@ -1,28 +1,20 @@
 //! Routine learner: discovers "at hour H the user usually opens app A".
 //!
-//! Watches `window` signals and keeps a fixed-size tally hour -> app -> count.
-//! When the current hour's most likely app passes a confidence floor it
-//! publishes a `routine:<app>` knowledge claim. The DecisionEngine turns that
-//! into a LaunchApp decision, and the action asks the user before opening
-//! (the brain never launches anything blindly).
+//! Stateless translator between `window` signals and durable memory. Every
+//! signal is written to [`Memory`] (which decays old habits), and once per
+//! tick the most likely app for the current hour is published as `Knowledge`.
+//! Nothing is kept in this struct: restart the brain and the routine is still
+//! known, because it lives in memory, not here.
 
 use crate::algorithm::Algorithm;
 use crate::bus::{Bus, Knowledge};
-use std::collections::HashMap;
+use std::sync::Arc;
 
-pub struct Routine {
-    counts: HashMap<(u8, String), u64>,
-    totals: HashMap<u8, u64>,
-    seen_hour_app: HashMap<(u8, String), bool>,
-}
+pub struct Routine;
 
 impl Routine {
     pub fn new() -> Box<Self> {
-        Box::new(Routine {
-            counts: HashMap::new(),
-            totals: HashMap::new(),
-            seen_hour_app: HashMap::new(),
-        })
+        Box::new(Routine)
     }
 }
 
@@ -39,47 +31,41 @@ impl Algorithm for Routine {
     fn name(&self) -> &str {
         "routine"
     }
-    fn run(self: Box<Self>, bus: std::sync::Arc<Bus>) {
-        let mut r = *self;
+    fn run(self: Box<Self>, bus: Arc<Bus>) {
+        let mem = bus.memory();
         let sig = bus.signal_rx();
+        let mut last_pub = 0u64;
         loop {
-            let mut changed = false;
             while let Ok(s) = sig.try_recv() {
                 if s.kind == "window" {
-                    let app = s.value.clone();
-                    let h = hour_now();
-                    *r.counts.entry((h, app.clone())).or_insert(0) += 1;
-                    *r.totals.entry(h).or_insert(0) += 1;
-                    r.seen_hour_app.insert((h, app), true);
-                    changed = true;
+                    mem.observe_window(&s.value, hour_now());
                 }
             }
-            if changed {
+            let now = now_ms();
+            if now - last_pub > 1000 {
+                last_pub = now;
                 let h = hour_now();
-                if let Some(&total) = r.totals.get(&h) {
-                    if total >= 3 {
-                        let mut best: Option<(String, f64)> = None;
-                        for ((hh, app), c) in r.counts.iter() {
-                            if *hh == h {
-                                let p = *c as f64 / total as f64;
-                                if best.as_ref().map(|(_, b)| p > *b).unwrap_or(true) {
-                                    best = Some((app.clone(), p));
-                                }
-                            }
-                        }
-                        if let Some((app, p)) = best {
-                            let conf = (total as f64 / (total as f64 + 20.0)).min(0.95);
-                            bus.publish_knowledge(Knowledge::new(
-                                "routine",
-                                &format!("routine:{}", app),
-                                p,
-                                conf,
-                            ));
-                        }
+                if let Some((app, p)) = mem.routine_for(h) {
+                    if p >= 0.4 {
+                        let conf = (p * 0.9).min(0.95);
+                        bus.publish_knowledge(Knowledge::new(
+                            "routine",
+                            &format!("routine:{}", app),
+                            p,
+                            conf,
+                        ));
                     }
                 }
             }
-            std::thread::sleep(std::time::Duration::from_millis(1000));
+            std::thread::sleep(std::time::Duration::from_millis(500));
         }
     }
+}
+
+fn now_ms() -> u64 {
+    use std::time::{SystemTime, UNIX_EPOCH};
+    SystemTime::now()
+        .duration_since(UNIX_EPOCH)
+        .map(|d| d.as_millis() as u64)
+        .unwrap_or(0)
 }

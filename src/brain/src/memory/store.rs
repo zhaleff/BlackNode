@@ -7,8 +7,7 @@
 //! between bus signals and these methods.
 
 use crate::memory::model::{AppCount, Model};
-use std::collections::HashMap;
-use std::path::{Path, PathBuf};
+use std::path::PathBuf;
 use std::sync::RwLock;
 use std::time::{SystemTime, UNIX_EPOCH};
 
@@ -106,6 +105,11 @@ impl Memory {
         } else {
             0.0
         }
+    }
+
+    /// Number of focus/distract samples seen at `hour` (for confidence).
+    pub fn total_samples(&self, hour: u8) -> f64 {
+        self.inner.read().unwrap().total[hour as usize]
     }
 
     /// Record a transition from one active app to another.

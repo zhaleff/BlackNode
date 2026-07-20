@@ -1,26 +1,18 @@
-//! Markov transition model over active application classes.
+//! Markov transition model over active applications.
 //!
-//! Counts (prev_app -> app) transitions and publishes, for the current app,
-//! the most likely next app plus a confidence. Lets the DecisionEngine infer
-//! routine: if the next app is the expected one, the user is in flow.
+//! Observes app->app transitions into durable [`Memory`] and publishes, for
+//! the current app, the most likely next app as `Knowledge`. Persistent: the
+//! chain of habits survives restarts and decays with disuse.
 
 use crate::algorithm::Algorithm;
 use crate::bus::{Bus, Knowledge};
-use std::collections::HashMap;
+use std::sync::Arc;
 
-pub struct Markov {
-    counts: HashMap<(String, String), u64>,
-    totals: HashMap<String, u64>,
-    prev: Option<String>,
-}
+pub struct Markov;
 
 impl Markov {
     pub fn new() -> Box<Self> {
-        Box::new(Markov {
-            counts: HashMap::new(),
-            totals: HashMap::new(),
-            prev: None,
-        })
+        Box::new(Markov)
     }
 }
 
@@ -28,39 +20,33 @@ impl Algorithm for Markov {
     fn name(&self) -> &str {
         "markov"
     }
-    fn run(self: Box<Self>, bus: std::sync::Arc<Bus>) {
-        let mut m = *self;
+    fn run(self: Box<Self>, bus: Arc<Bus>) {
+        let mem = bus.memory();
         let sig = bus.signal_rx();
+        let mut prev: Option<String> = None;
+        let mut last_pub = 0u64;
         loop {
             while let Ok(s) = sig.try_recv() {
                 if s.kind == "window" {
                     let app = s.value.clone();
-                    if let Some(p) = m.prev.take() {
-                        *m.counts.entry((p.clone(), app.to_string())).or_insert(0) += 1;
-                        *m.totals.entry(p).or_insert(0) += 1;
+                    if let Some(p) = prev.take() {
+                        mem.observe_transition(&p, &app);
                     }
-                    m.prev = Some(app.to_string());
-                    if let Some(p) = m.prev.clone() {
-                        if let Some(&total) = m.totals.get(&p) {
-                            if total > 0 {
-                                let mut best: Option<(String, f64)> = None;
-                                for ((from, to), c) in m.counts.iter() {
-                                    if from == &p {
-                                        let conf = *c as f64 / total as f64;
-                                        if best.as_ref().map(|(_, b)| conf > *b).unwrap_or(true) {
-                                            best = Some((to.clone(), conf));
-                                        }
-                                    }
-                                }
-                                if let Some((to, conf)) = best {
-                                    bus.publish_knowledge(Knowledge::new(
-                                        "markov",
-                                        &format!("next:{}", to),
-                                        conf,
-                                        conf,
-                                    ));
-                                }
-                            }
+                    prev = Some(app);
+                }
+            }
+            let now = now_ms();
+            if now - last_pub > 1000 {
+                last_pub = now;
+                if let Some(cur) = prev.clone() {
+                    if let Some((to, p)) = mem.next_after(&cur) {
+                        if p >= 0.4 && to != cur {
+                            bus.publish_knowledge(Knowledge::new(
+                                "markov",
+                                &format!("next:{}", to),
+                                p,
+                                p,
+                            ));
                         }
                     }
                 }
@@ -68,4 +54,12 @@ impl Algorithm for Markov {
             std::thread::sleep(std::time::Duration::from_millis(500));
         }
     }
+}
+
+fn now_ms() -> u64 {
+    use std::time::{SystemTime, UNIX_EPOCH};
+    SystemTime::now()
+        .duration_since(UNIX_EPOCH)
+        .map(|d| d.as_millis() as u64)
+        .unwrap_or(0)
 }

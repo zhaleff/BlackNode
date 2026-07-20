@@ -1,63 +1,63 @@
-//! Naive-Bayes-style focus probability by hour.
+//! Bayesian focus probability by hour.
 //!
-//! Learns P(focus | hour) incrementally: for each focus/distract signal it
-//! bumps the count for the current hour, then publishes the focus
-//! probability for the current hour. This is how the brain knows "at 22:00
-//! you are almost always focused" and can act preemptively.
+//! Learns P(focus | hour) into durable [`Memory`] and publishes the current
+//! hour's focus probability as `Knowledge`. Over weeks this becomes a reliable
+//! prior the DecisionEngine can act on before you even start focusing.
 
 use crate::algorithm::Algorithm;
 use crate::bus::{Bus, Knowledge};
+use std::sync::Arc;
 
-pub struct Bayes {
-    focus: [u64; 24],
-    total: [u64; 24],
-}
+pub struct Bayes;
 
 impl Bayes {
     pub fn new() -> Box<Self> {
-        Box::new(Bayes {
-            focus: [0; 24],
-            total: [0; 24],
-        })
-    }
-    fn hour() -> usize {
-        chrono_now_hour()
+        Box::new(Bayes)
     }
 }
 
-fn chrono_now_hour() -> usize {
+fn hour_now() -> u8 {
     use std::time::{SystemTime, UNIX_EPOCH};
-    let secs = SystemTime::now()
+    let s = SystemTime::now()
         .duration_since(UNIX_EPOCH)
         .map(|d| d.as_secs())
         .unwrap_or(0);
-    ((secs / 3600) % 24) as usize
+    ((s / 3600) % 24) as u8
 }
 
 impl Algorithm for Bayes {
     fn name(&self) -> &str {
         "bayes"
     }
-    fn run(self: Box<Self>, bus: std::sync::Arc<Bus>) {
-        let mut b = *self;
+    fn run(self: Box<Self>, bus: Arc<Bus>) {
+        let mem = bus.memory();
         let sig = bus.signal_rx();
+        let mut last_pub = 0u64;
         loop {
             while let Ok(s) = sig.try_recv() {
-                if s.kind == "focus" || s.kind == "distract" {
-                    let h = Bayes::hour();
-                    b.total[h] += 1;
-                    if s.kind == "focus" {
-                        b.focus[h] += 1;
-                    }
+                if s.kind == "focus" {
+                    mem.observe_focus(hour_now(), true);
+                } else if s.kind == "distract" {
+                    mem.observe_focus(hour_now(), false);
                 }
             }
-            let h = Bayes::hour();
-            if b.total[h] > 0 {
-                let p = b.focus[h] as f64 / b.total[h] as f64;
-                let conf = (b.total[h] as f64 / (b.total[h] as f64 + 10.0)).min(0.9);
+            let now = now_ms();
+            if now - last_pub > 1000 {
+                last_pub = now;
+                let h = hour_now();
+                let p = mem.focus_prob(h);
+                let conf = (mem.total_samples(h) / (mem.total_samples(h) + 10.0)).min(0.9);
                 bus.publish_knowledge(Knowledge::new("bayes", "focus_hour", p, conf));
             }
-            std::thread::sleep(std::time::Duration::from_millis(1000));
+            std::thread::sleep(std::time::Duration::from_millis(500));
         }
     }
+}
+
+fn now_ms() -> u64 {
+    use std::time::{SystemTime, UNIX_EPOCH};
+    SystemTime::now()
+        .duration_since(UNIX_EPOCH)
+        .map(|d| d.as_millis() as u64)
+        .unwrap_or(0)
 }
