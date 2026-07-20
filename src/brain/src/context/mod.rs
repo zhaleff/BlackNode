@@ -49,6 +49,7 @@ impl Context {
 /// thread, subscribing to the knowledge bus.
 pub fn run(bus: Arc<Bus>, ctx: Arc<Mutex<Context>>) {
     let mut focus = 0.0;
+    let mut distract = 0.0;
     let mut instability = 0.0;
     let mut context_label = String::new();
     let mut last_window_ts = now_ms();
@@ -56,6 +57,7 @@ pub fn run(bus: Arc<Bus>, ctx: Arc<Mutex<Context>>) {
         while let Ok(k) = bus.knowledge_rx().try_recv() {
             match k.claim.as_str() {
                 "focus" => focus = k.value,
+                "distract" => distract = k.value,
                 "instability" => instability = k.value,
                 "context" => context_label = format!("{:.2}", k.value),
                 _ => {}

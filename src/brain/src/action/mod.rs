@@ -6,15 +6,10 @@
 //! effect is observable, not just a notification.
 
 use crate::bus::Decision;
-use std::process::Command;
 
 pub trait Action: Send + Sync + 'static {
     fn name(&self) -> &str;
     fn execute(&self, dec: &Decision);
-}
-
-fn run(cmd: &str, args: &[&str]) {
-    let _ = Command::new(cmd).args(args).status();
 }
 
 mod actions;
