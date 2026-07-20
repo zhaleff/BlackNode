@@ -31,6 +31,14 @@
       "body": "You are reading it. Open it anytime from the system menu to see BlackNode changes.",
       "severity": "info",
       "date": "2026-07-19"
+    },
+    {
+      "id": "2026-07-19-whatsnew-announce",
+      "version": "whatsnew",
+      "title": "Announcing What's New",
+      "body": "BlackNode now ships a changelog center. Updates are written once to the repo and shown to you a single time. Open System menu -> What's New to review. No spam, no repeat.",
+      "severity": "feature",
+      "date": "2026-07-19"
     }
   ]
 }
