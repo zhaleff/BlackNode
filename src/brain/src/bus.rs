@@ -84,7 +84,10 @@ impl Decision {
     }
 }
 
-/// The bus: three independent broadcast-ish channels.
+/// The bus: three independent broadcast channels.
+///
+/// Each `rx()` call returns a fresh clone of the receiver, so every
+/// subscriber sees every message (crossbeam receivers are multi-consumer).
 pub struct Bus {
     signal_tx: Sender<Signal>,
     signal_rx: Receiver<Signal>,
@@ -119,14 +122,14 @@ impl Bus {
         let _ = self.decision_tx.send(d);
     }
 
-    pub fn signal_rx(&self) -> &Receiver<Signal> {
-        &self.signal_rx
+    pub fn signal_rx(&self) -> Receiver<Signal> {
+        self.signal_rx.clone()
     }
-    pub fn knowledge_rx(&self) -> &Receiver<Knowledge> {
-        &self.knowledge_rx
+    pub fn knowledge_rx(&self) -> Receiver<Knowledge> {
+        self.knowledge_rx.clone()
     }
-    pub fn decision_rx(&self) -> &Receiver<Decision> {
-        &self.decision_rx
+    pub fn decision_rx(&self) -> Receiver<Decision> {
+        self.decision_rx.clone()
     }
 }
 

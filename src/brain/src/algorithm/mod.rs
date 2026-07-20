@@ -19,15 +19,19 @@ impl dyn Algorithm {
 
 mod anomaly;
 mod bayes;
+mod context_graph;
 mod ewma;
 mod kmeans;
 mod markov;
+mod reinforcement;
 
 pub use anomaly::Anomaly;
 pub use bayes::Bayes;
+pub use context_graph::ContextGraph;
 pub use ewma::Ewma;
 pub use kmeans::Kmeans;
 pub use markov::Markov;
+pub use reinforcement::Reinforcement;
 
 use crate::config::Config;
 
@@ -48,6 +52,12 @@ pub fn register(config: &Config) -> Vec<Box<dyn Algorithm>> {
     }
     if config.algorithm_on("kmeans") {
         out.push(Kmeans::new());
+    }
+    if config.algorithm_on("context_graph") {
+        out.push(ContextGraph::new(10 * 60 * 1000));
+    }
+    if config.algorithm_on("reinforcement") {
+        out.push(Reinforcement::new());
     }
     out
 }
