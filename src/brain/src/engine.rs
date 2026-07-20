@@ -14,6 +14,13 @@ use crate::config::Config;
 use crate::context::Context;
 use std::sync::{Arc, Mutex};
 
+fn decision_log_path() -> Option<std::path::PathBuf> {
+    let home = std::env::var("HOME").ok()?;
+    let dir = std::path::Path::new(&home).join(".local/share/blacknode/brain");
+    let _ = std::fs::create_dir_all(&dir);
+    Some(dir.join("decisions.jsonl"))
+}
+
 pub struct Engine {
     pub bus: Arc<Bus>,
     pub config: Config,
@@ -25,6 +32,10 @@ pub struct Engine {
 }
 
 impl Engine {
+    pub fn collector_on(&self, name: &str) -> bool {
+        self.config.collector_on(name)
+    }
+
     pub fn new(config: Config) -> Self {
         Engine {
             bus: Arc::new(Bus::new()),
@@ -79,8 +90,22 @@ impl Engine {
             std::thread::spawn(move || d.run(bus, ctx));
         }
         let actions = Arc::new(actions);
+        let log_path = decision_log_path();
         std::thread::spawn(move || loop {
             if let Ok(dec) = bus.decision_rx().recv() {
+                if let Ok(line) = serde_json::to_string(&dec) {
+                    if let Some(p) = &log_path {
+                        use std::io::Write;
+                        let mut f = std::fs::OpenOptions::new()
+                            .create(true)
+                            .append(true)
+                            .open(p)
+                            .ok();
+                        if let Some(f) = f.as_mut() {
+                            let _ = f.write_all(format!("{}\n", line).as_bytes());
+                        }
+                    }
+                }
                 for act in actions.iter() {
                     if act.name() == dec.action {
                         act.execute(&dec);

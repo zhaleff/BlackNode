@@ -76,23 +76,26 @@ brain() {
                 echo "status:   not running"
             fi
             echo "data dir: $BASE/brain"
-            if [[ -d "$BASE/brain" ]]; then
-                for f in "$BASE/brain"/*.json; do
-                    [[ -f "$f" ]] || continue
-                    name="$(basename "$f" .json)"
-                    case "$name" in
-                        ewma)    v="$(jq -r '.Ewma' "$f" 2>/dev/null)"; echo "  ewma    focus intensity: ${v:-?}" ;;
-                        anomaly) v="$(jq -r '.Anomaly[0]' "$f" 2>/dev/null)"; echo "  anomaly  mean: ${v:-?}" ;;
-                        markov)  n="$(jq -r '.Markov[1] | length' "$f" 2>/dev/null)"; echo "  markov   known states: ${n:-?}" ;;
-                        kmeans)  n="$(jq -r '.Cluster[1] | length' "$f" 2>/dev/null)"; echo "  kmeans   clusters: ${n:-?}" ;;
-                        bayes)   echo "  bayes    belief: $(jq -c '.Bayes' "$f" 2>/dev/null)" ;;
-                        *)       echo "  $name" ;;
-                    esac
-                done
+            if [[ -f "$BASE/brain/state.json" ]]; then
+                echo "context:  $(jq -r '.activity' "$BASE/brain/state.json" 2>/dev/null) (conf $(jq -r '.confidence' "$BASE/brain/state.json" 2>/dev/null))"
+                echo "app:      $(jq -r '.top_app' "$BASE/brain/state.json" 2>/dev/null)"
+                echo "profile:  $(jq -r '.active_profile' "$BASE/brain/state.json" 2>/dev/null)"
             fi
             ;;
+        explain)
+            if [[ ! -f "$BASE/brain/decisions.jsonl" ]]; then
+                echo "no decisions recorded yet"
+                return
+            fi
+            local last
+            last="$(tail -n 1 "$BASE/brain/decisions.jsonl")"
+            echo "last decision: $(echo "$last" | jq -r '.action')"
+            echo "confidence:    $(echo "$last" | jq -r '.confidence')"
+            echo "why:"
+            echo "$last" | jq -r '.reason[]?' 2>/dev/null | sed 's/^/  - /'
+            ;;
         state)  ls -la "$BASE/brain" 2>/dev/null ;;
-        *) echo "usage: blacknode brain {start|stop|status|state}" ;;
+        *) echo "usage: blacknode brain {start|stop|status|explain|state}" ;;
     esac
 }
 
@@ -211,7 +214,7 @@ Usage: blacknode <command> [args]
   doctor                    health check of the whole ecosystem
   profile [name]            switch profile (music/study/coding/astronomy) or open picker
   theme                     open theme/wallpaper picker
-  brain {start|stop|status|state}   control the local intelligence engine
+  brain {start|stop|status|explain|state}   control the local intelligence engine
   patterns                  show your behavior patterns (CLI)
   whatsnew [--read]         show changelog in CLI (--read marks all seen)
   greet                     show the contextual greeter now
