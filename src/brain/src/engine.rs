@@ -75,7 +75,8 @@ impl Engine {
         }
         if let Some(d) = decision {
             let bus = Arc::clone(&bus);
-            std::thread::spawn(move || d.run(bus));
+            let ctx = Arc::clone(&context);
+            std::thread::spawn(move || d.run(bus, ctx));
         }
         let actions = Arc::new(actions);
         std::thread::spawn(move || loop {
