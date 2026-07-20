@@ -1,20 +1,15 @@
 #!/usr/bin/env python3
-# Git contribution heat strip — punta de puntitos verdes estilo GitHub.
-# Cuenta commits por dia (gh contributions del usuario si esta autenticado,
-# si no, commits del repo local). Hoy se resalta.
 import json
 import subprocess
 import datetime as dt
 from collections import Counter
 
-# Cuantos dias mostrar (estilo "camino de contribuciones")
 DAYS = 7
 REPO = subprocess.run(["bash", "-lc", "echo $HOME/BlackNode"],
                       capture_output=True, text=True).stdout.strip()
 
-# Niveles de color estilo GitHub (dark)
 LEVELS = ["#21262d", "#0e4429", "#006d32", "#26a641", "#39d353"]
-DOT = "\u25cf"  # ●
+DOT = "\u25cf"
 
 
 def level_for(count):
@@ -30,7 +25,6 @@ def level_for(count):
 
 
 def gh_contribs(days):
-    """Devuelve dict date->count usando gh GraphQL, o None si no aplica."""
     try:
         from datetime import date
         end = date.today()
@@ -40,8 +34,6 @@ def gh_contribs(days):
             "  viewer{ contributionsCollection(from:$from, to:$to){"
             "    contributionCalendar{ weeks{ contributionDays{ date contributionCount } } } } } }"
         )
-        import urllib.request, ssl
-        # gh api graphql pasa los args como variables json
         out = subprocess.run(
             ["gh", "api", "graphql", "-f", f"query={q}",
              "-F", f"from={start.isoformat()}T00:00:00Z",
@@ -61,7 +53,6 @@ def gh_contribs(days):
 
 
 def local_contribs(days, repo):
-    """Cuenta commits por dia en el repo local."""
     since = (dt.date.today() - dt.timedelta(days=days)).isoformat()
     try:
         out = subprocess.run(
@@ -93,7 +84,6 @@ def main():
         lvl = level_for(c)
         color = LEVELS[lvl]
         if d == today:
-            # hoy: resaltado con negrita + contorno claro
             cells.append(f'<span foreground="{color}" weight="bold" underline="single">\u25b3</span>')
             tip_lines.append(f"  TODAY ({d.strftime('%a %d %b')}): {c} commit(s)")
         else:

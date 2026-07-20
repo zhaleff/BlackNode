@@ -1,8 +1,3 @@
-# BlackNode Greeter — phrase pool
-# One phrase per line. Use $name for the user's name.
-# The greeter picks one at random per session (never the same twice in a row).
-# Edit freely — this IS your "database".
-
 [late]
 $name, the small hours. The machine is awake if you are. If not, rest — you earned it.
 Burning the midnight oil, $name? I kept your session exactly as you left it.

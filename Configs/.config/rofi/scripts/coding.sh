@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-# Coding profile — each waybar group calls coding.sh <group> to open its own submenu/action.
 
 THEME="$HOME/.config/rofi/styles/submenu.rasi"
 INPUT="$HOME/.config/rofi/styles/search-input.rasi"
@@ -10,7 +9,6 @@ notify() { notify-send "Coding" "$1"; }
 open_url() { xdg-open "$1" & disown; }
 urlq() { python3 -c "import urllib.parse,sys;print(urllib.parse.quote(sys.argv[1]))" "$1"; }
 
-# ---------- documentation hub ----------
 menu_docs() {
     choice=$(printf '%s\n' \
         "󰛳  DevDocs (all-in-one)" \
@@ -33,7 +31,6 @@ menu_docs() {
     esac
 }
 
-# ---------- roadmap.sh ----------
 menu_roadmap() {
     choice=$(printf '%s\n' \
         "󰹇  Frontend Developer" \
@@ -64,7 +61,6 @@ menu_roadmap() {
     esac
 }
 
-# ---------- language references ----------
 menu_lang() {
     choice=$(printf '%s\n' \
         "󰆧  Python — docs + REPL" \
@@ -83,7 +79,6 @@ menu_lang() {
     esac
 }
 
-# ---------- version control ----------
 menu_git() {
     choice=$(printf '%s\n' \
         "󰊢  lazygit (TUI)" \
@@ -102,7 +97,6 @@ menu_git() {
     esac
 }
 
-# ---------- dev tools ----------
 menu_tools() {
     choice=$(printf '%s\n' \
         "󰓲  Docker Desktop" \
@@ -125,7 +119,6 @@ menu_tools() {
     esac
 }
 
-# ---------- AI assistants ----------
 menu_ai() {
     choice=$(printf '%s\n' \
         "󰤭  Claude" \
@@ -142,7 +135,6 @@ menu_ai() {
     esac
 }
 
-# ---------- Q&A / search ----------
 menu_stack() {
     choice=$(printf '%s\n' \
         "󰆄  Stack Overflow" \
@@ -164,7 +156,6 @@ calendar_show() {
     else notify "$(date '+%A %d %B %Y')"; fi
 }
 
-# ---------- dispatcher ----------
 case "${1:-}" in
     docs) menu_docs ;;
     roadmap) menu_roadmap ;;

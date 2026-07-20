@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-# Study profile — each waybar group calls study.sh <group> to open its own submenu/action.
 
 THEME="$HOME/.config/rofi/styles/submenu.rasi"
 INPUT="$HOME/.config/rofi/styles/search-input.rasi"
@@ -9,7 +8,6 @@ NOTES_DIR="$HOME/BlackNode/Notes"
 notify() { notify-send "Study" "$1"; }
 open_url() { xdg-open "$1" & disown; }
 
-# ---------- actions ----------
 new_note() {
     mkdir -p "$NOTES_DIR"
     TITLE=$(echo "" | rofi -dmenu -p "Note name" -theme "$INPUT")
@@ -61,7 +59,6 @@ focus_mode() {
     else notify "Focus mode — DND unavailable"; fi
 }
 
-# ---------- submenus (one rofi each) ----------
 menu_notes() {
     choice=$(printf '%s\n' "󰅴  New Note" "󰋼  Open Notes" "󰈔  Browse Folder" | rofi -dmenu -i -p " Notes" -theme "$THEME")
     case "$choice" in
@@ -91,7 +88,6 @@ menu_search() {
     esac
 }
 
-# ---------- dispatcher ----------
 case "${1:-}" in
     notes) menu_notes ;;
     docs) menu_docs ;;

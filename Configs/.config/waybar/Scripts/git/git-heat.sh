@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-# Click en el modulo git-heat: muestra commits de hoy + totales.
 REPO="$HOME/BlackNode"
 THEME="$HOME/.config/rofi/styles/submenu.rasi"
 LIST="$HOME/.config/rofi/styles/search-list.rasi"
