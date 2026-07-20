@@ -202,8 +202,10 @@ mod tests {
     use super::*;
 
     fn tmp_path() -> PathBuf {
-        let d = std::env::temp_dir().join(format!("bn_mem_test_{}.json", now_ms()));
-        d
+        use std::sync::atomic::{AtomicU64, Ordering};
+        static N: AtomicU64 = AtomicU64::new(0);
+        let id = N.fetch_add(1, Ordering::SeqCst);
+        std::env::temp_dir().join(format!("bn_mem_test_{}_{}.json", std::process::id(), id))
     }
 
     #[test]
