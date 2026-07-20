@@ -44,7 +44,7 @@ timer_tick() {
     done
     play_alarm
     if [[ "$mode" == "work" ]]; then
-        ~/.local/bin/blacknode-learn.sh focus "$((start_min))"
+        ~/.local/bin/blacknode-learn.py focus "$((start_min))"
         notify_timer "Pomodoro" "Work session done! Take a break."
         echo "break|$((5 * 60))|false|" > "$STATE_FILE"
     else

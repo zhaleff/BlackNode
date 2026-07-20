@@ -78,7 +78,7 @@ set_active() {
     wall=$(random_wallpaper_from "$PROFILE_DIR/$name/walls")
     [[ -n "$wall" ]] && apply_wallpaper "$wall"
 
-    ~/.local/bin/blacknode-learn.sh profile "$name"
+    ~/.local/bin/blacknode-learn.py profile "$name"
 
     notify-send -t 2000 "Profile: $name" "Waybar + wallpapers updated"
 }
