@@ -5,7 +5,7 @@
 //! routine: if the next app is the expected one, the user is in flow.
 
 use crate::algorithm::Algorithm;
-use crate::bus::{Bus, Knowledge, Signal};
+use crate::bus::{Bus, Knowledge};
 use std::collections::HashMap;
 
 pub struct Markov {

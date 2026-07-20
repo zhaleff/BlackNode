@@ -4,7 +4,7 @@
 //! publishes `Knowledge` claims. Each algorithm lives in its own file under
 //! this directory. Adding one = new file + one line in `register`.
 
-use crate::bus::{Bus, Knowledge, Signal};
+use crate::bus::{Bus, Knowledge};
 
 pub trait Algorithm: Send {
     fn name(&self) -> &str;

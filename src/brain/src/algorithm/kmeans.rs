@@ -6,7 +6,7 @@
 //! no per-sample history beyond the running batches.
 
 use crate::algorithm::Algorithm;
-use crate::bus::{Bus, Knowledge, Signal};
+use crate::bus::{Bus, Knowledge};
 
 pub struct Kmeans {
     gaps: Vec<f64>,

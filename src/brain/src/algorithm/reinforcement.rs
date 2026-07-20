@@ -8,7 +8,7 @@
 //! reward.
 
 use crate::algorithm::Algorithm;
-use crate::bus::{Bus, Signal};
+use crate::bus::Bus;
 use std::collections::HashMap;
 use std::sync::Mutex;
 

@@ -1,6 +1,6 @@
 //! blacknode-brain v2: modular cognitive engine entry point.
 
-use blacknode_brain::{action, algorithm, collector, config::Config, context::Context, decision, engine::Engine};
+use blacknode_brain::{action, algorithm, collector, config::Config, decision, engine::Engine};
 use std::sync::Arc;
 
 fn main() {

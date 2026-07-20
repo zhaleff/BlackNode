@@ -4,7 +4,7 @@
 //! `Activity` belief stored in the shared `Context`. The DecisionEngine reads
 //! that belief to choose actions. It is working memory, not a stored metric.
 
-use crate::bus::{Bus, Knowledge};
+use crate::bus::Bus;
 use std::sync::{Arc, Mutex};
 use std::time::{SystemTime, UNIX_EPOCH};
 
@@ -49,7 +49,6 @@ impl Context {
 /// thread, subscribing to the knowledge bus.
 pub fn run(bus: Arc<Bus>, ctx: Arc<Mutex<Context>>) {
     let mut focus = 0.0;
-    let mut distract = 0.0;
     let mut instability = 0.0;
     let mut context_label = String::new();
     let mut last_window_ts = now_ms();

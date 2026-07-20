@@ -5,7 +5,7 @@
 //! (ContextSwitching), not a stable session. Publishes `instability`.
 
 use crate::algorithm::Algorithm;
-use crate::bus::{Bus, Knowledge, Signal};
+use crate::bus::{Bus, Knowledge};
 
 pub struct Anomaly {
     mean: f64,

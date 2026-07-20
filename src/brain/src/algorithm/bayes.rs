@@ -6,7 +6,7 @@
 //! you are almost always focused" and can act preemptively.
 
 use crate::algorithm::Algorithm;
-use crate::bus::{Bus, Knowledge, Signal};
+use crate::bus::{Bus, Knowledge};
 
 pub struct Bayes {
     focus: [u64; 24],

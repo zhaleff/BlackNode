@@ -7,7 +7,7 @@
 //! doing, not just how focused.
 
 use crate::algorithm::Algorithm;
-use crate::bus::{Bus, Knowledge, Signal};
+use crate::bus::{Bus, Knowledge};
 use std::collections::{HashMap, HashSet};
 
 pub struct ContextGraph {

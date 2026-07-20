@@ -6,7 +6,7 @@
 //! combines with others; it is not shown to the user.
 
 use crate::algorithm::Algorithm;
-use crate::bus::{Bus, Knowledge, Signal};
+use crate::bus::{Bus, Knowledge};
 
 pub struct Ewma {
     alpha: f64,
