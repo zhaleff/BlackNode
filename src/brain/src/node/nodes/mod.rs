@@ -10,6 +10,7 @@ pub fn register(graph: &mut NodeGraph, memory: Arc<Memory>) {
     graph.add(BehaviorWatcher::new());
     graph.add(ContextNode::new());
     graph.add(RoutineLearner::new(Arc::clone(&memory)));
+    graph.add(TransitionLearner::new(Arc::clone(&memory)));
     graph.add(FocusLearner::new(Arc::clone(&memory)));
     graph.add(DecisionNode::new());
     graph.add(ActionExecutor::new());
@@ -371,6 +372,54 @@ impl Node for FocusLearner {
     }
 }
 
+// ── TransitionLearner ──────────────────────────────────────────────────────
+
+pub struct TransitionLearner {
+    memory: Arc<Memory>,
+    last_app: String,
+    last_pub: Instant,
+}
+
+impl TransitionLearner {
+    pub fn new(memory: Arc<Memory>) -> Self {
+        Self { memory, last_app: String::new(), last_pub: Instant::now() }
+    }
+}
+
+impl Node for TransitionLearner {
+    fn id(&self) -> &str { "learner/transition" }
+    fn kind(&self) -> NodeKind { NodeKind::Learning }
+    fn process(&mut self, signals: &[Signal]) -> Vec<Signal> {
+        for s in signals {
+            if s.kind == "sensor/window" {
+                if let Some(p) = &s.payload {
+                    if let Some(app) = p.get("app").and_then(|v| v.as_str()) {
+                        if !self.last_app.is_empty() && self.last_app != app {
+                            self.memory.observe_transition(&self.last_app, app);
+                        }
+                        self.last_app = app.to_string();
+                    }
+                }
+            }
+        }
+        if self.last_pub.elapsed() < Duration::from_secs(3) {
+            return Vec::new();
+        }
+        self.last_pub = Instant::now();
+        if self.last_app.is_empty() {
+            return Vec::new();
+        }
+        if let Some((next, p)) = self.memory.next_after(&self.last_app) {
+            if p >= 0.3 {
+                let conf = (p * 0.9).min(0.9);
+                return vec![Signal::new("learner/transition", "learning/transition", p, conf)
+                    .with_payload(serde_json::json!({ "app": next }))];
+            }
+        }
+        Vec::new()
+    }
+}
+
 // ── DecisionNode ───────────────────────────────────────────────────────────
 
 pub struct DecisionNode {
@@ -394,6 +443,8 @@ impl Node for DecisionNode {
         let mut idle_min = 0.0;
         let mut routine_app = String::new();
         let mut routine_p = 0.0;
+        let mut trans_app = String::new();
+        let mut trans_p = 0.0;
         let mut on_battery = false;
         let mut battery_pct = 100.0;
 
@@ -415,15 +466,28 @@ impl Node for DecisionNode {
                         routine_p = s.value;
                     }
                 }
+                "learning/transition" => {
+                    if let Some(p) = &s.payload {
+                        trans_app = p.get("app").and_then(|v| v.as_str()).unwrap_or("").to_string();
+                        trans_p = s.value;
+                    }
+                }
                 _ => {}
             }
         }
 
-        // LaunchApp from routine
+        // LaunchApp from routine (hour-based)
         if !routine_app.is_empty() && routine_p >= 0.5 && routine_app != self.last_launch {
             self.last_launch = routine_app.clone();
             out.push(Signal::new("decision", "decision/launch", routine_p, routine_p.min(0.95))
                 .with_payload(serde_json::json!({ "app": routine_app })));
+        }
+
+        // LaunchApp from transition (app→app sequence)
+        if !trans_app.is_empty() && trans_p >= 0.5 && trans_app != self.last_launch {
+            self.last_launch = trans_app.clone();
+            out.push(Signal::new("decision", "decision/launch", trans_p, trans_p.min(0.95))
+                .with_payload(serde_json::json!({ "app": trans_app })));
         }
 
         // DND from deep work
