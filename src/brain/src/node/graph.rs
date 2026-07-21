@@ -1,6 +1,7 @@
 use crate::node::core::*;
 
 /// Accumulated result of a single tick.
+#[derive(Debug, Clone)]
 pub struct TickResult {
     /// All signals from the final propagation pass.
     pub signals: Vec<Signal>,

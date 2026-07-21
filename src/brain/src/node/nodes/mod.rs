@@ -468,16 +468,17 @@ impl Node for ActionExecutor {
                 "decision/launch" => {
                     if let Some(p) = &s.payload {
                         if let Some(app) = p.get("app").and_then(|v| v.as_str()) {
-                            let home = std::env::var("HOME").unwrap_or_else(|_| "/tmp".into());
-                            let suggest = format!("{}/.config/rofi/scripts/brain-suggest.sh", home);
-                            Self::run("bash", &["-c", &format!("{} {} &", suggest, app)]);
+                            Self::run("hyprctl", &["dispatch", "exec", app]);
+                            Self::run("notify-send", &["-t", "2000", "BlackNode", &format!("Opening {} (routine)", app)]);
                         }
                     }
                 }
                 "decision/dnd" => {
+                    Self::run("dunstctl", &["set-paused", "true"]);
                     Self::run("notify-send", &["-t", "2000", "BlackNode", "DND enabled (focus mode)"]);
                 }
                 "decision/dnd_off" => {
+                    Self::run("dunstctl", &["set-paused", "false"]);
                     Self::run("notify-send", &["-t", "2000", "BlackNode", "DND disabled"]);
                 }
                 "decision/power" => {
