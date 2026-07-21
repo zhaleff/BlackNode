@@ -468,7 +468,7 @@ impl Node for ActionExecutor {
                 "decision/launch" => {
                     if let Some(p) = &s.payload {
                         if let Some(app) = p.get("app").and_then(|v| v.as_str()) {
-                            Self::run("hyprctl", &["dispatch", "exec", app]);
+                            Self::run("hyprctl", &["dispatch", &format!("hl.dsp.exec_cmd(\"{}\")", app)]);
                             Self::run("notify-send", &["-t", "2000", "BlackNode", &format!("Opening {} (routine)", app)]);
                         }
                     }
