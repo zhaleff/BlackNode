@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 # BlackNode Shutdown Ritual — cierre consciente con reconocimiento
-# Detecta apagado/logout/suspend, elige mensaje según sesión UTC, muestra notificación
 set -euo pipefail
 
 ASSETS="$HOME/.config/dunst/assets"
@@ -19,105 +18,115 @@ fetch_messages() {
   curl -sf "$REPO_MSGS" -o "$CACHE_MSGS.tmp" && mv "$CACHE_MSGS.tmp" "$CACHE_MSGS" && cat "$CACHE_MSGS" || cat "$CACHE_MSGS" 2>/dev/null || echo '{}'
 }
 
-get_msg() {
-  local msgs=$1 key=$2 sub=$3
-  echo "$msgs" | python3 -c "
-import sys, json, random
-d = json.load(sys.stdin)
-msgs = d.get('$key', {})
-if '$sub' in msgs:
-    pool = msgs['$sub'] if isinstance(msgs['$sub'], list) else msgs['$sub']
-    if isinstance(pool, list):
-        print(random.choice(pool))
-    elif isinstance(pool, dict):
-        print(random.choice(list(pool.values())))
-" 2>/dev/null || echo ""
+pick() {
+  echo "$1" | python3 -c "
+import sys, json, random, string
+try:
+    data = json.load(sys.stdin)
+    if isinstance(data, list) and data:
+        print(random.choice(data))
+except: pass
+" 2>/dev/null
 }
 
-get_zone_messages() {
-  local msgs=$1 key=$2 profile=$3 period=$4
-  echo "$msgs" | python3 -c "
-import sys, json, random
-d = json.load(sys.stdin)
-block = d.get('$key', {}).get('$profile', {})
-if isinstance(block, dict):
-    pool = block.get('any') or block.get('$period')
-    if isinstance(pool, list) and pool:
-        print(random.choice(pool))
-        return
-    keys = [k for k in block if isinstance(block[k], list) and block[k]]
-    if keys:
-        print(random.choice(block[random.choice(keys)]))
-" 2>/dev/null || echo ""
+period_title() {
+  case "$1" in
+    dawn)     echo "Cierre de madrugada" ;;
+    morning)  echo "Cierre de mañana" ;;
+    afternoon) echo "Cierre de tarde" ;;
+    evening)  echo "Cierre de jornada" ;;
+    night)    echo "Cierre nocturno" ;;
+    *)        echo "Cierre consciente" ;;
+  esac
 }
 
 main() {
   local msgs
   msgs=$(fetch_messages)
 
-  local hour_utc zone
+  local hour_utc period
   hour_utc=$(date -u +%H)
   hour_utc=$((10#$hour_utc))
-  if [[ $hour_utc -le 4 ]]; then zone=dawn
-  elif [[ $hour_utc -le 7 ]]; then zone=dawn
-  elif [[ $hour_utc -le 11 ]]; then zone=morning
-  elif [[ $hour_utc -le 13 ]]; then zone=afternoon
-  elif [[ $hour_utc -le 17 ]]; then zone=afternoon
-  elif [[ $hour_utc -le 21 ]]; then zone=evening
-  else zone=night
+       if [[ $hour_utc -le 4 ]]; then period=dawn
+  elif [[ $hour_utc -le 7 ]]; then period=dawn
+  elif [[ $hour_utc -le 11 ]]; then period=morning
+  elif [[ $hour_utc -le 13 ]]; then period=afternoon
+  elif [[ $hour_utc -le 17 ]]; then period=afternoon
+  elif [[ $hour_utc -le 21 ]]; then period=evening
+  else period=night
   fi
 
-  local deep=false
-  [[ -f "$PREF" ]] && grep -qi "coding\|study\|deep\|work" "$PREF" 2>/dev/null && deep=true
+  local profile=light
+  [[ -f "$PREF" ]] && grep -qi "coding\|study\|deep\|work" "$PREF" 2>/dev/null && profile=deep_work
 
-  local profile_type=light
-  $deep && profile_type=deep_work
+  local rawinfo
+  rawinfo=$(echo "$msgs" | python3 -c "
+import sys, json, random
+d = json.load(sys.stdin)
+block = d.get('shutdown', {}).get('$profile', {})
+if isinstance(block, dict):
+    pool = block.get('$period') or block.get('any')
+    if isinstance(pool, list) and pool:
+        print(random.choice(pool))
+" 2>/dev/null)
 
-  local icon="$ASSETS/shutdown-done.svg"
-  local title body
-
-  body=$(get_zone_messages "$msgs" "shutdown" "$profile_type" "$zone")
-  if [[ -z "$body" ]]; then
-    body=$(get_zone_messages "$msgs" "shutdown" "light" "$zone")
+  if [[ -z "$rawinfo" ]]; then
+    rawinfo=$(echo "$msgs" | python3 -c "
+import sys, json, random
+d = json.load(sys.stdin)
+block = d.get('shutdown', {}).get('light', {})
+if isinstance(block, dict):
+    pool = block.get('$period') or block.get('any')
+    if isinstance(pool, list) and pool:
+        print(random.choice(pool))
+" 2>/dev/null)
   fi
 
-  # check streak
-  local streak=0
+  local streak=0 closes=0
   if [[ -f "$IDENTITY" ]]; then
     streak=$(python3 -c "import json; d=json.load(open('$IDENTITY')); print(d.get('streak_current',0))" 2>/dev/null || echo 0)
+    closes=$(python3 -c "import json; d=json.load(open('$IDENTITY')); print(d.get('clean_closes',0))" 2>/dev/null || echo 0)
   fi
 
-  # bonus streak message if milestone
-  if [[ $streak -gt 0 && $((streak % 7)) -eq 0 ]] || [[ $streak -eq 3 ]] || [[ $streak -eq 14 ]] || [[ $streak -eq 30 ]] || [[ $streak -eq 60 ]] || [[ $streak -eq 100 ]]; then
-    local streak_msg
-    streak_msg=$(get_msg "$msgs" "shutdown" "streak")
-    streak_msg="${streak_msg//\{streak\}/$streak}"
-    body="$body • $streak_msg"
+  local extras=""
+  if [[ $streak -gt 0 ]] && [[ $((streak % 7)) -eq 0 || $streak -eq 3 || $streak -eq 14 || $streak -eq 30 || $streak -eq 60 || $streak -eq 100 ]]; then
+    local sm
+    sm=$(echo "$msgs" | python3 -c "
+import sys, json, random
+d = json.load(sys.stdin)
+pool = d.get('shutdown', {}).get('streak', [])
+if pool: print(random.choice(pool))
+" 2>/dev/null)
+    sm="${sm//\{streak\}/$streak}"
+    extras="$sm"
   fi
 
-  local parting
-  parting=$(get_msg "$msgs" "shutdown" "parting")
-  body="$body  $parting"
-
-  # Store intention if exists
-  local intention_file="$STATE_DIR/psych/intention.txt"
-  if [[ -f "$intention_file" ]]; then
-    local intention
-    intention=$(cat "$intention_file")
-    local intent_msg
-    intent_msg=$(get_msg "$msgs" "shutdown" "intention")
-    intent_msg="${intent_msg//\{intention\}/$intention}"
-    body="$body  $intent_msg"
+  local intention=""
+  local ifile="$STATE_DIR/psych/intention.txt"
+  if [[ -f "$ifile" ]]; then
+    intention=$(cat "$ifile")
+    local im
+    im=$(echo "$msgs" | python3 -c "
+import sys, json, random
+d = json.load(sys.stdin)
+pool = d.get('shutdown', {}).get('intention', [])
+if pool: print(random.choice(pool))
+" 2>/dev/null)
+    im="${im//\{intention\}/$intention}"
+    extras="$extras  $im"
   fi
 
-  title=$(get_msg "$msgs" "shutdown" "parting")
+  local icon="$ASSETS/shutdown-done.svg"
+  local title
+  title=$(period_title "$period")
+  local body="$rawinfo"
+  [[ -n "$extras" ]] && body="$body\n\n$extras"
 
   dunstify -a "BlackNode" -i "$icon" -t 10000 "$title" "$body"
 
-  # Increment clean close counter
   if [[ -f "$IDENTITY" ]]; then
     python3 -c "
-import json, os
+import json
 p = '$IDENTITY'
 d = json.load(open(p))
 d['clean_closes'] = d.get('clean_closes',0) + 1
