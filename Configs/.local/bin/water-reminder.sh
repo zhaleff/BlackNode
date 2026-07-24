@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+ICON="$HOME/.config/dunst/assets/water-cup.svg"
+LOW=1800
+HIGH=7200
+
+while true; do
+  sleep $(( RANDOM % (HIGH - LOW) + LOW ))
+  MSG=(
+    "Time to hydrate. Your brain runs on water."
+    "Water break. You've been going long enough."
+    "Hydrate. Your cells are thanking you already."
+    "Drink water. It's the cheapest performance boost."
+    "You're probably thirsty and don't know it yet."
+    "Water. Now. Your future self says thanks."
+    "Hydration check: you're due for a glass."
+    "Your body is 60% water. Keep it topped up."
+    "Water is the ultimate nootropic. Drink up."
+    "One glass. You can spare 30 seconds."
+  )
+  dunstify -a "BlackNode" -i "$ICON" -t 8000 -r 2600 "Hydrate" "${MSG[$((RANDOM % ${#MSG[@]}))]}"
+done

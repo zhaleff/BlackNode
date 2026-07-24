@@ -58,5 +58,19 @@ if [[ -f "$BRAIN_DIR/Cargo.toml" ]]; then
     fi
 fi
 
+SETTINGS_DIR="$REPO/src/settings-center"
+if [[ -f "$SETTINGS_DIR/Cargo.toml" ]]; then
+    if command -v cargo >/dev/null 2>&1; then
+        echo "  → building settings-center (rust)"
+        (cd "$SETTINGS_DIR" && cargo build --release >/dev/null 2>&1) || echo "  ✗ settings-center build failed"
+        if [[ -x "$SETTINGS_DIR/target/release/settings-center" ]]; then
+            install -Dm755 "$SETTINGS_DIR/target/release/settings-center" "$HOME/.local/bin/settings-center"
+            echo "  → settings-center installed"
+        fi
+    else
+        echo "  ✗ cargo not found, skipping settings-center build"
+    fi
+fi
+
 echo ""
 echo "Done."
