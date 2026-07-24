@@ -35,25 +35,19 @@ if '$sub' in msgs:
 }
 
 get_zone_messages() {
-  local msgs=$1 key=$2 zone=$3
+  local msgs=$1 key=$2 profile=$3 period=$4
   echo "$msgs" | python3 -c "
 import sys, json, random
 d = json.load(sys.stdin)
-block = d.get('$key', {}).get('$zone', {})
+block = d.get('$key', {}).get('$profile', {})
 if isinstance(block, dict):
-    keys = list(block.keys())
-    # match zone
-    for k in keys:
-        if k == 'any' or k == '$zone':
-            pool = block[k]
-            print(random.choice(pool) if isinstance(pool, list) else pool)
-            return
-    # if no exact match, pick first that is a list
-    for k in keys:
-        pool = block[k]
-        if isinstance(pool, list):
-            print(random.choice(pool))
-            return
+    pool = block.get('any') or block.get('$period')
+    if isinstance(pool, list) and pool:
+        print(random.choice(pool))
+        return
+    keys = [k for k in block if isinstance(block[k], list) and block[k]]
+    if keys:
+        print(random.choice(block[random.choice(keys)]))
 " 2>/dev/null || echo ""
 }
 
@@ -82,9 +76,9 @@ main() {
   local icon="$ASSETS/shutdown-done.svg"
   local title body
 
-  body=$(get_zone_messages "$msgs" "shutdown" "$profile_type")
+  body=$(get_zone_messages "$msgs" "shutdown" "$profile_type" "$zone")
   if [[ -z "$body" ]]; then
-    body=$(get_zone_messages "$msgs" "shutdown" "light")
+    body=$(get_zone_messages "$msgs" "shutdown" "light" "$zone")
   fi
 
   # check streak
