@@ -1,0 +1,21 @@
+{
+  "rain": {
+    "light": "Light rain expected around {hours}. You might want a jacket ☔",
+    "moderate": "Rain coming at {hours}. Good time to finish outdoor things 🌧️",
+    "heavy": "Heavy rain at {hours}. Stay dry, maybe make tea? 🌧️☕",
+    "torrential": "Downpour incoming at {hours}. Perfect excuse to stay in 🏠",
+    "default": "Rain likely around {hours}. Current temp: {temp}°C"
+  },
+  "storm": {
+    "default": "Thunderstorm approaching. Unplug electronics, stay safe ⚡"
+  },
+  "heat": {
+    "default": "Heat wave building. Hydrate, shade, take it slow 💧"
+  },
+  "freeze": {
+    "default": "Temperatures dropping near freezing. Protect plants, pipes 🌡️"
+  },
+  "default": {
+    "current": "Right now: {desc}, {temp}°C. A calm {hour}:00 UTC"
+  }
+}
