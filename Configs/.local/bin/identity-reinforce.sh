@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# BlackNode Identity Reinforce — reforzamiento de identidad basado en evidencia
-# Lee ~/.local/share/blacknode/identity.json, notifica en hitos con refuerzo variable
+# BlackNode Identity Reinforce — evidence-based identity reinforcement
+# Reads ~/.local/share/blacknode/identity.json, notifies on milestones with variable reinforcement
 set -euo pipefail
 
 ASSETS="$HOME/.config/dunst/assets"
@@ -224,7 +224,7 @@ json.dump(d, open(p,'w'), indent=2)
     streak)
       icon="$ASSETS/identity-consistent.svg"
       body="$milestone_msg"
-      title="$streak días seguidos"
+      title="$streak days streak"
       ;;
     variable)
       # Weekly review
@@ -253,8 +253,8 @@ w = g.get(str($(date -u +%Y)) + '-W' + str($week), {})
 print(w.get('fulfilled', 0))
 " 2>/dev/null || echo 0)
       body=$(get_weekly_message "$msgs" "$closes_wk" "$focus" "$fulfilled" "$week" "$streak")
-      [[ -z "$body" ]] && body="Avanzando. Sin prisa."
-      title="Resumen de semana $week"
+      [[ -z "$body" ]] && body="Moving forward. No rush."
+      title="Week $week review"
       icon="$ASSETS/identity-finisher.svg"
       ;;
   esac

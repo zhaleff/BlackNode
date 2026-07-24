@@ -102,13 +102,13 @@ def message_for(state, ssid, sig, prev_st, prev_sid, prev_sig):
         if prev_st == "connected" and sig > -50 and prev_sig <= -50:
             return (
                 f"Signal recovered on {ssid}. Solid at {abs(sig)} dBm.",
-                f"Señal recuperada",
+                f"Signal recovered",
                 "low", 4000,
             )
         if sig <= -80 and prev_sig > -80:
             return (
                 f"Signal very weak on {ssid} ({abs(sig)} dBm). You might lose it.",
-                f"Señal crítica",
+                f"Critical signal",
                 "normal", 6000,
             )
         return None

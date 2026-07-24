@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-# BlackNode Shutdown Ritual — cierre consciente con reconocimiento
 set -euo pipefail
 
 ASSETS="$HOME/.config/dunst/assets"

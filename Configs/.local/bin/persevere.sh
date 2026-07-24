@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# BlackNode Persevere — detección de lucha y acompañamiento
-# Detecta sesiones largas sin progreso visible, envía micro-step messages
+# BlackNode Persevere — struggle detection and companionship
+# Detects long sessions with no visible progress, sends micro-step messages
 set -euo pipefail
 
 ASSETS="$HOME/.config/dunst/assets"
@@ -167,7 +167,7 @@ main() {
     # Late night presence
     body=$(get_late_night_message "$msgs" "$hour_utc")
     if [[ -n "$body" ]]; then
-      title="Horas tardías"
+      title="Late hours"
       dunstify -a "BlackNode" -i "$icon" -t 8000 "$title" "$body"
       set_cooldown
       exit 0
@@ -197,17 +197,17 @@ main() {
       anchor_msg=$(get_message "$msgs" "identity_anchor")
       anchor_msg="${anchor_msg//\{closes\}/$closes}"
       anchor_msg="${anchor_msg//\{streak\}/$streak}"
-      dunstify -a "BlackNode" -i "$ASSETS/persevere-anchor.svg" -t 10000 "Recuerda quién eres" "$anchor_msg"
+      dunstify -a "BlackNode" -i "$ASSETS/persevere-anchor.svg" -t 10000 "Remember who you are" "$anchor_msg"
       set_cooldown
       exit 0
     fi
 
     body=$(get_message "$msgs" "$section")
     if [[ -z "$body" ]]; then
-      body="Sigue. Sé que puedes."
+      body="Keep going. I know you can."
     fi
 
-    dunstify -a "BlackNode" -i "$icon" -t 8000 "Estoy aquí" "$body"
+    dunstify -a "BlackNode" -i "$icon" -t 8000 "I'm here" "$body"
     set_cooldown
     echo "0" > "$STRUGGLE_COUNT"
   fi
