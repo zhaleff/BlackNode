@@ -206,7 +206,7 @@ main() {
     broken)
       icon="$ASSETS/identity-broken.svg"
       body=$(get_broken_message "$msgs")
-      title="Racha rota"
+      title="Broken streak"
       # Save the broken message
       python3 -c "
 import json
@@ -219,7 +219,7 @@ json.dump(d, open(p,'w'), indent=2)
     milestone)
       icon="$ASSETS/identity-streak.svg"
       body="$milestone_msg"
-      title="$closes cierres — hito alcanzado"
+      title="$closes closes — milestone reached"
       ;;
     streak)
       icon="$ASSETS/identity-consistent.svg"

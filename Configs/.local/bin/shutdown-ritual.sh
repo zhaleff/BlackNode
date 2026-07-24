@@ -31,12 +31,12 @@ except: pass
 
 period_title() {
   case "$1" in
-    dawn)     echo "Cierre de madrugada" ;;
-    morning)  echo "Cierre de mañana" ;;
-    afternoon) echo "Cierre de tarde" ;;
-    evening)  echo "Cierre de jornada" ;;
-    night)    echo "Cierre nocturno" ;;
-    *)        echo "Cierre consciente" ;;
+    dawn)     echo "First light close" ;;
+    morning)  echo "Morning close" ;;
+    afternoon) echo "Afternoon close" ;;
+    evening)  echo "Day close" ;;
+    night)    echo "Night close" ;;
+    *)        echo "Conscious close" ;;
   esac
 }
 
