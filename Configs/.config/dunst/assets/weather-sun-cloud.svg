@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <radialGradient id="scSunGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FFF3B0" stop-opacity="0.8"/>
+      <stop offset="60%" stop-color="#FFD700" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#FF8C00" stop-opacity="0.2"/>
+    </radialGradient>
+    <radialGradient id="scSunCore" cx="35%" cy="35%" r="60%">
+      <stop offset="0%" stop-color="#FFFDE7"/>
+      <stop offset="100%" stop-color="#FFD700"/>
+    </radialGradient>
+  </defs>
+  <!-- Sun peeking from behind cloud -->
+  <circle cx="46" cy="18" r="14" fill="url(#scSunGlow)" opacity="0.5"/>
+  <circle cx="46" cy="18" r="12" fill="url(#scSunCore)"/>
+  <!-- Cloud -->
+  <defs>
+    <linearGradient id="scCloud" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#F0F4F8"/>
+      <stop offset="50%" stop-color="#DCE4EC"/>
+      <stop offset="100%" stop-color="#C8D4E0"/>
+    </linearGradient>
+  </defs>
+  <path d="M10 42c0 2.2 1.8 4 4 4h36c2.2 0 4-1.8 4-4v-6H10v6z" fill="url(#scCloud)"/>
+  <path d="M18 28c0-5.5 4.5-10 10-10s10 4.5 10 10c0 1.8-0.6 3.5-1.6 4.8l2 2c1.1-1.3 1.8-3 1.8-4.8 0-6.6-5.4-12-12-12S18 22.4 18 29c0 1.8 0.7 3.5 1.8 4.8L18 28z" fill="#DCE4EC"/>
+  <!-- Cloud face - content, "I have both" -->
+  <g fill="#8A9BB8" opacity="0.8">
+    <ellipse cx="26" cy="34" rx="2.5" ry="1" transform="rotate(-10 26 34)"/>
+    <ellipse cx="38" cy="33" rx="2.5" ry="1" transform="rotate(10 38 33)"/>
+  </g>
+  <path d="M28 39 Q32 41.5 36 39" stroke="#8A9BB8" stroke-width="1.3" fill="none" stroke-linecap="round" opacity="0.7"/>
+  <!-- Sun face - warm peek -->
+  <g fill="#E6A600" opacity="0.9">
+    <ellipse cx="43" cy="16" rx="1.8" ry="1" transform="rotate(-15 43 16)"/>
+    <ellipse cx="49" cy="16" rx="1.8" ry="1" transform="rotate(15 49 16)"/>
+  </g>
+  <path d="M44 21 Q46 22.5 48 21" stroke="#E6A600" stroke-width="1" fill="none" stroke-linecap="round" opacity="0.8"/>
+  <!-- Gentle rays from behind cloud -->
+  <g stroke="#FFD700" stroke-width="1.5" stroke-linecap="round" opacity="0.5">
+    <line x1="50" y1="30" x2="52" y2="34"/>
+    <line x1="54" y1="18" x2="57" y2="20"/>
+    <line x1="42" y1="20" x2="39" y2="22"/>
+  </g>
+</svg>

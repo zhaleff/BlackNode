@@ -1,30 +1,52 @@
-<?xml version="1.0" encoding="utf-8"?>
-
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
-<svg height="800px" width="800px" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
-	 viewBox="0 0 512 512"  xml:space="preserve">
-<style type="text/css">
-	.st0{fill:#000000;}
-</style>
-<g>
-	<polygon class="st0" points="179.61,363.791 122.331,363.791 93.893,444.881 117.328,444.881 91.995,512 183.975,410.731 
-		146.352,410.731 	"/>
-	<polygon class="st0" points="296.765,363.791 239.487,363.791 211.049,444.881 234.483,444.881 209.15,512 301.13,410.731 
-		263.507,410.731 	"/>
-	<polygon class="st0" points="413.916,363.791 356.651,363.791 328.213,444.881 351.639,444.881 326.315,512 418.29,410.731 
-		380.672,410.731 	"/>
-	<path class="st0" d="M479.505,164.986c-15.745-15.763-36.704-26.382-59.982-29.33c-2.029-36.443-17.486-69.386-41.686-93.564
-		C351.875,16.104,315.862-0.009,276.218,0c-37.133-0.009-71.1,14.136-96.581,37.282c-21.908,19.883-37.611,46.528-43.97,76.601
-		c-6.154-1.023-12.457-1.6-18.89-1.6c-31.588-0.017-60.297,12.832-80.984,33.538C15.095,166.5,2.237,195.218,2.245,226.806
-		c-0.008,31.578,12.85,60.305,33.547,80.984c20.687,20.705,49.397,33.546,80.984,33.538h289.687
-		c28.482,0.009,54.392-11.581,73.042-30.249c18.668-18.658,30.266-44.56,30.25-73.042
-		C509.772,209.546,498.173,183.636,479.505,164.986z M460.454,292.018c-13.874,13.839-32.874,22.359-53.99,22.368H116.777
-		c-24.222-0.009-46.039-9.78-61.924-25.656c-15.877-15.895-25.648-37.694-25.657-61.924c0.009-24.231,9.78-46.039,25.657-61.933
-		c15.885-15.868,37.702-25.648,61.924-25.648c9.044,0,17.722,1.365,25.901,3.893l15.711,4.855l1.679-16.349
-		c3.018-29.392,16.935-55.547,37.684-74.389c20.776-18.842,48.216-30.284,78.466-30.292c32.278,0.008,61.39,13.051,82.568,34.202
-		c21.151,21.169,34.19,50.281,34.207,82.577c0,1.137-0.053,2.467-0.105,4.015l-0.525,14.495l14.224-0.543
-		c21.063,0.044,40.02,8.538,53.867,22.359c13.838,13.856,22.341,32.856,22.358,53.99
-		C482.794,259.162,474.292,278.162,460.454,292.018z"/>
-</g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <linearGradient id="stormCloud" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#5D6D7E"/>
+      <stop offset="50%" stop-color="#4A5A6A"/>
+      <stop offset="100%" stop-color="#3A4A5A"/>
+    </linearGradient>
+    <filter id="stormGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#2C3E50" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+  <g filter="url(#stormGlow)">
+    <path d="M12 42
+      C12 46.5 15 49.5 19 49.5
+      H45
+      C49 49.5 52 46.5 52 42
+      C52 36.5 47.5 32 42 32
+      C38 27 33 24 28 24
+      C22 24 18 27 18 32.5
+      C18 37 20.5 40.5 25 40.5
+      C27 40.5 29 38.5 29 36.5
+      C29 34 26.5 32 23 32
+      C19 32 16 35 16 39
+      C16 41.5 18 43.5 21 43.5
+      H44
+      C47 43.5 49 41 49 37
+      C49 32 45 27.5 40 27.5
+      C36 23 30 21 24 21
+      C18 21 14 24.5 14 30
+      Z" fill="url(#stormCloud)"/>
+  </g>
+  <!-- Lightning - powerful but not scary -->
+  <g fill="none" stroke="#F39C12" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.95">
+    <path d="M28 26 L30 36 L24 36 L28 48"/>
+    <path d="M38 26 L35 36 L41 36 L36 48" opacity="0.7"/>
+  </g>
+  <!-- Soft inner glow on lightning -->
+  <g fill="none" stroke="#F8C471" stroke-width="1.5" stroke-linecap="round" opacity="0.6">
+    <path d="M28 26 L30 36 L24 36 L28 48"/>
+  </g>
+  <!-- Face - alert, watching over you -->
+  <g fill="#F39C12" opacity="0.85">
+    <ellipse cx="25" cy="33" rx="2.5" ry="1.1" transform="rotate(-12 25 33)"/>
+    <ellipse cx="39" cy="32" rx="2.5" ry="1.1" transform="rotate(12 39 32)"/>
+  </g>
+  <path d="M26 38.5 Q32 36.5 38 38.5" stroke="#F39C12" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.7"/>
+  <!-- Protective aura sparks -->
+  <g fill="#F39C12" opacity="0.7">
+    <polygon points="20,20 22,25 17,23 27,23 22,21"/>
+    <polygon points="44,20 42,25 47,23 37,23 42,21" transform="scale(0.7 0.7) translate(15 15)"/>
+  </g>
 </svg>

@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <radialGradient id="moonGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#F0F4FF" stop-opacity="0.6"/>
+      <stop offset="70%" stop-color="#A8C0E8" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#6B8DD6" stop-opacity="0.1"/>
+    </radialGradient>
+    <radialGradient id="moonBody" cx="35%" cy="35%" r="60%">
+      <stop offset="0%" stop-color="#F8FAFF"/>
+      <stop offset="100%" stop-color="#D0D8F0"/>
+    </radialGradient>
+  </defs>
+  <!-- Gentle night glow -->
+  <circle cx="32" cy="32" r="26" fill="url(#moonGlow)" opacity="0.5"/>
+  <!-- Moon with subtle craters -->
+  <circle cx="32" cy="32" r="16" fill="url(#moonBody)"/>
+  <g fill="#A8C0E8" opacity="0.4">
+    <circle cx="26" cy="28" r="2"/>
+    <circle cx="40" cy="26" r="1.5"/>
+    <circle cx="24" cy="38" r="1"/>
+    <circle cx="38" cy="36" r="1.2"/>
+  </g>
+  <!-- Peaceful sleeping face -->
+  <g fill="#4A6FA5" opacity="0.8">
+    <ellipse cx="25" cy="29" rx="2.5" ry="1" transform="rotate(-20 25 29)"/>
+    <ellipse cx="39" cy="29" rx="2.5" ry="1" transform="rotate(20 39 29)"/>
+  </g>
+  <path d="M26 39 Q32 42.5 38 39" stroke="#4A6FA5" stroke-width="1.2" fill="none" stroke-linecap="round" opacity="0.7"/>
+  <!-- Stars around - gentle companions -->
+  <g fill="#F0F4FF" opacity="0.9">
+    <polygon points="14,20 14.5,22 16.5,22 15,23.5 15.5,25.5 14,24.2 12.5,25.5 13,23.5 11.5,22 13.5,22"/>
+    <polygon points="52,18 52.5,19.5 54,19.5 53,20.5 53.5,22 52,21 50.5,22 51,19.5 49.5,19.5 50,18" transform="scale(0.6 0.6) translate(80,20)"/>
+    <polygon points="12,46 12.5,47.5 14,47.5 13,48.5 13.5,50 12,49 10.5,50 11,48.5 10,47.5 11.5,47.5" transform="scale(0.5 0.5) translate(20,84)"/>
+    <polygon points="50,50 50.5,51.5 52,51.5 51,52.5 51.5,54 50,53 48.5,54 49,52.5 48,51.5 49.5,51.5" transform="scale(0.4 0.4) translate(120,120)"/>
+  </g>
+  <!-- Tiny sleepy sparkle -->
+  <circle cx="48" cy="20" r="1" fill="#F0F4FF" opacity="0.7"/>
+  <circle cx="16" cy="44" r="0.8" fill="#F0F4FF" opacity="0.6"/>
+</svg>

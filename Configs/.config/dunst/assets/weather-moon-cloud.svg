@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <radialGradient id="mcMoonGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#F0F4FF" stop-opacity="0.6"/>
+      <stop offset="70%" stop-color="#A8C0E8" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#6B8DD6" stop-opacity="0.1"/>
+    </radialGradient>
+    <radialGradient id="mcMoonBody" cx="35%" cy="35%" r="60%">
+      <stop offset="0%" stop-color="#F8FAFF"/>
+      <stop offset="100%" stop-color="#D0D8F0"/>
+    </radialGradient>
+    <linearGradient id="mcCloud" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#D0D8E8"/>
+      <stop offset="50%" stop-color="#B0B8D0"/>
+      <stop offset="100%" stop-color="#90A0C0"/>
+    </linearGradient>
+  </defs>
+  <!-- Moon -->
+  <circle cx="48" cy="16" r="14" fill="url(#mcMoonGlow)" opacity="0.5"/>
+  <circle cx="48" cy="16" r="12" fill="url(#mcMoonBody)"/>
+  <g fill="#A8C0E8" opacity="0.4">
+    <circle cx="44" cy="12" r="1.5"/>
+    <circle cx="54" cy="14" r="1.2"/>
+    <circle cx="42" cy="20" r="1"/>
+    <circle cx="52" cy="18" r="1.2"/>
+  </g>
+  <!-- Cloud -->
+  <path d="M10 42c0 2.2 1.8 4 4 4h28c2.2 0 4-1.8 4-4v-6H10v6z" fill="url(#mcCloud)"/>
+  <path d="M18 28c0-5.5 4.5-10 10-10s10 4.5 10 10c0 1.8-0.6 3.5-1.6 4.8l2 2c1.1-1.3 1.8-3 1.8-4.8 0-6.6-5.4-12-12-12S18 22.4 18 29c0 1.8 0.7 3.5 1.8 4.8L18 28z" fill="#B0B8D0"/>
+  <!-- Cloud face - sleepy, "night watch" -->
+  <g fill="#5D7DB8" opacity="0.8">
+    <ellipse cx="24" cy="32" rx="2.2" ry="1" transform="rotate(-15 24 32)"/>
+    <ellipse cx="36" cy="32" rx="2.2" ry="1" transform="rotate(15 36 32)"/>
+  </g>
+  <path d="M26 38 Q30 36 34 38" stroke="#5D7DB8" stroke-width="1.2" fill="none" stroke-linecap="round" opacity="0.7"/>
+  <!-- Moon face - gentle guardian -->
+  <g fill="#4A6FA5" opacity="0.85">
+    <ellipse cx="45" cy="14" rx="1.8" ry="0.9" transform="rotate(-15 45 14)"/>
+    <ellipse cx="51" cy="14" rx="1.8" ry="0.9" transform="rotate(15 51 14)"/>
+  </g>
+  <path d="M46 19 Q48 20.5 50 19" stroke="#4A6FA5" stroke-width="1" fill="none" stroke-linecap="round" opacity="0.7"/>
+  <!-- Stars between them -->
+  <g fill="#F0F4FF" opacity="0.8">
+    <polygon points="14,38 14.3,39 15.3,39 14.5,39.8 14.8,40.8 14,40 13.2,40.8 13.5,39.8 12.7,39 13.7,39" transform="scale(0.5) translate(28,76)"/>
+    <polygon points="30,10 30.3,10.5 31,10.5 30.5,11 30.8,11.5 30,11.2 29.2,11.5 29.5,11 29,10.5 29.7,10.5" transform="scale(0.4) translate(60,15)"/>
+  </g>
+</svg>

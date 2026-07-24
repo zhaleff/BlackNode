@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <linearGradient id="tornadoBody" x1="50%" y1="0%" x2="50%" y2="100%">
+      <stop offset="0%" stop-color="#7B8A9A"/>
+      <stop offset="40%" stop-color="#5D6D7E"/>
+      <stop offset="70%" stop-color="#4A5A6A"/>
+      <stop offset="100%" stop-color="#3A4A5A"/>
+    </linearGradient>
+    <filter id="tornadoSpin" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#2C3E50" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+  <!-- Tornado funnel - spiraling, alive -->
+  <g filter="url(#tornadoSpin)">
+    <path d="M24 10
+      Q20 20 24 32
+      Q28 42 24 50
+      Q20 58 16 62
+      L16 64
+      L48 64
+      L48 62
+      Q44 58 40 50
+      Q36 42 40 32
+      Q36 22 40 20
+      Q44 10 40 10
+      Z" fill="url(#tornadoBody)"/>
+  </g>
+  <!-- Inner spiral lines - movement, energy -->
+  <g fill="none" stroke="#95A5A6" stroke-width="1.5" stroke-linecap="round" opacity="0.5">
+    <path d="M28 14 Q30 20 28 26 Q30 32 28 38 Q30 44 28 50"/>
+    <path d="M36 14 Q34 20 36 26 Q34 32 36 38 Q34 44 36 50"/>
+    <path d="M32 10 Q30 16 32 22 Q30 28 32 34 Q30 40 32 46 Q30 52 32 54"/>
+  </g>
+  <!-- Debris/leaves caught in the spin - small, harmless -->
+  <g fill="#5D6D7E" opacity="0.6">
+    <ellipse cx="18" cy="38" rx="1.5" ry="0.7" transform="rotate(30 18 38)"/>
+    <ellipse cx="46" cy="36" rx="1.2" ry="0.6" transform="rotate(-25 46 36)"/>
+    <ellipse cx="20" cy="52" rx="1" ry="0.5" transform="rotate(45 20 52)"/>
+    <ellipse cx="44" cy="48" rx="0.8" ry="0.4" transform="rotate(-40 44 48)"/>
+    <ellipse cx="26" cy="18" rx="0.7" ry="0.3" transform="rotate(15 26 18)"/>
+    <ellipse cx="38" cy="16" rx="0.6" ry="0.3" transform="rotate(-10 38 16)"/>
+  </g>
+  <!-- Protective face at the base - "I've got you" -->
+  <g fill="#F39C12" opacity="0.9">
+    <ellipse cx="27" cy="50" rx="2.5" ry="1.2" transform="rotate(-10 27 50)"/>
+    <ellipse cx="37" cy="50" rx="2.5" ry="1.2" transform="rotate(10 37 50)"/>
+  </g>
+  <path d="M28 55 Q32 53 36 55" stroke="#F39C12" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.8"/>
+  <!-- Ground connection -->
+  <g stroke="#5D6D7E" stroke-width="3" stroke-linecap="round" opacity="0.5">
+    <line x1="22" y1="60" x2="18" y2="64"/>
+    <line x1="42" y1="60" x2="46" y2="64"/>
+    <line x1="32" y1="60" x2="32" y2="64"/>
+  </g>
+</svg>

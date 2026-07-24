@@ -1,26 +1,43 @@
-<?xml version="1.0" encoding="utf-8"?>
-
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
-<svg height="800px" width="800px" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
-	 viewBox="0 0 512 512"  xml:space="preserve">
-<style type="text/css">
-	.st0{fill:#000000;}
-</style>
-<g>
-	<path class="st0" d="M54.764,225.832c18.937-11.274,41.051-17.74,64.658-17.74c2.846,0,5.71,0.086,8.557,0.268
-		c8.019-27.494,23.346-51.648,43.672-70.316c-3.888-43.932-40.739-78.335-85.643-78.335C38.499,59.71,0,98.21,0,145.709
-		C0,182.204,22.721,213.352,54.764,225.832z"/>
-	<path class="st0" d="M481.971,277.324c-15.622-15.639-36.408-26.175-59.502-29.1c-2.005-36.148-17.341-68.84-41.364-92.829
-		c-25.759-25.785-61.481-41.771-100.814-41.762c-36.85-0.009-70.542,14.025-95.832,36.989c-21.741,19.727-37.301,46.154-43.62,76
-		c-6.11-1.015-12.358-1.588-18.746-1.588c-31.33-0.009-59.814,12.732-80.349,33.283C21.211,278.834,8.47,307.327,8.47,338.658
-		c0,31.339,12.741,59.832,33.274,80.349c20.534,20.542,49.019,33.283,80.349,33.283h287.409c28.258,0,53.966-11.491,72.468-30.02
-		C500.509,403.766,512,378.06,512,349.801C512,321.543,500.509,295.827,481.971,277.324z M463.068,403.358
-		c-13.747,13.731-32.597,22.183-53.566,22.192H122.094c-24.023-0.009-45.668-9.703-61.429-25.455
-		c-15.761-15.761-25.446-37.398-25.464-61.438c0.018-24.032,9.703-45.677,25.464-61.438c15.761-15.744,37.406-25.447,61.429-25.456
-		c8.974,0,17.584,1.354,25.707,3.871l15.587,4.817l1.666-16.23c2.986-29.162,16.803-55.102,37.389-73.805
-		c20.603-18.685,47.838-30.046,77.848-30.046c32.025,0,60.908,12.94,81.911,33.934c20.986,21.003,33.935,49.886,33.935,81.92
-		c0,1.128-0.052,2.448-0.104,3.992l-0.504,14.381l14.199-0.548c20.872,0.069,39.645,8.506,53.34,22.183
-		c13.73,13.756,22.183,32.607,22.183,53.566C485.252,370.76,476.799,389.611,463.068,403.358z"/>
-</g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <radialGradient id="sunGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FFF3B0" stop-opacity="1"/>
+      <stop offset="60%" stop-color="#FFD700" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#FF8C00" stop-opacity="0.3"/>
+    </radialGradient>
+    <radialGradient id="sunCore" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FFFDE7"/>
+      <stop offset="100%" stop-color="#FFD700"/>
+    </radialGradient>
+  </defs>
+  <!-- Warm glow aura -->
+  <circle cx="32" cy="32" r="26" fill="url(#sunGlow)" opacity="0.4"/>
+  <circle cx="32" cy="32" r="22" fill="url(#sunGlow)" opacity="0.3"/>
+  <!-- Sun body with gentle gradient -->
+  <circle cx="32" cy="32" r="16" fill="url(#sunCore)"/>
+  <!-- Subtle facial warmth - closed content eyes -->
+  <g fill="#E6A600" opacity="0.9">
+    <ellipse cx="24" cy="28" rx="3" ry="1.5" transform="rotate(-15 24 28)"/>
+    <ellipse cx="40" cy="28" rx="3" ry="1.5" transform="rotate(15 40 28)"/>
+  </g>
+  <!-- Tiny smile -->
+  <path d="M26 38 Q32 42 38 38" stroke="#E6A600" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.8"/>
+  <!-- Rays with life - slightly uneven, organic -->
+  <g stroke="#FFD700" stroke-width="2.5" stroke-linecap="round" opacity="0.7">
+    <line x1="32" y1="6" x2="32" y2="13"/>
+    <line x1="32" y1="51" x2="32" y2="58"/>
+    <line x1="6" y1="32" x2="13" y2="32"/>
+    <line x1="51" y1="32" x2="58" y2="32"/>
+    <line x1="11" y1="11" x2="17" y2="17"/>
+    <line x1="47" y1="47" x2="53" y2="53"/>
+    <line x1="11" y1="53" x2="17" y2="47"/>
+    <line x1="47" y1="17" x2="53" y2="11"/>
+  </g>
+  <!-- Tiny sparkles of joy -->
+  <g fill="#FFFDE7" opacity="0.9">
+    <circle cx="14" cy="14" r="1.2"/>
+    <circle cx="50" cy="50" r="1"/>
+    <circle cx="14" cy="50" r="0.8"/>
+    <circle cx="50" cy="14" r="1"/>
+  </g>
 </svg>
