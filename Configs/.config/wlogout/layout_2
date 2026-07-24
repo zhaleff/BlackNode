@@ -7,7 +7,7 @@
 
 {
     "label" : "suspend",
-    "action" : "systemctl suspend",
+    "action" : "~/.local/bin/wlogout-hook.sh suspend",
     "text" : "Suspend",
     "keybind" : "u"
 }
@@ -15,7 +15,7 @@
 
 {
     "label" : "reboot",
-    "action" : "systemctl reboot",
+    "action" : "~/.local/bin/wlogout-hook.sh reboot",
     "text" : "Reboot",
     "keybind" : "r"
 }
@@ -23,14 +23,14 @@
 
 {
     "label" : "shutdown",
-    "action" : "systemctl poweroff",
+    "action" : "~/.local/bin/wlogout-hook.sh shutdown",
     "text" : "Shutdown",
     "keybind" : "s"
 }
 
 {
     "label" : "logout",
-    "action" : "loginctl terminate-user $USER",
+    "action" : "~/.local/bin/wlogout-hook.sh logout",
     "text" : "Logout",
     "keybind" : "e"
 }
@@ -39,7 +39,7 @@
 
 {
     "label" : "hibernate",
-    "action" : "systemctl hibernate",
+    "action" : "~/.local/bin/wlogout-hook.sh hibernate",
     "text" : "Hibernate",
     "keybind" : "h"
 }
