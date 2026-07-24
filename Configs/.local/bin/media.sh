@@ -1,32 +1,31 @@
-#!/bin/bash
+#!/usr/bin/env bash
+exec python3 << 'BNPY'
+import sys, os, time, subprocess, atexit, tempfile
+sys.path.insert(0, os.path.expanduser("~/.local/lib"))
+from blacknode.psyche.core import PsychEngine
+from blacknode.notify.engine import NotifEngine
+from blacknode.notify.composers import compose_media
+from blacknode.resources import resolve
 
-ASSETS="$HOME/.config/dunst/assets"
-PREV=""
-trap "rm -f '${XDG_RUNTIME_DIR:-/tmp}/media-art-$$.jpg'" EXIT
+engine = PsychEngine()
+notifier = NotifEngine()
+prev = ""
 
-while true; do
-    STATUS=$(playerctl status 2>/dev/null)
+def pctl(*a, **kw):
+    return subprocess.run(["playerctl"] + list(a), capture_output=True, text=True, timeout=5)
 
-    if [[ "$STATUS" == "Playing" ]]; then
-        TITLE=$(playerctl metadata title 2>/dev/null)
-        ARTIST=$(playerctl metadata artist 2>/dev/null)
-        ART=$(playerctl metadata mpris:artUrl 2>/dev/null)
-        KEY="$TITLE-$ARTIST"
+while True:
+    st = pctl("status").stdout.strip()
+    if st == "Playing":
+        title = pctl("metadata", "title").stdout.strip()
+        artist = pctl("metadata", "artist").stdout.strip()
+        art = pctl("metadata", "mpris:artUrl").stdout.strip()
+        key = f"{title}-{artist}"
 
-        if [[ "$KEY" != "$PREV" ]]; then
-            if [[ "$ART" == https://* ]]; then
-                ICON="${XDG_RUNTIME_DIR:-/tmp}/media-art-$$.jpg"
-                curl -sf --max-time 3 -o "$ICON" "$ART"
-            elif [[ "$ART" == file://* ]]; then
-                ICON="${ART#file://}"
-            else
-                ICON="$ASSETS/music-note.svg"
-            fi
+        if key and key != prev:
+            envelope = compose_media(engine, title, artist, art, st)
+            notifier.send(envelope)
+            prev = key
 
-            dunstify -a "media" -i "$ICON" -t 5000 -r 2596 "$TITLE" "$ARTIST"
-            PREV="$KEY"
-        fi
-    fi
-
-    sleep 2
-done
+    time.sleep(2)
+BNPY

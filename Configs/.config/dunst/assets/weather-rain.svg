@@ -1,55 +1,22 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
-  <defs>
-    <linearGradient id="rainCloud" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#E8EDF2"/>
-      <stop offset="60%" stop-color="#C8D4E0"/>
-      <stop offset="100%" stop-color="#A8B8C8"/>
-    </linearGradient>
-    <filter id="rainShadow" x="-20%" y="-20%" width="140%" height="140%">
-      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#7A90A8" flood-opacity="0.2"/>
-    </filter>
-  </defs>
-  <g filter="url(#rainShadow)">
-    <path d="M14 44
-      C14 47.5 16.5 50.5 20 50.5
-      H44
-      C47.5 50.5 50 47.5 50 44
-      C50 39 46.5 35 42 35
-      C39 31.5 34 29 30 29
-      C24 29 20 31.5 20 36.5
-      C20 40.5 22.5 43.5 27 43.5
-      C29 43.5 31 41.5 31 39.5
-      C31 37 28.5 35 25 35
-      C22 35 19.5 37.5 19.5 40.5
-      C19.5 43 21.5 45 25 45
-      H43
-      C46 45 48 42.5 48 39
-      C48 34 44 30 39 30
-      C35 25.5 29 23 23 23
-      C17 23 14 26.5 14 33
-      Z" fill="url(#rainCloud)"/>
-  </g>
-  <!-- Rain drops - gentle, cleansing, not aggressive -->
-  <g stroke="#4A90D9" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.85">
-    <line x1="20" y1="48" x2="18" y2="55"/>
-    <line x1="28" y1="47" x2="26" y2="54"/>
-    <line x1="36" y1="48" x2="34" y2="55"/>
-    <line x1="44" y1="47" x2="42" y2="54"/>
-    <line x1="16" y1="51" x2="14" y2="58"/>
-    <line x1="32" y1="50" x2="30" y2="57"/>
-    <line x1="40" y1="51" x2="38" y2="58"/>
-  </g>
-  <!-- Face - peaceful, accepting, "it's okay" -->
-  <g fill="#3D6B9E" opacity="0.7">
-    <ellipse cx="26" cy="34" rx="2.2" ry="1" transform="rotate(-8 26 34)"/>
-    <ellipse cx="38" cy="33" rx="2.2" ry="1" transform="rotate(8 38 33)"/>
-  </g>
-  <path d="M28 39.5 Q32 41 36 39.5" stroke="#3D6B9E" stroke-width="1.2" fill="none" stroke-linecap="round" opacity="0.6"/>
-  <!-- Small sparkles of renewal -->
-  <g fill="#4A90D9" opacity="0.6">
-    <circle cx="18" cy="42" r="1"/>
-    <circle cx="46" cy="41" r="0.8"/>
-    <circle cx="22" cy="46" r="0.6"/>
-    <circle cx="42" cy="45" r="0.7"/>
-  </g>
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+<svg height="800px" width="800px" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
+	 viewBox="0 0 512 512"  xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#000000;}
+</style>
+<g>
+	<polygon class="st0" points="177.531,359.77 118.698,359.77 89.488,443.068 113.559,443.068 87.539,512 182.015,407.982 
+		143.371,407.982 	"/>
+	<polygon class="st0" points="297.865,359.77 239.041,359.77 209.831,443.068 233.892,443.068 207.873,512 302.348,407.982 
+		263.705,407.982 	"/>
+	<polygon class="st0" points="418.207,359.77 359.375,359.77 330.165,443.068 354.226,443.068 328.215,512 422.682,407.982 
+		384.047,407.982 	"/>
+	<path class="st0" d="M410.535,138.393c-0.045,0-0.081,0-0.117,0c0.053-1.536,0.117-3.064,0.117-4.618
+		C410.535,59.892,350.641,0,276.759,0c-69.21,0-126.146,52.561-133.065,119.947c-9.704-3.001-20.018-4.618-30.701-4.618
+		c-57.323,0-103.792,46.47-103.792,103.793c0,57.322,46.469,103.792,103.792,103.792h297.542c50.952,0,92.265-41.303,92.265-92.265
+		C502.799,179.696,461.487,138.393,410.535,138.393z"/>
+</g>
 </svg>

@@ -1,53 +1,51 @@
-use crate::node::core::*;
-
-/// Accumulated result of a single tick.
-#[derive(Debug, Clone)]
-pub struct TickResult {
-    /// All signals from the final propagation pass.
-    pub signals: Vec<Signal>,
-    /// Decision signals collected across ALL passes (never lost).
-    pub decisions: Vec<Signal>,
-}
+use super::core::*;
 
 pub struct NodeGraph {
     nodes: Vec<Box<dyn Node>>,
 }
 
+pub struct TickResult {
+    pub signals: Vec<Signal>,
+    pub decisions: Vec<Signal>,
+    pub state: BrainState,
+}
+
 impl NodeGraph {
     pub fn new() -> Self {
-        Self { nodes: Vec::new() }
+        Self { nodes: vec![] }
     }
 
-    pub fn add<N: Node>(&mut self, node: N) {
+    pub fn add(&mut self, node: impl Node) {
         self.nodes.push(Box::new(node));
     }
 
-    pub fn nodes(&self) -> &[Box<dyn Node>] {
-        &self.nodes
-    }
-
-    /// Run one tick: propagate signals for PROPAGATION_DEPTH passes, then
-    /// return a TickResult with both the last-pass signals and any
-    /// decision-prefixed signals seen across every pass.
     pub fn tick(&mut self) -> TickResult {
-        let mut signals: Vec<Signal> = Vec::new();
-        let mut decisions = Vec::new();
+        let mut state = BrainState::default();
 
-        for _ in 0..PROPAGATION_DEPTH {
-            let mut next = Vec::new();
-            for node in &mut self.nodes {
-                let emitted = node.process(&signals);
-                // Capture decision signals as they go by
-                for s in &emitted {
-                    if s.kind.starts_with("decision/") {
-                        decisions.push(s.clone());
-                    }
-                }
-                next.extend(emitted);
+        // 1) Sensor poll — collect environment state
+        let mut signals: Vec<Signal> = vec![];
+        for n in &mut self.nodes {
+            signals.extend(n.process(&[], &mut state));
+        }
+
+        // 2) Context propagation — up to 4 passes for signal chains
+        for _ in 0..4 {
+            let mut next: Vec<Signal> = vec![];
+            for n in &mut self.nodes {
+                next.extend(n.process(&signals, &mut state));
+            }
+            if next.is_empty() {
+                break;
             }
             signals = next;
         }
 
-        TickResult { signals, decisions }
+        // 3) Collect decisions from the last pass
+        let decisions: Vec<Signal> = signals.iter()
+            .filter(|s| s.kind.starts_with("decision/"))
+            .cloned()
+            .collect();
+
+        TickResult { signals, decisions, state }
     }
 }

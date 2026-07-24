@@ -60,25 +60,25 @@ tooltip label {
 #hollow-right-11,
 #hollow-right-12 {
   background-color: alpha(@outline, 0.12);
-  border-radius: 6px;
+  border-radius: 10px;
   padding: 6px 10px;
   margin: 6px 2px;
 }
 
 #hollow-right-5 {
-  border-radius: 999px 0px 0px 999px;
+  border-radius: 999px 10px 10px 999px;
 }
 
 #hollow-right-3 {
-  border-radius: 0px 999px 999px 0px;
+  border-radius: 10px 999px 999px 10px;
 }
 
 #hollow-left-2 {
-  border-radius: 999px 0px 0px 999px;
+  border-radius: 999px 10px 10px 999px;
 }
 
 #hollow-left-1 {
-  border-radius: 0px 999px 999px 0px;
+  border-radius: 10px 999px 999px 10px;
 }
 
 #hollow-left-1:hover,

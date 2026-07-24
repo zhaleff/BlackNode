@@ -1,21 +1,20 @@
-#!/bin/bash
-
-ASSETS="$HOME/.config/dunst/assets"
-IFACE=$(ip route | awk '/default/{print $5; exit}')
-PREV=""
-
-while true; do
-    STATE=$(cat "/sys/class/net/$IFACE/operstate" 2>/dev/null)
-
-    if [[ "$STATE" != "$PREV" ]]; then
-        if [[ "$STATE" == "up" ]]; then
-            SSID=$(iw dev "$IFACE" link | awk '/SSID/{print $2}')
-            dunstify -a "wifi" -i "$ASSETS/wifi-online.svg" -t 5000 -r 2595 "WiFi — $SSID"
-        else
-            dunstify -a "wifi" -i "$ASSETS/wifi-offline.svg" -t 5000 -r 2595 "WiFi disconnected"
-        fi
-        PREV="$STATE"
-    fi
-
-    sleep 5
-done
+#!/usr/bin/env bash
+exec python3 << 'BNPY'
+import sys, os, signal, time
+sys.path.insert(0, os.path.expanduser("~/.local/lib"))
+from blacknode.sensors.network import get_wifi_state
+from blacknode.notify.composers import compose_wifi
+from blacknode.psyche.core import PsychEngine
+from blacknode.notify.engine import NotifEngine
+engine = PsychEngine()
+notifier = NotifEngine()
+signal.signal(signal.SIGTERM, lambda *_: exit(0))
+signal.signal(signal.SIGINT, lambda *_: exit(0))
+prev = ""
+while True:
+    state, ssid, sig = get_wifi_state()
+    if state != prev:
+        notifier.send(compose_wifi(engine, state, ssid, sig))
+        prev = state
+    time.sleep(5)
+BNPY

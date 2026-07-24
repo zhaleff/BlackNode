@@ -1,0 +1,268 @@
+#!/usr/bin/env bash
+# BlackNode Identity Reinforce — reforzamiento de identidad basado en evidencia
+# Lee ~/.local/share/blacknode/identity.json, notifica en hitos con refuerzo variable
+set -euo pipefail
+
+ASSETS="$HOME/.config/dunst/assets"
+CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/blacknode"
+CACHE_MSGS="$CACHE_DIR/psych-messages.json"
+REPO_MSGS="https://raw.githubusercontent.com/zhaleff/blacknode/main/Configs/.local/share/blacknode/psych-messages.json"
+STATE_DIR="$HOME/.local/share/blacknode"
+IDENTITY="$STATE_DIR/identity.json"
+COOLDOWN_FILE="$STATE_DIR/psych/identity_cooldown"
+INTENTION_FILE="$STATE_DIR/psych/intention.txt"
+FULFILLED_FILE="$STATE_DIR/psych/intention_fulfilled.txt"
+mkdir -p "$STATE_DIR/psych"
+
+# ensure identity.json exists
+if [[ ! -f "$IDENTITY" ]]; then
+  cat > "$IDENTITY" <<'EOF'
+{
+  "clean_closes": 0,
+  "streak_current": 0,
+  "streak_longest": 0,
+  "traits": {},
+  "weekly_logs": {},
+  "last_close": null
+}
+EOF
+fi
+if [[ ! -f "$STATE_DIR/psych/heatmap" ]]; then
+  echo "{}" > "$STATE_DIR/psych/heatmap"
+fi
+
+fetch_messages() {
+  if [[ -f "$CACHE_MSGS" ]] && [[ $(($(date +%s) - $(stat -c %Y "$CACHE_MSGS" 2>/dev/null || echo 0))) -lt 3600 ]]; then
+    cat "$CACHE_MSGS"; return
+  fi
+  curl -sf "$REPO_MSGS" -o "$CACHE_MSGS.tmp" && mv "$CACHE_MSGS.tmp" "$CACHE_MSGS" && cat "$CACHE_MSGS" || cat "$CACHE_MSGS" 2>/dev/null || echo '{}'
+}
+
+is_on_cooldown() {
+  [[ -f "$COOLDOWN_FILE" ]] || return 1
+  local elapsed=$(( $(date +%s) - $(cat "$COOLDOWN_FILE") ))
+  # identity cooldown: at minimum 12h, actual reinforcement schedule varies
+  [[ $elapsed -lt 43200 ]]
+}
+
+set_cooldown() {
+  date +%s > "$COOLDOWN_FILE"
+}
+
+get_zone_message() {
+  local msgs=$1 section=$2 zone=$3
+  echo "$msgs" | sed -n "/\"$section\":/,/^\s*[}\]]/p" | \
+  python3 -c "
+import sys, json, random
+try:
+    d = json.load(sys.stdin)
+    block = d.get('$section', {})
+    for k in block:
+        if k in ['$zone']:
+            pool = block[k]
+            if isinstance(pool, list) and pool:
+                print(random.choice(pool)); return
+    for k in block:
+        pool = block[k]
+        if isinstance(pool, dict):
+            for sub in pool:
+                sp = pool[sub]
+                if isinstance(sp, list) and sp:
+                    print(random.choice(sp)); return
+        elif isinstance(pool, list) and pool:
+            print(random.choice(pool)); return
+except: pass
+"
+}
+
+get_milestone_message() {
+  local msgs=$1 target=$2
+  echo "$msgs" | sed -n '/"milestone":/,/^\s*[}\]]/p' | \
+  python3 -c "
+import sys, json, random
+try:
+    d = json.load(sys.stdin)
+    milestones = d.get('milestone', {})
+    targets = sorted([int(k) for k in milestones if k.isdigit()], reverse=True)
+    for t in targets:
+        if t <= $target:
+            pool = milestones[str(t)]
+            if isinstance(pool, list) and pool:
+                print(random.choice(pool)); return
+except: pass
+"
+}
+
+get_streak_message() {
+  local msgs=$1 target=$2
+  echo "$msgs" | sed -n '/"streak":/,/^\s*[}\]]/p' | \
+  python3 -c "
+import sys, json, random
+try:
+    d = json.load(sys.stdin)
+    streaks = d.get('streak', {})
+    targets = sorted([int(k) for k in streaks if k.isdigit()], reverse=True)
+    for t in targets:
+        if t <= $target:
+            pool = streaks[str(t)]
+            if isinstance(pool, list) and pool:
+                print(random.choice(pool)); return
+except: pass
+"
+}
+
+get_weekly_message() {
+  local msgs=$1 closes=$2 focus=$3 fulfilled=$4 week=$5 streak=$6
+  echo "$msgs" | sed -n '/"weekly":/,/^\s*[}\]]/p' | \
+  python3 -c "
+import sys, json, random
+try:
+    d = json.load(sys.stdin)
+    weekly = d.get('weekly', [])
+    if weekly:
+        msg = random.choice(weekly)
+        msg = msg.replace('{closes}',str($closes))
+        msg = msg.replace('{focus}',str($focus))
+        msg = msg.replace('{fulfilled}',str($fulfilled))
+        msg = msg.replace('{week}',str($week))
+        msg = msg.replace('{streak}',str($streak))
+        print(msg)
+except: pass
+"
+}
+
+get_broken_message() {
+  echo "$msgs" | sed -n '/"streak_broken":/,/^\s*[}\]]/p' | \
+  python3 -c "
+import sys, json, random
+try:
+    d = json.load(sys.stdin)
+    pool = d.get('streak_broken', [])
+    if pool:
+        print(random.choice(pool))
+except: pass
+"
+}
+
+main() {
+  local msgs
+  msgs=$(fetch_messages)
+
+  local icon title body
+  icon="$ASSETS/identity-finisher.svg"
+
+  local closes streak longest
+  closes=$(python3 -c "import json; print(json.load(open('$IDENTITY')).get('clean_closes',0))" 2>/dev/null || echo 0)
+  streak=$(python3 -c "import json; print(json.load(open('$IDENTITY')).get('streak_current',0))" 2>/dev/null || echo 0)
+  longest=$(python3 -c "import json; print(json.load(open('$IDENTITY')).get('streak_longest',0))" 2>/dev/null || echo 0)
+
+  local reason=""
+
+  # Check if streak was broken (we were >0 and now 0 with old streak cached)
+  local prev_streak=0
+  [[ -f "$STATE_DIR/psych/prev_streak" ]] && prev_streak=$(cat "$STATE_DIR/psych/prev_streak")
+  if [[ $prev_streak -gt 0 && $streak -lt $prev_streak ]]; then
+    reason="broken"
+  fi
+
+  # Check milestones
+  local milestones="7 14 21 30 50 100"
+  local milestone_msg=""
+  for m in $milestones; do
+    if [[ $closes -eq $m ]]; then
+      milestone_msg=$(get_milestone_message "$msgs" "$m")
+      reason="milestone"
+      break
+    fi
+  done
+
+  if [[ "$reason" != "milestone" ]]; then
+    # Check streak milestones
+    local smilestones="3 7 14 30 60 100"
+    for m in $smilestones; do
+      if [[ $streak -eq $m ]]; then
+        milestone_msg=$(get_streak_message "$msgs" "$m")
+        reason="streak"
+        break
+      fi
+    done
+  fi
+
+  if [[ -z "$reason" ]]; then
+    is_on_cooldown && exit 0
+    # Variable reinforcement: random check if we're doing well
+    # 30% chance on normal days
+    if [[ $closes -gt 0 ]]; then
+      local roll=$((RANDOM % 100))
+      if [[ $roll -lt 30 ]]; then
+        reason="variable"
+      fi
+    fi
+  fi
+
+  [[ -z "$reason" ]] && exit 0
+
+  case "$reason" in
+    broken)
+      icon="$ASSETS/identity-broken.svg"
+      body=$(get_broken_message "$msgs")
+      title="Racha rota"
+      # Save the broken message
+      python3 -c "
+import json
+p = '$IDENTITY'
+d = json.load(open(p))
+d['streak_broken'] = d.get('streak_broken', 0) + 1
+json.dump(d, open(p,'w'), indent=2)
+" 2>/dev/null || true
+      ;;
+    milestone)
+      icon="$ASSETS/identity-streak.svg"
+      body="$milestone_msg"
+      title="$closes cierres — hito alcanzado"
+      ;;
+    streak)
+      icon="$ASSETS/identity-consistent.svg"
+      body="$milestone_msg"
+      title="$streak días seguidos"
+      ;;
+    variable)
+      # Weekly review
+      local week day closes_wk focus fulfilled
+      week=$(date -u +%V)
+      day=$(date -u +%u)
+      closes_wk=$(python3 -c "
+import json, os
+p = '$IDENTITY'
+d = json.load(open(p))
+g = d.get('weekly_logs', {}).get(str($(date -u +%Y)) + '-W' + str($week), {})
+print(g.get('closes', 0))
+" 2>/dev/null || echo 0)
+      focus=$(python3 -c "
+import json
+d = json.load(open('$IDENTITY'))
+g = d.get('weekly_logs', {})
+w = g.get(str($(date -u +%Y)) + '-W' + str($week), {})
+print(w.get('focus_hours', 0))
+" 2>/dev/null || echo 0)
+      fulfilled=$(python3 -c "
+import json
+d = json.load(open('$IDENTITY'))
+g = d.get('weekly_logs', {})
+w = g.get(str($(date -u +%Y)) + '-W' + str($week), {})
+print(w.get('fulfilled', 0))
+" 2>/dev/null || echo 0)
+      body=$(get_weekly_message "$msgs" "$closes_wk" "$focus" "$fulfilled" "$week" "$streak")
+      [[ -z "$body" ]] && body="Avanzando. Sin prisa."
+      title="Resumen de semana $week"
+      icon="$ASSETS/identity-finisher.svg"
+      ;;
+  esac
+
+  dunstify -a "BlackNode" -i "$icon" -t 10000 "$title" "$body"
+
+  set_cooldown
+  echo "$streak" > "$STATE_DIR/psych/prev_streak"
+}
+
+main "$@"

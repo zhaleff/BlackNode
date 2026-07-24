@@ -1,54 +1,23 @@
-#!/bin/bash
-
-ASSETS="$HOME/.config/dunst/assets"
-BAT="/sys/class/power_supply"
-LOCKFILE="${XDG_RUNTIME_DIR:-/tmp}/battery_notify.lock"
-
-if [ -f "$LOCKFILE" ] && kill -0 $(cat "$LOCKFILE") 2>/dev/null; then
-    exit 1
-fi
-echo $$ > "$LOCKFILE"
-trap "rm -f $LOCKFILE" EXIT
-
-PREV_STATUS=""
-NOTIFIED_LOW=false
-NOTIFIED_CRITICAL=false
-NOTIFIED_FULL=false
-
-get_capacity() { cat "$BAT"/*/capacity 2>/dev/null | head -1; }
-get_status()   { cat "$BAT"/*/status   2>/dev/null | head -1; }
-
-while true; do
-    CAP=$(get_capacity)
-    STATUS=$(get_status)
-
-    if [[ "$STATUS" != "$PREV_STATUS" ]]; then
-        if [[ "$STATUS" == "Charging" ]]; then
-            dunstify -i "$ASSETS/battery-charging.svg" -t 4000 -r 2594 "Charger connected — ${CAP}%"
-            NOTIFIED_FULL=false
-        elif [[ "$STATUS" == "Discharging" ]]; then
-            dunstify -i "$ASSETS/battery-charging.svg" -t 4000 -r 2594 "Charger disconnected — ${CAP}%"
-            NOTIFIED_LOW=false
-            NOTIFIED_CRITICAL=false
-        fi
-        PREV_STATUS="$STATUS"
-    fi
-
-    if [[ "$STATUS" == "Discharging" ]]; then
-        if [[ "$CAP" -le 5 && "$NOTIFIED_CRITICAL" == false ]]; then
-            dunstify -u critical -i "$ASSETS/battery-low.svg" -t 0 -r 2594 "Critical battery — ${CAP}%"
-            NOTIFIED_CRITICAL=true
-            NOTIFIED_LOW=true
-        elif [[ "$CAP" -le 15 && "$NOTIFIED_LOW" == false ]]; then
-            dunstify -u critical -i "$ASSETS/battery-low.svg" -t 8000 -r 2594 "Low battery — ${CAP}%"
-            NOTIFIED_LOW=true
-        fi
-    fi
-
-    if [[ "$STATUS" == "Charging" && "$CAP" -ge 80 && "$NOTIFIED_FULL" == false ]]; then
-        dunstify -i "$ASSETS/battery-full.svg" -t 8000 -r 2594 "Battery full — ${CAP}%"
-        NOTIFIED_FULL=true
-    fi
-
-    sleep 30
-done
+#!/usr/bin/env bash
+exec python3 << 'BNPY'
+import sys, os, signal, time
+sys.path.insert(0, os.path.expanduser("~/.local/lib"))
+from blacknode.sensors.power import get_battery
+from blacknode.notify.composers import compose_battery
+from blacknode.psyche.core import PsychEngine
+from blacknode.notify.engine import NotifEngine
+engine = PsychEngine()
+notifier = NotifEngine()
+signal.signal(signal.SIGTERM, lambda *_: exit(0))
+signal.signal(signal.SIGINT, lambda *_: exit(0))
+prev = (None, None)
+while True:
+    cap, status = get_battery()
+    if cap is not None and status is not None:
+        pc, ps = prev
+        if status != ps or (status == "Discharging" and cap <= 15 and (pc or 100) > 15) or (status == "Discharging" and cap <= 5 and (pc or 100) > 5) or (status == "Charging" and cap >= 80 and (pc or 0) < 80):
+            e = compose_battery(engine, cap, status, pc, ps)
+            if e: notifier.send(e)
+        prev = (cap, status)
+    time.sleep(30)
+BNPY

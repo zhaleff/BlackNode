@@ -1,0 +1,90 @@
+{
+  "shutdown": {
+    "deep_work": {
+      "dawn": ["Madrugaste y lo moviste. Descansa.", "El amanecer te vio trabajar. Es suficiente."],
+      "morning": ["Mañana sólida. Lo importante está hecho.", "Buen ritmo. El progreso no se pierde."],
+      "afternoon": ["Tarde productiva. Apaga sin culpa.", "Lo que avanzaste hoy, nadie te lo quita."],
+      "evening": ["Cerraste fuerte. Mañana arrancas con ventaja.", "Día completo. Descansa merecido."],
+      "night": ["Noche de avance. Sueña con lo que viene.", "Hasta mañana. El código espera."]
+    },
+    "light": {
+      "dawn": ["Días así también cuentan. Mañana más.", "No todos son de gloria. Descansa igual."],
+      "morning": ["Apenas empieza el día. Si vuelves, hay tiempo.", "Cero presión. Lo que venga, bien."],
+      "afternoon": ["Tarde tranquila. A veces eso es lo correcto.", "No forzar también es sabiduría."],
+      "evening": ["Día suave. A veces el cuerpo pide pausa.", "Mañana con más energía."],
+      "night": ["Noche corta. A descansar y volver."]
+    },
+    "intention": ["Dejaste: '{intention}'. Ahí estará cuando vuelvas.", "Pendiente: '{intention}'. No se pierde. Se retoma."],
+    "streak": [
+      "Llevas {streak} días seguidos. Consistencia pura.",
+      "{streak} días. La racha habla por sí sola."
+    ],
+    "return": ["Cuando regreses, sabes dónde seguir.", "Hasta luego. Aquí te espero."],
+    "parting": ["Buen trabajo hoy.", "Lo lograste. Otro día completo.", "Cierre consciente. Bien hecho."]
+  },
+  "identity": {
+    "milestone": {
+      "7": ["7 cierres limpios. Eres quien termina lo que empieza."],
+      "14": ["14 días cerrando. Consistencia = identidad."],
+      "21": ["21 días. Hábito formado. Eres constante."],
+      "30": ["Mes completo. Maestría en cerrar ciclos."],
+      "50": ["50 cierres. Esto ya no es racha, es quién eres."],
+      "100": ["100. Eres quien termina. Punto."]
+    },
+    "streak": {
+      "3": ["3 días. Inercia positiva."],
+      "7": ["Una semana. Identidad: quien aparece cada día."],
+      "14": ["14 días seguidos. Confianza en ti mismo."],
+      "30": ["30 días. Disciplina internalizada."],
+      "60": ["60 días. Esto es tu forma de vivir."],
+      "100": ["100 días. Imparable."]
+    },
+    "streak_broken": [
+      "Se rompió. Y está bien. Mañana empiezas de nuevo.",
+      "Un día no borra semanas. Vuelve cuando quieras.",
+      "La racha era evidencia, no requisito. Sigues siendo tú."
+    ],
+    "trait": {
+      "finisher": ["Cierras. Pocos lo hacen. Eso te define."],
+      "deep_worker": ["Trabajas profundo. Eso es raro. Eso eres."],
+      "consistent": ["Apareces. Día tras día. Eso es poder."],
+      "learner": ["Mejoras en silencio. No pasa desapercibido."]
+    },
+    "weekly": [
+      "Semana: {closes} cierres, {focus}h foco, {fulfilled} intenciones cumplidas. Avanzas.",
+      "Semana {week}: {streak} días seguidos. La evidencia se acumula."
+    ]
+  },
+  "persevere": {
+    "presence": [
+      "Aquí. Sin prisa. Solo sé que estás en ello.",
+      "Te veo en la trinchera. No tienes que salir solo.",
+      "A veces el progreso es invisible. Pero ocurre."
+    ],
+    "reframe": [
+      "Lo difícil es donde creces. Estás en el lugar correcto.",
+      "Cada línea que borras acerca a la correcta. No es retroceso.",
+      "El atasco precede al breakthrough. Confía en el proceso."
+    ],
+    "micro_step": [
+      "¿Una línea? ¿Un test? Solo el siguiente paso.",
+      "No termines la tarea. Solo haz 5 minutos.",
+      "Comprométete con 10 minutos. Si quieres, paras."
+    ],
+    "identity_anchor": [
+      "Has resuelto cosas más difíciles. Esta también la sacas.",
+      "La persona que empezó esto sabe terminarlo. Confía en ella.",
+      "Tu historial: {closes} cierres, {streak} días. Puedes con esto."
+    ],
+    "nudge": [
+      "No te rindas. Sé que puedes terminar este trabajo.",
+      "Un paso más. Solo uno. Luego decides.",
+      "Tú puedes con esto. Ya lo has demostrado."
+    ],
+    "late_night": {
+      "22-23": ["Tarde. Último push y cierras. ¿Trato?"],
+      "00-02": ["Madrugada. Si sigues, que sea por ti. Si paras, sin culpa."],
+      "03-05": ["Horas brujas. Tu mejor versión duerme. Déjala soñar."]
+    }
+  }
+}

@@ -29,39 +29,26 @@ fn main() {
         mem_upkeep.save();
     });
 
-    // Context state persistence (for `blacknode brain status`)
     let state_path = dir.join("state.json");
 
-    // Main tick loop
     loop {
         let result = graph.tick();
         let signals = result.signals;
         let decisions = result.decisions;
+        let state = result.state;
 
-        let mut context_json = None;
+        let _ = std::fs::write(&state_path, serde_json::to_string_pretty(&serde_json::json!({
+            "activity": state.context.activity,
+            "confidence": state.context.confidence,
+            "active_window": state.active_window,
+            "active_workspace": state.active_workspace,
+            "focus": state.context.focus,
+            "idle_min": state.idle_min,
+            "windows_count": state.windows.len(),
+            "on_battery": state.on_battery,
+            "battery_pct": state.battery_pct,
+        })).unwrap());
 
-        for s in &signals {
-            if s.kind == "context" {
-                if let Some(p) = &s.payload {
-                    context_json = Some(p.clone());
-                }
-            }
-        }
-
-        // Write context state
-        if let Some(ctx) = context_json {
-            let _ = std::fs::write(&state_path, serde_json::to_string_pretty(&serde_json::json!({
-                "activity": ctx.get("activity"),
-                "top_app": ctx.get("app"),
-                "idle_min": ctx.get("idle_min"),
-                "focus": ctx.get("focus"),
-                "battery": ctx.get("battery"),
-                "on_battery": ctx.get("on_battery"),
-                "network": ctx.get("network"),
-            })).unwrap());
-        }
-
-        // Append decisions
         for s in &decisions {
             let entry = serde_json::json!({
                 "action": s.kind.strip_prefix("decision/").unwrap_or(&s.kind),
