@@ -1,0 +1,4 @@
+module Shell
+singleton Colors 1.0 Colors.qml
+Bar 1.0 Bar.qml
+Pill 1.0 Pill.qml
