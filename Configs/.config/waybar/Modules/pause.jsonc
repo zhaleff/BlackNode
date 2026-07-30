@@ -1,11 +1,10 @@
 {
   "custom/pause": {
-    "format": "{icon}",
-    "on-click": "playerctl --player=spotify play-pause",
-    "tooltip": false,
-    "format-icons": [
-      "",
-      ""
-    ]
+    "format": "{}",
+    "return-type": "json",
+"exec": "~/.local/bin/blacknode/music status",
+"on-click": "~/.local/bin/blacknode/music play-pause",
+    "interval": 5,
+    "tooltip": false
   }
 }

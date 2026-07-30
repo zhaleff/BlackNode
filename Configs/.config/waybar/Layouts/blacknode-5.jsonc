@@ -32,7 +32,7 @@
   },
   "group/hollow-right-4": {
     "orientation": "horizontal",
-    "modules": ["mpris", "custom/previous", "custom/pause", "custom/next"]
+    "modules": ["custom/music", "custom/previous", "custom/pause", "custom/next"]
   },
   "group/hollow-right-1": {
     "orientation": "horizontal",

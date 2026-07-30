@@ -72,5 +72,33 @@ if [[ -f "$SETTINGS_DIR/Cargo.toml" ]]; then
     fi
 fi
 
+WEATHER_DIR="$REPO/src/weather"
+if [[ -f "$WEATHER_DIR/Cargo.toml" ]]; then
+    if command -v cargo >/dev/null 2>&1; then
+        echo "  → building blacknode-weather (rust)"
+        (cd "$WEATHER_DIR" && cargo build --release >/dev/null 2>&1) || echo "  ✗ weather build failed"
+        if [[ -x "$WEATHER_DIR/target/release/blacknode-weather" ]]; then
+            install -Dm755 "$WEATHER_DIR/target/release/blacknode-weather" "$HOME/.local/bin/blacknode-weather"
+            echo "  → blacknode-weather installed"
+        fi
+    else
+        echo "  ✗ cargo not found, skipping weather build"
+    fi
+fi
+
+MUSIC_DIR="$REPO/src/music"
+if [[ -f "$MUSIC_DIR/Cargo.toml" ]]; then
+    if command -v cargo >/dev/null 2>&1; then
+        echo "  → building blacknode-music (rust)"
+        (cd "$MUSIC_DIR" && cargo build --release >/dev/null 2>&1) || echo "  ✗ music build failed"
+        if [[ -x "$MUSIC_DIR/target/release/blacknode-music" ]]; then
+            install -Dm755 "$MUSIC_DIR/target/release/blacknode-music" "$HOME/.local/bin/blacknode-music"
+            echo "  → blacknode-music installed"
+        fi
+    else
+        echo "  ✗ cargo not found, skipping music build"
+    fi
+fi
+
 echo ""
 echo "Done."

@@ -66,19 +66,19 @@ tooltip label {
 }
 
 #hollow-right-5 {
-  border-radius: 999px 10px 10px 999px;
+  border-radius: 999px 400px 400px 999px;
 }
 
 #hollow-right-3 {
-  border-radius: 10px 999px 999px 10px;
+  border-radius: 400px 999px 999px 400px;
 }
 
 #hollow-left-2 {
-  border-radius: 999px 10px 10px 999px;
+  border-radius: 999px 400px 400px 999px;
 }
 
 #hollow-left-1 {
-  border-radius: 10px 999px 999px 10px;
+  border-radius: 400px 999px 999px 400px;
 }
 
 #hollow-left-1:hover,
@@ -143,7 +143,7 @@ tooltip label {
   background-color: @primary;
   color: @on-primary;
   border-radius: 8px;
-  padding: 2 8px;
+  padding: 2px 8px;
   animation: 20s ease-in-out 1;
   transition: background-color 0.4s cubic-bezier(.55, -0.68, .48, 1.682),
     padding 0.4s cubic-bezier(.55, -0.68, .48, 1.682),

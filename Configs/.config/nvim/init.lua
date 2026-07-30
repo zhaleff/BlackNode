@@ -24,6 +24,7 @@ require("lazy").setup({
   require("core.plugins.tabout"),
   require("core.plugins.harpoon"),
   require("core.plugins.pets"),
+  require("core.plugins.ollama"),
   require("core.plugins.trouble"),
   require("core.plugins.dashboard"),
   require("core.plugins.navic"),

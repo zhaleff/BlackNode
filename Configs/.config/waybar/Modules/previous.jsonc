@@ -1,7 +1,7 @@
 {
   "custom/previous": {
     "format": "󰙣",
-    "on-click": "playerctl --player=spotify previous && playerctl --player=youtube-music previous",
+    "on-click": "~/.local/bin/blacknode/music previous",
     "tooltip": false
   }
 }

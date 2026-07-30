@@ -3,10 +3,10 @@
     "format": "{}",
     "tooltip": true,
     "return-type": "json",
-    "exec": "~/.config/waybar/Scripts/music/music.py",
-    "on-click": "~/.config/rofi/scripts/audio.sh",
+"exec": "~/.local/bin/blacknode/music show",
+"on-click": "~/.local/bin/blacknode/music play-pause",
     "on-click-right": "~/.config/waybar/Scripts/music/now-playing.sh",
-    "interval": 1,
+    "interval": 5,
     "max-length": 70
   }
 }

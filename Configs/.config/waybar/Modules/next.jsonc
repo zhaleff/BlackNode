@@ -1,7 +1,7 @@
 {
   "custom/next": {
     "format": "󰙡 ",
-    "on-click": "playerctl --player=spotify next && playerctl --player=youtube-music next",
+    "on-click": "~/.local/bin/blacknode/music next",
     "tooltip": false
   }
 }

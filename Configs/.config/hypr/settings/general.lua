@@ -14,8 +14,8 @@ require("themes/colors")
 
 hl.config({
   general = {
-    gaps_in = 3,
-    gaps_out = 7,
+    gaps_in = 12,
+    gaps_out = 12,
     border_size = 1,
 
     col = {

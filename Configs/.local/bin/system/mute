@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+exec python3 << 'BNPY'
+import sys, os
+sys.path.insert(0, os.path.expanduser("~/.local/lib"))
+from blacknode.sensors.audio import get_sink_volume, toggle_mute
+from blacknode.notify.composers import compose_mute
+from blacknode.psyche.core import PsychEngine
+from blacknode.notify.engine import NotifEngine
+engine = PsychEngine()
+notifier = NotifEngine()
+v, _ = get_sink_volume()
+toggle_mute()
+_, m = get_sink_volume()
+notifier.send(compose_mute(engine, m, v))
+BNPY

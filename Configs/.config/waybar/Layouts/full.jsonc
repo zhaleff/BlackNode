@@ -21,7 +21,7 @@
   },
   "group/hollow-left-4": {
     "orientation": "horizontal",
-    "modules": ["mpris", "custom/previous", "custom/pause", "custom/next"]
+    "modules": ["custom/music", "custom/previous", "custom/pause", "custom/next"]
   },
   "group/hollow-left-5": {
     "orientation": "horizontal",

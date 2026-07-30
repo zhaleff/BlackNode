@@ -25,7 +25,7 @@
   },
   "group/hollow-left-4": {
     "orientation": "horizontal",
-    "modules": ["mpris", "custom/previous", "custom/pause", "custom/next"]
+    "modules": ["custom/music", "custom/previous", "custom/pause", "custom/next"]
   },
   "group/hollow-left-5": {
     "orientation": "horizontal",
@@ -41,7 +41,7 @@
   },
   "group/hollow-right-4": {
     "orientation": "horizontal",
-    "modules": ["idle_inhibitor", "clock", "custom/moon", "custom/waybar-rofi" ]
+    "modules": ["idle_inhibitor", "clock", "custom/waybar-rofi" ]
   },
   "group/hollow-right-5": {
     "orientation": "horizontal",

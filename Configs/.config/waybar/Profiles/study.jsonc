@@ -54,7 +54,7 @@
   },
   "custom/waybar-rofi": {
     "format": " ",
-    "on-click": "~/.local/bin/bn-menu",
+    "on-click": "~/.local/bin/blacknode/menu",
     "tooltip": "System menu"
   }
 }
