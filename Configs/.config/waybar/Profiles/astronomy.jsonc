@@ -10,7 +10,6 @@
   "modules-right": [
     "group/hollow-right-5",
     "group/hollow-right-4",
-    "group/hollow-right-1",
     "group/hollow-right-3"
   ],
   "group/hollow-left-2": {
@@ -28,10 +27,6 @@
   "group/hollow-right-4": {
     "orientation": "horizontal",
     "modules": ["custom/sun"]
-  },
-  "group/hollow-right-1": {
-    "orientation": "horizontal",
-    "modules": ["custom/apod"]
   },
   "group/hollow-right-3": {
     "orientation": "horizontal",

@@ -62,7 +62,6 @@ listview {
     padding:                     0px;
     cycle:                       true;
     lines:                       6;
-    lines:                       6;
     dynamic:                     true;
     scrollbar:                   false;
     layout:                      vertical;

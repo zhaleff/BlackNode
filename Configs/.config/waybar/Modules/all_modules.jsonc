@@ -32,7 +32,7 @@
     "~/.config/waybar/Modules/music-volume.jsonc",
     "~/.config/waybar/Modules/music-artist.jsonc",
     "~/.config/waybar/Modules/space-news.jsonc",
-    "~/.config/waybar/Modules/apod.jsonc",
+
     "~/.config/waybar/Modules/sun.jsonc",
     "~/.config/waybar/Modules/astro-event.jsonc",
     "~/.config/waybar/Modules/astro-links.jsonc",

@@ -46,8 +46,7 @@ main() {
   local hour_utc period
   hour_utc=$(date -u +%H)
   hour_utc=$((10#$hour_utc))
-       if [[ $hour_utc -le 4 ]]; then period=dawn
-  elif [[ $hour_utc -le 7 ]]; then period=dawn
+       if [[ $hour_utc -le 7 ]]; then period=dawn
   elif [[ $hour_utc -le 11 ]]; then period=morning
   elif [[ $hour_utc -le 13 ]]; then period=afternoon
   elif [[ $hour_utc -le 17 ]]; then period=afternoon

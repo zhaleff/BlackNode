@@ -169,7 +169,8 @@ volume_control() {
             list_sessions ;;
         "󰋲  Music History")
             show_list ;;
-show_last() { show_list; }
+    esac
+}
 
 case "${1:-}" in
     --history) show_list ;;

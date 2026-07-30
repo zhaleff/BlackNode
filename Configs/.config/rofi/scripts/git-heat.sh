@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Click en el modulo git-heat: muestra commits de hoy + totales.
+# git-heat: show today's commits + totals.
 REPO="$HOME/BlackNode"
 THEME="$HOME/.config/rofi/styles/submenu.rasi"
 LIST="$HOME/.config/rofi/styles/search-list.rasi"
@@ -12,7 +12,7 @@ header="󱡣  Hoy: $count commit(s)   |   Total repo: $total"
 commits=$(git -C "$REPO" log --since="$today 00:00:00" --format="%h  %s" 2>/dev/null)
 
 if [[ -z "$commits" ]]; then
-    echo -e "$header\n\n(Sin commits hoy todavia)" | rofi -dmenu -p " Git" -theme "$THEME"
+    echo -e "$header\n\n(No commits yet today)" | rofi -dmenu -p " Git" -theme "$THEME"
 else
     echo -e "$header\n$commits" | rofi -dmenu -i -p " Git hoy" -theme "$LIST"
 fi

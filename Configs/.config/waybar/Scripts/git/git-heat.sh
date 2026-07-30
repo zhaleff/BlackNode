@@ -11,7 +11,7 @@ header="󱡣  Hoy: $count commit(s)   |   Total repo: $total"
 commits=$(git -C "$REPO" log --since="$today 00:00:00" --format="%h  %s" 2>/dev/null)
 
 if [[ -z "$commits" ]]; then
-    echo -e "$header\n\n(Sin commits hoy todavia)" | rofi -dmenu -p " Git" -theme "$THEME"
+    echo -e "$header\n\n(No commits yet today)" | rofi -dmenu -p " Git" -theme "$THEME"
 else
     echo -e "$header\n$commits" | rofi -dmenu -i -p " Git hoy" -theme "$LIST"
 fi

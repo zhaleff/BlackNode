@@ -23,4 +23,4 @@ case "$CHOICE" in
     *"Performance"*) sudo cpupower frequency-set -g performance ;;
 esac
 
-dunstify -a "battery" -t 3000 "CPU: $(cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor)"
+dunstify -a "CPU Governor" -t 3000 "CPU: $(cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor)"

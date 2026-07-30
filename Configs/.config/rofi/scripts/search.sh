@@ -11,7 +11,7 @@ case "$CHOICE" in
     "󰇮 ")
         QUERY=$(rofi -dmenu -p "File name" -theme "$INPUT_THEME")
         [ -z "$QUERY" ] && exit
-        local SAFE="${QUERY//[^a-zA-Z0-9 _.-]/}"
+        SAFE="${QUERY//[^a-zA-Z0-9 _.-]/}"
         RESULTS=$(find "$HOME" -maxdepth 4 -type f -not -path "*/.*" -iname "*$SAFE*" 2>/dev/null | head -50)
         [ -z "$RESULTS" ] && notify-send "Search" "No files found" && exit
         SELECTED=$(echo "$RESULTS" | rofi -dmenu -p "Results" -theme "$LIST_THEME")
@@ -20,14 +20,13 @@ case "$CHOICE" in
     "󰘥 ")
         QUERY=$(rofi -dmenu -p "Search web" -theme "$INPUT_THEME")
         [ -z "$QUERY" ] && exit
-        local ENCODED
-        ENCODED=$(python3 -c "import urllib.parse; print(urllib.parse.quote('${QUERY//\'/\\'}'))" 2>/dev/null || echo "${QUERY// /+}")
+        ENCODED=$(QUERY="$QUERY" python3 -c "import os, urllib.parse; print(urllib.parse.quote(os.environ['QUERY']))" 2>/dev/null || echo "${QUERY// /+}")
         xdg-open "https://www.google.com/search?q=$ENCODED"
         ;;
     "󰊄 ")
         QUERY=$(rofi -dmenu -p "Text in files" -theme "$INPUT_THEME")
         [ -z "$QUERY" ] && exit
-        local SAFE="${QUERY//[^a-zA-Z0-9 _.-]/}"
+        SAFE="${QUERY//[^a-zA-Z0-9 _.-]/}"
         RESULTS=$(grep -r -i -l "$SAFE" "$HOME" --include="*.{txt,md,conf,sh,py,js,ts,c,cpp,h,hpp,lua,json,toml,yaml,yml}" --exclude-dir=".*" 2>/dev/null | head -50)
         [ -z "$RESULTS" ] && notify-send "Search" "No matches found" && exit
         SELECTED=$(echo "$RESULTS" | rofi -dmenu -p "Results" -theme "$LIST_THEME")

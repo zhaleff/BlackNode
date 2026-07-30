@@ -32,8 +32,7 @@ declare -A actions=(
 
 run() {
   local cmd="${actions[$1]}"
-  [[ -n "$cmd" ]] && $cmd || exit 0
-  [[ $? -ne 0 ]] && log_error "Failed to execute: $cmd"
+  [[ -n "$cmd" ]] && $cmd
 }
 
 run "$selected"

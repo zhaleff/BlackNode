@@ -3,7 +3,7 @@
 set -euo pipefail
 
 # Run shutdown ritual in background so wlogout isn't blocked
-/home/zhaleff/BlackNode/Configs/.local/bin/shutdown-ritual.sh &
+"$(dirname "$0")/shutdown-ritual.sh" &
 sleep 2
 
 # Then actually exit

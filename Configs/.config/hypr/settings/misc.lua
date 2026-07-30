@@ -11,7 +11,7 @@ d88' d88'  88bd88' `?888P' `?888P'
 
 hl.config({
     misc = {
-        force_default_wallpaper = 1, 
+        force_default_wallpaper = 0, 
         disable_hyprland_logo   = true,
     },
 })
