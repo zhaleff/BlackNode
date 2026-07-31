@@ -1,6 +1,8 @@
 [config]
 reload_apps = true
 
+
+
 [templates.kitty]
 input_path = '~/.config/matugen/templates/kitty.conf'
 output_path = '~/.config/kitty/colors.conf'

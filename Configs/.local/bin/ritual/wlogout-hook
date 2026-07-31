@@ -3,7 +3,7 @@
 set -euo pipefail
 
 # Run shutdown ritual in background so wlogout isn't blocked
-"$(dirname "$0")/shutdown-ritual.sh" &
+"$(dirname "$0")/shutdown" &
 sleep 2
 
 # Then actually exit

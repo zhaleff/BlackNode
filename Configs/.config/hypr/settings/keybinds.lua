@@ -44,6 +44,7 @@ hl.bind(mainMod .. " + G", hl.dsp.exec_cmd("~/.config/rofi/scripts/bookmarks.sh"
 hl.bind(mainMod .. " + SHIFT + L", hl.dsp.exec_cmd("~/.config/rofi/scripts/search.sh"))
 hl.bind(mainMod .. " + V", hl.dsp.exec_cmd("~/.config/rofi/scripts/config-hud.sh"))
 hl.bind(mainMod .. " + J", hl.dsp.exec_cmd("~/.config/rofi/scripts/notes.sh"))
+hl.bind(mainMod .. " + M", hl.dsp.exec_cmd("~/.config/rofi/scripts/quick-actions.sh"))
 hl.bind(mainMod .. " + N", hl.dsp.exec_cmd("~/.config/rofi/scripts/notifications.sh"))
 hl.bind(mainMod .. " + SHIFT + B", hl.dsp.exec_cmd("~/.config/rofi/scripts/bluetooth.sh"))
 -- hl.bind(mainMod .. " + SHIFT + O", hl.dsp.exec_cmd("quickshell -p ~/.config/quickshell/dashboard/"))

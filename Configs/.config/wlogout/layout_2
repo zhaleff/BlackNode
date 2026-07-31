@@ -7,7 +7,7 @@
 
 {
     "label" : "suspend",
-    "action" : "~/.local/bin/wlogout-hook.sh suspend",
+    "action" : "~/.local/bin/ritual/wlogout-hook suspend",
     "text" : "Suspend",
     "keybind" : "u"
 }
@@ -15,7 +15,7 @@
 
 {
     "label" : "reboot",
-    "action" : "~/.local/bin/wlogout-hook.sh reboot",
+    "action" : "~/.local/bin/ritual/wlogout-hook reboot",
     "text" : "Reboot",
     "keybind" : "r"
 }
@@ -23,14 +23,14 @@
 
 {
     "label" : "shutdown",
-    "action" : "~/.local/bin/wlogout-hook.sh shutdown",
+    "action" : "~/.local/bin/ritual/wlogout-hook shutdown",
     "text" : "Shutdown",
     "keybind" : "s"
 }
 
 {
     "label" : "logout",
-    "action" : "~/.local/bin/wlogout-hook.sh logout",
+    "action" : "~/.local/bin/ritual/wlogout-hook logout",
     "text" : "Logout",
     "keybind" : "e"
 }
@@ -39,7 +39,7 @@
 
 {
     "label" : "hibernate",
-    "action" : "~/.local/bin/wlogout-hook.sh hibernate",
+    "action" : "~/.local/bin/ritual/wlogout-hook hibernate",
     "text" : "Hibernate",
     "keybind" : "h"
 }
