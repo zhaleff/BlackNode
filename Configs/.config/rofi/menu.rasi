@@ -2,24 +2,26 @@
 
 configuration {
     font:                        "JetBrainsMono Nerd Font 13";
-    show-icons:                  false;
+    show-icons:                  true;
+    icon-theme:                  "Papirus-Dark";
     kb-row-tab:                  "";
 }
 
 window {
-    width:                       440px;
-    height:                      640px;
+    width:                       680px;
+    height:                      520px;
     transparency:                "real";
     fullscreen:                  false;
-    border-radius:               28px;
+    border-radius:               24px 24px 0px 0px;
     background-color:            @surface;
-    location:                    center;
-    anchor:                      center;
+    location:                    south;
+    anchor:                      south;
+    y-offset:                    0px;
 }
 
 mainbox {
-    spacing:                     0px;
-    padding:                     16px;
+    spacing:                     20px;
+    padding:                     20px;
     orientation:                 vertical;
     children:                    [ "inputbar", "listview" ];
     background-color:            transparent;
@@ -27,27 +29,29 @@ mainbox {
 
 inputbar {
     spacing:                     0px;
-    padding:                     0px 0px 12px 0px;
+    padding:                     0px;
     children:                    [ "entry" ];
     background-color:            transparent;
 }
 
 entry {
-    background-color:            @surface-container-high;
+    background-color:            @surface-container-low;
     text-color:                  @on-surface;
     cursor:                      text;
     vertical-align:              0.5;
-    placeholder:                 "    Search...";
+    placeholder:                 "Search...";
     placeholder-color:           @on-surface-variant;
-    padding:                     14px 16px;
-    border-radius:               16px;
+    padding:                     12px 4px 12px 4px;
+    border-radius:                24px;
+    border:                       0px 0px 1px 0px;
+    border-color:                 @outline-variant;
 }
 
 listview {
     enabled:                     true;
     columns:                     1;
-    lines:                       15;
-    spacing:                     4px;
+    lines:                       11;
+    spacing:                     2px;
     padding:                     0px;
     cycle:                       true;
     dynamic:                     true;
@@ -59,23 +63,29 @@ listview {
 
 element {
     spacing:                     0px;
-    padding:                     10px 14px;
+    padding:                     11px 12px;
     cursor:                      pointer;
     background-color:            transparent;
-    text-color:                  @on-surface;
-    border-radius:               14px;
+    text-color:                  @on-surface-variant;
+    border-radius:                14px;
+}
+
+element normal.normal {
+    background-color:            transparent;
+    text-color:                  @on-surface-variant;
 }
 
 element selected.normal {
-    background-color:            @secondary-container;
-    text-color:                  @on-secondary-container;
+    background-color:            @primary;
+    border-radius: 999px;
+    text-color:                  @on-primary;
 }
 
 element-icon {
-    size:                        28px;
-    cursor:                      inherit;
-    background-color:            transparent;
-    text-color:                  inherit;
+    size:                         32px;
+    cursor:                       inherit;
+    background-color:             transparent;
+    text-color:                   inherit;
 }
 
 element-text {
@@ -84,7 +94,8 @@ element-text {
     cursor:                      inherit;
     background-color:            transparent;
     text-color:                  inherit;
-    margin:                      0px 0px 0px 14px;
+    margin:                      0px 0px 0px 12px;
+    font:                        "JetBrainsMono Nerd Font 16";
 }
 
 textbox {

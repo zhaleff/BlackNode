@@ -1,7 +1,7 @@
 #!/bin/bash
 
 R="$HOME/.config/rofi"
-MENU_THEME="$R/shared/menu.rasi"
+MENU_THEME="$R/shared/sidebar.rasi"
 LIST_THEME="$R/styles/notifications-list.rasi"
 RAW="${XDG_RUNTIME_DIR:-/tmp}/notif-raw.json"
 IDS="${XDG_RUNTIME_DIR:-/tmp}/notif-ids"

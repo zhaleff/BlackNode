@@ -1,7 +1,7 @@
 #!/bin/bash
 
 R="$HOME/.config/rofi"
-MENU_THEME="$R/shared/menu.rasi"
+MENU_THEME="$R/shared/sidebar.rasi"
 LIST_THEME="$R/styles/wifi-list.rasi"
 PASSWORD_THEME="$R/styles/wifi-password.rasi"
 SSID_THEME="$R/styles/wifi-ssid.rasi"

@@ -146,28 +146,26 @@ volume_control() {
     muted=$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep -c MUTED)
     [ "$muted" -gt 0 ] && icon="󰝟" || icon="󰕾"
 
-    CHOICE=$(printf '󰕾  Volume: %d%%\n󰝝  +10%%\n󰝞  -10%%\n󰝟  Toggle Mute\n󰝚  App Sessions\n󰋲  Music History' "$vol" | \
-        rofi -dmenu -p "Audio" -theme "$MENU_THEME" -theme-str "listview { lines: 6; } window { width: 320px; }")
+    CHOICE=$(printf "$icon\n󰝝\n󰝞\n󰝚\n󰋲" | \
+        rofi -dmenu -p "$icon $vol%" -theme-str "listview { lines: 5; }" -theme "$R/shared/sidebar.rasi")
 
     case "$CHOICE" in
-        "󰕾  Volume: "*)
-            volume_control ;;
-        "󰝝  +10%")
-            wpctl set-volume @DEFAULT_AUDIO_SINK@ 10%+
-            notify-send "Volume" "+10%" -h int:value:"$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{printf "%d", $2 * 100}')"
-            volume_control ;;
-        "󰝞  -10%")
-            wpctl set-volume @DEFAULT_AUDIO_SINK@ 10%-
-            notify-send "Volume" "-10%" -h int:value:"$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{printf "%d", $2 * 100}')"
-            volume_control ;;
-        "󰝟  Toggle Mute")
+        "$icon")
             wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
             local m=$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep -o MUTED || echo "unmuted")
             notify-send "Audio" "$m"
             volume_control ;;
-        "󰝚  App Sessions")
+        "󰝝")
+            wpctl set-volume @DEFAULT_AUDIO_SINK@ 10%+
+            notify-send "Volume" "+10%" -h int:value:"$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{printf "%d", $2 * 100}')"
+            volume_control ;;
+        "󰝞")
+            wpctl set-volume @DEFAULT_AUDIO_SINK@ 10%-
+            notify-send "Volume" "-10%" -h int:value:"$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{printf "%d", $2 * 100}')"
+            volume_control ;;
+        "󰝚")
             list_sessions ;;
-        "󰋲  Music History")
+        "󰋲")
             show_list ;;
     esac
 }

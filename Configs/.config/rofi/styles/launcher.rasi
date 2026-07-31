@@ -14,11 +14,14 @@ configuration {
 
 window {
   height:                      520px;
-  width:                       480px;
+  width:                       520px;
   transparency:                "real";
-  border-radius:               28px;
-  background-color:            @surface;
-  padding:                     16px;
+  border-radius:               32px;
+  background-color:            @surface-container-low;
+  padding:                     24px;
+  location:                    north;
+  anchor:                      north;
+  y-offset:                    40px;
 }
 
 mainbox {
@@ -32,34 +35,36 @@ mainbox {
 inputbar {
   spacing:                     0px;
   padding:                     0px;
-  margin:                      0px 0px 12px 0px;
+  margin:                      0px 0px 20px 0px;
   background-color:            @surface-container-high;
-  border-radius:               16px;
+  border-radius:               999px;
   children:                    [ "textbox-prompt-colon", "entry" ];
 }
 
 textbox-prompt-colon {
   expand:                      false;
   str:                         "󰀻";
-  padding:                     10px 0px 10px 16px;
+  padding:                     12px 0px 12px 20px;
   background-color:            transparent;
   text-color:                  @on-surface-variant;
   vertical-align:              0.5;
+  font:                        "feather 14";
 }
 
 entry {
   expand:                      true;
-  padding:                     14px 16px;
+  padding:                     16px 20px;
   background-color:            transparent;
   text-color:                  @on-surface;
   cursor:                      text;
-  placeholder:                 "Search...";
+  placeholder:                 "Buscar aplicaciones...";
   placeholder-color:           @on-surface-variant;
+  font:                        "JetBrainsMono Nerd Font 13";
 }
 
 listview {
-  spacing:                     8px;
-  padding:                     0px;
+  spacing:                     12px;
+  padding:                     8px;
   columns:                     3;
   cycle:                       true;
   dynamic:                     true;
@@ -70,12 +75,12 @@ listview {
 }
 
 element {
-  spacing:                     0px;
-  padding:                     12px;
+  spacing:                     8px;
+  padding:                     16px 10px;
   cursor:                      pointer;
   background-color:            transparent;
   text-color:                  @on-surface;
-  border-radius:               16px;
+  border-radius:               999px;
   orientation:                 vertical;
 }
 
@@ -85,22 +90,26 @@ element selected.normal {
 }
 
 element-icon {
-  size:                        48px;
-  border-radius:               14px;
-  background-color:            transparent;
+  size:                        40px;
+  border-radius:               999px;
+  background-color:            @surface-container-high;
   text-color:                  inherit;
+  padding:                     6px;
 }
 
 element-text {
-  enabled:                     false;
+  enabled:                     true;
+  font:                        "JetBrainsMono Nerd Font 11";
+  vertical-align:              0.5;
+  horizontal-align:            0.5;
 }
 
 error-message {
   text-color:                  @on-surface;
   background-color:            @surface;
   children:                    [ "textbox" ];
-  border-radius:               14px;
-  padding:                     8px;
+  border-radius:               999px;
+  padding:                     12px 16px;
 }
 
 textbox {

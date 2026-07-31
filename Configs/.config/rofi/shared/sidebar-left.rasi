@@ -1,4 +1,5 @@
 @import "../colors.rasi"
+@import "../shared/config.rasi"
 
 * {
     background-color:               @surface-container;
@@ -9,10 +10,10 @@ window {
     transparency:                   "real";
     background-color:               transparent;
     border-radius:                  0px;
-    location:                       east;
-    anchor:                         east;
+    location:                       west;
+    anchor:                         west;
     width:                          90px;
-    x-offset:                       -18px;
+    x-offset:                       18px;
     y-offset:                       0px;
 }
 

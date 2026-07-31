@@ -1,7 +1,7 @@
 #!/bin/bash
 
 R="$HOME/.config/rofi"
-MENU_THEME="$R/shared/menu.rasi"
+MENU_THEME="$R/shared/sidebar.rasi"
 LIST_THEME="$R/styles/bluetooth-list.rasi"
 
 check_bt() {

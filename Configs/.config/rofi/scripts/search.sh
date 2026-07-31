@@ -1,7 +1,7 @@
 #!/bin/bash
 
 R="$HOME/.config/rofi"
-MENU_THEME="$R/shared/menu.rasi"
+MENU_THEME="$R/shared/sidebar-left.rasi"
 INPUT_THEME="$R/styles/search-input.rasi"
 LIST_THEME="$R/styles/search-list.rasi"
 
