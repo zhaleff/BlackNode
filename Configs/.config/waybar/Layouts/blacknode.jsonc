@@ -4,15 +4,16 @@
   ],
   "modules-left": [
     "group/hollow-left-2",
-    "group/hollow-left-4",
     "group/hollow-left-5",
     "group/hollow-left-1"
   ],
-  "modules-center": [],
+  "modules-center": [
+
+    "group/hollow-left-4"
+  ],
   "modules-right": [
     "group/hollow-right-5",
     "group/hollow-right-4",
-    "group/hollow-right-1",
     "group/hollow-right-3"
   ],
   "group/hollow-left-1": {
@@ -25,7 +26,7 @@
   },
   "group/hollow-left-4": {
     "orientation": "horizontal",
-    "modules": ["custom/music", "custom/previous", "custom/pause", "custom/next"]
+    "modules": [ "custom/notch-left", "custom/music", "custom/previous", "custom/pause", "custom/next"]
   },
   "group/hollow-left-5": {
     "orientation": "horizontal",
@@ -41,7 +42,7 @@
   },
   "group/hollow-right-4": {
     "orientation": "horizontal",
-    "modules": ["idle_inhibitor", "clock", "custom/waybar-rofi" ]
+    "modules": ["idle_inhibitor", "clock" ]
   },
   "group/hollow-right-5": {
     "orientation": "horizontal",

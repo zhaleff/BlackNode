@@ -37,6 +37,7 @@
     "~/.config/waybar/Modules/astro-event.jsonc",
     "~/.config/waybar/Modules/astro-links.jsonc",
     "~/.config/waybar/Modules/shuffle.jsonc",
+    "~/.config/waybar/Modules/notch.jsonc",
     "~/.config/waybar/Modules/repeat.jsonc",
     "~/.config/waybar/Modules/music-progress.jsonc",
     "~/.config/waybar/Modules/study-notes.jsonc",
