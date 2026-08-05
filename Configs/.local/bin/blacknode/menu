@@ -15,7 +15,6 @@ main() {
         "󰏗  Packages" \
         "  Applications" \
         "󰸉  Wallpapers" \
-        "" \
         "󰄉  Waybar" \
         "󰑐  Reload" \
         "󱖫  Services" \
@@ -29,6 +28,7 @@ main() {
         "󰏞  What's New" \
         "󰎓  Your Patterns" \
         "󰡩  BlackNode" \
+        "  Help" \
         | rofi -dmenu -i -p "" -theme "$ROFI_THEME")
 
     case "$choice" in
@@ -54,6 +54,7 @@ main() {
         "󰏞  What's New")  blacknode whatsnew ;;
         "󰎓  Your Patterns") blacknode patterns ;;
         "󰡩  BlackNode")    blacknode doctor | rofi -dmenu -p "BlackNode" ;;
+        "  Help")         blacknode help ;;
     esac
 }
 
