@@ -47,8 +47,16 @@ output_path = '~/.config/clipse/blacknode.json'
 
 [templates.hyprlock]
 input_path = '~/.config/matugen/templates/hyprlock.conf'
-output_path = '~/.config/hypr/hyprlock.conf'
+output_path = '~/.config/hyprlock/hyprlock.conf'
 
 [templates.btop]
 input_path = '~/.config/matugen/templates/btop'
 output_path = '~/.config/btop/themes/colors.theme'
+
+[templates.vscode-raw]
+input_path = './templates/vscode-colors'
+output_path = '~/.cache/matugen/vscode-colors'
+
+[templates.vscode-json]
+input_path = './templates/vscode-colors.json'
+output_path = '~/.cache/matugen/vscode-colors.json'
