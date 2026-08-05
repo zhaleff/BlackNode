@@ -9,5 +9,7 @@ source ~/.config/zsh/modules/env.zsh
 source ~/.config/zsh/modules/aliases.zsh
 source ~/.config/zsh/modules/functions.zsh
 
+
+
 # opencode
 export PATH=/home/zhaleff/.opencode/bin:$PATH

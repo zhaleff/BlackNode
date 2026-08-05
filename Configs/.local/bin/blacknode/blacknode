@@ -172,6 +172,7 @@ Usage: blacknode <command> [args]
 
   version                   show ecosystem version + tagline
   doctor                    health check of the whole ecosystem
+  help                      open the interactive tutorial (onboarding tour)
   profile [name]            switch profile (music/study/coding/astronomy) or open picker
   theme                     open theme/wallpaper picker
   patterns                  show your behavior patterns (CLI)
@@ -185,6 +186,7 @@ EOF
 case "${1:-help}" in
     version|--version|-v) version ;;
     doctor) doctor ;;
+    help) "$BLACKNODE_BIN/help" ;;
     profile) shift; profile "$@" ;;
     theme) theme ;;
     patterns) patterns ;;
