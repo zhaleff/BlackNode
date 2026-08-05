@@ -1,5 +1,6 @@
 #!/bin/bash
 
+
 R="$HOME/.config/rofi"
 MENU_THEME="$R/shared/sidebar.rasi"
 LIST_THEME="$R/styles/notifications-list.rasi"
@@ -10,12 +11,12 @@ sidebar() {
     local paused=$(dunstctl is-paused)
     [[ "$paused" == "true" ]] && local pause_icon="󰂛 " || local pause_icon="󰂚 "
     local choice
-    choice=$(printf "󰅇 \n󰆴 \n${pause_icon}\n󰋼 " | rofi -dmenu -p "Notif" -theme-str "listview { lines: 4; }" -theme "$MENU_THEME")
+    choice=$(printf " \n󰗨 \n${pause_icon}\n " | rofi -dmenu -p "Notif" -theme-str "listview { lines: 4; }" -theme "$MENU_THEME")
     case "$choice" in
-        "󰅇 ") history ;;
-        "󰆴 ") dunstctl history-clear && notify-send "Notifications" "Cleared" && sidebar ;;
+        " ") history ;;
+        "󰗨 ") dunstctl history-clear && notify-send "Notifications" "Cleared" && sidebar ;;
         "󰂛 "|"󰂚 ") dunstctl set-paused toggle && sidebar ;;
-        "󰋼 ") stats ;;
+        " ") stats ;;
     esac
 }
 
@@ -53,12 +54,12 @@ with open(os.environ['IDS'], 'w') as f:
     id=$(grep -F "$selected" "$IDS" 2>/dev/null | head -1 | cut -d'	' -f1)
     if [[ -n "$id" ]]; then
         local choice
-        choice=$(printf "󰅇  Close\n󰋼  Info\n󰈙  Open app" | rofi -dmenu -p "Action" -theme-str "listview { lines: 3; }" -theme "$LIST_THEME")
+        choice=$(printf "󰅇  Close\n  Info\n󰈙  Open app" | rofi -dmenu -p "Action" -theme-str "listview { lines: 3; }" -theme "$LIST_THEME")
         case "$choice" in
             "󰅇  Close")
                 dunstctl close "$id" && notify-send "Notif" "Closed #$id"
                 ;;
-            "󰋼  Info")
+            "  Info")
                 RAW="$RAW" python3 -c "
 import os, json
 with open(os.environ['RAW']) as f:
