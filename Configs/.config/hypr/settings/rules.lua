@@ -147,13 +147,17 @@ hl.window_rule({
     title = ".*([Ll]ogin|[Ss]ign.?in|[Aa]uth|OAuth|Google).*",
   },
 })
+
 hl.window_rule({
-  name = "windowrule-git-dashboard",
+  name = "windowrule-20",
   float = true,
-  center = true,
-  size = "820 680",
-  match = { title = "Dashboard" },
+  size = "480 480",
+  stay_focused = true,
+  match = { class = "com.gabm.satty" },
 })
+
+
+
 -- rules layerrule
 
 hl.layer_rule({
@@ -198,3 +202,5 @@ hl.layer_rule({
   no_anim = true,
   match = { namespace = "hyprpicker" },
 })
+
+
