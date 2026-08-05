@@ -12,15 +12,7 @@ suspend='󰒲 '
 logout=' '
 yes='󰄬 '
 no=' '
-# Options
-# hibernate='Hibernate'
-# shutdown='Shutdown'
-# reboot='Reboot'
-# lock='Lock'
-# suspend='Suspend'
-# logout='Logout'
-# yes='yes'
-# no='no'
+
 
 # Rofi CMD
 rofi_cmd() {
@@ -64,7 +56,7 @@ run_cmd() {
 			amixer set Master mute
 			systemctl suspend
 		elif [[ $1 == '--logout' ]]; then
-      hyprctl dispatch exit
+       hyprctl dispatch 'hl.dsp.exit()'
   	fi
 	else
 		exit 0
