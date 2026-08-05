@@ -6,13 +6,16 @@
 -- 88b  ,88b ?8(  d88   88b   88b  d88   `?8b   88b   88b  ,88b  d88       88b   
 -- `?88P'`88b`?88P'?8b  `?8b  `?8888P'`?888P'   `?8b  `?88P'`88bd88'       `?8b  
 
+
 hl.on("hyprland.start", function () 
+  hl.exec_cmd("qs -c osd-shell")
   hl.exec_cmd("nm-applet")
   hl.exec_cmd("waybar")
   hl.exec_cmd("hypridle")  
   hl.exec_cmd("awww-daemon")
   hl.exec_cmd("dunst")
-  hl.exec_cmd("clipse -listen")
+  hl.exec_cmd("wl-paste --type text --watch cliphist store")
+  hl.exec_cmd("wl-paste --type image --watch cliphist store")
   hl.exec_cmd("hyprctl setcursor Bibata-Modern-Classic 24")
   hl.exec_cmd("sleep 0.5 && ~/.local/bin/system/media")
   hl.exec_cmd("sleep 1 && ~/.local/bin/system/battery")
@@ -21,6 +24,7 @@ hl.on("hyprland.start", function ()
   hl.exec_cmd("sleep 0.5 && ~/.local/bin/system/device")
   hl.exec_cmd("sleep 1 && ~/.local/bin/system/package")
   hl.exec_cmd("sleep 3 && ~/.local/bin/blacknode/greeter")
+  hl.exec_cmd("sleep 7 && ~/.local/bin/blacknode-tutorial --check")
   hl.exec_cmd("sleep 8 && ~/.local/bin/blacknode/whatsnew --ping")
   hl.exec_cmd("sleep 10 && (while true; do ~/.local/bin/ritual/persevere; sleep 300; done &)")
   hl.exec_cmd("sleep 10 && (while true; do sleep 7200; ~/.local/bin/ritual/identity; done &)")
