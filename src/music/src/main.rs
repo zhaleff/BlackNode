@@ -1,14 +1,6 @@
 use std::collections::HashMap;
 use std::env;
 use std::process::{Command, Stdio};
-use std::sync::Mutex;
-
-static LYRIC_CACHE: Mutex<Option<LyricCache>> = Mutex::new(None);
-
-struct LyricCache {
-    track_key: String,
-    lyrics: String,
-}
 
 fn playerctl(args: &[&str]) -> Option<String> {
     Command::new("playerctl")
@@ -60,55 +52,6 @@ fn player_icon(name: &str) -> &'static str {
     else { "\u{f075a}" }
 }
 
-fn status_icon(status: &str) -> &'static str {
-    match status {
-        "Playing" => "",
-        "Paused" => "\u{f03e4} ",
-        _ => "",
-    }
-}
-
-fn fetch_lyrics(artist: &str, title: &str) -> Option<String> {
-    let enc = |s: &str| -> String {
-        s.chars().map(|c| match c {
-            'A'..='Z' | 'a'..='z' | '0'..='9' | '-' | '_' | '.' | '~' => c.to_string(),
-            ' ' => "%20".into(),
-            c => format!("%{:02X}", c as u8),
-        }).collect()
-    };
-    let url = format!("https://lrclib.net/api/get?artist_name={}&track_name={}", enc(artist), enc(title));
-    let body = ureq::get(&url).call().ok()?.into_string().ok()?;
-    let data: serde_json::Value = serde_json::from_str(&body).ok()?;
-    data["plainLyrics"].as_str().map(|s| s.to_string())
-        .or_else(|| data["syncedLyrics"].as_str().map(|s| s.to_string()))
-}
-
-fn get_lyrics(artist: &str, title: &str) -> Option<String> {
-    let key = format!("{}|||{}", title, artist);
-    {
-        let cache = LYRIC_CACHE.lock().unwrap();
-        if let Some(ref c) = *cache {
-            if c.track_key == key {
-                return Some(c.lyrics.clone());
-            }
-        }
-    }
-    let lyrics = fetch_lyrics(artist, title);
-    if let Some(ref l) = lyrics {
-        let mut cache = LYRIC_CACHE.lock().unwrap();
-        *cache = Some(LyricCache { track_key: key, lyrics: l.clone() });
-    }
-    lyrics
-}
-
-fn truncate_lyrics(lyrics: &str, max_lines: usize) -> String {
-    let lines: Vec<&str> = lyrics.lines().collect();
-    if lines.len() <= max_lines {
-        return lyrics.to_string();
-    }
-    format!("{}\n...", lines[..max_lines].join("\n"))
-}
-
 fn show() {
     let player = match active_player() {
         Some(p) => p,
@@ -146,13 +89,12 @@ fn show() {
     let len = meta.get("length").map(|s| s.as_str()).unwrap_or("");
     let pname = meta.get("playerName").map(|s| s.as_str()).unwrap_or("");
     let icon = player_icon(pname);
-    let sicon = status_icon(status);
 
     let text = if title.is_empty() {
         format!("{icon}  No music")
     } else {
         let label = if artist.is_empty() { title.to_string() } else { format!("{title} — {artist}") };
-        format!("{sicon}{icon}  {label}")
+        format!("{icon}  {label}")
     };
 
     let sep = "\u{2501}".repeat(20);
@@ -161,7 +103,7 @@ fn show() {
     let player_line = if !pname.is_empty() { format!("\nPlayer: {pname}") } else { String::new() };
     let pos_line = if !pos.is_empty() && !len.is_empty() { format!("\nTime:   {pos} / {len}") } else if !pos.is_empty() { format!("\nTime:   {pos}") } else { String::new() };
 
-    let mut tooltip = format!(
+    let tooltip = format!(
         "<b>Now Playing</b>\n\
          {sep}\n\
          {icon} {title}\n\
@@ -169,13 +111,6 @@ fn show() {
          Album:  {album}{player_line}\n\
          Status: {status_sym} {status}{pos_line}"
     );
-
-    if !artist.is_empty() && !title.is_empty() {
-        if let Some(lyrics) = get_lyrics(artist, title) {
-            let truncated = truncate_lyrics(&lyrics, 20);
-            tooltip += &format!("\n\n{sep}\nLyrics\n{sep}\n{truncated}");
-        }
-    }
 
     let class = match status {
         "Playing" => "playing",
