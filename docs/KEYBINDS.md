@@ -43,6 +43,7 @@ Application and script paths are defined in `keybinds.lua`.
 | `SUPER + R` | Rofi drun (app launcher) |
 | `SUPER + SHIFT + R` | Custom launcher (`rofi/launcher/launcher.sh`) |
 | `SUPER + SPACE` | bn-menu (main hub) |
+| `SUPER + F1` | Interactive tutorial / onboarding tour |
 | `SUPER + SHIFT + SPACE` | Keyboard layout selector |
 | `CTRL + ALT + ↑` | Waybar launcher (`waybar/Scripts/launcher/launch.sh`) |
 | `SUPER + CTRL + ALT + ↑` | Waybar script (`waybar/Scripts/launcher/script.sh`) |

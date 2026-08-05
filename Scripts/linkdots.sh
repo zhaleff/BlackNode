@@ -100,5 +100,19 @@ if [[ -f "$MUSIC_DIR/Cargo.toml" ]]; then
     fi
 fi
 
+TUTORIAL_DIR="$REPO/src/tutorial"
+if [[ -f "$TUTORIAL_DIR/Cargo.toml" ]]; then
+    if command -v cargo >/dev/null 2>&1; then
+        echo "  → building blacknode-tutorial (rust)"
+        (cd "$TUTORIAL_DIR" && cargo build --release >/dev/null 2>&1) || echo "  ✗ tutorial build failed"
+        if [[ -x "$TUTORIAL_DIR/target/release/blacknode-tutorial" ]]; then
+            install -Dm755 "$TUTORIAL_DIR/target/release/blacknode-tutorial" "$HOME/.local/bin/blacknode-tutorial"
+            echo "  → blacknode-tutorial installed"
+        fi
+    else
+        echo "  ✗ cargo not found, skipping tutorial build"
+    fi
+fi
+
 echo ""
 echo "Done."
