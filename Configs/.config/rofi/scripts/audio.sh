@@ -141,13 +141,16 @@ list_sessions() {
 }
 
 volume_control() {
-    local vol muted icon
+    local vol muted icon mic_icon mic_muted
     vol=$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{printf "%d", $2 * 100}')
     muted=$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep -c MUTED)
     [ "$muted" -gt 0 ] && icon="󰝟" || icon="󰕾"
 
-    CHOICE=$(printf "$icon\n󰝝\n󰝞\n󰝚\n󰋲" | \
-        rofi -dmenu -p "$icon $vol%" -theme-str "listview { lines: 5; }" -theme "$R/shared/sidebar.rasi")
+    mic_muted=$(wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | grep -c MUTED)
+    [ "$mic_muted" -gt 0 ] && mic_icon="" || mic_icon="󰍭"
+
+    CHOICE=$(printf "$icon\n󰝝\n󰝞\n󰝚\n󰋲\n$mic_icon" | \
+        rofi -dmenu -p "$icon $vol%" -theme-str "listview { lines: 6; }" -theme "$R/shared/sidebar.rasi")
 
     case "$CHOICE" in
         "$icon")
@@ -167,6 +170,11 @@ volume_control() {
             list_sessions ;;
         "󰋲")
             show_list ;;
+        "$mic_icon")
+            wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
+            local m=$(wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | grep -o MUTED || echo "unmuted")
+            notify-send "Mic" "$m"
+            volume_control ;;
     esac
 }
 
