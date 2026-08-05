@@ -4,7 +4,7 @@
     "return-type": "json",
 "exec": "~/.local/bin/blacknode/music status",
 "on-click": "~/.local/bin/blacknode/music play-pause",
-    "interval": 5,
+    "interval": 2,
     "tooltip": false
   }
 }

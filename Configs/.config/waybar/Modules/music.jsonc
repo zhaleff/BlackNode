@@ -6,7 +6,7 @@
 "exec": "~/.local/bin/blacknode/music show",
 "on-click": "~/.local/bin/blacknode/music play-pause",
     "on-click-right": "~/.config/waybar/Scripts/music/now-playing.sh",
-    "interval": 5,
+    "interval": 2,
     "max-length": 70
   }
 }
