@@ -13,10 +13,10 @@
 }
 
 window#waybar {
-  background-color: @surface;
-  border-radius: 999px;
-  margin: 4px 6px;
-  padding: 0 8px;
+  background-color: transparent;
+  border-radius: 0px 0px 32px 32px;
+  margin: 0px 6px;
+  padding: 0 10px;
 }
 
 tooltip {
@@ -33,83 +33,56 @@ tooltip label {
   font-weight: 600;
 }
 
-#hollow-left-1,
 #hollow-left-2,
-#hollow-left-3,
+#hollow-left-5,
+#hollow-left-1,
 #hollow-left-4,
-#hollow-left-5,
-#hollow-left-6,
-#hollow-left-7,
-#hollow-left-8,
-#hollow-center-1,
-#hollow-center-2,
-#hollow-right-1,
-#hollow-right-2,
-#hollow-right-3,
-#hollow-right-4,
 #hollow-right-5,
-#hollow-right-6,
-#hollow-right-7,
-#hollow-right-8,
-#hollow-left-5,
-#hollow-left-6,
-#hollow-left-7,
-#hollow-left-8,
-#hollow-right-9,
-#hollow-right-10,
-#hollow-right-11,
-#hollow-right-12 {
-  background-color: alpha(@outline, 0.12);
-  border-radius: 10px;
-  padding: 6px 10px;
-  margin: 6px 2px;
-}
-
-#hollow-right-5 {
-  border-radius: 999px 400px 400px 999px;
-}
-
+#hollow-right-4,
 #hollow-right-3 {
-  border-radius: 400px 999px 999px 400px;
+  background-color: @surface;
+  border-radius: 0px;
+  padding: 12px 10px;
+  margin: 0px;
 }
 
 #hollow-left-2 {
-  border-radius: 999px 400px 400px 999px;
+  border-radius: 0px 0px 0px 24px;
+}
+
+#hollow-left-5 {
+  border-radius: 0px;
 }
 
 #hollow-left-1 {
-  border-radius: 400px 999px 999px 400px;
+  border-radius: 0px 0px 24px 0px;
+}
+
+#hollow-left-4 {
+  border-radius: 0px 0px 24px 24px;
+}
+
+#hollow-right-5 {
+  border-radius: 0px 0px 0px 24px;
+}
+
+#hollow-right-4 {
+  border-radius: 0px;
+}
+
+#hollow-right-3 {
+  border-radius: 0px 0px 24px 0px;
 }
 
 #hollow-left-1:hover,
 #hollow-left-2:hover,
-#hollow-left-3:hover,
 #hollow-left-4:hover,
 #hollow-left-5:hover,
-#hollow-left-6:hover,
-#hollow-left-7:hover,
-#hollow-center-1:hover,
-#hollow-center-2:hover,
-#hollow-right-1:hover,
-#hollow-right-2:hover,
 #hollow-right-3:hover,
 #hollow-right-4:hover,
-#hollow-right-5:hover,
-#hollow-right-6:hover,
-#hollow-right-7:hover,
-#hollow-right-8:hover,
-#hollow-left-5:hover,
-#hollow-left-6:hover,
-#hollow-left-7:hover,
-#hollow-left-8:hover,
-#hollow-right-9:hover,
-#hollow-right-10:hover,
-#hollow-right-11:hover,
-#hollow-right-12:hover {
+#hollow-right-5:hover {
   background-color: alpha(@secondary-container, 0.5);
-  border-radius: 999px;
   transition: all 0.25s cubic-bezier(0.3, 0.0, 0.0, 1.0);
-
 }
 
 .module {
@@ -130,7 +103,7 @@ tooltip label {
   text-shadow: none;
   background-color: alpha(@outline, 0.2);
   color: @on-surface;
-  border-radius: 8px;
+  border-radius: 12px;
   padding: 0 6px;
   margin: 0 3px;
   animation: 20s ease-in-out 1;
@@ -142,8 +115,8 @@ tooltip label {
 #workspaces button.active {
   background-color: @primary;
   color: @on-primary;
-  border-radius: 8px;
-  padding: 2px 8px;
+  border-radius: 12px;
+  padding: 2px 12px;
   animation: 20s ease-in-out 1;
   transition: background-color 0.4s cubic-bezier(.55, -0.68, .48, 1.682),
     padding 0.4s cubic-bezier(.55, -0.68, .48, 1.682),
@@ -159,4 +132,26 @@ tooltip label {
   transition: background-color 0.3s cubic-bezier(.55, -0.68, .48, 1.682),
     padding 0.3s cubic-bezier(.55, -0.68, .48, 1.682),
     border-radius 0.3s cubic-bezier(.55, -0.68, .48, 1.682);
+}
+
+
+/* TESTING */
+#wireplumber {
+  background-color: @surface;
+  border-radius: 999px;
+  padding: 0px 10px;
+  margin: 0px 2px;
+
+  min-width: 20px;
+  min-height: 32px;
+
+  transition: min-width 0.35s cubic-bezier(0.3, 0.0, 0.0, 1.0),
+              padding 0.35s cubic-bezier(0.3, 0.0, 0.0, 1.0);
+}
+
+#wireplumber:hover,
+#wireplumber.visible {
+  min-width: 90px;
+  background: @primary;
+  padding: 0px 14px;
 }
