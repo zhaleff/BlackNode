@@ -139,11 +139,9 @@ tooltip label {
 #wireplumber {
   background-color: @surface;
   border-radius: 999px;
-  padding: 0px 10px;
   margin: 0px 2px;
 
   min-width: 20px;
-  min-height: 32px;
 
   transition: min-width 0.35s cubic-bezier(0.3, 0.0, 0.0, 1.0),
               padding 0.35s cubic-bezier(0.3, 0.0, 0.0, 1.0);
@@ -152,6 +150,4 @@ tooltip label {
 #wireplumber:hover,
 #wireplumber.visible {
   min-width: 90px;
-  background: @primary;
-  padding: 0px 14px;
 }
