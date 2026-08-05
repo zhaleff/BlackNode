@@ -11,7 +11,10 @@ window {
     transparency:         "real";
     cursor:               "default";
     padding:              0px;
-    border-radius:        48px;
+  location:                    south;
+  anchor:                     south;
+
+    border-radius:        52px 52px 0px 0px;
     background-color:     transparent;
 }
 

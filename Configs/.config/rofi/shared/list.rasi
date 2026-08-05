@@ -4,42 +4,43 @@ configuration {
 
 window {
     transparency:     "real";
-    location:         center;
-    anchor:           center;
+    location:         east;
+    anchor:           east;
     width:            440px;
-    border-radius:    28px;
+    border-radius:    28px 0px 0px 28px;
     padding:          0px;
     background-color: @surface;
 }
 
 mainbox {
-    spacing:          0px;
-    padding:          16px;
+    spacing:          12px;
+    padding:          20px;
     background-color: transparent;
     orientation:      vertical;
     children:         [ "inputbar", "listview" ];
 }
 
 inputbar {
-    spacing:          0px;
-    padding:          0px 16px;
-    margin:           0px 0px 12px 0px;
-    background-color: @surface-container-high;
+    spacing:          10px;
+    padding:          16px 22px;
+    background-color: @surface;
     text-color:       @on-surface;
     orientation:      horizontal;
-    border-radius:    28px 28px 10px 10px;
+    border-radius:    28px;
+    border:           1.5px;
+    border-color:     @outline-variant;
     children:         [ "entry" ];
 }
 
 entry {
     expand:          true;
-    padding:         18px 0px;
+    padding:         0px;
     background-color: transparent;
     text-color:      @on-surface;
     cursor:          text;
     placeholder:     "Search...";
     placeholder-color: @on-surface-variant;
-    font:            "JetBrains Mono Nerd Font 13";
+    font:            "JetBrains Mono Nerd Font 14";
 }
 
 listview {
@@ -49,17 +50,17 @@ listview {
     dynamic:          true;
     scrollbar:        false;
     layout:           vertical;
-    spacing:          6px;
-    padding:          8px;
-    border-radius:    10px 10px 28px 28px;
+    spacing:          4px;
+    padding:          4px 0px;
+    border-radius:    28px;
 
-    background-color: @surface-container-lowest;
+    background-color: @surface;
     text-color:       @on-surface;
 }
 
 element {
     padding:          14px 18px;
-    border-radius:    12px;
+    border-radius:    24px;
     background-color: transparent;
     text-color:       @on-surface;
     font:             "JetBrains Mono Nerd Font 13";

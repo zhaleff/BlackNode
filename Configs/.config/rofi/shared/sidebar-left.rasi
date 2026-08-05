@@ -13,7 +13,7 @@ window {
     location:                       west;
     anchor:                         west;
     width:                          90px;
-    x-offset:                       18px;
+    x-offset:                       0px;
     y-offset:                       0px;
 }
 
@@ -31,8 +31,9 @@ listview {
     spacing:                        6px;
     padding:                        10px;
     outline:                        0px;
-    background-color:               @surface-container-low;
-    border-radius:                  999px;
+    background-color:               @surface;
+    border-radius:                  0px 999px 999px 0px;
+
 }
 
 element {
