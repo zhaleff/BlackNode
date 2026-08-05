@@ -15,11 +15,12 @@ return {
       "xzbdmw/colorful-menu.nvim",
       "lukas-reineke/cmp-under-comparator",
       "roobert/tailwindcss-colorizer-cmp.nvim",
-      "Exafunction/codeium.nvim",
       "windwp/nvim-autopairs",
     },
     event = { "InsertEnter", "CmdlineEnter" },
     config = function()
+
+
       local cmp          = require("cmp")
       local luasnip      = require("luasnip")
       local lspkind      = require("lspkind")
@@ -95,7 +96,7 @@ return {
 
         sources = cmp.config.sources({
           { name = "nvim_lsp",         priority_weight = 110, max_item_count = 12 },
-          { name = "codeium",          priority_weight = 100, max_item_count = 3  },
+          { name = "copilot",          priority_weight = 100, max_item_count = 3  },
           { name = "nvim_lsp_signature_help", priority_weight = 95 },
           { name = "luasnip",          priority_weight = 90,  max_item_count = 5  },
           { name = "nvim_lua",         priority_weight = 80 },
@@ -147,7 +148,7 @@ return {
             vim_item.kind_hl_group = kind_color
 
             vim_item.menu = ({
-              codeium   = "󰚩 AI",
+              supermaven   = "󰚩 AI",
               nvim_lsp  = "󰈇 LSP",
               luasnip   = "󰩫 Snip",
               nvim_lua  = "󰢱 API",
@@ -221,8 +222,6 @@ return {
         },
       })
 
-      -- Puente con autopairs: al aceptar una función, auto-cierra () y
-      -- posiciona el cursor dentro, listo para escribir argumentos.
       cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 
       cmp.setup.cmdline({ "/", "?" }, {
@@ -309,21 +308,37 @@ return {
     end,
   },
 
-  {
-    "Exafunction/codeium.nvim",
-    cmd   = "Codeium",
-    event = "InsertEnter",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "hrsh7th/nvim-cmp",
-    },
-    config = function()
-      require("codeium").setup({
-        enable_chat = false,
-      })
-    end,
-  },
+  -- {
+  --   "Exafunction/codeium.nvim",
+  --   cmd   = "Codeium",
+  --   event = "InsertEnter",
+  --   dependencies = {
+  --     "nvim-lua/plenary.nvim",
+  --     "hrsh7th/nvim-cmp",
+  --   },
+  --   config = function()
+  --     require("codeium").setup({
+  --       enable_chat = false,
+  --     })
+  --   end,
+  -- },
 
+{
+  "zbirenbaum/copilot.lua",
+  cmd   = "Copilot",
+  event = "InsertEnter",
+  dependencies = {
+    "hrsh7th/nvim-cmp",
+    "zbirenbaum/copilot-cmp", 
+  },
+  config = function()
+    require("copilot").setup({
+      suggestion = { enabled = false }, 
+    })
+    
+    require("copilot_cmp").setup()
+  end,
+},
   {
     "roobert/tailwindcss-colorizer-cmp.nvim",
     opts = { color_square_width = 2 },
