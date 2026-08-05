@@ -35,28 +35,32 @@ hl.bind(mainMod .. " + Y", hl.dsp.exec_cmd("spotify"))
 hl.bind(mainMod .. " + SHIFT + SPACE", hl.dsp.exec_cmd("~/.config/rofi/scripts/kb-layout.sh"))
 hl.bind(mainMod .. " + R",     hl.dsp.exec_cmd("rofi -show drun"))
 hl.bind(mainMod .. " + SPACE", hl.dsp.exec_cmd("~/.local/bin/blacknode/menu"))
+hl.bind(mainMod .. " + F1",    hl.dsp.exec_cmd("~/.local/bin/blacknode-tutorial"))
 hl.bind(mainMod .. " + CTRL + ALT + UP", hl.dsp.exec_cmd("~/.config/waybar/Scripts/launcher/launch.sh"))
 hl.bind(mainMod .. " + T",     hl.dsp.exec_cmd("~/.config/rofi/scripts/musicPlayer.sh"))
 hl.bind(mainMod .. " + A",     hl.dsp.exec_cmd("~/.config/rofi/scripts/wifi.sh"))
 hl.bind(mainMod .. " + SHIFT + X",     hl.dsp.exec_cmd("~/.config/rofi/scripts/powermenu.sh"))
 hl.bind(mainMod .. " + K", hl.dsp.exec_cmd("~/.config/rofi/scripts/audio.sh"))
 hl.bind(mainMod .. " + G", hl.dsp.exec_cmd("~/.config/rofi/scripts/bookmarks.sh"))
+hl.bind(mainMod .. "+ SHIFT + W", hl.dsp.exec_cmd("~/.config/rofi/scripts/wallselect-mode.sh"))
 hl.bind(mainMod .. " + SHIFT + L", hl.dsp.exec_cmd("~/.config/rofi/scripts/search.sh"))
 hl.bind(mainMod .. " + V", hl.dsp.exec_cmd("~/.config/rofi/scripts/config-hud.sh"))
 hl.bind(mainMod .. " + J", hl.dsp.exec_cmd("~/.config/rofi/scripts/notes.sh"))
 hl.bind(mainMod .. " + M", hl.dsp.exec_cmd("~/.config/rofi/scripts/quick-actions.sh"))
 hl.bind(mainMod .. " + N", hl.dsp.exec_cmd("~/.config/rofi/scripts/notifications.sh"))
+hl.bind(mainMod .. " + SHIFT + N", hl.dsp.exec_cmd("~/.config/rofi/scripts/animation.sh"))
+hl.bind(mainMod .. " + SHIFT + K", hl.dsp.exec_cmd("~/.config/rofi/scripts/battery.sh"))
+hl.bind(mainMod .. " + SHIFT + T", hl.dsp.exec_cmd("~/.config/rofi/scripts/pomodoro.sh"))
+hl.bind(mainMod .. " + SHIFT + R", hl.dsp.exec_cmd("~/.config/rofi/scripts/profiles.sh"))
 hl.bind(mainMod .. " + SHIFT + B", hl.dsp.exec_cmd("~/.config/rofi/scripts/bluetooth.sh"))
 -- hl.bind(mainMod .. " + SHIFT + O", hl.dsp.exec_cmd("quickshell -p ~/.config/quickshell/dashboard/"))
 
 -- Clipboard
-hl.bind(mainMod .. " + C",         hl.dsp.exec_cmd("kitty --class clipse -e clipse"))
 hl.bind(mainMod .. " + SHIFT + C", hl.dsp.exec_cmd("~/.config/rofi/scripts/clipboard.sh"))
-hl.bind(mainMod .. " + ALT + C",   hl.dsp.exec_cmd("quickshell -p ~/.config/quickshell/clipboard-qml/"))
 
 
 -- Screenshots and recording
-hl.bind(mainMod .. " + H",         hl.dsp.exec_cmd("~/.config/rofi/scripts/hyprshot.sh"))
+hl.bind(mainMod .. " + H",  hl.dsp.exec_cmd("~/.config/rofi/scripts/screenshots.sh"))
 hl.bind(mainMod .. " + SHIFT + H", hl.dsp.exec_cmd("~/.config/rofi/scripts/wf-recorder.sh"))
           
 
