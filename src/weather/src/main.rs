@@ -126,6 +126,35 @@ fn weather_desc(code: i64) -> &'static str {
     }
 }
 
+fn icon_color(code: i64, is_day: bool) -> &'static str {
+    match code {
+        0..=1 if is_day => "#E6C27A",   // clear / sunny — soft warm amber
+        0..=1 => "#8C93B0",             // clear night — cool moon
+        2..=3 => "#9A97A8",             // cloudy — muted lilac gray
+        45..=48 => "#8C8A99",          // fog
+        51..=57 => "#8FB4D9",           // drizzle
+        61..=67 => "#6B7FC6",           // rain
+        71..=77 => "#A9CFEA",           // snow
+        80..=86 => "#7FA8D6",           // showers
+        _ => "#9A8FC9",                 // storm
+    }
+}
+
+// weekday (0=Sunday) for a YYYY-MM-DD string, no external crates
+fn ymd_weekday(date: &str) -> usize {
+    let mut parts = date.split('-');
+    let mut y: i64 = parts.next().and_then(|s| s.parse().ok()).unwrap_or(1970);
+    let m: i64 = parts.next().and_then(|s| s.parse().ok()).unwrap_or(1);
+    let d: i64 = parts.next().and_then(|s| s.parse().ok()).unwrap_or(1);
+    y -= if m <= 2 { 1 } else { 0 };
+    let era = if y >= 0 { y } else { y - 399 } / 400;
+    let yoe = y - era * 400;
+    let doy = (153 * (m + if m > 2 { -3 } else { 9 }) + 2) / 5 + d - 1;
+    let doe = yoe * 365 + yoe / 4 - yoe / 100 + doy;
+    let days = era * 146097 + doe - 719468; // days since 1970-01-01
+    ((days + 4) % 7) as usize // 1970-01-01 was Thursday (index 4)
+}
+
 fn fail(reason: &str) {
     let out = serde_json::json!({
         "text": "\u{f0591} \u{2026}",
@@ -147,11 +176,13 @@ fn main() {
         ("latitude", loc.lat.to_string()),
         ("longitude", loc.lon.to_string()),
         ("current", "temperature_2m,apparent_temperature,is_day,precipitation,weather_code".into()),
-        ("daily", "weather_code,temperature_2m_max,temperature_2m_min,precipitation_sum,precipitation_probability_max,sunrise,sunset".into()),
+        ("hourly", "precipitation_probability,temperature_2m".into()),
+        ("daily", "weather_code,temperature_2m_max,temperature_2m_min,precipitation_sum,precipitation_probability_max,sunrise,sunset,sunshine_duration".into()),
         ("temperature_unit", if is_celsius { "celsius".into() } else { "fahrenheit".into() }),
         ("precipitation_unit", precip_unit.into()),
+        ("wind_speed_unit", if is_celsius { "kmh".into() } else { "mph".into() }),
         ("timezone", "auto".into()),
-        ("forecast_days", "1".into()),
+        ("forecast_days", "7".into()),
     ];
 
     let url = "https://api.open-meteo.com/v1/forecast";
@@ -175,7 +206,6 @@ fn main() {
     let code = cur["weather_code"].as_i64().unwrap_or(0);
     let temp = cur["temperature_2m"].as_f64().unwrap_or(0.0);
     let feels = cur["apparent_temperature"].as_f64().unwrap_or(0.0);
-    let precip = cur["precipitation"].as_f64().unwrap_or(0.0);
     let is_day = cur["is_day"].as_i64().unwrap_or(1) != 0;
 
     let daily = &data["daily"];
@@ -189,7 +219,10 @@ fn main() {
     let icon = weather_icon(code, is_day);
     let desc = weather_desc(code);
 
-    let text = format!("{icon} {temp:.0}{temp_unit}");
+    let text = format!(
+        "<span color='{}'>{}</span> <span alpha='70%'>{:.0}{}</span>",
+        icon_color(code, is_day), icon, temp, temp_unit
+    );
 
     let sunrise_fmt = if !sunrise.is_empty() && sunrise.len() >= 16 {
         &sunrise[11..16]
@@ -198,17 +231,77 @@ fn main() {
         &sunset[11..16]
     } else { "" };
 
-    let mut tooltip = format!(
-        "<b>{}</b>\n\n{} {} | {:.0}{} (feels {:.0}{})",
-        loc.name, icon, desc, temp, temp_unit, feels, temp_unit
+    // ----- WEEKLY tooltip -----
+    let days = daily["time"].as_array().map(|a| a.clone()).unwrap_or_default();
+    let codes = daily["weather_code"].as_array().map(|a| a.clone()).unwrap_or_default();
+    let tmax = daily["temperature_2m_max"].as_array().map(|a| a.clone()).unwrap_or_default();
+    let tmin = daily["temperature_2m_min"].as_array().map(|a| a.clone()).unwrap_or_default();
+    let pops = daily["precipitation_probability_max"].as_array().map(|a| a.clone()).unwrap_or_default();
+
+    // header
+    let mut tooltip = String::new();
+    tooltip += &format!(
+        "{} <small><i>{}</i></small>\n",
+        loc.name, desc
     );
 
-    if pop_max > 0.0 {
-        tooltip += &format!("\nPoP {:.0}% | Precip {:.1} {precip_unit}", pop_max, precip);
+    // current temp — the hero number
+    tooltip += &format!(
+        "<span size='x-large' color='{}'>{:.0}{}</span>",
+        icon_color(code, is_day), temp, temp_unit
+    );
+    tooltip += &format!(
+        "   <span alpha='60%' size='small'>feels {:.0}{}</span>",
+        feels, temp_unit
+    );
+
+    // precipitation line, only when relevant (selective attention)
+    if pop_max >= 20.0 {
+        tooltip += &format!(
+            "\n<span alpha='55%'>⚡</span> <span color='#6B7FC6'>{:.0}%</span> chance of rain",
+            pop_max
+        );
     }
 
-    if !sunrise_fmt.is_empty() {
-        tooltip += &format!("\n\u{e343} Sunrise {sunrise_fmt} | \u{f059a} Sunset {sunset_fmt}");
+    tooltip += &format!(
+        "\n<span alpha='40%'>Sunrise {} · Sunset {}</span>",
+        sunrise_fmt, sunset_fmt
+    );
+
+    // weekly forecast — clean aligned rows
+    tooltip += "\n──────\n";
+    tooltip += "<span size='small' alpha='35%'>day · temps · chances</span>\n";
+
+    let weekday_name = |i: usize| -> String {
+        let wd = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+        let date = days.get(i).and_then(|v| v.as_str()).unwrap_or("");
+        let ymd = date.split('T').next().unwrap_or("");
+        match i {
+            0 => "Today".into(),
+            1 => "Tomorrow".into(),
+            _ => wd.get(ymd_weekday(ymd)).copied().unwrap_or("").to_string(),
+        }
+    };
+
+    for i in 0..7 {
+        if i >= codes.len() || i >= tmax.len() || i >= tmin.len() { continue; }
+        let c = codes[i].as_i64().unwrap_or(0);
+        let hi = tmax[i].as_f64().unwrap_or(0.0).round() as i64;
+        let lo = tmin[i].as_f64().unwrap_or(0.0).round() as i64;
+        let p = pops.get(i).and_then(|v| v.as_f64()).unwrap_or(0.0);
+
+        let day = weekday_name(i);
+        let day_icon = weather_icon(c, true);
+        let chances = if p >= 50.0 {
+            format!("{:>4}", format!("💧{:.0}%", p))
+        } else if p >= 20.0 {
+            format!("{:>4}", format!("💦{:.0}%", p))
+        } else { String::new() };
+
+        tooltip += &format!(
+            "\n{:>9} {}  {:>3}° / {:>3}°  {}",
+            day, day_icon, hi, lo, chances.trim()
+        );
     }
 
     let class = match code {
