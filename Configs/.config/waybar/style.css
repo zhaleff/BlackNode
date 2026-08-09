@@ -1,7 +1,5 @@
 @import "colors.css";
 
-
-
 * {
   border: none;
   border-radius: 0;
@@ -104,7 +102,7 @@ tooltip label {
 }
 
 #custom-power {
-  color: @tertiary;
+  color: @primary;
   margin: 0px 4px;
 }
 
