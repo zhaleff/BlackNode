@@ -1,39 +1,40 @@
 [global]
     monitor = 0
     follow = none
-    width = (300, 380)
-    height = (0, 150)
+    width = (320, 400)
+    height = (0, 190)
     origin = top-center
-    offset = "0x20"
+    offset = "0x0"
     alignment = left
     vertical_alignment = center
     ellipsize = middle
-    padding = 16
-    horizontal_padding = 16
-    text_icon_padding = 12
+    padding = 24
+    horizontal_padding = 20
+    text_icon_padding = 16
     icon_position = left
-    min_icon_size = 40
-    max_icon_size = 48
-    icon_corner_radius = 24
+    min_icon_size = 44
+    max_icon_size = 52
+    icon_corner_radius = 26
     progress_bar = true
     progress_bar_height = 4
-    progress_bar_min_width = 200
-    progress_bar_max_width = 280
-    progress_bar_corner_radius = 4
+    progress_bar_min_width = 220
+    progress_bar_max_width = 300
+    progress_bar_corner_radius = 999
     progress_bar_corners = all
     progress_bar_frame_width = 0
     frame_width = 0
     separator_height = 0
-    corner_radius = 24
-    gap_size = 10
-    line_height = 3
+    corner_radius = 28
+    corners = bottom
+    gap_size = 14
+    line_height = 4
     notification_limit = 4
     idle_threshold = 120
     history_length = 50
     show_age_threshold = 60
     markup = full
     font = "JetBrains Mono Nerd Font Medium 10"
-    format = "<b>%s</b>\n%b"
+    format = "<b><span size='large'>%s</span></b>\n<span alpha='90%'>%b</span>"
     word_wrap = yes
     sort = yes
     shrink = no
@@ -52,22 +53,18 @@
     browser = firefox
     progress_bar_color = "{{colors.primary.default.hex}}"
     progress_bar_frame_color = "{{colors.surface.default.hex}}"
-
 [experimental]
     per_monitor_dpi = false
-
 [urgency_low]
     background = "{{colors.surface.default.hex}}"
     foreground = "{{colors.on_surface.default.hex}}"
     highlight = "{{colors.primary.default.hex}}"
     timeout = 4
-
 [urgency_normal]
     background = "{{colors.surface.default.hex}}"
     foreground = "{{colors.on_surface.default.hex}}"
     highlight = "{{colors.primary.default.hex}}"
     timeout = 6
-
 [urgency_critical]
     background = "{{colors.surface.default.hex}}"
     foreground = "{{colors.error.default.hex}}"
