@@ -3,7 +3,7 @@
     "format": "{icon}",
     "format-icons": "",
     "exec-on-event": "true",
-    "on-click": "wlogout",
+    "on-click": "wlogout -b 6",
     "tooltip-format": "Power Menu"
   }
 }

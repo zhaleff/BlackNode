@@ -1,7 +1,0 @@
-{
-  "custom/notch-left": {
-  "exec": "echo ' '",
-  "interval": "once",
-  "tooltip": false
-}
-}

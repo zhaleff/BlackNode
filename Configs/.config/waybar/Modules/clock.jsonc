@@ -1,24 +1,26 @@
 {
-  "clock": {
+"clock": {
     "interval": 60,
-    "format": "{:%H:%M}",
-    "format-alt": "󰸗  Semana {:%V  |  %Y}",
+    "format": "{:%I:%M %p}",
+    "format-alt": "{:%A, %d %B}",
     "tooltip-format": "<tt><small>{calendar}</small></tt>",
     "calendar": {
-      "mode": "month",
-      "mode-mon-col": 3,
-      "on-scroll": 1,
-      "format": {
-        "months": "<b>{}</b>",
-        "days": "{}",
-        "weekdays": "<b>{}</b>",
-        "today": "<u><b>{}</b></u>"
-      }
+        "mode": "month",
+        "mode-mon-col": 3,
+        "on-scroll": 1,
+        "format": {
+            "months": "<b>{}</b>",
+            "days": "{}",
+            "weekdays": "<b>{}</b>",
+            "today": "<u><b>{}</b></u>"
+        }
     },
     "actions": {
-      "on-click-right": "mode",
-      "on-scroll-up": "shift_up",
-      "on-scroll-down": "shift_down"
+        "on-click": "mode",
+        "on-click-right": "tz_up",
+        "on-scroll-up": "shift_up",
+        "on-scroll-down": "shift_down"
     }
+
   }
 }

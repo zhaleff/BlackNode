@@ -5,8 +5,8 @@
       "warning": 30,
       "critical": 15
     },
-    "format": "{icon}",
-    "format-full": "{icon}",
+    "format": "{icon} {capacity}%",
+    "format-full": "{icon} {capacity}%",
     "format-plugged": " {capacity}% <span font='Font Awesome 5 Free'>\uf0e7</span> ",
     "format-alt": "{icon} {capacity}%",
     "tooltip-format": "{capacity}%, about {time} left",

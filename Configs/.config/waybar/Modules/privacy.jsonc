@@ -1,0 +1,8 @@
+{
+  "custom/privacy": {
+    "exec": "~/.config/waybar/Scripts/Privacy/privacy.sh",
+    "return-type": "json",
+    "interval": 2,
+    "hide-empty-text": true
+  }
+}

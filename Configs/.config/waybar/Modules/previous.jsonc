@@ -1,6 +1,8 @@
 {
   "custom/previous": {
-    "format": "󰙣",
+    "format": "{}",
+    "exec": "echo '󰙣'",
+    "interval": 2,
     "on-click": "~/.local/bin/blacknode/music previous",
     "tooltip": false
   }

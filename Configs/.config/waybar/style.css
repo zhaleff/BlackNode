@@ -1,88 +1,24 @@
 @import "colors.css";
 
+
+
 * {
   border: none;
   border-radius: 0;
   box-shadow: none;
   font-family: "JetBrainsMono Nerd Font", Roboto, Helvetica, Arial, sans-serif;
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 600;
-  margin: 0px 4px;
+  margin: 0px 3px;
   transition: all 0.25s cubic-bezier(0.3, 0.0, 0.0, 1.0);
   min-height: 0;
 }
 
 window#waybar {
   background-color: transparent;
-  border-radius: 0px 0px 32px 32px;
-  margin: 0px 6px;
-  padding: 0 10px;
-}
-
-tooltip {
-  background-color: @surface;
-  color: @on-surface-variant;
-  border-radius: 10px;
-  padding: 10px 16px;
-  border: 1px solid alpha(@outline, 0.2);
-}
-
-tooltip label {
-  color: @on-surface-variant;
-  font-size: 12px;
-  font-weight: 600;
-}
-
-#hollow-left-2,
-#hollow-left-5,
-#hollow-left-1,
-#hollow-left-4,
-#hollow-right-5,
-#hollow-right-4,
-#hollow-right-3 {
-  background-color: @surface;
-  border-radius: 0px;
-  padding: 12px 10px;
-  margin: 0px;
-}
-
-#hollow-left-2 {
-  border-radius: 0px 0px 0px 24px;
-}
-
-#hollow-left-5 {
-  border-radius: 0px;
-}
-
-#hollow-left-1 {
-  border-radius: 0px 0px 24px 0px;
-}
-
-#hollow-left-4 {
-  border-radius: 0px 0px 24px 24px;
-}
-
-#hollow-right-5 {
-  border-radius: 0px 0px 0px 24px;
-}
-
-#hollow-right-4 {
-  border-radius: 0px;
-}
-
-#hollow-right-3 {
-  border-radius: 0px 0px 24px 0px;
-}
-
-#hollow-left-1:hover,
-#hollow-left-2:hover,
-#hollow-left-4:hover,
-#hollow-left-5:hover,
-#hollow-right-3:hover,
-#hollow-right-4:hover,
-#hollow-right-5:hover {
-  background-color: alpha(@secondary-container, 0.5);
-  transition: all 0.25s cubic-bezier(0.3, 0.0, 0.0, 1.0);
+  border-radius: 999px;
+  margin: 4px 2px;
+  padding: 0 8px;
 }
 
 .module {
@@ -92,62 +28,120 @@ tooltip label {
   margin: 0;
 }
 
-#workspaces {
-  background-color: transparent;
-  padding: 0;
-  margin: 0;
+#hollow-left-1 {
+  background-color: @surface;
+  border-radius: 24px;
+  padding: 10px 10px;
 }
+
+
+tooltip {
+  background-color: @surface;
+  color: @on-surface;
+  border-radius: 16px;
+  padding: 10px 16px;
+  border: 1px solid alpha(@outline, 0.2);
+}
+
+tooltip label {
+  color: @on-surface;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+#hollow-right-1,
+#hollow-right-3,
+#hollow-left-2,
+#hollow-left-3,
+#hollow-center-2,
+#hollow-left-1,
+#hollow-distro,
+#hollow-center,
+#hollow-right-2 {
+  background-color: @surface;
+    padding: 12px 14px;
+    border-radius: 10px;
+    margin: 0px;
+}
+
+#hollow-center {
+  border-radius: 32px;
+}
+
+#custom-pause
+{
+  background-color: @surface;
+  margin: 0px 2px;
+}
+
+#custom-mic,
+#custom-cam,
+#custom-dnd,
+#wireplumber,
+#custom-recording {
+  margin: 0px 4px;
+}
+
+#network, 
+#bluetooth,
+#backlight, 
+#battery {
+  margin: 0px 2px;
+}
+
+#hollow-right-1, 
+#hollow-center-2,
+#hollow-distro
+{
+  border-radius: 32px 10px 10px 32px;
+}
+
+#hollow-right-3,  
+#hollow-center,
+#hollow-left-2
+{
+  border-radius: 10px 32px 32px 10px;
+}
+
+#custom-power {
+  color: @tertiary;
+  margin: 0px 4px;
+}
+
 
 #workspaces button {
   box-shadow: none;
   text-shadow: none;
-  background-color: alpha(@outline, 0.2);
   color: @on-surface;
-  border-radius: 12px;
+  border-radius: 10px;
   padding: 0 6px;
-  margin: 0 3px;
+  margin: 0px;
   animation: 20s ease-in-out 1;
   transition: background-color 0.4s cubic-bezier(.55, -0.68, .48, 1.682),
     padding 0.4s cubic-bezier(.55, -0.68, .48, 1.682),
     border-radius 0.4s cubic-bezier(.55, -0.68, .48, 1.682);
 }
+
 
 #workspaces button.active {
   background-color: @primary;
   color: @on-primary;
-  border-radius: 12px;
-  padding: 2px 12px;
+  border-radius: 10px;
+  padding: 2px 8px;
   animation: 20s ease-in-out 1;
   transition: background-color 0.4s cubic-bezier(.55, -0.68, .48, 1.682),
     padding 0.4s cubic-bezier(.55, -0.68, .48, 1.682),
     border-radius 0.4s cubic-bezier(.55, -0.68, .48, 1.682);
 }
 
+
 #workspaces button:hover {
   background-color: @primary;
   color: @on-primary;
-  border-radius: 999px;
+  border-radius: 10px;
   padding: 0 4px;
   animation: 20s ease-in-out 1;
   transition: background-color 0.3s cubic-bezier(.55, -0.68, .48, 1.682),
     padding 0.3s cubic-bezier(.55, -0.68, .48, 1.682),
     border-radius 0.3s cubic-bezier(.55, -0.68, .48, 1.682);
-}
-
-
-/* TESTING */
-#wireplumber {
-  background-color: @surface;
-  border-radius: 999px;
-  margin: 0px 2px;
-
-  min-width: 20px;
-
-  transition: min-width 0.35s cubic-bezier(0.3, 0.0, 0.0, 1.0),
-              padding 0.35s cubic-bezier(0.3, 0.0, 0.0, 1.0);
-}
-
-#wireplumber:hover,
-#wireplumber.visible {
-  min-width: 90px;
 }

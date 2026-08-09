@@ -1,45 +1,16 @@
 {
-  "hyprland/workspaces": {
-    "format": "{icon}",
-    "format-icons": {
-      "default": "",
-      "active": "",
-      "empty": ""
-    },
-    "show-special": false,
-    "active-only": false,
+"hyprland/workspaces": {
+    "format": "{name}",
+    "on-click": "hyprctl dispatch workspace {name}",
     "all-outputs": true,
-    "sort-by-number": true,
-    "on-click": "activate",
-
-    "window-rewrite-default": "",
-    "window-rewrite": {
-      "class<firefox>": "",
-      "class<Brave-browser>": "",
-      "class<google-chrome>": "",
-      "class<code>": "",
-      "class<code-url-handler>": "",
-      "class<jetbrains-.*>": "",
-      "class<kitty>": "",
-      "class<Alacritty>": "",
-      "class<org.kde.dolphin>": "",
-      "class<thunar>": "",
-      "class<discord>": "",
-      "class<vesktop>": "",
-      "class<spotify>": "",
-      "class<obsidian>": "",
-      "class<virt-manager>": "",
-      "class<steam>": "",
-      "class<obs>": "",
-      "class<Slack>": "",
-      "class<zathura>": "",
-      "class<mpv>": "",
-      "class<blender>": "",
-      "class<gimp>": "",
-      "class<.*>": ""
+    "active-only": false,
+    "format-icons": {
+        "active": "󰮯",
+        "default": "*",
+        "urgent": "*"
     },
-
-    "format-window-separator": " ",
-    "window-rewrite-separator": true
-  }
+    "persistent-workspaces": {
+        "*": 3
+    }
+}
 }

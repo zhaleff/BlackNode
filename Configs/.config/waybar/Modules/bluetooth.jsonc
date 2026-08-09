@@ -1,0 +1,17 @@
+{
+
+  "custom/bluetooth": {
+    "exec": "~/.config/waybar/Scripts/bluetooth/script.sh",
+    "return-type": "json",
+    "interval": 5,
+    "on-click": "~/.config/rofi/scripts/bluetooth.sh",
+    "on-click-right": "bluetoothctl power toggle",
+    "tooltip": true,
+    "format": "{icon}",
+    "format-icons": {
+        "on": "󰂯",
+        "off": "󰂲",
+        "connected": "󰂱"
+    }
+}
+}
