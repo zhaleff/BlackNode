@@ -1,18 +1,20 @@
 {
-  "network": {
+"network": {
     "interval": 3,
     "format-wifi": "{icon}",
-    "format-ethernet": "󰌗 {ipaddr}",
-    "format-linked": "󰌙 {ifname} (Sin IP)",
-    "format-disconnected": "󰖪",
-    "format-alt": "󰛳 {ifname}",
-    "tooltip-format-wifi": " {bandwidthDownBytes}  {bandwidthUpBytes}",
-    "tooltip-format-ethernet": "󰌗 {ifname} | IP: {ipaddr}/{cidr} | GW: {gwaddr}",
+    "format-ethernet": "󰈀  {ipaddr}",
+    "format-linked": "󰈁  {ifname} (Sin IP)",
+    "format-disconnected": "󰖪  Desconectado",
+    "format-alt": "󰛳  {ifname}",
+    "tooltip-format-wifi": "󰤨  {essid}\n IP: {ipaddr}/{cidr}\n Señal: {signalStrength}%\n↓ {bandwidthDownBytes}   ↑ {bandwidthUpBytes}",
+    "tooltip-format-ethernet": "󰈀  {ifname}\n IP: {ipaddr}/{cidr}\n Gateway: {gwaddr}",
+    "tooltip-format-disconnected": "󰖪  Sin conexión",
     "on-click": "~/.config/rofi/scripts/wifi.sh",
+    "on-click-right": "nm-connection-editor",
     "format-icons": {
-      "wifi": ["󰤯 ", "󰤟 ", "󰤢 ", "󰤥 ", "󰤨 "],
-      "ethernet": ["󰌗"],
-      "disconnected": ["󰖪"]
+        "wifi": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
+        "ethernet": ["󰈀"],
+        "disconnected": ["󰖪"]
     }
-  }
+}
 }

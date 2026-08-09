@@ -63,15 +63,15 @@ WMO = {
 }
 
 COLOR = {
-    "sun": "#FFB300", "cloud": "#CFD8DC", "partly": "#FFCA28",
-    "rain": "#00B0FF", "drizzle": "#40C4FF", "storm": "#D500F9",
-    "snow": "#E0F7FA", "fog": "#90A4AE", "wind": "#00E5FF",
-    "night": "#7C4DFF", "sunrise": "#FF6D00", "sunset": "#FF3D00",
-    "humidity": "#18FFFF", "pressure": "#76FF03", "precip": "#2979FF",
-    "very_cold": "#00B8D4", "cold": "#40C4FF", "chilly": "#B2FF59",
+    "sun": "#FFC107", "cloud": "#E0E0E0", "partly": "#FFD740",
+    "rain": "#00E5FF", "drizzle": "#40C4FF", "storm": "#E040FB",
+    "snow": "#FFFFFF", "fog": "#B0BEC5", "wind": "#1DE9B6",
+    "night": "#FFD600", "sunrise": "#FF6E40", "sunset": "#FF1744",
+    "humidity": "#00E5FF", "pressure": "#76FF03", "precip": "#2979FF",
+    "very_cold": "#00E5FF", "cold": "#40C4FF", "chilly": "#69F0AE",
     "neutral": "#76FF03", "warm": "#FFEA00", "hot": "#FF1744",
-    "pop_low": "#B39DDB", "pop_med": "#7E57C2", "pop_high": "#673AB7",
-    "pop_vhigh": "#D500F9", "divider": "#3a3a3a",
+    "pop_low": "#B388FF", "pop_med": "#7C4DFF", "pop_high": "#651FFF",
+    "pop_vhigh": "#E040FB", "divider": "#4a4a4a",
 }
 
 DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
