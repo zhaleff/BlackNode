@@ -25,7 +25,7 @@ if ! pgrep -x "awww" > /dev/null; then
     sleep 0.2
 fi
 awww img "$SELECTED" --transition-type=random
-cp "$SELECTED" ~/.config/hyprlock/lockscreen.png
+cp "$SELECTED" ~/.config/hypr/hyprlock.png
 THEME_MODE=$(cat "$MODE_FILE" 2>/dev/null || echo "dark")
 matugen image "$SELECTED" -m "$THEME_MODE" --source-color-index 0
 killall -SIGUSR2 waybar && killall dunst && dunst &
