@@ -1,7 +1,13 @@
 [config]
 reload_apps = true
 
+[templates.hyprlang]
+input_path = '~/.config/matugen/templates/hyprlang.conf'
+output_path = '~/.config/hypr/scheme/hyprlang.conf'
 
+[templates.walker]
+input_path = '~/.config/matugen/templates/walker.css'
+output_path = '~/.config/walker/colors.css'
 
 [templates.kitty]
 input_path = '~/.config/matugen/templates/kitty.conf'
