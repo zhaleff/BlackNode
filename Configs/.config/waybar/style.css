@@ -12,6 +12,8 @@
   min-height: 0;
 }
 
+@define-color warning #FF8C8C;
+
 window#waybar {
   background-color: transparent;
   border-radius: 999px;
@@ -60,7 +62,10 @@ tooltip label {
     padding: 12px 14px;
     border-radius: 10px;
     margin: 0px;
+    border: 1px solid alpha(@outline, 0.1);
 }
+
+
 
 #hollow-center {
   border-radius: 32px;
@@ -107,6 +112,7 @@ tooltip label {
 }
 
 
+
 #workspaces button {
   box-shadow: none;
   text-shadow: none;
@@ -143,3 +149,49 @@ tooltip label {
     padding 0.3s cubic-bezier(.55, -0.68, .48, 1.682),
     border-radius 0.3s cubic-bezier(.55, -0.68, .48, 1.682);
 }
+
+
+/* Battery */
+#battery.charging
+{
+  color: #CFFF8C;
+}
+
+#battery.warning {
+  color: #FFEE8C;
+}
+
+#battery.critical {
+  color: @warning;
+}
+
+#battery.critical:not(.charging) {
+  animation: blink 1.5s linear infinite;
+}
+
+
+
+/* Privacy modules */
+
+#custom-dnd.dnd-active {
+  color: @warning;
+}
+
+#custom-cam.cam-active {
+  color: @warning;
+}
+
+#custom-recording.recording {
+  color: @warning;
+}
+
+
+/* MIC */
+#custom-mic.idle {
+  color: @on-surface;
+}
+#custom-mic.mic-active {
+  color: @warning;
+}
+
+
