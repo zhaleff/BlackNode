@@ -3,7 +3,6 @@
 # Reads ~/.local/share/blacknode/identity.json, notifies on milestones with variable reinforcement
 set -euo pipefail
 
-ASSETS="$HOME/.config/dunst/assets"
 CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/blacknode"
 CACHE_MSGS="$CACHE_DIR/psych-messages.json"
 REPO_MSGS="https://raw.githubusercontent.com/zhaleff/blacknode/main/Configs/.local/share/blacknode/psych-messages.json"
@@ -149,7 +148,7 @@ main() {
   msgs=$(fetch_messages)
 
   local icon title body
-  icon="$ASSETS/identity-finisher.svg"
+  icon="$(bn-icon identity-finisher)"
 
   local closes streak longest
   closes=$(python3 -c "import json; print(json.load(open('$IDENTITY')).get('clean_closes',0))" 2>/dev/null || echo 0)
@@ -204,7 +203,7 @@ main() {
 
   case "$reason" in
     broken)
-      icon="$ASSETS/identity-broken.svg"
+      icon="$(bn-icon identity-broken)"
       body=$(get_broken_message "$msgs")
       title="Broken streak"
       # Save the broken message
@@ -217,12 +216,12 @@ json.dump(d, open(p,'w'), indent=2)
 " 2>/dev/null || true
       ;;
     milestone)
-      icon="$ASSETS/identity-streak.svg"
+      icon="$(bn-icon identity-streak)"
       body="$milestone_msg"
       title="$closes closes — milestone reached"
       ;;
     streak)
-      icon="$ASSETS/identity-consistent.svg"
+      icon="$(bn-icon identity-consistent)"
       body="$milestone_msg"
       title="$streak days streak"
       ;;
@@ -255,7 +254,7 @@ print(w.get('fulfilled', 0))
       body=$(get_weekly_message "$msgs" "$closes_wk" "$focus" "$fulfilled" "$week" "$streak")
       [[ -z "$body" ]] && body="Moving forward. No rush."
       title="Week $week review"
-      icon="$ASSETS/identity-finisher.svg"
+      icon="$(bn-icon identity-finisher)"
       ;;
   esac
 

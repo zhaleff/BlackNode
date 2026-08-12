@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-ASSETS="$HOME/.config/dunst/assets"
 CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/blacknode"
 CACHE_MSGS="$CACHE_DIR/psych-messages.json"
 REPO_MSGS="https://raw.githubusercontent.com/zhaleff/blacknode/main/Configs/.local/share/blacknode/psych-messages.json"
@@ -42,6 +41,14 @@ period_title() {
 main() {
   local msgs
   msgs=$(fetch_messages)
+
+  # Racha = días consecutivos con cierre limpio: 1 close por día máximo.
+  if [[ -f "$IDENTITY" ]]; then
+    local last_day today
+    last_day=$(python3 -c "import json;d=json.load(open('$IDENTITY'));print(str(d.get('last_close','')).split('T')[0])" 2>/dev/null || echo "")
+    today="$(date -u +%F)"
+    [[ "$last_day" == "$today" ]] && return 0
+  fi
 
   local hour_utc period
   hour_utc=$(date -u +%H)
@@ -114,7 +121,7 @@ if pool: print(random.choice(pool))
     extras="$extras  $im"
   fi
 
-  local icon="$ASSETS/shutdown-done.svg"
+  local icon="$(bn-icon shutdown-done)"
   local title
   title=$(period_title "$period")
   local body="$rawinfo"

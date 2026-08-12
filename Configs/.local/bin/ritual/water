@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-ICON="$HOME/.config/dunst/assets/water-cup.svg"
+ICON="$(bn-icon water-cup)"
 LOW=1800
 HIGH=7200
 

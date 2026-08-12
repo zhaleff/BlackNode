@@ -3,7 +3,6 @@
 # Detects long sessions with no visible progress, sends micro-step messages
 set -euo pipefail
 
-ASSETS="$HOME/.config/dunst/assets"
 CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/blacknode"
 CACHE_MSGS="$CACHE_DIR/psych-messages.json"
 REPO_MSGS="https://raw.githubusercontent.com/zhaleff/blacknode/main/Configs/.local/share/blacknode/psych-messages.json"
@@ -161,7 +160,7 @@ main() {
   hour_utc=$((10#$hour_utc))
 
   local icon title body
-  icon="$ASSETS/persevere-present.svg"
+  icon="$(bn-icon persevere-present)"
 
   if [[ $hour_utc -ge 22 ]] || [[ $hour_utc -le 5 ]]; then
     # Late night presence
@@ -181,13 +180,13 @@ main() {
     local roll=$((RANDOM % 100))
     if [[ $roll -lt 25 ]]; then
       section="presence"
-      icon="$ASSETS/persevere-present.svg"
+      icon="$(bn-icon persevere-present)"
     elif [[ $roll -lt 50 ]]; then
       section="reframe"
-      icon="$ASSETS/persevere-present.svg"
+      icon="$(bn-icon persevere-present)"
     elif [[ $roll -lt 75 ]]; then
       section="micro_step"
-      icon="$ASSETS/persevere-step.svg"
+      icon="$(bn-icon persevere-step)"
     else
       # identity anchor — reference past success
       local closes streak
@@ -197,7 +196,7 @@ main() {
       anchor_msg=$(get_message "$msgs" "identity_anchor")
       anchor_msg="${anchor_msg//\{closes\}/$closes}"
       anchor_msg="${anchor_msg//\{streak\}/$streak}"
-      dunstify -a "BlackNode" -i "$ASSETS/persevere-anchor.svg" -t 10000 "Remember who you are" "$anchor_msg"
+      dunstify -a "BlackNode" -i "$(bn-icon persevere-anchor)" -t 10000 "Remember who you are" "$anchor_msg"
       set_cooldown
       exit 0
     fi

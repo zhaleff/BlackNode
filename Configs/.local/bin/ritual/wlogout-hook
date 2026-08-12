@@ -2,6 +2,14 @@
 # BlackNode Wlogout Hook — trigger shutdown-ritual before exit
 set -euo pipefail
 
+# Suspender no es "cerrar el día": solo se cuenta en salidas reales.
+case "${1:-}" in
+  suspend)
+    systemctl suspend
+    exit 0
+    ;;
+esac
+
 # Run shutdown ritual in background so wlogout isn't blocked
 "$(dirname "$0")/shutdown" &
 sleep 2
@@ -10,7 +18,6 @@ sleep 2
 case "${1:-}" in
   shutdown) systemctl poweroff ;;
   reboot)   systemctl reboot ;;
-  suspend)  systemctl suspend ;;
   logout)   hyprctl dispatch exit ;;
   hibernate) systemctl hibernate ;;
   *) exit 0 ;;
