@@ -18,7 +18,7 @@ button {
 
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 28px;
+  background-size: 40%;
   text-shadow: none;
 
   transition:
@@ -29,7 +29,8 @@ button {
 button:hover,
 button:focus {
   background-color: @primary;
-  background-size: 70%;
+  background-size: 60%;
+  border-radius: 10px;
 }
 
 #lock {
