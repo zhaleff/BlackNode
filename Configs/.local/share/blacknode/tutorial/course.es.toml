@@ -1,0 +1,324 @@
+title = "BlackNode"
+subtitle = "Tu hogar en la terminal"
+
+[[chapters]]
+id = "welcome"
+title = "Bienvenida"
+
+[[chapters.steps]]
+title = "Hola y bienvenido"
+[[chapters.steps.blocks]]
+kind = "paragraph"
+text = "BlackNode es un escritorio completo construido sobre Hyprland. Es rápido, legible y cambia de color para combinar con tu fondo de pantalla."
+[[chapters.steps.blocks]]
+kind = "bullets"
+items = [
+  "Este recorrido dura unos minutos y no te pide hacer nada",
+  "Pulsa enter o → para avanzar, ← para retroceder",
+  "Pulsa q cuando quieras — retomas donde lo dejaste",
+]
+[[chapters.steps.blocks]]
+kind = "tip"
+text = "Reabre este recorrido cuando quieras con SUPER + F1."
+
+[[chapters]]
+id = "philosophy"
+title = "Filosofía"
+
+[[chapters.steps]]
+title = "Cómo piensa BlackNode"
+[[chapters.steps.blocks]]
+kind = "paragraph"
+text = "Todo es un único sistema cohesionado: un motor de color, un centro de menús, perfiles y pequeñas herramientas que trabajan juntas."
+[[chapters.steps.blocks]]
+kind = "bullets"
+items = [
+  "Estructura clara — sin trucos oscuros",
+  "Modular — quita un componente sin romper el resto",
+  "Archivos legibles que puedes abrir y editar",
+  "Componentes clásicos, rápido en hardware modesto",
+]
+[[chapters.steps.blocks]]
+kind = "tip"
+text = "El fondo de pantalla es la fuente de la verdad: elige uno y todo el escritorio le sigue."
+
+[[chapters]]
+id = "waybar"
+title = "Waybar"
+
+[[chapters.steps]]
+title = "La barra superior"
+[[chapters.steps.blocks]]
+kind = "paragraph"
+text = "Waybar es la barra de la parte superior de la pantalla. Muestra tus workspaces, reloj, batería, red, volumen y la música en curso."
+[[chapters.steps.blocks]]
+kind = "bullets"
+items = [
+  "Haz clic en un módulo para interactuar — audio, wifi, calendario",
+  "Desplázate sobre la lista de workspaces para cambiar de escritorio",
+]
+[[chapters.steps.blocks]]
+kind = "code"
+text = "~/.config/waybar/  (Modules, Layouts, style.css)"
+
+[[chapters.steps]]
+title = "Personalizarla"
+[[chapters.steps.blocks]]
+kind = "paragraph"
+text = "Cada widget es su propio archivo en Modules/. Para añadir, cambiar o quitar uno, edita el módulo y recarga Waybar."
+[[chapters.steps.blocks]]
+kind = "bullets"
+items = [
+  "Modules/*.jsonc — un archivo por widget",
+  "Layouts/*.jsonc — qué módulos y en qué orden",
+  "style.css + colors.css — estilado y tematizado por matugen",
+]
+[[chapters.steps.blocks]]
+kind = "tip"
+text = "El menú de waybar (menú → Waybar) recarga la barra por ti."
+
+[[chapters]]
+id = "hyprland"
+title = "Hyprland"
+
+[[chapters.steps]]
+title = "El compositor"
+[[chapters.steps.blocks]]
+kind = "paragraph"
+text = "Hyprland es el gestor de ventanas. Decide cómo se organizan y flotan las ventanas, cómo se animan, y todos los atajos de teclado."
+[[chapters.steps.blocks]]
+kind = "code"
+text = "~/.config/hypr/  (settings, keybinds, animations, profiles)"
+[[chapters.steps.blocks]]
+kind = "tip"
+text = "Aquí vive la mayor parte del comportamiento del escritorio — y es Lua plano, fácil de leer."
+
+[[chapters.steps]]
+title = "Ventanas y workspaces"
+[[chapters.steps.blocks]]
+kind = "keybinding"
+text = "SUPER + arrastrar — mover una ventana"
+[[chapters.steps.blocks]]
+kind = "keybinding"
+text = "SUPER + Q — cerrar la ventana enfocada"
+[[chapters.steps.blocks]]
+kind = "keybinding"
+text = "SUPER + 1..9 — cambiar de workspace"
+[[chapters.steps.blocks]]
+kind = "keybinding"
+text = "SUPER + F — alternar flotante / tiling"
+[[chapters.steps.blocks]]
+kind = "bullets"
+items = [
+  "Los workspaces son los escritorios numerados de arriba",
+  "Las ventanas se acoplan al arrastrarlas hacia un borde",
+]
+
+[[chapters]]
+id = "rofi"
+title = "Rofi"
+
+[[chapters.steps]]
+title = "El lanzador y los menús"
+[[chapters.steps.blocks]]
+kind = "paragraph"
+text = "Rofi es el lanzador de BlackNode. Abre aplicaciones, ejecuta comandos y dibuja la mayoría de menús — temas, fondos, perfiles y más."
+[[chapters.steps.blocks]]
+kind = "keybinding"
+text = "SUPER + SPACE — el menú principal de BlackNode"
+[[chapters.steps.blocks]]
+kind = "keybinding"
+text = "SUPER + R — lanzador de aplicaciones"
+[[chapters.steps.blocks]]
+kind = "bullets"
+items = [
+  "Escribe para filtrar, enter para elegir, esc para cerrar",
+]
+[[chapters.steps.blocks]]
+kind = "tip"
+text = "Todos los menús comparten el mismo aspecto — aprende uno y los conoces todos."
+
+[[chapters]]
+id = "notifications"
+title = "Notificaciones"
+
+[[chapters.steps]]
+title = "Dunst"
+[[chapters.steps.blocks]]
+kind = "paragraph"
+text = "Dunst muestra las notificaciones en la esquina superior derecha: mensajes, cambios de música, batería baja, feedback de scripts."
+[[chapters.steps.blocks]]
+kind = "bullets"
+items = [
+  "Pasa el ratón sobre una notificación para expandirla",
+  "Haz clic para abrir la aplicación que hay detrás",
+  "Clic central para descartarla",
+]
+[[chapters.steps.blocks]]
+kind = "code"
+text = "~/.config/dunst/dunstrc"
+[[chapters.steps.blocks]]
+kind = "tip"
+text = "Sus colores también siguen al fondo de pantalla, como todo lo demás."
+
+[[chapters]]
+id = "wallpapers"
+title = "Fondos de pantalla"
+
+[[chapters.steps]]
+title = "El motor de color"
+[[chapters.steps.blocks]]
+kind = "paragraph"
+text = "Cuando eliges un fondo, matugen lo analiza y genera una paleta Material You completa para claro y oscuro."
+[[chapters.steps.blocks]]
+kind = "keybinding"
+text = "SUPER + W — abrir el selector de fondos"
+[[chapters.steps.blocks]]
+kind = "keybinding"
+text = "SUPER + SHIFT + I — cambiar claro / oscuro"
+[[chapters.steps.blocks]]
+kind = "bullets"
+items = [
+  "La paleta llega en vivo a Hyprland, Waybar, Rofi, Kitty, nvim, Clipse y Dunst",
+  "Sin reinicios — las apps se recargan solas",
+]
+
+[[chapters.steps]]
+title = "Dónde viven los fondos"
+[[chapters.steps.blocks]]
+kind = "paragraph"
+text = "Los fondos pertenecen a un perfil. Cada perfil agrupa una vibra: fondos más una disposición de Waybar."
+[[chapters.steps.blocks]]
+kind = "code"
+text = "~/.local/share/blacknode/profiles/<nombre>/walls/"
+[[chapters.steps.blocks]]
+kind = "bullets"
+items = [
+  "Cambia de vibra con el selector de perfiles (menú → Profiles)",
+  "Copia una carpeta de perfil para crear el tuyo",
+]
+
+[[chapters]]
+id = "config"
+title = "Configuración"
+
+[[chapters.steps]]
+title = "El CLI de blacknode"
+[[chapters.steps.blocks]]
+kind = "paragraph"
+text = "blacknode es tu centro de mando. Todo lo que hacen los menús, la terminal también lo puede hacer."
+[[chapters.steps.blocks]]
+kind = "code"
+text = "$ blacknode   # lista todos los comandos"
+[[chapters.steps.blocks]]
+kind = "bullets"
+items = [
+  "blacknode version — qué hay instalado",
+  "blacknode doctor — chequeo de salud",
+  "blacknode profile — cambiar de perfil",
+  "blacknode theme — selector de fondo / tema",
+  "blacknode patterns — tus estadísticas de uso",
+]
+[[chapters.steps.blocks]]
+kind = "tip"
+text = "blacknode a secas abre este tutorial."
+
+[[chapters]]
+id = "terminal"
+title = "Terminal"
+
+[[chapters.steps]]
+title = "Kitty"
+[[chapters.steps.blocks]]
+kind = "paragraph"
+text = "Kitty es la terminal: rápida, acelerada por GPU y completamente tematizada por el mismo motor de color."
+[[chapters.steps.blocks]]
+kind = "keybinding"
+text = "SUPER + D — abrir una terminal"
+[[chapters.steps.blocks]]
+kind = "bullets"
+items = [
+  "Kitty trae pestañas, divisiones y control remoto",
+  "El prompt y los colores se generan desde tu fondo",
+]
+[[chapters.steps.blocks]]
+kind = "code"
+text = "~/.config/kitty/  (kitty.conf, colors)"
+[[chapters.steps.blocks]]
+kind = "tip"
+text = "Aquí es donde BlackNode se siente más en casa."
+
+[[chapters]]
+id = "files"
+title = "Archivos"
+
+[[chapters.steps]]
+title = "Explora tu hogar"
+[[chapters.steps.blocks]]
+kind = "paragraph"
+text = "El gestor de archivos abre tu carpeta de inicio: documentos, descargas y las configuraciones en las que quieras curiosear."
+[[chapters.steps.blocks]]
+kind = "keybinding"
+text = "SUPER + E — abrir el gestor de archivos"
+[[chapters.steps.blocks]]
+kind = "code"
+text = "~/.config  — aquí viven los dotfiles, enlazados desde el repo"
+[[chapters.steps.blocks]]
+kind = "tip"
+text = "Mira dentro de ~/.config para ver cómo encajan las piezas."
+
+[[chapters]]
+id = "shortcuts"
+title = "Atajos"
+
+[[chapters.steps]]
+title = "Los imprescindibles"
+[[chapters.steps.blocks]]
+kind = "paragraph"
+text = "No necesitas memorizar nada — los menús te enseñan sobre la marcha. Estos son los que merece la pena conocer primero:"
+[[chapters.steps.blocks]]
+kind = "keybinding"
+text = "SUPER + SPACE — menú principal"
+[[chapters.steps.blocks]]
+kind = "keybinding"
+text = "SUPER + D — terminal"
+[[chapters.steps.blocks]]
+kind = "keybinding"
+text = "SUPER + Q — cerrar ventana"
+[[chapters.steps.blocks]]
+kind = "keybinding"
+text = "SUPER + 1..9 — workspaces"
+[[chapters.steps.blocks]]
+kind = "keybinding"
+text = "SUPER + W — fondo de pantalla"
+[[chapters.steps.blocks]]
+kind = "keybinding"
+text = "SUPER + X — menú de apagado"
+[[chapters.steps.blocks]]
+kind = "tip"
+text = "La lista completa está en docs/KEYBINDS.md."
+
+[[chapters]]
+id = "docs"
+title = "Documentación"
+
+[[chapters.steps]]
+title = "Dónde aprender más"
+[[chapters.steps.blocks]]
+kind = "paragraph"
+text = "BlackNode trae un manual de verdad en la carpeta docs/ del repo — Markdown plano que puedes leer en cualquier editor."
+[[chapters.steps.blocks]]
+kind = "bullets"
+items = [
+  "KEYBINDS.md — todos los atajos",
+  "MODULES.md — los widgets de waybar",
+  "ROFI.md — menús y temas",
+  "INSTALLATION.md — reinstala cuando quieras",
+  "PACKAGES.md — qué hay instalado y por qué",
+]
+[[chapters.steps.blocks]]
+kind = "code"
+text = "$HOME/BlackNode/docs/"
+[[chapters.steps.blocks]]
+kind = "tip"
+text = "Y eso es todo — bienvenido a casa. Pulsa enter para terminar."
