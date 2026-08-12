@@ -9,42 +9,42 @@ end
 local hl = vim.api.nvim_set_hl
 
 local colors = {
-  bg = "#18130b",
-  fg = "#ece1d4",
+  bg = "#1a120e",
+  fg = "#f1dfd8",
 
-  primary = "#f1be6d",
-  on_primary = "#432c00",
-  primary_container = "#604100",
-  on_primary_container = "#ffdead",
+  primary = "#ffb695",
+  on_primary = "#542105",
+  primary_container = "#713619",
+  on_primary_container = "#ffdbcc",
 
-  secondary = "#dbc3a1",
-  on_secondary = "#3d2e16",
-  secondary_container = "#55442a",
-  on_secondary_container = "#f9dfbb",
+  secondary = "#e6bead",
+  on_secondary = "#442a1f",
+  secondary_container = "#5d4034",
+  on_secondary_container = "#ffdbcc",
 
-  tertiary = "#b5cea4",
-  on_tertiary = "#223518",
-  tertiary_container = "#384c2c",
-  on_tertiary_container = "#d1eabe",
+  tertiary = "#d1c88f",
+  on_tertiary = "#363106",
+  tertiary_container = "#4e471b",
+  on_tertiary_container = "#eee4a9",
 
-  surface = "#241f17",
-  surface_low = "#201b13",
-  surface_high = "#2f2921",
-  surface_bright = "#3f382f",
-  surface_dim = "#18130b",
-  on_surface = "#ece1d4",
-  on_surface_variant = "#d2c4b4",
+  surface = "#271e1a",
+  surface_low = "#221a16",
+  surface_high = "#322824",
+  surface_bright = "#423733",
+  surface_dim = "#1a120e",
+  on_surface = "#f1dfd8",
+  on_surface_variant = "#d8c2ba",
 
-  outline = "#9b8f80",
-  outline_variant = "#4e4539",
+  outline = "#a08d85",
+  outline_variant = "#52443d",
 
   error = "#ffb4ab",
   on_error = "#690005",
   error_container = "#93000a",
 
   shadow = "#000000",
-  inverse_surface = "#ece1d4",
-  inverse_on_surface = "#362f27",
+  inverse_surface = "#f1dfd8",
+  inverse_on_surface = "#382e2a",
 }
 
 hl(0, "Normal", { fg = colors.fg, bg = colors.bg })
