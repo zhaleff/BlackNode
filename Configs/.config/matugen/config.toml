@@ -66,3 +66,7 @@ output_path = '~/.cache/matugen/vscode-colors'
 [templates.vscode-json]
 input_path = './templates/vscode-colors.json'
 output_path = '~/.cache/matugen/vscode-colors.json'
+
+[templates.icons]
+input_path = '~/.config/matugen/templates/icons.json'
+output_path = '~/.cache/matugen/icons.json'
