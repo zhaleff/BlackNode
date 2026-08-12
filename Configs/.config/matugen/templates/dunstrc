@@ -3,8 +3,8 @@
     follow = none
     width = (320, 400)
     height = (0, 190)
-    origin = top-center
-    offset = "0x0"
+    origin = top-right
+    offset = "15x20"
     alignment = left
     vertical_alignment = center
     ellipsize = middle
@@ -14,7 +14,7 @@
     icon_position = left
     min_icon_size = 44
     max_icon_size = 52
-    icon_corner_radius = 26
+    icon_corner_radius = 12
     progress_bar = true
     progress_bar_height = 4
     progress_bar_min_width = 220
@@ -24,8 +24,7 @@
     progress_bar_frame_width = 0
     frame_width = 0
     separator_height = 0
-    corner_radius = 28
-    corners = bottom
+    corner_radius = 16
     gap_size = 14
     line_height = 4
     notification_limit = 4
