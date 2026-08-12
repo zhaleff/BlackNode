@@ -13,7 +13,7 @@ if [[ -f "$ACTIVE_FILE" ]]; then
 else
     WALL_DIR="$HOME/Pictures/Wallpapers/"
 fi
-SELECTED=$(find "$WALL_DIR" -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" -o -iname "*.webp" \) \
+SELECTED=$(find "$WALL_DIR" -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" -o -iname "*.webp" -o -iname "*.gif" \) \
     | while read -r img; do
         printf '%s\0icon\x1f%s\n' "$img" "$img"
       done \
