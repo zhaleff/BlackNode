@@ -2,7 +2,7 @@
   "battery": {
     "states": {
       "good": 95,
-      "warning": 15,
+      "warning": 20,
       "critical": 15
     },
     "format": "{icon} {capacity}%",

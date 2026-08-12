@@ -111,6 +111,10 @@ tooltip label {
   margin: 0px 4px;
 }
 
+#custom-bluetooth {
+  margin: 0px -4px 0px 2px;
+}
+
 
 
 #workspaces button {
