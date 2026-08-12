@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 STATE_FILE="/tmp/blacknode_pomodoro"
-ICON="$HOME/.config/dunst/assets/timer.svg"
+ICON="$(bn-icon timer)"
 
 load_state() {
     if [[ -f "$STATE_FILE" ]]; then
