@@ -32,13 +32,15 @@ listview {
     padding:                        10px;
     outline:                        0px;
     background-color:               @surface;
-    border-radius:                  0px 999px 999px 0px;
+    border-radius:                  10px 32px 32px 10px;
 
 }
 
 element {
     background-color:               transparent;
     border-radius:                  999px;
+        border-radius:                  10px 24px 24px 10px;
+
     border:                         0px;
     padding:                        0px;
     margin:                         0px;
@@ -79,7 +81,8 @@ element selected {
     text-color:                     @on-primary;
     border:                         0px;
     outline:                        0px;
-    border-radius:                  999px;
+        border-radius:                  10px 24px 24px 10px;
+
 }
 
 element selected.urgent {
