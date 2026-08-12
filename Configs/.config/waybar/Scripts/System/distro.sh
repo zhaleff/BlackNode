@@ -32,4 +32,9 @@ case "$ID" in
         ;;
 esac
 
-printf '{"text":"%s"}\n' "$icon"
+
+kernel=$(uname -r)
+tooltip="$icon  ${NAME}\n  ${kernel}\n  ${USER}"
+USER=$(whoami)
+
+printf '{"text":"%s","tooltip":"%s"}\n' "$icon" "$tooltip"

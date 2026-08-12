@@ -1,8 +1,8 @@
 {
   "wireplumber": {
     "format": "{icon}",
-    "tooltip-format": "{icon}{volume:>3}%",
-    "format-muted": "󰖁 {volume:>3}%",
+    "tooltip-format": "{icon}{volume:>3}% \n{node_name} ",
+    "format-muted": "󰖁",
     "format-bluetooth": "{icon} {volume:>2}% 󰂯",
     "format-bluetooth-muted": "󰖁 {icon} 󰂯",
     "format-icons": [
