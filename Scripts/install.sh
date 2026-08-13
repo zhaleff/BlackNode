@@ -822,6 +822,21 @@ link_configs() {
         ln -sf "${item}" "${dst}" 2>/dev/null && linked=$((linked + 1)) || errors=$((errors + 1))
     done
 
+    if [[ -d "${REPO}/Configs/.local/lib/blacknode" ]]; then
+        item="${REPO}/Configs/.local/lib/blacknode"
+        dst="${HOME}/.local/lib/blacknode"
+        if [[ -L "${dst}" && "$(readlink "${dst}")" == "${item}" ]]; then
+            skipped=$((skipped + 1))
+        elif [[ -e "${dst}" || -L "${dst}" ]]; then
+            mkdir -p "${BACKUP}/.local/lib"
+            mv "${dst}" "${BACKUP}/.local/lib/blacknode" 2>/dev/null && backed=$((backed + 1))
+            ln -sf "${item}" "${dst}" 2>/dev/null && linked=$((linked + 1)) || errors=$((errors + 1))
+        else
+            mkdir -p "${HOME}/.local/lib"
+            ln -sf "${item}" "${dst}" 2>/dev/null && linked=$((linked + 1)) || errors=$((errors + 1))
+        fi
+    fi
+
     if [[ ${errors} -gt 0 ]]; then
         warn "${linked} linked, ${backed} backed up, ${errors} errors"
         info "Check permissions or disk space for the failed items."

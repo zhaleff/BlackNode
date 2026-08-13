@@ -42,6 +42,10 @@ if [[ -d "$REPO/Configs/.local/share/blacknode" ]]; then
     done
 fi
 
+if [[ -d "$REPO/Configs/.local/lib/blacknode" ]]; then
+    link_item "$REPO/Configs/.local/lib/blacknode" "$HOME/.local/lib/blacknode" ".local/lib/blacknode"
+fi
+
 echo ""
 echo "Building components"
 BRAIN_DIR="$REPO/src/brain"

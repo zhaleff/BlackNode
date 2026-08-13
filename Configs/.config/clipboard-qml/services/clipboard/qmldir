@@ -1,2 +1,0 @@
-module qs.services.clipboard
-singleton ClipboardService 1.0 ClipboardService.qml

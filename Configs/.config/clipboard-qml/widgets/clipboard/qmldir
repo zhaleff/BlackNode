@@ -1,4 +1,0 @@
-module qs.widgets.clipboard
-ClipboardPanel 1.0 ClipboardPanel.qml
-ClipboardCard 1.0 ClipboardCard.qml
-CategoryTab 1.0 CategoryTab.qml
