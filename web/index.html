@@ -1,0 +1,629 @@
+<!doctype html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>BlackNode — Your home in the terminal</title>
+    <meta
+      name="description"
+      content="BlackNode is a living Linux configuration for Arch Linux + Hyprland. Simple, clean, yours."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              border: "hsl(var(--border))",
+              input: "hsl(var(--input))",
+              ring: "hsl(var(--ring))",
+              background: "hsl(var(--background))",
+              foreground: "hsl(var(--foreground))",
+              primary: { DEFAULT: "hsl(var(--primary))", foreground: "hsl(var(--primary-foreground))" },
+              secondary: { DEFAULT: "hsl(var(--secondary))", foreground: "hsl(var(--secondary-foreground))" },
+              destructive: { DEFAULT: "hsl(var(--destructive))", foreground: "hsl(var(--destructive-foreground))" },
+              muted: { DEFAULT: "hsl(var(--muted))", foreground: "hsl(var(--muted-foreground))" },
+              accent: { DEFAULT: "hsl(var(--accent))", foreground: "hsl(var(--accent-foreground))" },
+              popover: { DEFAULT: "hsl(var(--popover))", foreground: "hsl(var(--popover-foreground))" },
+              card: { DEFAULT: "hsl(var(--card))", foreground: "hsl(var(--card-foreground))" },
+            },
+            borderRadius: {
+              xl: "calc(var(--radius) + 4px)",
+              lg: "var(--radius)",
+              md: "calc(var(--radius) - 2px)",
+              sm: "calc(var(--radius) - 4px)",
+            },
+            fontFamily: {
+              sans: ["Inter", "ui-sans-serif", "system-ui", "sans-serif"],
+              mono: ["JetBrains Mono", "ui-monospace", "SFMono-Regular", "monospace"],
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      :root {
+        --background: 240 10% 3.9%;
+        --foreground: 0 0% 98%;
+        --card: 240 10% 3.9%;
+        --card-foreground: 0 0% 98%;
+        --popover: 240 10% 3.9%;
+        --popover-foreground: 0 0% 98%;
+        --primary: 0 0% 98%;
+        --primary-foreground: 240 5.9% 10%;
+        --secondary: 240 3.7% 15.9%;
+        --secondary-foreground: 0 0% 98%;
+        --muted: 240 3.7% 15.9%;
+        --muted-foreground: 240 5% 64.9%;
+        --accent: 240 3.7% 15.9%;
+        --accent-foreground: 0 0% 98%;
+        --destructive: 0 62.8% 30.6%;
+        --destructive-foreground: 0 0% 98%;
+        --border: 240 3.7% 15.9%;
+        --input: 240 3.7% 15.9%;
+        --ring: 217.2 91.2% 59.8%;
+        --radius: 0.625rem;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        background-color: hsl(var(--background));
+        color: hsl(var(--foreground));
+        font-feature-settings: "cv11", "ss01";
+        text-rendering: optimizeLegibility;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      ::selection {
+        background-color: hsl(var(--ring) / 0.25);
+      }
+
+      @layer components {
+        .btn {
+          @apply inline-flex h-9 items-center justify-center gap-2 rounded-md px-4 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-50;
+        }
+        .btn-primary {
+          @apply bg-primary text-primary-foreground hover:bg-primary/90;
+        }
+        .btn-outline {
+          @apply border border-input bg-background hover:bg-accent hover:text-accent-foreground;
+        }
+        .btn-ghost {
+          @apply hover:bg-accent hover:text-accent-foreground;
+        }
+        .card {
+          @apply rounded-xl border border-border bg-card text-card-foreground shadow-sm;
+        }
+        .badge {
+          @apply inline-flex items-center gap-1.5 rounded-md border border-border px-2.5 py-0.5 text-xs font-medium text-muted-foreground;
+        }
+        .section-title {
+          @apply text-sm font-semibold tracking-wide text-foreground;
+        }
+      }
+
+      .text-gradient {
+        background-image: linear-gradient(135deg, hsl(217.2 91.2% 59.8%), hsl(217.2 91.2% 75%));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+
+      .glow {
+        background: radial-gradient(ellipse 60% 50% at 50% 0%, hsl(217.2 91.2% 59.8% / 0.14), transparent 70%);
+      }
+    </style>
+  </head>
+
+  <body class="font-sans antialiased">
+    <!-- ============ NAVBAR ============ -->
+    <header class="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur">
+      <div class="mx-auto flex h-14 w-full max-w-6xl items-center justify-between px-4 sm:px-6">
+        <a href="#" class="flex items-center gap-2.5">
+          <span class="flex size-8 items-center justify-center rounded-md bg-primary text-primary-foreground">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4"><polyline points="4 17 10 11 4 5"/><line x1="12" x2="20" y1="19" y2="19"/></svg>
+          </span>
+          <span class="text-sm font-semibold tracking-tight">BlackNode</span>
+        </a>
+
+        <nav class="hidden items-center gap-1 md:flex">
+          <a href="#features" class="btn btn-ghost text-sm text-muted-foreground">Features</a>
+          <a href="#stack" class="btn btn-ghost text-sm text-muted-foreground">Stack</a>
+          <a href="#showcase" class="btn btn-ghost text-sm text-muted-foreground">Showcase</a>
+          <a href="#install" class="btn btn-ghost text-sm text-muted-foreground">Install</a>
+        </nav>
+
+        <div class="hidden items-center gap-2 md:flex">
+          <a href="https://github.com/zhaleff/BlackNode" target="_blank" rel="noopener" class="btn btn-outline">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+            GitHub
+          </a>
+          <a href="#install" class="btn btn-primary">
+            Get started
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+        </div>
+
+        <button
+          id="mobileMenuBtn"
+          class="btn btn-ghost size-9 p-0 md:hidden"
+          aria-label="Toggle menu"
+          aria-expanded="false"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+        </button>
+      </div>
+
+      <div id="mobileMenu" class="hidden border-t border-border px-4 pb-4 md:hidden">
+        <nav class="mt-2 flex flex-col gap-1">
+          <a href="#features" class="btn btn-ghost justify-start text-muted-foreground">Features</a>
+          <a href="#stack" class="btn btn-ghost justify-start text-muted-foreground">Stack</a>
+          <a href="#showcase" class="btn btn-ghost justify-start text-muted-foreground">Showcase</a>
+          <a href="#install" class="btn btn-ghost justify-start text-muted-foreground">Install</a>
+          <a href="https://github.com/zhaleff/BlackNode" target="_blank" rel="noopener" class="btn btn-outline mt-2 justify-start">GitHub</a>
+          <a href="#install" class="btn btn-primary mt-2 justify-start">Get started</a>
+        </nav>
+      </div>
+    </header>
+
+    <!-- ============ HERO ============ -->
+    <section class="glow relative overflow-hidden">
+      <div class="mx-auto w-full max-w-6xl px-4 pb-24 pt-20 sm:px-6 sm:pt-28">
+        <div class="flex flex-col items-center gap-8 text-center">
+          <span class="badge">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-3 text-primary"><path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"/><path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z"/><path d="M15 13a4.5 4.5 0 0 1-3-4 4.5 4.5 0 0 1-3 4"/></svg>
+            Local-first · Rust-powered · Arch Linux
+          </span>
+
+          <h1 class="max-w-3xl text-4xl font-bold leading-[1.1] tracking-tight sm:text-6xl">
+            Your home in the terminal.
+            <span class="text-gradient">Simple, clean, yours.</span>
+          </h1>
+
+          <p class="max-w-2xl text-pretty text-base text-muted-foreground sm:text-lg">
+            BlackNode is a living Linux configuration. A small software system
+            that embraces you instead of complicating your life — every file
+            written to be read, understood, and eventually changed by you.
+          </p>
+
+          <div class="flex flex-col items-center gap-3 sm:flex-row">
+            <a href="#install" class="btn btn-primary h-10 px-5 text-sm">
+              Get started
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </a>
+            <a href="https://github.com/zhaleff/BlackNode" target="_blank" rel="noopener" class="btn btn-outline h-10 px-5 text-sm">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+              View on GitHub
+            </a>
+          </div>
+
+          <p class="text-xs text-muted-foreground">
+            Requires Arch Linux · Hyprland · Waybar · Kitty — or just your curiosity.
+          </p>
+        </div>
+
+        <!-- Hero visual -->
+        <div class="mx-auto mt-16 max-w-4xl">
+          <div class="card overflow-hidden shadow-2xl">
+            <div class="flex items-center justify-between border-b border-border bg-muted/40 px-4 py-2.5">
+              <div class="flex items-center gap-1.5">
+                <span class="size-3 rounded-full bg-destructive/70"></span>
+                <span class="size-3 rounded-full bg-primary/30"></span>
+                <span class="size-3 rounded-full bg-primary/20"></span>
+              </div>
+              <span class="font-mono text-xs text-muted-foreground">kitty — blacknode</span>
+              <span class="size-4"></span>
+            </div>
+            <img src="../assets/blacknode.png" alt="BlackNode desktop screenshot" class="block w-full" loading="lazy" />
+          </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="mx-auto mt-16 grid max-w-4xl grid-cols-2 gap-4 sm:grid-cols-4">
+          <div class="flex flex-col items-center gap-1 rounded-xl border border-border bg-card/50 p-4">
+            <span class="text-2xl font-semibold tracking-tight">15+</span>
+            <span class="text-xs text-muted-foreground">Hand-picked tools</span>
+          </div>
+          <div class="flex flex-col items-center gap-1 rounded-xl border border-border bg-card/50 p-4">
+            <span class="text-2xl font-semibold tracking-tight">1</span>
+            <span class="text-xs text-muted-foreground">Command install</span>
+          </div>
+          <div class="flex flex-col items-center gap-1 rounded-xl border border-border bg-card/50 p-4">
+            <span class="text-2xl font-semibold tracking-tight">100%</span>
+            <span class="text-xs text-muted-foreground">Local &amp; private</span>
+          </div>
+          <div class="flex flex-col items-center gap-1 rounded-xl border border-border bg-card/50 p-4">
+            <span class="text-2xl font-semibold tracking-tight">MIT</span>
+            <span class="text-xs text-muted-foreground">Free to remix</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FEATURES ============ -->
+    <section id="features" class="border-t border-border">
+      <div class="mx-auto w-full max-w-6xl px-4 py-24 sm:px-6">
+        <div class="mb-12 flex flex-col items-start gap-4">
+          <span class="badge">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-3 text-primary"><path d="M12 20h.01"/><path d="M17 18h.01"/><path d="M7 18h.01"/><path d="M12 14h.01"/><path d="M17 12h.01"/><path d="M7 12h.01"/><path d="M12 8h.01"/><path d="M17 6h.01"/><path d="M7 6h.01"/><path d="M4 4h16a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1h-6l-2 4-2-4H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1Z"/></svg>
+            Features
+          </span>
+          <h2 class="max-w-xl text-3xl font-semibold tracking-tight sm:text-4xl">
+            A system designed to be understood, not memorized.
+          </h2>
+          <p class="max-w-2xl text-pretty text-muted-foreground">
+            Nothing here because it's popular. Everything deliberate. Built on a
+            clean layout with clear layers you can read, tweak and break.
+          </p>
+        </div>
+
+        <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div class="card flex flex-col gap-3 p-6">
+            <span class="flex size-10 items-center justify-center rounded-md bg-accent text-accent-foreground">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+            </span>
+            <h3 class="text-sm font-semibold">One-command install</h3>
+            <p class="text-sm text-muted-foreground">
+              A single installer links what you need and builds local
+              components. Nothing runs without your input.
+            </p>
+          </div>
+
+          <div class="card flex flex-col gap-3 p-6">
+            <span class="flex size-10 items-center justify-center rounded-md bg-accent text-accent-foreground">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-5"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg>
+            </span>
+            <h3 class="text-sm font-semibold">Material You theming</h3>
+            <p class="text-sm text-muted-foreground">
+              Matugen generates your whole palette from your wallpaper — GTK,
+              Qt, Waybar, rofi and the lockscreen stay in sync.
+            </p>
+          </div>
+
+          <div class="card flex flex-col gap-3 p-6">
+            <span class="flex size-10 items-center justify-center rounded-md bg-accent text-accent-foreground">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-5"><path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"/><path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z"/><path d="M15 13a4.5 4.5 0 0 1-3-4 4.5 4.5 0 0 1-3 4"/></svg>
+            </span>
+            <h3 class="text-sm font-semibold">A brain that adapts</h3>
+            <p class="text-sm text-muted-foreground">
+              <span class="font-mono text-[13px]">blacknode-brain</span> learns
+              your habits and adapts the environment — 100% local, no network,
+              no telemetry.
+            </p>
+          </div>
+
+          <div class="card flex flex-col gap-3 p-6">
+            <span class="flex size-10 items-center justify-center rounded-md bg-accent text-accent-foreground">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            </span>
+            <h3 class="text-sm font-semibold">Built in Rust</h3>
+            <p class="text-sm text-muted-foreground">
+              The learning engine is a small, fast Rust binary compiled and
+              linked by the installer — no runtime dependencies.
+            </p>
+          </div>
+
+          <div class="card flex flex-col gap-3 p-6">
+            <span class="flex size-10 items-center justify-center rounded-md bg-accent text-accent-foreground">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-5"><path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
+            </span>
+            <h3 class="text-sm font-semibold">Documented, not daunting</h3>
+            <p class="text-sm text-muted-foreground">
+              Keybindings, modules, reference and architecture docs ship in the
+              repo — written for humans.
+            </p>
+          </div>
+
+          <div class="card flex flex-col gap-3 p-6">
+            <span class="flex size-10 items-center justify-center rounded-md bg-accent text-accent-foreground">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-5"><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/></svg>
+            </span>
+            <h3 class="text-sm font-semibold">Clean architecture</h3>
+            <p class="text-sm text-muted-foreground">
+              Configs, source, scripts and docs in a clear layout — the
+              <span class="font-mono text-[13px]">blacknode</span> command is
+              your front door to everything.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ STACK ============ -->
+    <section id="stack" class="border-t border-border bg-muted/30">
+      <div class="mx-auto w-full max-w-6xl px-4 py-24 sm:px-6">
+        <div class="mb-12 flex flex-col items-start gap-4">
+          <span class="badge">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-3 text-primary"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M15 2v2"/><path d="M15 20v2"/><path d="M2 15h2"/><path d="M2 9h2"/><path d="M20 15h2"/><path d="M20 9h2"/><path d="M9 2v2"/><path d="M9 20v2"/></svg>
+            The stack
+          </span>
+          <h2 class="max-w-xl text-3xl font-semibold tracking-tight sm:text-4xl">
+            Every tool chosen on purpose.
+          </h2>
+        </div>
+
+        <div class="card overflow-hidden">
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm">
+              <thead>
+                <tr class="border-b border-border">
+                  <th scope="col" class="px-5 py-3 text-left text-xs font-medium text-muted-foreground">Component</th>
+                  <th scope="col" class="px-5 py-3 text-left text-xs font-medium text-muted-foreground">Tool</th>
+                  <th scope="col" class="hidden px-5 py-3 text-left text-xs font-medium text-muted-foreground sm:table-cell">Role</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-border">
+                <tr class="transition-colors hover:bg-muted/50">
+                  <td class="px-5 py-3 font-medium">Window manager</td>
+                  <td class="px-5 py-3 font-mono text-[13px]">Hyprland</td>
+                  <td class="hidden px-5 py-3 text-muted-foreground sm:table-cell">Dynamic tiling Wayland compositor</td>
+                </tr>
+                <tr class="transition-colors hover:bg-muted/50">
+                  <td class="px-5 py-3 font-medium">Status bar</td>
+                  <td class="px-5 py-3 font-mono text-[13px]">Waybar</td>
+                  <td class="hidden px-5 py-3 text-muted-foreground sm:table-cell">Fully configurable bar</td>
+                </tr>
+                <tr class="transition-colors hover:bg-muted/50">
+                  <td class="px-5 py-3 font-medium">Terminal</td>
+                  <td class="px-5 py-3 font-mono text-[13px]">Kitty</td>
+                  <td class="hidden px-5 py-3 text-muted-foreground sm:table-cell">GPU-accelerated terminal emulator</td>
+                </tr>
+                <tr class="transition-colors hover:bg-muted/50">
+                  <td class="px-5 py-3 font-medium">Shell</td>
+                  <td class="px-5 py-3 font-mono text-[13px]">Zsh + Powerlevel10k</td>
+                  <td class="hidden px-5 py-3 text-muted-foreground sm:table-cell">Fast shell with a powerful prompt</td>
+                </tr>
+                <tr class="transition-colors hover:bg-muted/50">
+                  <td class="px-5 py-3 font-medium">Launcher</td>
+                  <td class="px-5 py-3 font-mono text-[13px]">Rofi</td>
+                  <td class="hidden px-5 py-3 text-muted-foreground sm:table-cell">App launcher and dmenu replacement</td>
+                </tr>
+                <tr class="transition-colors hover:bg-muted/50">
+                  <td class="px-5 py-3 font-medium">Notifications</td>
+                  <td class="px-5 py-3 font-mono text-[13px]">Dunst</td>
+                  <td class="hidden px-5 py-3 text-muted-foreground sm:table-cell">Lightweight notification daemon</td>
+                </tr>
+                <tr class="transition-colors hover:bg-muted/50">
+                  <td class="px-5 py-3 font-medium">Lockscreen</td>
+                  <td class="px-5 py-3 font-mono text-[13px]">Hyprlock + Hypridle</td>
+                  <td class="hidden px-5 py-3 text-muted-foreground sm:table-cell">GPU-accelerated lock with idle management</td>
+                </tr>
+                <tr class="transition-colors hover:bg-muted/50">
+                  <td class="px-5 py-3 font-medium">Editor</td>
+                  <td class="px-5 py-3 font-mono text-[13px]">Neovim</td>
+                  <td class="hidden px-5 py-3 text-muted-foreground sm:table-cell">Extensible modal text editor</td>
+                </tr>
+                <tr class="transition-colors hover:bg-muted/50">
+                  <td class="px-5 py-3 font-medium">File manager</td>
+                  <td class="px-5 py-3 font-mono text-[13px]">Yazi</td>
+                  <td class="hidden px-5 py-3 text-muted-foreground sm:table-cell">Blazing-fast terminal file manager</td>
+                </tr>
+                <tr class="transition-colors hover:bg-muted/50">
+                  <td class="px-5 py-3 font-medium">Theming</td>
+                  <td class="px-5 py-3 font-mono text-[13px]">Matugen</td>
+                  <td class="hidden px-5 py-3 text-muted-foreground sm:table-cell">Material You colors from your wallpaper</td>
+                </tr>
+                <tr class="transition-colors hover:bg-muted/50">
+                  <td class="px-5 py-3 font-medium">Logout</td>
+                  <td class="px-5 py-3 font-mono text-[13px]">Wlogout</td>
+                  <td class="hidden px-5 py-3 text-muted-foreground sm:table-cell">Clean session management screen</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SHOWCASE ============ -->
+    <section id="showcase" class="border-t border-border">
+      <div class="mx-auto w-full max-w-6xl px-4 py-24 sm:px-6">
+        <div class="mb-12 flex flex-col items-start gap-4">
+          <span class="badge">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-3 text-primary"><rect width="18" height="18" x="3" y="3" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
+            Showcase
+          </span>
+          <h2 class="max-w-xl text-3xl font-semibold tracking-tight sm:text-4xl">
+            A look inside.
+          </h2>
+        </div>
+
+        <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <figure class="card overflow-hidden">
+            <img src="../assets/NeoVim.png" alt="Neovim setup" class="block aspect-video w-full object-cover" loading="lazy" />
+            <figcaption class="flex items-center justify-between border-t border-border px-4 py-3">
+              <span class="text-sm font-medium">Editor</span>
+              <span class="font-mono text-xs text-muted-foreground">Neovim</span>
+            </figcaption>
+          </figure>
+          <figure class="card overflow-hidden">
+            <img src="../assets/Rofi.png" alt="Rofi launcher" class="block aspect-video w-full object-cover" loading="lazy" />
+            <figcaption class="flex items-center justify-between border-t border-border px-4 py-3">
+              <span class="text-sm font-medium">Launcher</span>
+              <span class="font-mono text-xs text-muted-foreground">Rofi</span>
+            </figcaption>
+          </figure>
+          <figure class="card overflow-hidden">
+            <img src="../assets/Hyprlock.png" alt="Hyprlock lockscreen" class="block aspect-video w-full object-cover" loading="lazy" />
+            <figcaption class="flex items-center justify-between border-t border-border px-4 py-3">
+              <span class="text-sm font-medium">Lockscreen</span>
+              <span class="font-mono text-xs text-muted-foreground">Hyprlock</span>
+            </figcaption>
+          </figure>
+          <figure class="card overflow-hidden">
+            <img src="../assets/Cava.png" alt="Cava audio visualiser" class="block aspect-video w-full object-cover" loading="lazy" />
+            <figcaption class="flex items-center justify-between border-t border-border px-4 py-3">
+              <span class="text-sm font-medium">Audio</span>
+              <span class="font-mono text-xs text-muted-foreground">Cava</span>
+            </figcaption>
+          </figure>
+          <figure class="card overflow-hidden">
+            <img src="../assets/Btop.png" alt="Btop system monitor" class="block aspect-video w-full object-cover" loading="lazy" />
+            <figcaption class="flex items-center justify-between border-t border-border px-4 py-3">
+              <span class="text-sm font-medium">Monitor</span>
+              <span class="font-mono text-xs text-muted-foreground">Btop</span>
+            </figcaption>
+          </figure>
+          <figure class="card overflow-hidden">
+            <img src="../assets/Wlogout.png" alt="Wlogout session screen" class="block aspect-video w-full object-cover" loading="lazy" />
+            <figcaption class="flex items-center justify-between border-t border-border px-4 py-3">
+              <span class="text-sm font-medium">Logout</span>
+              <span class="font-mono text-xs text-muted-foreground">Wlogout</span>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ INSTALL ============ -->
+    <section id="install" class="border-t border-border bg-muted/30">
+      <div class="mx-auto w-full max-w-6xl px-4 py-24 sm:px-6">
+        <div class="grid items-start gap-12 lg:grid-cols-2">
+          <div class="flex flex-col items-start gap-4">
+            <span class="badge">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-3 text-primary"><polyline points="4 17 10 11 4 5"/><line x1="12" x2="20" y1="19" y2="19"/></svg>
+              Installation
+            </span>
+            <h2 class="max-w-xl text-3xl font-semibold tracking-tight sm:text-4xl">
+              Up and running in one command.
+            </h2>
+            <p class="max-w-xl text-pretty text-muted-foreground">
+              Designed for a minimal Arch Linux install. The installer links
+              your dotfiles and builds the local components. Nothing runs
+              without your input.
+            </p>
+            <ul class="flex flex-col gap-2 text-sm text-muted-foreground">
+              <li class="flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4 text-primary"><path d="M20 6 9 17l-5-5"/></svg>
+                Symlinks your configuration into your home
+              </li>
+              <li class="flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4 text-primary"><path d="M20 6 9 17l-5-5"/></svg>
+                Builds the Rust brain automatically
+              </li>
+              <li class="flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4 text-primary"><path d="M20 6 9 17l-5-5"/></svg>
+                Reboot once and it's home
+              </li>
+            </ul>
+          </div>
+
+          <div class="card overflow-hidden">
+            <div class="flex items-center justify-between border-b border-border bg-muted/40 px-4 py-2.5">
+              <span class="font-mono text-xs text-muted-foreground">install.sh</span>
+              <button
+                id="copyBtn"
+                class="btn btn-ghost h-7 gap-1.5 px-2 text-xs"
+                aria-label="Copy install command"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-3.5"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+                <span id="copyLabel">Copy</span>
+              </button>
+            </div>
+            <pre class="overflow-x-auto p-4 font-mono text-[13px] leading-6 text-muted-foreground"><code id="installCode">git clone https://github.com/zhaleff/BlackNode.git $HOME/BlackNode
+cd $HOME/BlackNode
+bash Scripts/install.sh</code></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ QUOTE ============ -->
+    <section class="border-t border-border">
+      <div class="mx-auto w-full max-w-4xl px-4 py-24 sm:px-6">
+        <figure class="flex flex-col items-center gap-6 text-center">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-8 text-muted-foreground"><path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"/><path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z"/><path d="M15 13a4.5 4.5 0 0 1-3-4 4.5 4.5 0 0 1-3 4"/></svg>
+          <blockquote class="max-w-2xl text-balance text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">
+            BlackNode is not the answer. It is just a starting point.
+            The real answer is inside you.
+          </blockquote>
+          <p class="text-sm text-muted-foreground">
+            Now go. Explore. Break things. Fix them. And make this your own.
+          </p>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ============ FOOTER ============ -->
+    <footer class="border-t border-border">
+      <div class="mx-auto w-full max-w-6xl px-4 py-12 sm:px-6">
+        <div class="grid gap-10 md:grid-cols-3">
+          <div class="flex flex-col items-start gap-3">
+            <a href="#" class="flex items-center gap-2.5">
+              <span class="flex size-8 items-center justify-center rounded-md bg-primary text-primary-foreground">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4"><polyline points="4 17 10 11 4 5"/><line x1="12" x2="20" y1="19" y2="19"/></svg>
+              </span>
+              <span class="text-sm font-semibold tracking-tight">BlackNode</span>
+            </a>
+            <p class="max-w-xs text-sm text-muted-foreground">
+              A living Linux configuration. Simple, clean, yours.
+            </p>
+          </div>
+
+          <div class="flex flex-col gap-3 text-sm">
+            <span class="section-title">Docs</span>
+            <a href="https://github.com/zhaleff/BlackNode/blob/main/docs/KEYBINDS.md" target="_blank" rel="noopener" class="w-fit text-muted-foreground transition-colors hover:text-foreground">Keybindings</a>
+            <a href="https://github.com/zhaleff/BlackNode/blob/main/docs/MODULES.md" target="_blank" rel="noopener" class="w-fit text-muted-foreground transition-colors hover:text-foreground">Modules</a>
+            <a href="https://github.com/zhaleff/BlackNode/blob/main/ARCHITECTURE.md" target="_blank" rel="noopener" class="w-fit text-muted-foreground transition-colors hover:text-foreground">Architecture</a>
+          </div>
+
+          <div class="flex flex-col gap-3 text-sm">
+            <span class="section-title">Source</span>
+            <a href="https://github.com/zhaleff/BlackNode" target="_blank" rel="noopener" class="w-fit text-muted-foreground transition-colors hover:text-foreground">Repository</a>
+            <a href="https://github.com/zhaleff/BlackNode/issues" target="_blank" rel="noopener" class="w-fit text-muted-foreground transition-colors hover:text-foreground">Issues</a>
+            <a href="https://github.com/zhaleff/BlackNode/blob/main/LICENSE" target="_blank" rel="noopener" class="w-fit text-muted-foreground transition-colors hover:text-foreground">MIT License</a>
+          </div>
+        </div>
+
+        <div class="mt-12 flex flex-col items-center justify-between gap-4 border-t border-border pt-6 sm:flex-row">
+          <p class="text-xs text-muted-foreground">© 2026 zhaleff · Released under the MIT License.</p>
+          <p class="text-xs text-muted-foreground">Made with <span class="text-destructive">♥</span> and a lot of dotfiles.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+      const mobileMenu = document.getElementById("mobileMenu");
+
+      mobileMenuBtn.addEventListener("click", () => {
+        const open = mobileMenu.classList.toggle("hidden") === false;
+        mobileMenuBtn.setAttribute("aria-expanded", String(open));
+      });
+
+      mobileMenu.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", () => {
+          mobileMenu.classList.add("hidden");
+          mobileMenuBtn.setAttribute("aria-expanded", "false");
+        });
+      });
+
+      const copyBtn = document.getElementById("copyBtn");
+      const copyLabel = document.getElementById("copyLabel");
+      const installCode = document.getElementById("installCode").textContent.trim();
+
+      copyBtn.addEventListener("click", async () => {
+        try {
+          await navigator.clipboard.writeText(installCode);
+          copyLabel.textContent = "Copied";
+          copyBtn.classList.add("text-primary");
+          setTimeout(() => {
+            copyLabel.textContent = "Copy";
+            copyBtn.classList.remove("text-primary");
+          }, 2000);
+        } catch {
+          copyLabel.textContent = "Copy";
+        }
+      });
+    </script>
+  </body>
+</html>

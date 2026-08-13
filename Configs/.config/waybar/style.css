@@ -198,4 +198,7 @@ tooltip label {
   color: @warning;
 }
 
+#wireplumber.muted {
+  color: @warning;
+}
 
