@@ -73,10 +73,17 @@ def handle(ctx: NotificationContext) -> NotificationEnvelope:
 
 
 def _locate() -> tuple[float, float]:
-    req = urllib.request.Request("https://ipapi.co/json/", headers={"User-Agent": "BlackNode/3.0"})
-    with urllib.request.urlopen(req, timeout=10) as response:
-        data = json.loads(response.read())
-    return float(data.get("latitude", 40.41)), float(data.get("longitude", -3.70))
+    try:
+        req = urllib.request.Request("https://ipapi.co/json/", headers={"User-Agent": "BlackNode/3.0"})
+        with urllib.request.urlopen(req, timeout=8) as response:
+            data = json.loads(response.read())
+        lat = float(data.get("latitude"))
+        lon = float(data.get("longitude"))
+        if -90.0 <= lat <= 90.0 and -180.0 <= lon <= 180.0:
+            return lat, lon
+    except Exception:
+        pass
+    return 40.41, -3.70
 
 
 def _fetch(lat: float, lon: float):
