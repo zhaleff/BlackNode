@@ -55,6 +55,7 @@ tooltip label {
 #hollow-left-3,
 #hollow-center-2,
 #hollow-left-1,
+#hollow-right-5,
 #hollow-distro,
 #hollow-center,
 #hollow-right-2 {
@@ -89,7 +90,7 @@ tooltip label {
 #bluetooth,
 #backlight, 
 #battery {
-  margin: 0px 2px;
+  margin: 0px 4px;
 }
 
 #hollow-right-1, 
@@ -156,10 +157,7 @@ tooltip label {
 
 
 /* Battery */
-#battery.charging
-{
-  color: #CFFF8C;
-}
+
 
 #battery.warning {
   color: #FFEE8C;
@@ -174,7 +172,10 @@ tooltip label {
 }
 
 
-
+#battery.charging 
+{
+  color: #CFFF8C;
+}
 /* Privacy modules */
 
 #custom-dnd.dnd-active {
@@ -202,3 +203,7 @@ tooltip label {
   color: @warning;
 }
 
+
+#wireplumber {
+  padding: 0px 10px 0px 0px;
+}
