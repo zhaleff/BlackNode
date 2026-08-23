@@ -29,7 +29,20 @@ is composed of three layers that share one identity: **BlackNode**, accent
 ### 2. Surface (the UI)
 - **waybar**: ~80 modules grouped into profile layouts (`waybar/Profiles/*`).
   Switching a profile rewrites `config.jsonc` includes and recolors.
-- **rofi / bn-menu**: top-level hub → 19 submenu scripts + BlackNode modules.
+- **rofi / bn-menu** (hexagonal architecture): the hub is split into layers —
+  - *domain core* (`blacknode/lib/bn-menu-core.sh`): module discovery,
+    group/weight ordering and dispatch. Defines ports (`bn_ui_select`,
+    `bn_notify`) and knows nothing about rofi.
+  - *adapters* (`blacknode/adapters/`): `rofi.sh` (graphical, dunst feedback)
+    and `cli.sh` (fzf/stdout for ttys, SSH and tests). Selected with
+    `BN_UI=rofi|cli`.
+  - *module manifests* (`blacknode/modules.d/*.conf`): one declarative file
+    per entry (id, label, icon, group, weight, desc, action, require).
+    Adding functionality = dropping a manifest (optionally a script under
+    `scripts/<name>/`). The core never changes. Modules auto-hide when a
+    `require=` binary is missing. Entries are grouped: Workspace · System ·
+    Appearance · Focus · Devices · BlackNode. `BN_DRYRUN=1` prints resolved
+    actions; `BN_LIST=1` dumps the module table.
 - **theming**: `theme` submenu drives wallpaper + matugen + reload.
 
 ### 3. Adaptive identity (the differentiator)

@@ -1,61 +1,17 @@
 #!/usr/bin/env bash
+# BlackNode hub menu — thin entrypoint.
+#
+# All logic lives in lib/ (domain core) + adapters/ (presentation).
+# To add a module: drop a manifest in modules.d/*.conf. Nothing else.
+# Architecture docs: see the header of lib/bn-menu-core.sh
 
-ROFI_THEME="$HOME/.config/rofi/menu.rasi"
-SCRIPTS="$HOME/.local/bin/scripts"
+set -u
+BN_ROOT="$(cd "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")" && pwd)"
+export BN_ROOT
+export PATH="$BN_ROOT:$PATH"
+export BN_SCRIPTS="$BN_ROOT/../scripts"
 
-main() {
-    local choice
-    choice=$(printf '%s\n' \
-        "  System" \
-        "󰓃  Audio" \
-        "󰍹  Display" \
-        "󰖰  Window" \
-        "󰹑  Screenshot" \
-        "󰥰  Processes" \
-        "󰏗  Packages" \
-        "  Applications" \
-        "󰸉  Wallpapers" \
-        "󰄉  Waybar" \
-        "󰑐  Reload" \
-        "󱖫  Services" \
-        "󰌌  Theme" \
-        "  Profiles" \
-        "󱑀  Pomodoro" \
-        "󱖫  System Health" \
-        "󰋼  About" \
-        "󰍃  Session" \
-        "󰂯  Bluetooth" \
-        "󰏞  What's New" \
-        "󰎓  Your Patterns" \
-        "󰡩  BlackNode" \
-        "  Help" \
-        | rofi -dmenu -i -p "" -theme "$ROFI_THEME")
+# shellcheck source=lib/bn-menu-core.sh
+source "$BN_ROOT/lib/bn-menu-core.sh"
 
-    case "$choice" in
-        "  System")        "$SCRIPTS/system/menu.sh" ;;
-        "󰓃  Audio")         "$SCRIPTS/audio/menu.sh" ;;
-        "󰍹  Display")       "$SCRIPTS/display/menu.sh" ;;
-        "󰖰  Window")        "$SCRIPTS/window/menu.sh" ;;
-        "󰹑  Screenshot")    "$SCRIPTS/screenshot/menu.sh" ;;
-        "󰥰  Processes")     "$SCRIPTS/process/menu.sh" ;;
-        "󰏗  Packages")      "$SCRIPTS/package/menu.sh" ;;
-        "  Applications")  "$SCRIPTS/apps/menu.sh" ;;
-        "󰸉  Wallpapers")    "$SCRIPTS/wallpaper/menu.sh" ;;
-        "󰄉  Waybar")        "$SCRIPTS/waybar/menu.sh" ;;
-        "󰑐  Reload")        "$SCRIPTS/reload/menu.sh" ;;
-        "󱖫  Services")      "$SCRIPTS/services/menu.sh" ;;
-        "󰌌  Theme")         "$SCRIPTS/theme/menu.sh" ;;
-        "  Profiles")      "$SCRIPTS/profiles/menu.sh" ;;
-        "󱑀  Pomodoro")     "$SCRIPTS/pomodoro/menu.sh" ;;
-        "󱖫  System Health") "$SCRIPTS/health/menu.sh" ;;
-        "󰋼  About")         "$SCRIPTS/info/menu.sh" ;;
-        "󰍃  Session")       "$SCRIPTS/session/menu.sh" ;;
-        "󰂯  Bluetooth")     "$SCRIPTS/bluetooth/menu.sh" ;;
-        "󰏞  What's New")  blacknode whatsnew ;;
-        "󰎓  Your Patterns") blacknode patterns ;;
-        "󰡩  BlackNode")    blacknode doctor | rofi -dmenu -p "BlackNode" ;;
-        "  Help")         blacknode help ;;
-    esac
-}
-
-main
+bn_menu_main
