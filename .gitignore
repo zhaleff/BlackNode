@@ -1,3 +1,17 @@
 __pycache__/
 *.pyc
 target/
+
+btop/themes/colors.theme
+cava/config
+clipse/blacknode.json
+dunst/dunstrc
+hypr/scheme/hyprlang.conf
+hypr/themes/colors.lua
+kitty/colors.conf
+nvim/generated.lua
+rofi/colors.rasi
+waybar/colors.css
+walker/colors.css
+wlogout/colors.css
+hyprlock/hyprlock.conf
