@@ -3,6 +3,7 @@
     "format": "󰮯 {}",
     "interval": 3600,
     "exec": "checkupdates | wc -l",
+    "tooltip": true,
     "exec-if": "bash -c 'count=$(checkupdates | wc -l); [ $count -gt 0 ]'",
     "on-click": "kitty -e zsh -c 'fastfetch && sleep 0.5 && sudo pacman -Syu; exec zsh'",
     "signal": 8

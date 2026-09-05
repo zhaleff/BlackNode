@@ -4,6 +4,7 @@
     "return-type": "json",
     "interval": 1800,
     "format": "󰣇 {}",
+    "exec-if": "bash -c 'count=$(checkupdates | wc -l); [ $count -gt 0 ]'",
     "tooltip": true
   }
 }
