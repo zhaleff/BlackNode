@@ -1,9 +1,8 @@
 {
   "custom/pause": {
-    "format": "{}",
+    "format": "",
     "return-type": "json",
-    "exec": "~/.local/bin/blacknode/music status",
-    "on-click": "~/.local/bin/blacknode/music play-pause",
+    "on-click": "playerctl play-pause",
     "interval": 2,
     "tooltip": false
   }
