@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-_DIR="$(cd "$(dirname "$0")" && pwd)"
-exec env PYTHONPATH="$_DIR/lib${PYTHONPATH:+:$PYTHONPATH}" python3 -m bnwb.camera "$@"
