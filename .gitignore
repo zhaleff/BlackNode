@@ -14,4 +14,5 @@ rofi/colors.rasi
 waybar/colors.css
 walker/colors.css
 wlogout/colors.css
+hypr/hyprlock.png
 hyprlock/hyprlock.conf
