@@ -3,7 +3,7 @@
     "format": "{}",
     "exec": "echo '󰙣'",
     "interval": 2,
-    "on-click": "~/.local/bin/blacknode/music previous",
+    "on-click": "playerctl previous",
     "tooltip": false
   }
 }
