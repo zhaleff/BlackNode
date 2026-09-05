@@ -16,7 +16,7 @@ show_history() {
     while IFS=$'\t' read -r id content; do
         [ -z "$id" ] && continue
         if [[ "$content" == "binary data"* ]]; then
-            input+="󰌾  Image"$'\n'
+            input+="󰌲  Image"$'\n'
         else
             local preview
             preview=$(echo "$content" | head -c 60 | tr '\n' ' ')
@@ -45,7 +45,7 @@ show_pinned() {
         local name
         name=$(basename "$f")
         if file "$f" | grep -qi image; then
-            pins+="󰌾  ${name}"$'\n'
+            pins+="󰌲  ${name}"$'\n'
         else
             local preview
             preview=$(head -c 60 "$f" | tr '\n' ' ')
@@ -80,7 +80,7 @@ pin_entry() {
     while IFS=$'\t' read -r id content; do
         [ -z "$id" ] && continue
         if [[ "$content" == "binary data"* ]]; then
-            input+="󰌾  Image"$'\n'
+            input+="󰌲  Image"$'\n'
         else
             local preview
             preview=$(echo "$content" | head -c 60 | tr '\n' ' ')
@@ -113,10 +113,10 @@ main_menu() {
     local choice
     choice=$(printf '%s\n' \
         "󰌍  Back" \
-        "󰌾  History" \
-        "󰐀  Pinned" \
-        "󰏗  Pin Item" \
-        "󰍴  Wipe" \
+        " History" \
+        "󰐃  Pinned" \
+        "  Pin Item" \
+        "󰚃  Wipe" \
         | rofi -dmenu -theme "$THEME" -p "Clipboard")
 
     case "$choice" in

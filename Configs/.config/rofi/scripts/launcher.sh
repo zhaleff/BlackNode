@@ -3,13 +3,13 @@ ROFI_DIR="$HOME/.config/rofi"
 THEME="$ROFI_DIR/themes/presets/submenu.rasi"
 
 choice=$(printf '%s\n' \
-    "󰤨 WiFi" \
-    "󰂯 Bluetooth" \
-    "󰕾 Audio" \
-    "󰌾 Clipboard" \
-    "󰆞 Screenshots" \
-    "󰸉 Wallpaper" \
-    "󰐥 Session" \
+    "󰤨  WiFi" \
+    "󰂯  Bluetooth" \
+    "󰕾  Audio" \
+    "󰌾  Clipboard" \
+    "󰆞  Screenshots" \
+    "󰸉  Wallpaper" \
+    "󰐥  Session" \
     | rofi -dmenu -theme "$THEME" -p "BlackNode")
 
 [[ -z "$choice" ]] && exit 0
