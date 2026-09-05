@@ -1,3 +1,20 @@
 #!/usr/bin/env bash
-_DIR="$(dirname "$(readlink -f "$0")")"
-exec env PYTHONPATH="$_DIR/lib${PYTHONPATH:+:$PYTHONPATH}" python3 -m bnwb.distro "$@"
+name=$(grep "^NAME=" /etc/os-release 2>/dev/null | cut -d= -f2 | tr -d '"')
+host=$(hostname)
+kernel=$(uname -r)
+uptime_s=$(awk '{print int($1)}' /proc/uptime)
+d=$((uptime_s/86400)); r=$((uptime_s%86400)); h=$((r/3600)); m=$(((r%3600)/60))
+[ "$d" -gt 0 ] && up="${d}d ${h}h ${m}m" || { [ "$h" -gt 0 ] && up="${h}h ${m}m" || up="${m}m"; }
+cpu=$(grep "model name" /proc/cpuinfo 2>/dev/null | head -1 | cut -d: -f2 | xargs | sed 's/(R)//g;s/(TM)//g')
+mem=$(free -h 2>/dev/null | awk '/^Mem:/{print $3"/"$2}')
+pkgs=$(pacman -Qq 2>/dev/null | wc -l)
+aur=""; helper=$(command -v paru || command -v yay)
+[ -n "$helper" ] && aur_count=$($helper -Qm 2>/dev/null | wc -l) && [ "$aur_count" -gt 0 ] && aur=" · ${aur_count} AUR"
+tooltip="$name\n󰒃 $host\n󰍹 $kernel\n󰅐 $up\n󰏗 ${pkgs}${aur}\n󰻟 $cpu\n󰍹 $mem"
+distro_id=$(grep "^ID=" /etc/os-release 2>/dev/null | cut -d= -f2 | tr -d '"')
+case "$distro_id" in
+    nixos) icon="";; arch) icon="󰣇";; manjaro) icon="󰣈";;
+    endeavouros) icon="󰣕";; cachyos) icon="󰣤";;
+    *) icon="󰌽";;
+esac
+echo "{\"text\":\"$icon\",\"tooltip\":\"$tooltip\"}"

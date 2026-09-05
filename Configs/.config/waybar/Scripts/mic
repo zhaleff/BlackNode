@@ -1,3 +1,4 @@
 #!/usr/bin/env bash
-_DIR="$(dirname "$(readlink -f "$0")")"
-exec env PYTHONPATH="$_DIR/lib${PYTHONPATH:+:$PYTHONPATH}" python3 -m bnwb.mic "$@"
+apps=$(pactl list source-outputs 2>/dev/null | awk -F= '/application\.name/{gsub(/"/,"",$2); printf "%s, ", $2}' | sed 's/, $//')
+[ -z "$apps" ] && echo '{"text":"󰍭","tooltip":"Mic idle","class":"idle"}' && exit 0
+echo "{\"text\":\"󰍬\",\"tooltip\":\"Mic: $apps\",\"class\":\"mic-active\"}"

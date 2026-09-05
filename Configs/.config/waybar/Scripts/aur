@@ -1,3 +1,7 @@
 #!/usr/bin/env bash
-_DIR="$(dirname "$(readlink -f "$0")")"
-exec env PYTHONPATH="$_DIR/lib${PYTHONPATH:+:$PYTHONPATH}" python3 -m bnwb.aur "$@"
+helper=$(command -v paru || command -v yay)
+[ -z "$helper" ] && echo '{"text":"","tooltip":"AUR helper not found","class":"error"}' && exit 0
+total=$($helper -Qua 2>/dev/null | wc -l)
+[ "$total" -eq 0 ] && echo '{"text":"","tooltip":"AUR up to date","class":"none"}' && exit 0
+cls="normal"; [ "$total" -ge 30 ] && cls="critical"; [ "$total" -ge 10 ] && [ "$total" -lt 30 ] && cls="warning"
+echo "{\"text\":\"󰣇 $total\",\"tooltip\":\"$total AUR updates pending\",\"class\":\"$cls\"}"

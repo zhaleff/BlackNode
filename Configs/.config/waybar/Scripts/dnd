@@ -1,3 +1,7 @@
 #!/usr/bin/env bash
-_DIR="$(dirname "$(readlink -f "$0")")"
-exec env PYTHONPATH="$_DIR/lib${PYTHONPATH:+:$PYTHONPATH}" python3 -m bnwb.dnd "$@"
+[ "${1:-}" = "toggle" ] && dunstctl set-paused toggle 2>/dev/null && exit 0
+if dunstctl is-paused 2>/dev/null | grep -q true; then
+    echo '{"text":"󰂛","tooltip":"DND: On","class":"dnd-active"}'
+else
+    echo '{"text":"󰂚","tooltip":"DND: Off","class":"dnd-inactive"}'
+fi
