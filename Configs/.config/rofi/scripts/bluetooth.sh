@@ -80,12 +80,14 @@ main_menu() {
 
     local choice
     choice=$(printf '%s\n' \
+        "  Back" \
         "  Scan Devices" \
         "  Paired Devices" \
         "󰅖  $toggle_label" \
         | rofi -dmenu -theme "$THEME" -p "󰂯 Bluetooth")
 
     case "$choice" in
+        *"Back")            exec bash "$ROFI_DIR/scripts/launcher.sh" ;;
         *"Scan Devices")   scan_devices ;;
         *"Paired Devices") paired_devices ;;
         *"Turn Off"*)      toggle_bluetooth; main_menu ;;

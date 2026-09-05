@@ -129,6 +129,7 @@ volume_control() {
     [ "$mic_muted" -gt 0 ] && mic_icon="" || mic_icon="󰍭"
 
     CHOICE=$(printf '%s\n' \
+        "  Back" \
         "󰕾  Volume $vol%" \
         "󰝝  Volume +10%" \
         "󰝞  Volume -10%" \
@@ -138,6 +139,7 @@ volume_control() {
         | rofi -dmenu -theme "$THEME" -p "Audio")
 
     case "$CHOICE" in
+        *"Back")           exec bash "$ROFI_DIR/scripts/launcher.sh" ;;
         *"Volume"*)
             if [[ "$CHOICE" == *"+10%"* ]]; then
                 wpctl set-volume @DEFAULT_AUDIO_SINK@ 10%+ && notify-send "Audio" "+10%"

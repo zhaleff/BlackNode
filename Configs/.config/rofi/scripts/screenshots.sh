@@ -9,6 +9,7 @@ for bin in grim slurp satty wl-copy hyprctl jq; do
 done
 
 choice=$(printf '%s\n' \
+    "  Back" \
     "󰆞  Region" \
     "󰖯  Window" \
     "󰍹  Output" \
@@ -16,6 +17,7 @@ choice=$(printf '%s\n' \
     | rofi -dmenu -theme "$THEME" -p "Screenshot")
 
 [ -z "$choice" ] && exit 0
+[[ "$choice" == "Back" ]] && exec bash "$ROFI_DIR/scripts/launcher.sh"
 
 outfile="$SHOTS_DIR/satty-$(date '+%Y%m%d-%H%M%S').png"
 
