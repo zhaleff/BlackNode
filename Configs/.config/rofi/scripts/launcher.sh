@@ -6,6 +6,7 @@ choice=$(printf '%s\n' \
     "󰤨  WiFi" \
     "󰂯  Bluetooth" \
     "󰕾  Audio" \
+    "󰎈  Music" \
     "󰌾  Clipboard" \
     "󰆞  Screenshots" \
     "󰸉  Wallpaper" \
@@ -18,6 +19,7 @@ case "$choice" in
     *"WiFi")        exec bash "$ROFI_DIR/scripts/wifi.sh" ;;
     *"Bluetooth")   exec bash "$ROFI_DIR/scripts/bluetooth.sh" ;;
     *"Audio")       exec bash "$ROFI_DIR/scripts/audio.sh" ;;
+    *"Music")       exec bash "$ROFI_DIR/scripts/music.sh" ;;
     *"Clipboard")   exec bash "$ROFI_DIR/scripts/clipboard.sh" ;;
     *"Screenshots") exec bash "$ROFI_DIR/scripts/screenshots.sh" ;;
     *"Wallpaper")   exec bash "$ROFI_DIR/scripts/wallselect.sh" ;;
