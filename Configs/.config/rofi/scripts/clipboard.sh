@@ -1,127 +1,60 @@
 #!/usr/bin/env bash
-source "$HOME/.config/rofi/lib/init.sh"
-APP_NAME="Clipboard"
+ROFI_DIR="$HOME/.config/rofi"
+THEME="$ROFI_DIR/themes/presets/submenu.rasi"
 
-pins_dir="$HOME/.local/share/clipshit/pins"
-thumb_dir="/tmp/clipshit-thumbs"
-mkdir -p "$pins_dir" "$thumb_dir"
+for bin in cliphist wl-copy; do
+    command -v "$bin" >/dev/null 2>&1 || { notify-send "Clipboard" "Missing: $bin"; exit 1; }
+done
 
-notify() {
-    dunstify -h string:x-dunst-stack-tag:clip_notif -t "${2:-2000}" -u "${3:-normal}" "Clipboard" "$1"
-}
-
-get_thumb() {
-    local id="$1"
-    local thumb="$thumb_dir/$id.png"
-    [[ -f "$thumb" ]] || cliphist decode "$id" 2>/dev/null > "$thumb"
-    echo "$thumb"
-}
-
-build_list() {
-    for f in "$pins_dir"/*; do
-        [[ -e "$f" ]] || continue
-        local name
-        name=$(basename "$f")
-        if file "$f" | grep -qi image; then
-            echo -e "pin\t$name\0icon\x1f$f"
+show_history() {
+    local list
+    list=$(cliphist list 2>/dev/null)
+    [ -z "$list" ] && { notify-send "Clipboard" "Clipboard is empty"; main_menu; return; }
+    local input=""
+    while IFS=$'\t' read -r id content; do
+        [ -z "$id" ] && continue
+        if [[ "$content" == "binary data"* ]]; then
+            input+="󰌾  Image"$'\n'
         else
             local preview
-            preview=$(head -c 80 "$f" | tr '\n' ' ')
-            echo -e "pin\t\uf08d  $preview"
+            preview=$(echo "$content" | head -c 60 | tr '\n' ' ')
+            input+="${preview}"$'\n'
         fi
-    done
-
-    cliphist list | while IFS=$'\t' read -r id content; do
-        if [[ "$content" == "binary data"* ]]; then
-            local thumb
-            thumb=$(get_thumb "$id")
-            echo -e "hist:$id\t\uf03e  Image\0icon\x1f$thumb"
-        else
-            echo -e "hist:$id\t$content"
-        fi
-    done
+    done <<< "$list"
+    local selected
+    selected=$(printf '%s\n' "  Back" "$input" | rofi -dmenu -theme "$THEME" -p "Clipboard" -l 10)
+    [ -z "$selected" ] && main_menu && return
+    [[ "$selected" == *"Back" ]] && main_menu && return
+    local idx
+    idx=$(printf '%s' "$list" | grep -n -F "$selected" | head -1 | cut -d: -f1)
+    [ -z "$idx" ] && main_menu && return
+    local raw_id
+    raw_id=$(printf '%s' "$list" | sed -n "${idx}p" | cut -f1)
+    [ -z "$raw_id" ] && main_menu && return
+    cliphist decode "$raw_id" 2>/dev/null | wl-copy
+    notify-send "Clipboard" "Copied"
+    main_menu
 }
 
-copy_entry() {
-    local key="$1"
-    if [[ "$key" == pin ]]; then
-        wl-copy < "$2"
-    else
-        cliphist decode "${key#hist:}" | wl-copy
-    fi
+wipe_clipboard() {
+    cliphist wipe 2>/dev/null
+    wl-copy -c 2>/dev/null
+    notify-send "Clipboard" "Clipboard wiped"
 }
 
-delete_entry() {
-    local key="$1"
-    if [[ "$key" == pin ]]; then
-        rm -f "$pins_dir/$2"
-    else
-        cliphist list | grep "^${key#hist:}"$'\t' | cliphist delete
-    fi
-}
+main_menu() {
+    local choice
+    choice=$(printf '%s\n' \
+        "  Back" \
+        "󰌾  History" \
+        "󰍴  Wipe" \
+        | rofi -dmenu -theme "$THEME" -p "Clipboard")
 
-pin_entry() {
-    local key="$1"
-    local id="${key#hist:}"
-    local target="$pins_dir/pin_$(date +%s%N)"
-    cliphist decode "$id" > "$target"
-    notify "Pinned" 1500
-}
-
-wipe_flow() {
-    yes=''
-    no=''
-    confirmation=$(echo -e "<span foreground='#a6e3a1'>$yes</span>\n<span foreground='#f38ba8'>$no</span>" |
-        rmenu "$(t confirmation)" -p 'Confirmation' -mesg 'Are you sure?' -markup-rows)
-
-    if [[ $confirmation =~ "$yes" ]]; then
-        cliphist wipe
-        wl-copy -c
-        notify "Clipboard has been wiped" 4000 critical
-    fi
-}
-
-main() {
-    if [[ -z $(cliphist list) && -z $(ls -A "$pins_dir" 2>/dev/null) ]]; then
-        notify "Clipboard is empty" 4000 critical
-        exit
-    fi
-
-    local wipe_label=$'\uf1f8   Wipe Clipboard'
-    local list
-    list=$(build_list)
-
-    local raw
-    raw=$(printf "%s\n%s" "$wipe_label" "$list" | rmenu "$(t clipboard-list)" \
-        -markup-rows -show-icons \
-        -display-columns 2 -p "Clipboard" \
-        -kb-custom-1 "Alt+d" \
-        -kb-custom-2 "Alt+p")
-    local ec=$?
-
-    [[ -z "$raw" ]] && exit
-
-    if [[ "$raw" == *"Wipe Clipboard"* ]]; then
-        wipe_flow
-        exit
-    fi
-
-    local key="${raw%%$'\t'*}"
-    local label="${raw#*$'\t'}"
-
-    case $ec in
-        0)
-            copy_entry "$key" "$label"
-            notify "Copied — press Ctrl+V to paste"
-            ;;
-        10)
-            delete_entry "$key" "$label"
-            notify "Entry deleted" 1500
-            ;;
-        11)
-            [[ "$key" == pin ]] || pin_entry "$key"
-            ;;
+    case "$choice" in
+        *"Back")    exec bash "$ROFI_DIR/scripts/launcher.sh" ;;
+        *"History") show_history ;;
+        *"Wipe")    wipe_clipboard ;;
     esac
 }
 
-main
+main_menu
