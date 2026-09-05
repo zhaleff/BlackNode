@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
-# BlackNode Persevere — struggle detection and companionship
-# Detects long sessions with no visible progress, sends micro-step messages
 set -euo pipefail
+source "$(dirname "$(readlink -f "$0")")/../lib/bn-core.sh"
 
 CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/blacknode"
 CACHE_MSGS="$CACHE_DIR/psych-messages.json"
@@ -10,8 +9,6 @@ STATE_DIR="$HOME/.local/share/blacknode"
 IDENTITY="$STATE_DIR/identity.json"
 COOLDOWN_FILE="$STATE_DIR/psych/persevere_cooldown"
 SESSION_START="$STATE_DIR/psych/session_start"
-LAST_NOTIFIED="$STATE_DIR/psych/persevere_last_notified"
-FOCUS_LOG="$STATE_DIR/psych/focus_log"
 STRUGGLE_COUNT="$STATE_DIR/psych/struggle_count"
 mkdir -p "$STATE_DIR/psych"
 
@@ -25,7 +22,7 @@ fetch_messages() {
 is_on_cooldown() {
   [[ -f "$COOLDOWN_FILE" ]] || return 1
   local elapsed=$(( $(date +%s) - $(cat "$COOLDOWN_FILE") ))
-  [[ $elapsed -lt 5400 ]]  # 90 min cooldown per struggle session
+  [[ $elapsed -lt 5400 ]]
 }
 
 set_cooldown() {
@@ -33,75 +30,39 @@ set_cooldown() {
 }
 
 detect_struggle_session() {
-  local active_windows
+  local active_windows class
   active_windows=$(hyprctl activewindow -j 2>/dev/null || echo '{}')
-  local class
   class=$(echo "$active_windows" | python3 -c "import sys,json; print(json.load(sys.stdin).get('class',''))" 2>/dev/null || echo "")
 
-  # Struggle candidates: editors, terminals (long sessions with low output)
-  local struggle_classes="Alacritty kitty wezterm foot urxvt gnome-terminal Code code-oss neovim vim emacs idea phpstorm webstorm pycharm intellij"
+  local struggle_classes="Alacritty kitty wezterm foot Code code-oss neovim vim"
   local is_struggle=false
   for c in $struggle_classes; do
-    if [[ "$class" == "$c" ]]; then
-      is_struggle=true
-      break
-    fi
+    [[ "$class" == "$c" ]] && is_struggle=true && break
   done
-
   $is_struggle || return 1
 
-  # Check session duration
-  if [[ ! -f "$SESSION_START" ]]; then
-    date +%s > "$SESSION_START"
-    return 1
-  fi
+  [[ ! -f "$SESSION_START" ]] && { date +%s > "$SESSION_START"; return 1; }
 
-  local session_start
+  local session_start now elapsed
   session_start=$(cat "$SESSION_START")
-  local now
   now=$(date +%s)
-  local elapsed=$((now - session_start))
-
-  # Need at least 30 min to detect struggle
+  elapsed=$((now - session_start))
   [[ $elapsed -lt 1800 ]] && return 1
 
-  # Check for low git activity or low file changes
-  local git_activity=false
   local repo_path
   repo_path=$(find "$HOME" -name ".git" -maxdepth 4 -type d 2>/dev/null | head -5 | shuf -n1)
   if [[ -n "$repo_path" ]]; then
     repo_path=$(dirname "$repo_path")
     local recent_commits
     recent_commits=$(git -C "$repo_path" log --oneline --since="30 minutes ago" 2>/dev/null | wc -l)
-    [[ $recent_commits -ge 1 ]] && git_activity=true
+    [[ $recent_commits -ge 1 ]] && { date +%s > "$SESSION_START"; return 1; }
   fi
 
-  # If there's git activity, less likely struggling
-  if $git_activity; then
-    # Reset timer if making progress
-    date +%s > "$SESSION_START"
-    return 1
-  fi
-
-  # Check for low diff activity in open projects
-  local has_changes=false
-  if [[ -n "$repo_path" ]]; then
-    local changes
-    changes=$(git -C "$repo_path" diff --stat 2>/dev/null | tail -1 | grep -oP '\d+' | head -1 || echo 0)
-    [[ $changes -ge 5 ]] && has_changes=true
-  fi
-
-  if ! $has_changes; then
-    # Increment struggle count
-    local count=0
-    [[ -f "$STRUGGLE_COUNT" ]] && count=$(cat "$STRUGGLE_COUNT")
-    count=$((count + 1))
-    echo "$count" > "$STRUGGLE_COUNT"
-
-    # Need at least 2 consecutive struggle detections to trigger
-    [[ $count -ge 2 ]] && return 0
-  fi
-
+  local count=0
+  [[ -f "$STRUGGLE_COUNT" ]] && count=$(cat "$STRUGGLE_COUNT")
+  count=$((count + 1))
+  echo "$count" > "$STRUGGLE_COUNT"
+  [[ $count -ge 2 ]] && return 0
   return 1
 }
 
@@ -139,7 +100,6 @@ try:
             pool = block[k]
             if isinstance(pool, list) and pool:
                 print(random.choice(pool)); return
-    # fallback to first
     for k in block:
         pool = block[k]
         if isinstance(pool, list) and pool:
@@ -151,10 +111,8 @@ except: pass
 main() {
   local msgs
   msgs=$(fetch_messages)
-
   is_on_cooldown && exit 0
 
-  # Check for late night detection (independent of struggle)
   local hour_utc
   hour_utc=$(date -u +%H)
   hour_utc=$((10#$hour_utc))
@@ -163,8 +121,7 @@ main() {
   icon="$(bn-icon persevere-present)"
 
   if [[ $hour_utc -ge 22 ]] || [[ $hour_utc -le 5 ]]; then
-    # Late night presence
-    body=$(get_late_night_message "$msgs" "$hour_utc")
+    body=$(get_late_night_message "$msgs" "$hour_utc)
     if [[ -n "$body" ]]; then
       title="Late hours"
       dunstify -a "BlackNode" -i "$icon" -t 8000 "$title" "$body"
@@ -173,22 +130,16 @@ main() {
     fi
   fi
 
-  # Try struggle detection
   if detect_struggle_session; then
-    # Multiple message types alternating
     local section=""
     local roll=$((RANDOM % 100))
     if [[ $roll -lt 25 ]]; then
       section="presence"
-      icon="$(bn-icon persevere-present)"
     elif [[ $roll -lt 50 ]]; then
       section="reframe"
-      icon="$(bn-icon persevere-present)"
     elif [[ $roll -lt 75 ]]; then
       section="micro_step"
-      icon="$(bn-icon persevere-step)"
     else
-      # identity anchor — reference past success
       local closes streak
       closes=$(python3 -c "import json; print(json.load(open('$IDENTITY')).get('clean_closes',0))" 2>/dev/null || echo 0)
       streak=$(python3 -c "import json; print(json.load(open('$IDENTITY')).get('streak_current',0))" 2>/dev/null || echo 0)
@@ -202,9 +153,7 @@ main() {
     fi
 
     body=$(get_message "$msgs" "$section")
-    if [[ -z "$body" ]]; then
-      body="Keep going. I know you can."
-    fi
+    [[ -z "$body" ]] && body="Keep going. I know you can."
 
     dunstify -a "BlackNode" -i "$icon" -t 8000 "I'm here" "$body"
     set_cooldown

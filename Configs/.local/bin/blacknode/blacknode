@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-
 BLACKNODE_BIN="$(cd "$(dirname "$0")" && pwd)"
 export PATH="$BLACKNODE_BIN:$PATH"
 
@@ -28,7 +27,7 @@ version() {
 }
 
 doctor() {
-    local ok=0 warn=0 fail=0
+    local ok=0 fail=0
     check() {
         local name="$1" cond="$2"
         if eval "$cond" >/dev/null 2>&1; then
@@ -36,9 +35,6 @@ doctor() {
         else
             echo "  [FAIL] $name"; fail=$((fail+1))
         fi
-    }
-    warn_fn() {
-        echo "  [warn] $1"; warn=$((warn+1))
     }
 
     echo "BlackNode doctor"
@@ -48,34 +44,29 @@ doctor() {
     check "hyprctl available" "command -v hyprctl"
     check "waybar running" "pgrep -x waybar"
     check "dunst running" "pgrep -x dunst"
-    check "behavior schema" "[[ -f '$REPO/Configs/.local/share/blacknode/behavior.schema.json' ]]"
     check "active profile set" "[[ -f '$ACTIVE_FILE' ]]"
 
     local active profile_count
     active="$([[ -f "$ACTIVE_FILE" ]] && cat "$ACTIVE_FILE" || echo none)"
     profile_count="$(find -L "$PROFILE_DIR" -maxdepth 1 -mindepth 1 -type d 2>/dev/null | wc -l)"
     echo "active profile: $active | profiles available: $profile_count"
-    echo "summary: $ok ok, $warn warn, $fail fail"
+    echo "summary: $ok ok, $fail fail"
     [[ "$fail" -eq 0 ]]
 }
 
 profile() {
     if [[ -z "$1" ]]; then
-        "$BLACKNODE_BIN/scripts/profiles/menu.sh"
+        echo "usage: blacknode profile <name>"
         return
     fi
     [[ -d "$PROFILE_DIR/$1" || "$1" == "default" ]] || { echo "unknown profile: $1"; return 1; }
-    "$BLACKNODE_BIN/scripts/profiles/menu.sh" select "$1" 2>/dev/null || \
-        echo "$1" > "$ACTIVE_FILE"
-}
-
-theme() {
-    "$BLACKNODE_BIN/scripts/theme/menu.sh"
+    echo "$1" > "$ACTIVE_FILE"
+    echo "switched to profile: $1"
 }
 
 patterns() {
     local beh="$BASE/behavior.json"
-    [[ -f "$beh" ]] || { echo "no behavior data yet (run blacknode-learn or use the system)"; return; }
+    [[ -f "$beh" ]] || { echo "no behavior data yet"; return; }
     python3 - "$beh" <<'PY'
 import json, sys
 b = json.load(open(sys.argv[1]))
@@ -103,96 +94,27 @@ for k in sorted(dis, key=lambda k: -dis[k])[:5]:
 PY
 }
 
-whatsnew() {
-    local dir="$BASE"
-    local cache="$dir/changelog.cached.json"
-    local local_src="$REPO/Configs/.local/share/blacknode/changelog.json"
-    local raw="https://raw.githubusercontent.com/zhaleff/BlackNode/main/Configs/.local/share/blacknode/changelog.json"
-    local src=""
-    if curl -fsSL --max-time 8 "$raw" -o "$cache" 2>/dev/null && [[ -s "$cache" ]]; then src="$cache"
-    elif [[ -s "$local_src" ]]; then src="$local_src"
-    elif [[ -s "$cache" ]]; then src="$cache"
-    else echo "no changelog available"; return; fi
-
-    local seen="$dir/seen_changelog.json"
-    [[ -f "$seen" ]] || echo '{"seen":[]}' > "$seen"
-
-    if [[ "${1:-}" == "--ping" ]]; then
-        python3 - "$src" "$seen" <<'PY'
-import json, sys
-src, seen = sys.argv[1], sys.argv[2]
-entries = json.load(open(src)).get("entries", [])
-seen_ids = set(json.load(open(seen)).get("seen", []))
-n = len([e for e in entries if e["id"] not in seen_ids])
-print(f"you have {n} update(s) unseen" if n else "all caught up")
-PY
-        return
-    fi
-
-    python3 - "$src" "$seen" <<'PY'
-import json, sys
-src, seen = sys.argv[1], sys.argv[2]
-entries = json.load(open(src)).get("entries", [])
-seen_ids = set(json.load(open(seen)).get("seen", []))
-print("What's New")
-print("----------")
-for e in entries:
-    mark = " " if e["id"] in seen_ids else "*"
-    sev = e.get("severity", "info").upper()
-    print(f" [{mark}] {e.get('date','')}  {sev:<7} {e['title']}")
-    print(f"     {e.get('body','')}")
-print()
-print("(* = unseen)  run 'blacknode whatsnew --read' to mark all seen")
-PY
-}
-
-markseen() {
-    local dir="$BASE"
-    local cache="$dir/changelog.cached.json"
-    local local_src="$REPO/Configs/.local/share/blacknode/changelog.json"
-    local src=""
-    [[ -s "$cache" ]] && src="$cache" || src="$local_src"
-    [[ -f "$src" ]] || { echo "no changelog"; return; }
-    local seen="$dir/seen_changelog.json"
-    [[ -f "$seen" ]] || echo '{"seen":[]}' > "$seen"
-    python3 - "$src" "$seen" <<'PY'
-import json, sys
-src, seen = sys.argv[1], sys.argv[2]
-ids = [e["id"] for e in json.load(open(src)).get("entries", [])]
-json.dump({"seen": ids}, open(seen, "w"), indent=2)
-print("marked all entries as seen")
-PY
-}
-
 usage() {
     cat <<EOF
 BlackNode - your home in the terminal.
 
 Usage: blacknode <command> [args]
 
-  version                   show ecosystem version + tagline
-  doctor                    health check of the whole ecosystem
-  help                      open the interactive tutorial (onboarding tour)
-  profile [name]            switch profile (music/study/coding/astronomy) or open picker
-  theme                     open theme/wallpaper picker
-  patterns                  show your behavior patterns (CLI)
-  whatsnew [--read]         show changelog in CLI (--read marks all seen)
-  greet                     show the contextual greeter now
-  continuity {save|restore} session continuity
-  health                    quick system health menu
+  version        show ecosystem version + tagline
+  doctor         health check of the whole ecosystem
+  profile <name> switch profile (music/study/coding/astronomy)
+  patterns       show your behavior patterns (CLI)
+  greet          show the contextual greeter now
+  continuity     session continuity (save/restore)
 EOF
 }
 
 case "${1:-help}" in
     version|--version|-v) version ;;
     doctor) doctor ;;
-    help) "$BLACKNODE_BIN/help" ;;
     profile) shift; profile "$@" ;;
-    theme) theme ;;
     patterns) patterns ;;
-    whatsnew) shift; case "${1:-}" in --read) markseen ;; *) whatsnew "$1" ;; esac ;;
-    greet) "$BLACKNODE_BIN/blacknode-greeter.sh" "$2" ;;
-    continuity) shift; "$BLACKNODE_BIN/blacknode-continuity.sh" "$@" ;;
-    health) "$BLACKNODE_BIN/scripts/health/menu.sh" ;;
+    greet) "$BLACKNODE_BIN/greeter" ;;
+    continuity) shift; "$BLACKNODE_BIN/continuity" "$@" ;;
     help|--help|-h|*) usage ;;
 esac

@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
+source "$(dirname "$(readlink -f "$0")")/../lib/bn-core.sh"
 
 CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/blacknode"
 CACHE_MSGS="$CACHE_DIR/psych-messages.json"
@@ -18,7 +19,7 @@ fetch_messages() {
 
 pick() {
   echo "$1" | python3 -c "
-import sys, json, random, string
+import sys, json, random
 try:
     data = json.load(sys.stdin)
     if isinstance(data, list) and data:
@@ -29,12 +30,12 @@ except: pass
 
 period_title() {
   case "$1" in
-    dawn)     echo "First light close" ;;
-    morning)  echo "Morning close" ;;
+    dawn)      echo "First light close" ;;
+    morning)   echo "Morning close" ;;
     afternoon) echo "Afternoon close" ;;
-    evening)  echo "Day close" ;;
-    night)    echo "Night close" ;;
-    *)        echo "Conscious close" ;;
+    evening)   echo "Day close" ;;
+    night)     echo "Night close" ;;
+    *)         echo "Conscious close" ;;
   esac
 }
 
@@ -42,7 +43,6 @@ main() {
   local msgs
   msgs=$(fetch_messages)
 
-  # Racha = días consecutivos con cierre limpio: 1 close por día máximo.
   if [[ -f "$IDENTITY" ]]; then
     local last_day today
     last_day=$(python3 -c "import json;d=json.load(open('$IDENTITY'));print(str(d.get('last_close','')).split('T')[0])" 2>/dev/null || echo "")
@@ -121,13 +121,13 @@ if pool: print(random.choice(pool))
     extras="$extras  $im"
   fi
 
-  local icon="$(bn-icon shutdown-done)"
-  local title
+  local icon title body
+  icon="$(bn_icon shutdown-done)"
   title=$(period_title "$period")
-  local body="$rawinfo"
+  body="$rawinfo"
   [[ -n "$extras" ]] && body="$body\n\n$extras"
 
-  dunstify -a "BlackNode" -i "$icon" -t 10000 "$title" "$body"
+  bn_dunst "$title" "$body" "$icon" 10000
 
   if [[ -f "$IDENTITY" ]]; then
     python3 -c "

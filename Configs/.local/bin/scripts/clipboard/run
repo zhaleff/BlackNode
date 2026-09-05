@@ -1,4 +1,0 @@
-#!/usr/bin/env bash
-# Clipboard module — fire-and-forget clipse in a kitty window.
-
-(kitty -e clipse &) 2>/dev/null || notify-send "Clipboard" "kitty is required to run clipse"

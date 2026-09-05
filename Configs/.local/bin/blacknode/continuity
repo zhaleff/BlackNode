@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
-
 set -euo pipefail
 
 STATE_DIR="$HOME/.local/share/blacknode"
 STATE="$STATE_DIR/session_state.json"
 REPO="$HOME/BlackNode"
-THEME="$HOME/.config/rofi/styles/submenu.rasi"
+THEME="$HOME/.config/rofi/themes/presets/submenu.rasi"
 
 save_state() {
     mkdir -p "$STATE_DIR"
+    local profile branch dirty recent_notes
     profile="$([[ -f "$STATE_DIR/active_profile" ]] && cat "$STATE_DIR/active_profile" || echo default)"
     branch=""; dirty=0
     if [[ -d "$REPO/.git" ]]; then
@@ -31,29 +31,30 @@ PY
 
 offer_restore() {
     [[ -f "$STATE" ]] || return 0
+    local profile dirty rn active
     profile="$(python3 -c "import json;print(json.load(open('$STATE')).get('profile','default'))")"
     dirty="$(python3 -c "import json;print(json.load(open('$STATE')).get('dirty_repo',0))")"
     rn="$(python3 -c "import json;print(json.load(open('$STATE')).get('recent_notes',0))")"
     active="$([[ -f "$STATE_DIR/active_profile" ]] && cat "$STATE_DIR/active_profile" || echo default)"
-    lines=()
+
+    local lines=()
     [[ "$profile" != "$active" && "$profile" != "default" ]] && lines+=("󰏔  Resume profile: $profile")
     [[ "$dirty" == "1" ]] && lines+=("󰈙  Uncommitted changes in BlackNode")
     [[ "$rn" -gt 0 ]] && lines+=("󰏟  Open recent notes ($rn)")
-
     [[ ${#lines[@]} -eq 0 ]] && return 0
 
-    choice=$(printf '%s\n' "${lines[@]}" "󰸋  Dismiss" | rofi -dmenu -i -p " Resume" -theme "$THEME")
-    [[ -z "$choice" || "$choice" == "󰸋  Dismiss" ]] && return 0
+    local choice
+    choice=$(printf '  Back\n%s\n' "${lines[@]}" | rofi -dmenu -i -p " Resume" -theme "$THEME")
+    [[ -z "$choice" || "$choice" == "Back" ]] && return 0
 
     case "$choice" in
-        "󰏔  Resume profile: $profile")
+        *"Resume profile"*)
             echo "$profile" > "$STATE_DIR/active_profile"
-            "$HOME/.config/rofi/scripts/profiles.sh" >/dev/null 2>&1 &
             ;;
-        "󰈙  Uncommitted changes in BlackNode")
+        *"Uncommitted changes"*)
             kitty -e bash -c "git -C '$REPO' status; exec bash" & disown
             ;;
-        "󰏟  Open recent notes ($rn)")
+        *"Open recent notes"*)
             kitty -e nvim "$HOME/BlackNode/Notes" & disown
             ;;
     esac

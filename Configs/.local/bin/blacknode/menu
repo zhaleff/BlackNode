@@ -1,17 +1,6 @@
 #!/usr/bin/env bash
-# BlackNode hub menu — thin entrypoint.
-#
-# All logic lives in lib/ (domain core) + adapters/ (presentation).
-# To add a module: drop a manifest in modules.d/*.conf. Nothing else.
-# Architecture docs: see the header of lib/bn-menu-core.sh
+# BlackNode user menu: one entrypoint, rofi owns the interaction.
 
-set -u
-BN_ROOT="$(cd "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")" && pwd)"
-export BN_ROOT
-export PATH="$BN_ROOT:$PATH"
-export BN_SCRIPTS="$BN_ROOT/../scripts"
+set -euo pipefail
 
-# shellcheck source=lib/bn-menu-core.sh
-source "$BN_ROOT/lib/bn-menu-core.sh"
-
-bn_menu_main
+exec "$HOME/.config/rofi/scripts/launcher.sh"

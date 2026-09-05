@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-
 ASSETS_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/fastfetch/assets"
 CURRENT_LINK="$ASSETS_DIR/current.png"
 

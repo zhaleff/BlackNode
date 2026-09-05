@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
-# BlackNode Identity Reinforce — evidence-based identity reinforcement
-# Reads ~/.local/share/blacknode/identity.json, notifies on milestones with variable reinforcement
 set -euo pipefail
+source "$(dirname "$(readlink -f "$0")")/../lib/bn-core.sh"
 
 CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/blacknode"
 CACHE_MSGS="$CACHE_DIR/psych-messages.json"
@@ -9,11 +8,8 @@ REPO_MSGS="https://raw.githubusercontent.com/zhaleff/blacknode/main/Configs/.loc
 STATE_DIR="$HOME/.local/share/blacknode"
 IDENTITY="$STATE_DIR/identity.json"
 COOLDOWN_FILE="$STATE_DIR/psych/identity_cooldown"
-INTENTION_FILE="$STATE_DIR/psych/intention.txt"
-FULFILLED_FILE="$STATE_DIR/psych/intention_fulfilled.txt"
 mkdir -p "$STATE_DIR/psych"
 
-# ensure identity.json exists
 if [[ ! -f "$IDENTITY" ]]; then
   cat > "$IDENTITY" <<'EOF'
 {
@@ -26,9 +22,6 @@ if [[ ! -f "$IDENTITY" ]]; then
 }
 EOF
 fi
-if [[ ! -f "$STATE_DIR/psych/heatmap" ]]; then
-  echo "{}" > "$STATE_DIR/psych/heatmap"
-fi
 
 fetch_messages() {
   if [[ -f "$CACHE_MSGS" ]] && [[ $(($(date +%s) - $(stat -c %Y "$CACHE_MSGS" 2>/dev/null || echo 0))) -lt 3600 ]]; then
@@ -40,7 +33,6 @@ fetch_messages() {
 is_on_cooldown() {
   [[ -f "$COOLDOWN_FILE" ]] || return 1
   local elapsed=$(( $(date +%s) - $(cat "$COOLDOWN_FILE") ))
-  # identity cooldown: at minimum 12h, actual reinforcement schedule varies
   [[ $elapsed -lt 43200 ]]
 }
 
@@ -157,14 +149,12 @@ main() {
 
   local reason=""
 
-  # Check if streak was broken (we were >0 and now 0 with old streak cached)
   local prev_streak=0
   [[ -f "$STATE_DIR/psych/prev_streak" ]] && prev_streak=$(cat "$STATE_DIR/psych/prev_streak")
   if [[ $prev_streak -gt 0 && $streak -lt $prev_streak ]]; then
     reason="broken"
   fi
 
-  # Check milestones
   local milestones="7 14 21 30 50 100"
   local milestone_msg=""
   for m in $milestones; do
@@ -176,7 +166,6 @@ main() {
   done
 
   if [[ "$reason" != "milestone" ]]; then
-    # Check streak milestones
     local smilestones="3 7 14 30 60 100"
     for m in $smilestones; do
       if [[ $streak -eq $m ]]; then
@@ -189,13 +178,9 @@ main() {
 
   if [[ -z "$reason" ]]; then
     is_on_cooldown && exit 0
-    # Variable reinforcement: random check if we're doing well
-    # 30% chance on normal days
     if [[ $closes -gt 0 ]]; then
       local roll=$((RANDOM % 100))
-      if [[ $roll -lt 30 ]]; then
-        reason="variable"
-      fi
+      [[ $roll -lt 30 ]] && reason="variable"
     fi
   fi
 
@@ -206,7 +191,6 @@ main() {
       icon="$(bn-icon identity-broken)"
       body=$(get_broken_message "$msgs")
       title="Broken streak"
-      # Save the broken message
       python3 -c "
 import json
 p = '$IDENTITY'
@@ -226,7 +210,6 @@ json.dump(d, open(p,'w'), indent=2)
       title="$streak days streak"
       ;;
     variable)
-      # Weekly review
       local week day closes_wk focus fulfilled
       week=$(date -u +%V)
       day=$(date -u +%u)

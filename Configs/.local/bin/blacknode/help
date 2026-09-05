@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-# Thin adapter: the real help is the interactive Rust tutorial.
-exec "$HOME/.local/bin/blacknode-tutorial" "$@"
