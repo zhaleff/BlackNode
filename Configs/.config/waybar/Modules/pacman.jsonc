@@ -1,8 +1,9 @@
 {
   "custom/pacman": {
-    "format": "󰮯 {}",
+    "format": "󰮯 {text}",
     "interval": 3600,
-    "exec": "checkupdates | wc -l",
+    "exec": "~/.config/waybar/Scripts/System/pkg.sh",
+    "return-type": "json",
     "tooltip": true,
     "exec-if": "bash -c 'count=$(checkupdates | wc -l); [ $count -gt 0 ]'",
     "on-click": "kitty -e zsh -c 'fastfetch && sleep 0.5 && sudo pacman -Syu; exec zsh'",
