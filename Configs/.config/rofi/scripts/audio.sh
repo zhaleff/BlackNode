@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
-
-R="$HOME/.config/rofi"
-MENU_THEME="$R/shared/menu.rasi"
-LIST_THEME="$R/styles/audio-list.rasi"
+ROFI_DIR="$HOME/.config/rofi"
+THEME="$ROFI_DIR/themes/presets/submenu.rasi"
 LOG="$HOME/.local/share/blacknode/music_history"
 COVERS="${XDG_RUNTIME_DIR:-/tmp}/rofi_covers"
 INPUT="${XDG_RUNTIME_DIR:-/tmp}/rofi_audio_input"
@@ -98,7 +96,7 @@ show_list() {
         download_art "$art_url" "$COVER"
         LABEL="$title"
         [ -n "$artist" ] && LABEL="$LABEL - $artist"
-        $FIRST && LABEL="$LABEL  " && FIRST=false
+        $FIRST && LABEL="$LABEL  " && FIRST=false
         ICON=""
         [ -f "$COVER" ] && ICON="$COVER"
         [ -z "$ICON" ] && [ -n "$FALLBACK" ] && ICON="$FALLBACK"
@@ -115,29 +113,10 @@ show_list() {
         case " $HASHS " in *" $H "*) ;; *) rm -f "$f" ;; esac
     done
 
-    [ ! -s "$INPUT" ] && notify-send "Audio" "No music history" && exit
-    SELECTED=$(rofi -dmenu -p "Recently Played" -theme "$LIST_THEME" < "$INPUT")
+    [ ! -s "$INPUT" ] && { notify-send "Audio" "No music history"; exit; }
+    SELECTED=$(rofi -dmenu -theme "$THEME" -p "Recently Played" < "$INPUT")
     [ -z "$SELECTED" ] && exit
-    notify-send "Audio" "$(echo "$SELECTED" | sed 's/  $//')"
-}
-
-list_sessions() {
-    local list=""
-    while IFS= read -r block; do
-        id=$(echo "$block" | awk '/^Sink Input/ {gsub(/.*#/, "", $3); print $3}')
-        name=$(echo "$block" | awk -F'"' '/application.name/ {print $2}')
-        mute=$(echo "$block" | awk '/Mute:/ {print $2}')
-        [ -z "$name" ] && continue
-        icon="󰝚"
-        [ "$mute" = "yes" ] && icon="󰝟"
-        list="${list}${icon} $name ($id)\n"
-    done < <(pactl list sink-inputs 2>/dev/null | sed -n '/Sink Input/,/^$/p')
-
-    [ -z "$list" ] && notify-send "Audio" "No active apps" && exit
-    SELECTED=$(printf '%b' "$list" | rofi -dmenu -p "Audio Apps" -theme "$LIST_THEME" -theme-str "listview { lines: 8; } window { width: 400px; }")
-    [ -z "$SELECTED" ] && exit
-    APP_ID=$(echo "$SELECTED" | sed 's/.*(\([0-9]*\)).*/\1/')
-    [ -n "$APP_ID" ] && pactl set-sink-input-mute "$APP_ID" toggle && list_sessions
+    notify-send "Audio" "$(echo "$SELECTED" | sed 's/  $//')"
 }
 
 volume_control() {
@@ -147,34 +126,56 @@ volume_control() {
     [ "$muted" -gt 0 ] && icon="󰝟" || icon="󰕾"
 
     mic_muted=$(wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | grep -c MUTED)
-    [ "$mic_muted" -gt 0 ] && mic_icon="" || mic_icon="󰍭"
+    [ "$mic_muted" -gt 0 ] && mic_icon="" || mic_icon="󰍭"
 
-    CHOICE=$(printf "$icon\n󰝝\n󰝞\n󰝚\n󰋲\n$mic_icon" | \
-        rofi -dmenu -p "$icon $vol%" -theme-str "listview { lines: 6; }" -theme "$R/shared/sidebar.rasi")
+    CHOICE=$(printf '%s\n' \
+        "󰕾  Volume $vol%" \
+        "󰝝  Volume +10%" \
+        "󰝞  Volume -10%" \
+        "󰝚  Apps" \
+        "󰋲  History" \
+        "$mic_icon  Mic" \
+        | rofi -dmenu -theme "$THEME" -p "Audio")
 
     case "$CHOICE" in
-        "$icon")
-            wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
-            local m=$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep -o MUTED || echo "unmuted")
-            notify-send "Audio" "$m"
-            volume_control ;;
-        "󰝝")
-            wpctl set-volume @DEFAULT_AUDIO_SINK@ 10%+
-            notify-send "Volume" "+10%" -h int:value:"$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{printf "%d", $2 * 100}')"
-            volume_control ;;
-        "󰝞")
-            wpctl set-volume @DEFAULT_AUDIO_SINK@ 10%-
-            notify-send "Volume" "-10%" -h int:value:"$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{printf "%d", $2 * 100}')"
-            volume_control ;;
-        "󰝚")
-            list_sessions ;;
-        "󰋲")
-            show_list ;;
-        "$mic_icon")
+        *"Volume"*)
+            if [[ "$CHOICE" == *"+10%"* ]]; then
+                wpctl set-volume @DEFAULT_AUDIO_SINK@ 10%+ && notify-send "Audio" "+10%"
+            elif [[ "$CHOICE" == *"-10%"* ]]; then
+                wpctl set-volume @DEFAULT_AUDIO_SINK@ 10%- && notify-send "Audio" "-10%"
+            else
+                wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+                local m=$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep -o MUTED || echo "unmuted")
+                notify-send "Audio" "$m"
+            fi
+            volume_control
+            ;;
+        *"Apps")
+            local list=""
+            while IFS= read -r block; do
+                id=$(echo "$block" | awk '/^Sink Input/ {gsub(/.*#/, "", $3); print $3}')
+                name=$(echo "$block" | awk -F'"' '/application.name/ {print $2}')
+                mute=$(echo "$block" | awk '/Mute:/ {print $2}')
+                [ -z "$name" ] && continue
+                icon="󰝚"
+                [ "$mute" = "yes" ] && icon="󰝟"
+                list="${list}${icon} $name ($id)\n"
+            done < <(pactl list sink-inputs 2>/dev/null | sed -n '/Sink Input/,/^$/p')
+            [ -z "$list" ] && { notify-send "Audio" "No active apps"; volume_control; return; }
+            SELECTED=$(printf '%b' "$list" | rofi -dmenu -theme "$THEME" -p "Audio Apps")
+            [ -z "$SELECTED" ] && { volume_control; return; }
+            APP_ID=$(echo "$SELECTED" | sed 's/.*(\([0-9]*\)).*/\1/')
+            [ -n "$APP_ID" ] && pactl set-sink-input-mute "$APP_ID" toggle && volume_control
+            ;;
+        *"History")
+            show_list
+            ;;
+        *"Mic")
             wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
             local m=$(wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | grep -o MUTED || echo "unmuted")
-            notify-send "Mic" "$m"
-            volume_control ;;
+            notify-send "Audio" "Mic: $m"
+            volume_control
+            ;;
     esac
 }
 

@@ -1,87 +1,95 @@
-#!/bin/bash
+#!/usr/bin/env bash
+ROFI_DIR="$HOME/.config/rofi"
+THEME="$ROFI_DIR/themes/presets/submenu.rasi"
+PASS_THEME="$ROFI_DIR/themes/features/wifi-password.rasi"
 
-R="$HOME/.config/rofi"
-MENU_THEME="$R/shared/sidebar.rasi"
-LIST_THEME="$R/styles/wifi-list.rasi"
-PASSWORD_THEME="$R/styles/wifi-password.rasi"
-SSID_THEME="$R/styles/wifi-ssid.rasi"
+if ! systemctl is-active --quiet NetworkManager; then
+    notify-send "WiFi" "NetworkManager is not running."
+    exit 1
+fi
 
-check_nm() {
-    if ! systemctl is-active --quiet NetworkManager; then
-        notify-send "Error" "NetworkManager is not running."
-        exit 1
+wifi_on() { [ "$(nmcli radio wifi 2>/dev/null)" = "enabled" ]; }
+
+connect_to_network() {
+    local ssid="$1"
+    if nmcli -t -f NAME connection show 2>/dev/null | grep -Fxq "$ssid"; then
+        nmcli connection up "$ssid" >/dev/null 2>&1 \
+            && notify-send "WiFi" "Connected to $ssid" \
+            || notify-send "WiFi" "Connection failed"
+        return
     fi
-}
-
-main_menu() {
-    local wifi_status=$(nmcli radio wifi)
-    if [[ "$wifi_status" == "enabled" ]]; then
-        local options=" \n \n󰤪 \n "
-    else
-        local options=" \n \n󰤨 \n "
-    fi
-    local choice
-    choice=$(printf '%b' "$options" | rofi -dmenu -p "󰤨" -theme-str "listview { lines: 4; }" -theme "$MENU_THEME")
-    case "$choice" in
-        " ") scan_networks ;;
-        " ") saved_connections ;;
-        "󰤪 ") nmcli radio wifi off && notify-send "WiFi" "WiFi disabled" && main_menu ;;
-        "󰤨 ") nmcli radio wifi on && notify-send "WiFi" "WiFi enabled" && main_menu ;;
-        " ") exit 0 ;;
-    esac
+    local password
+    password=$(rofi -dmenu -theme "$PASS_THEME" -p "Password for $ssid" -password)
+    [ -z "$password" ] && return
+    nmcli device wifi connect "$ssid" password "$password" >/dev/null 2>&1 \
+        && notify-send "WiFi" "Connected to $ssid" \
+        || notify-send "WiFi" "Connection failed"
 }
 
 scan_networks() {
-    nmcli device wifi rescan 2>/dev/null
-    sleep 2
+    nmcli device wifi rescan >/dev/null 2>&1
+    sleep 1
     local networks
-    networks=$(nmcli -f SSID,SIGNAL -t -m tabular device wifi list | sort -u)
+    networks=$(nmcli -t -f SSID,SIGNAL,SECURITY dev wifi list 2>/dev/null \
+        | awk -F: '$1 != "" {print $1 "  " $2 "%  " $3}' | sort -u)
     if [ -z "$networks" ]; then
         notify-send "WiFi" "No networks found."
         main_menu
         return
     fi
     local selected
-    selected=$(echo "$networks" | rofi -dmenu -p "Select Network" -theme "$LIST_THEME")
-    if [ -n "$selected" ]; then
-        local ssid
-        ssid=$(echo "$selected" | cut -d':' -f1)
-        connect_to_network "$ssid"
-    else
-        main_menu
-    fi
+    selected=$(printf '%s\n' "  Back" "$networks" | rofi -dmenu -theme "$THEME" -p "Select Network")
+    [ -z "$selected" ] && main_menu && return
+    [[ "$selected" == "Back" ]] && main_menu && return
+    local ssid="${selected%%  *}"
+    [ -z "$ssid" ] && main_menu && return
+    connect_to_network "$ssid"
+    main_menu
 }
 
 saved_connections() {
     local connections
-    connections=$(nmcli -f NAME -t -m tabular connection show | sort -u)
+    connections=$(nmcli -f NAME -t -m tabular connection show 2>/dev/null | sort -u)
     if [ -z "$connections" ]; then
-        notify-send "WiFi" "No saved connections found."
+        notify-send "WiFi" "No saved connections."
         main_menu
         return
     fi
     local selected
-    selected=$(echo "$connections" | rofi -dmenu -p "Saved" -theme "$LIST_THEME")
-    if [ -n "$selected" ]; then
-        nmcli connection up "$selected" && notify-send "WiFi" "Connected to $selected" || notify-send "WiFi" "Failed"
-    fi
+    selected=$(printf '%s\n' "  Back" "$connections" | rofi -dmenu -theme "$THEME" -p "Saved Networks")
+    [ -z "$selected" ] && main_menu && return
+    [[ "$selected" == "Back" ]] && main_menu && return
+    nmcli connection up "$selected" >/dev/null 2>&1 \
+        && notify-send "WiFi" "Connected to $selected" \
+        || notify-send "WiFi" "Failed"
     main_menu
 }
 
-connect_to_network() {
-    local ssid="$1"
-    if nmcli connection show | grep -q "$ssid"; then
-        nmcli connection up "$ssid" && notify-send "WiFi" "Connected" || notify-send "WiFi" "Failed"
-        main_menu
-        return
+toggle_wifi() {
+    if wifi_on; then
+        nmcli radio wifi off 2>/dev/null && notify-send "WiFi" "WiFi off"
+    else
+        nmcli radio wifi on 2>/dev/null && notify-send "WiFi" "WiFi on"
     fi
-    local password
-    password=$(rofi -dmenu -p "Password" -password -theme "$PASSWORD_THEME")
-    if [ -n "$password" ]; then
-        nmcli device wifi connect "$ssid" password "$password" && notify-send "WiFi" "Connected" || notify-send "WiFi" "Failed"
-    fi
-    main_menu
 }
 
-check_nm
+main_menu() {
+    local toggle_label="Turn On"
+    wifi_on && toggle_label="Turn Off"
+
+    local choice
+    choice=$(printf '%s\n' \
+        "  Scan Networks" \
+        "  Saved Networks" \
+        "󰅖  $toggle_label" \
+        | rofi -dmenu -theme "$THEME" -p "󰤨 WiFi")
+
+    case "$choice" in
+        *"Scan Networks")  scan_networks ;;
+        *"Saved Networks") saved_connections ;;
+        *"Turn Off"*)      toggle_wifi; main_menu ;;
+        *"Turn On"*)       toggle_wifi; main_menu ;;
+    esac
+}
+
 main_menu

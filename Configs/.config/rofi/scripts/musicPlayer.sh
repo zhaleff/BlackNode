@@ -1,9 +1,9 @@
-#!/bin/bash
+#!/usr/bin/env bash
+source "$HOME/.config/rofi/lib/init.sh"
+APP_NAME="Music"
 
 player=$(playerctl -l 2>/dev/null | head -n 1)
-[[ -z "$player" ]] && notify-send "Music" "No player running" && exit 1
-
-rofi_theme="$HOME/.config/rofi/styles/musicPlayer.rasi"
+[ -z "$player" ] && { notify "No player running"; exit 1; }
 
 title=$(playerctl -p "$player" metadata title 2>/dev/null)
 artist=$(playerctl -p "$player" metadata artist 2>/dev/null)
@@ -14,22 +14,21 @@ status=$(playerctl -p "$player" status 2>/dev/null)
 play=$([[ "$status" == "Playing" ]] && echo "⏸ " || echo "▶ ")
 
 options="󰒮 \n$play\n󰒭 "
-
-choice=$(echo -e "$options" | rofi -dmenu -theme "$rofi_theme" -mesg "󰎆 $title" --icon="$artUrl")
+choice=$(echo -e "$options" | rmenu "$(t music-player)" -mesg "󰎆 $title" --icon="$artUrl")
 
 case "$choice" in
     "󰒭 ")
         playerctl -p "$player" next
-    ;;
+        ;;
     "$play")
         if [[ "$status" == "Playing" ]]; then
             playerctl -p "$player" pause
         else
             playerctl -p "$player" play
         fi
-    ;;
+        ;;
     "󰒮 ")
         playerctl -p "$player" previous
         sleep 2
-    ;;
+        ;;
 esac

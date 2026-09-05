@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
+source "$HOME/.config/rofi/lib/init.sh"
+APP_NAME="Clipboard"
 
-dir="$HOME/.config/rofi/styles"
 pins_dir="$HOME/.local/share/clipshit/pins"
 thumb_dir="/tmp/clipshit-thumbs"
 mkdir -p "$pins_dir" "$thumb_dir"
@@ -71,7 +72,7 @@ wipe_flow() {
     yes=''
     no=''
     confirmation=$(echo -e "<span foreground='#a6e3a1'>$yes</span>\n<span foreground='#f38ba8'>$no</span>" |
-        rofi -markup-rows -dmenu -p 'Confirmation' -mesg 'Are you sure?' -theme "${dir}/clipboard-confirmation.rasi")
+        rmenu "$(t confirmation)" -p 'Confirmation' -mesg 'Are you sure?' -markup-rows)
 
     if [[ $confirmation =~ "$yes" ]]; then
         cliphist wipe
@@ -91,11 +92,11 @@ main() {
     list=$(build_list)
 
     local raw
-    raw=$(printf "%s\n%s" "$wipe_label" "$list" | rofi -dmenu -markup-rows -show-icons \
+    raw=$(printf "%s\n%s" "$wipe_label" "$list" | rmenu "$(t clipboard-list)" \
+        -markup-rows -show-icons \
         -display-columns 2 -p "Clipboard" \
         -kb-custom-1 "Alt+d" \
-        -kb-custom-2 "Alt+p" \
-        -theme "${dir}/clipboard-list.rasi")
+        -kb-custom-2 "Alt+p")
     local ec=$?
 
     [[ -z "$raw" ]] && exit

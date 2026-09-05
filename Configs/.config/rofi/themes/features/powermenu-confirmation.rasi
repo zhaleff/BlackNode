@@ -1,0 +1,20 @@
+@import "~/.config/rofi/themes/base/rail.rasi"
+
+listview {
+    lines: 2;
+}
+
+element-text {
+    padding:                        24px 0px;
+}
+
+element selected {
+    background-color:               @primary-container;
+    text-color:                     inherit;
+    border-color:                   @primary;
+}
+
+element selected.urgent,
+element selected.active {
+    text-color:                     inherit;
+}

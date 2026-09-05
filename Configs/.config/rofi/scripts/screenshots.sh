@@ -1,64 +1,38 @@
-#!/bin/bash
-
-shotsSave="$HOME/Pictures/Screenshots"
-rofiConfig="$HOME/.config/rofi/styles/screenshots.rasi"
-
-mkdir -p "$shotsSave"
+#!/usr/bin/env bash
+ROFI_DIR="$HOME/.config/rofi"
+THEME="$ROFI_DIR/themes/presets/submenu.rasi"
+SHOTS_DIR="$HOME/Pictures/Screenshots"
+mkdir -p "$SHOTS_DIR"
 
 for bin in grim slurp satty wl-copy hyprctl jq; do
-  command -v "$bin" >/dev/null || { dunstify -a blacknode -u critical "Screenshot" "falta '$bin' en PATH"; exit 1; }
+    command -v "$bin" >/dev/null 2>&1 || { notify-send "Screenshot" "Missing: $bin"; exit 1; }
 done
 
-options="󰆞\n󰖯\n󰍹\n󱄄"
+choice=$(printf '%s\n' \
+    "󰆞  Region" \
+    "󰖯  Window" \
+    "󰍹  Output" \
+    "󱄄  All" \
+    | rofi -dmenu -theme "$THEME" -p "Screenshot")
 
-rofi_cmd() {
-  rofi -dmenu \
-    -mesg "Screenshot  " \
-    -theme "$rofiConfig"
-}
+[ -z "$choice" ] && exit 0
 
-selected=$(echo -e "$options" | rofi_cmd) || exit 1
-[[ -n "$selected" ]] || exit 1
+outfile="$SHOTS_DIR/satty-$(date '+%Y%m%d-%H%M%S').png"
 
-geometry() {
-  case "$1" in
-    region)
-      slurp -d
-      ;;
-    window)
-      hyprctl activewindow -j | jq -r '"\(.at[0]),\(.at[1]) \(.size[0])x\(.size[1])"'
-      ;;
-    output)
-      slurp -o -r
-      ;;
-    all)
-      echo ""
-      ;;
-  esac
-}
-
-case "$selected" in
-  "󰆞") mode="region" ;;
-  "󰖯") mode="window" ;;
-  "󰍹") mode="output" ;;
-  "󱄄") mode="all" ;;
-  *) exit 1 ;;
+case "$choice" in
+    *"Region")
+        geo=$(slurp -d) || exit 1
+        grim -g "$geo" -t ppm - | satty --filename - --output-filename "$outfile" --copy-command wl-copy --early-exit
+        ;;
+    *"Window")
+        geo=$(hyprctl activewindow -j | jq -r '"\(.at[0]),\(.at[1]) \(.size[0])x\(.size[1])"')
+        grim -g "$geo" -t ppm - | satty --filename - --output-filename "$outfile" --copy-command wl-copy --early-exit
+        ;;
+    *"Output")
+        geo=$(slurp -o -r) || exit 1
+        grim -g "$geo" -t ppm - | satty --filename - --output-filename "$outfile" --copy-command wl-copy --early-exit
+        ;;
+    *"All")
+        grim -t ppm - | satty --filename - --output-filename "$outfile" --copy-command wl-copy --early-exit
+        ;;
 esac
-
-outfile="$shotsSave/satty-$(date '+%Y%m%d-%H%M%S').png"
-
-if [[ "$mode" == "all" ]]; then
-  grim -t ppm - | satty \
-    --filename - \
-    --output-filename "$outfile" \
-    --copy-command wl-copy \
-    --early-exit
-else
-  geo="$(geometry "$mode")"
-  [[ -n "$geo" ]] || exit 1
-  grim -g "$geo" -t ppm - | satty \
-    --filename - \
-    --output-filename "$outfile" \
-    --copy-command wl-copy \
-    --early-exit
-fi

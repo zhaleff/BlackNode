@@ -1,91 +1,45 @@
 #!/usr/bin/env bash
+ROFI_DIR="$HOME/.config/rofi"
+THEME="$ROFI_DIR/themes/presets/submenu.rasi"
 
-# Current Theme
-dir="$HOME/.config/rofi/styles"
+choice=$(printf '%s\n' \
+    "  Lock" \
+    "  Suspend" \
+    "  Hibernate" \
+    "󰍃  Logout" \
+    "⟳  Reboot" \
+    "⏻  Shutdown" \
+    | rofi -dmenu -theme "$THEME" -p "Session")
 
-# # Options
-hibernate='󰤄 '
-shutdown=' '
-reboot='⟳ '
-lock=' '
-suspend='󰒲 '
-logout=' '
-yes='󰄬 '
-no=' '
+[ -z "$choice" ] && exit 0
 
-
-# Rofi CMD
-rofi_cmd() {
-	rofi -dmenu \
-		-p " $USER" \
-		-theme ${dir}/powermenu.rasi
+confirm() {
+    local result
+    result=$(printf '%s\n' "󰄬  Yes" "󰅖  No" | rofi -dmenu -theme "$THEME" -p "Are you sure?")
+    [[ "$result" == *"Yes"* ]]
 }
 
-# Confirmation CMD
-confirm_cmd() {
-	rofi -markup-rows -dmenu \
-		-p 'Confirmation' \
-		-mesg 'Are you Sure?' \
-		-theme ${dir}/powermenu-confirmation.rasi
-}
-
-# Ask for confirmation
-confirm_exit() {
-	echo -e "<span foreground='#a6e3a1'>$yes</span>\n<span foreground='#f38ba8'>$no</span>" | confirm_cmd
-}
-
-# Pass variables to rofi dmenu
-run_rofi() {
-	echo -e "$shutdown\n$reboot\n$lock\n$suspend\n$hibernate\n$logout" | rofi_cmd
-}
-
-# Execute Command
-run_cmd() {
-	selected="$(confirm_exit)"
-	echo "$selected"
-	if [[ "$selected" =~ "$yes" ]]; then
-		~/.local/bin/blacknode/continuity --save
-		if [[ $1 == '--shutdown' ]]; then
-			systemctl poweroff
-		elif [[ $1 == '--reboot' ]]; then
-			systemctl reboot
-		elif [[ $1 == '--hibernate' ]]; then
-			systemctl hibernate
-		elif [[ $1 == '--suspend' ]]; then
-			mpc -q pause
-			amixer set Master mute
-			systemctl suspend
-		elif [[ $1 == '--logout' ]]; then
-       hyprctl dispatch 'hl.dsp.exit()'
-  	fi
-	else
-		exit 0
-	fi
-}
-
-# Actions
-chosen="$(run_rofi)"
-case ${chosen} in
-    $shutdown)
-		run_cmd --shutdown
+case "$choice" in
+    *"Lock")
+        if [[ -x '/usr/bin/betterlockscreen' ]]; then
+            betterlockscreen -l
+        elif [[ -x '/usr/bin/hyprlock' ]]; then
+            hyprlock
+        fi
         ;;
-    $reboot)
-		run_cmd --reboot
+    *"Suspend")
+        confirm && { mpc -q pause; amixer set Master mute; systemctl suspend; }
         ;;
-    $hibernate)
-		run_cmd --hibernate
+    *"Hibernate")
+        confirm && systemctl hibernate
         ;;
-    $lock)
-		if [[ -x '/usr/bin/betterlockscreen' ]]; then
-			betterlockscreen -l
-		elif [[ -x '/usr/bin/i3lock' ]]; then
-			i3lock
-		fi
+    *"Logout")
+        confirm && hyprctl dispatch exit
         ;;
-    $suspend)
-		run_cmd --suspend
+    *"Reboot")
+        confirm && systemctl reboot
         ;;
-    $logout)
-		run_cmd --logout
+    *"Shutdown")
+        confirm && systemctl poweroff
         ;;
 esac

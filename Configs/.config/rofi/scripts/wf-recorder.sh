@@ -1,27 +1,28 @@
-#!/bin/bash
+#!/usr/bin/env bash
+source "$HOME/.config/rofi/lib/init.sh"
+APP_NAME="Recorder"
 
 SAVE_DIR="$HOME/Videos"
 FILE="$SAVE_DIR/$(date +%Y-%m-%d_%H-%M-%S).mp4"
 
-CHOICE=$(printf " \n \n󰹑 " | rofi -dmenu -i -p "" -theme "$HOME/.config/rofi/styles/wf-recorder.rasi")
-
+choice=$(printf " \n \n󰹑 " | rmenu "$(t wf-recorder)" -i -p "")
 PID=$(pgrep wf-recorder)
 
-case "$CHOICE" in
+case "$choice" in
     " ")
-        [[ -n "$PID" ]] && exit 1
+        [ -n "$PID" ] && exit 1
         wf-recorder -f "$FILE" &
-        dunstify -a "recorder" -t 3000 "Recording" "$(basename "$FILE")"
+        notify "Recording: $(basename "$FILE")" 3000
         ;;
     " ")
-        [[ -n "$PID" ]] && exit 1
+        [ -n "$PID" ] && exit 1
         REGION=$(slurp) || exit 1
         wf-recorder -g "$REGION" -f "$FILE" &
-        dunstify -a "recorder" -t 3000 "Recording" "$(basename "$FILE")"
+        notify "Recording: $(basename "$FILE")" 3000
         ;;
     "󰹑 ")
-        [[ -z "$PID" ]] && exit 1
+        [ -z "$PID" ] && exit 1
         kill -SIGINT "$PID"
-        dunstify -a "recorder" -t 3000 "Saved" "$SAVE_DIR"
+        notify "Saved: $SAVE_DIR" 3000
         ;;
 esac

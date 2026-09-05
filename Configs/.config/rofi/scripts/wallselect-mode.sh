@@ -1,15 +1,12 @@
 #!/usr/bin/env bash
 set -euo pipefail
+source "$HOME/.config/rofi/lib/init.sh"
 
 MODE_FILE="$HOME/.local/share/blacknode/theme_mode"
 mkdir -p "$(dirname "$MODE_FILE")"
 
 OPTIONS="<span color='red'>󰅖</span>\nDark\nLight"
+choice=$(echo -e "$OPTIONS" | rmenu "$(t wallselect-mode)" -i -markup-rows)
 
-CHOICE=$(echo -e "$OPTIONS" | rofi -dmenu -i -markup-rows -theme "$HOME/.config/rofi/styles/wallselect-mode.rasi")
-
-if [[ "$CHOICE" == *"Dark"* ]]; then
-    echo "dark" > "$MODE_FILE"
-elif [[ "$CHOICE" == *"Light"* ]]; then
-    echo "light" > "$MODE_FILE"
-fi
+[[ "$choice" == *"Dark"* ]] && echo "dark" > "$MODE_FILE"
+[[ "$choice" == *"Light"* ]] && echo "light" > "$MODE_FILE"

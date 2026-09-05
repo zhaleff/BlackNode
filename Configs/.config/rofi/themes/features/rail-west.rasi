@@ -1,0 +1,12 @@
+@import "~/.config/rofi/themes/base/rail.rasi"
+
+* {
+    rail-location:                 west;
+    rail-anchor:                   west;
+    rail-radius:                   10px 32px 32px 10px;
+    rail-radius-elem:              10px 24px 24px 10px;
+}
+
+element selected {
+    border:                        0px;
+}

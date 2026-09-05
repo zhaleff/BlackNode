@@ -1,0 +1,52 @@
+configuration {
+    show-icons: false;
+}
+
+* {
+    font: "JetBrains Mono Nerd Font 12";
+}
+
+window {
+    width:            420px;
+    transparency:    "real";
+    location:        center;
+    anchor:          center;
+    border-radius:   24px;
+    padding:         24px;
+    background-color: @surface;
+}
+
+mainbox {
+    spacing:         20px;
+    background-color: transparent;
+    orientation:     vertical;
+    children:        [ "textbox-prompt-colon", "inputbar" ];
+}
+
+textbox-prompt-colon {
+    expand:          false;
+    padding:         14px;
+    border-radius:   14px;
+    background-color: @primary-container;
+    text-color:       @on-primary-container;
+    horizontal-align: 0.5;
+}
+
+inputbar {
+    spacing:         0px;
+    background-color: transparent;
+    text-color:      @on-surface;
+    orientation:     horizontal;
+    children:        [ "entry" ];
+}
+
+entry {
+    expand:          true;
+    padding:         14px 18px;
+    border-radius:   14px;
+    background-color: @surface-container-low;
+    text-color:      @on-surface;
+    cursor:          text;
+    placeholder:     "Input...";
+    placeholder-color: @on-surface-variant;
+}

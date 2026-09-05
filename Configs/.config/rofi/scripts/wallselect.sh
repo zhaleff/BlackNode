@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
+source "$HOME/.config/rofi/lib/init.sh"
+
 PROFILES_BASE="$HOME/.local/share/blacknode"
 ACTIVE_FILE="$PROFILES_BASE/active_profile"
 MODE_FILE="$PROFILES_BASE/theme_mode"
+
 if [[ -f "$ACTIVE_FILE" ]]; then
     active=$(cat "$ACTIVE_FILE")
     profile_walls="$PROFILES_BASE/profiles/$active/walls"
@@ -13,13 +16,15 @@ if [[ -f "$ACTIVE_FILE" ]]; then
 else
     WALL_DIR="$HOME/Pictures/Wallpapers/"
 fi
+
 SELECTED=$(find "$WALL_DIR" -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" -o -iname "*.webp" -o -iname "*.gif" \) \
     | while read -r img; do
         printf '%s\0icon\x1f%s\n' "$img" "$img"
       done \
-    | rofi -dmenu -i -show-icons -theme "$HOME/.config/rofi/styles/wallselect.rasi"
-)
+    | rmenu "$(t wallselect)" -i -show-icons)
+
 [ -z "$SELECTED" ] && exit 0
+
 if ! pgrep -x "awww" > /dev/null; then
     awww &
     sleep 0.2

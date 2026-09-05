@@ -1,0 +1,39 @@
+window {
+    transparency:     "real";
+    border-radius:    16px;
+}
+
+mainbox {
+    enabled:          true;
+    spacing:          0px;
+    background-color: transparent;
+    orientation:      vertical;
+    children:         [ "inputbar", "listview" ];
+}
+
+inputbar {
+    enabled:          true;
+    background-color: transparent;
+    orientation:      horizontal;
+}
+
+listview {
+    enabled:          true;
+    columns:          1;
+    cycle:           false;
+    dynamic:         true;
+    scrollbar:       false;
+    layout:          vertical;
+    spacing:         0px;
+}
+
+element {
+    enabled:           true;
+    background-color: transparent;
+}
+
+element-text {
+    background-color: transparent;
+    text-color:       inherit;
+    vertical-align:  0.5;
+}
