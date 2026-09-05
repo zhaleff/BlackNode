@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 ROFI_DIR="$HOME/.config/rofi"
 THEME="$ROFI_DIR/themes/presets/submenu.rasi"
-PASS_THEME="$ROFI_DIR/themes/features/wifi-password.rasi"
 
 if ! systemctl is-active --quiet NetworkManager; then
     notify-send "WiFi" "NetworkManager is not running."
@@ -20,8 +19,8 @@ signal_icon() {
         else echo "󰤟"
         fi
     else
-        if   [ "$sig" -ge 80 ]; then echo "󰤧"
-        elif [ "$sig" -ge 60 ]; then echo "󰤤"
+        if   [ "$sig" -ge 80 ]; then echo "󰤩"
+        elif [ "$sig" -ge 60 ]; then echo "󰤢"
         elif [ "$sig" -ge 40 ]; then echo "󰤡"
         elif [ "$sig" -ge 20 ]; then echo "󰤟"
         else echo "󰤞"
@@ -107,7 +106,7 @@ main_menu() {
 
     local choice
     choice=$(printf '%s\n' \
-        "󰌍󰌍  Back" \
+        "󰌍  Back" \
         "󱛇  Scan Networks" \
         "󱚾  Saved Networks" \
         "󰖪  $toggle_label" \
