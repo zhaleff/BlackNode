@@ -1,6 +1,0 @@
-@import "../colors.rasi"
-@import "../shared/list.rasi"
-
-entry {
-    placeholder: "Search networks...";
-}

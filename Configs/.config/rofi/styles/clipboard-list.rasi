@@ -1,6 +1,0 @@
-@import "../colors.rasi"
-@import "../styles/menu.rasi"
-
-entry {
-    placeholder: "Search....";
-}

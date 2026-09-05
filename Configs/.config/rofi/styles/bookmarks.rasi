@@ -1,7 +1,0 @@
-@import "../colors.rasi"
-@import "../shared/config.rasi"
-@import "../shared/sidebar-left.rasi"
-
-listview {
-    lines: 4;
-}
