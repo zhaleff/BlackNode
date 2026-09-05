@@ -1,7 +1,7 @@
 {
 
   "custom/bluetooth": {
-    "exec": "~/.config/waybar/Scripts/bluetooth/script.sh",
+    "exec": "~/.config/waybar/Scripts/bluetooth",
     "return-type": "json",
     "interval": 5,
     "on-click": "~/.config/rofi/scripts/bluetooth.sh",

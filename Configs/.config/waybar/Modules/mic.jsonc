@@ -2,7 +2,7 @@
   "custom/mic": {
     "format": "{}",
     "return-type": "json",
-    "exec": "~/.config/waybar/Scripts/Privacy/mic.sh",
+    "exec": "~/.config/waybar/Scripts/mic",
     "interval": 2
   }
 

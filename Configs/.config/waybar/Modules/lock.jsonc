@@ -1,7 +1,7 @@
 {
   "custom/lock": {
     "format": "",
-    "on-click": "~/.config/waybar/Scripts/Lock/script.sh",
+    "on-click": "~/.config/waybar/Scripts/lock",
     "tooltip": false
   }
 }

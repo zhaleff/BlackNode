@@ -1,8 +1,8 @@
 {
   "custom/dnd": {
-    "exec": "~/.config/waybar/Scripts/System/dnd.sh",
+    "exec": "~/.config/waybar/Scripts/dnd",
     "return-type": "json",
     "interval": 2,
-    "on-click": "~/.config/waybar/Scripts/System/dnd.sh toggle"
+    "on-click": "~/.config/waybar/Scripts/dnd toggle"
   }
 }

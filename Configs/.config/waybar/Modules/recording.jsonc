@@ -1,6 +1,6 @@
 {
   "custom/recording": {
-    "exec": "~/.config/waybar/Scripts/Privacy/recording.sh",
+    "exec": "~/.config/waybar/Scripts/recording",
     "return-type": "json",
     "interval": 2,
     "hide-empty-text": true

@@ -2,7 +2,7 @@
   "custom/cam": {
     "format": "{}",
     "return-type": "json",
-    "exec": "~/.config/waybar/Scripts/Privacy/cam.sh",
+    "exec": "~/.config/waybar/Scripts/camera",
     "interval": 10
   }
 }
