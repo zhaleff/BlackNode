@@ -45,8 +45,8 @@ hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
 hl.bind(mainMod .. " + SHIFT + F", hl.dsp.window.fullscreen({ mode = "fullscreen", action = "toggle" }))
 
 
-hl.bind(mainMod .. " + CTRL + ALT + UP",   hl.dsp.exec_cmd("~/.config/waybar/Scripts/restart"))
-hl.bind(mainMod .. " + CTRL + ALT + DOWN", hl.dsp.exec_cmd("~/.config/waybar/Scripts/layout"))
+hl.bind(mainMod .. " + CTRL + ALT + UP",   hl.dsp.exec_cmd("~/.config/waybar/Scripts/launcher/launch.sh"))
+hl.bind(mainMod .. " + CTRL + ALT + DOWN", hl.dsp.exec_cmd("~/.config/waybar/Scripts/launcher/script.sh"))
 
 
 for i = 1, 9 do
