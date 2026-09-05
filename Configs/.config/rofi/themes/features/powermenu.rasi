@@ -1,5 +1,0 @@
-@import "~/.config/rofi/themes/features/rail-west.rasi"
-
-listview {
-    lines: 6;
-}

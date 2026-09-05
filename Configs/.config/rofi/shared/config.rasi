@@ -1,7 +1,0 @@
-configuration {
-    font:                           "Comfortaa 12";
-    disable-history:                false;
-    fullscreen:                     false;
-    hide-scrollbar:                 true;
-    sidebar-mode:                   false;
-}

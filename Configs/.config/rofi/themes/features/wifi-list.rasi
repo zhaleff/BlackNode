@@ -1,6 +1,0 @@
-@import "~/.config/rofi/colors.rasi"
-@import "~/.config/rofi/themes/base/list.rasi"
-
-entry {
-    placeholder: "Search networks...";
-}

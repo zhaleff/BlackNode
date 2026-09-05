@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-source "$HOME/.config/rofi/lib/init.sh"
 
 PROFILES_BASE="$HOME/.local/share/blacknode"
 ACTIVE_FILE="$PROFILES_BASE/active_profile"
@@ -21,7 +20,7 @@ SELECTED=$(find "$WALL_DIR" -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -ina
     | while read -r img; do
         printf '%s\0icon\x1f%s\n' "$img" "$img"
       done \
-    | rmenu "$(t wallselect)" -i -show-icons)
+    | rofi -dmenu -i -show-icons -theme "$HOME/.config/rofi/themes/presets/wallselect.rasi")
 
 [ -z "$SELECTED" ] && exit 0
 
@@ -29,10 +28,13 @@ if ! pgrep -x "awww" > /dev/null; then
     awww &
     sleep 0.2
 fi
+
 awww img "$SELECTED" --transition-type=random
 cp "$SELECTED" ~/.config/hypr/hyprlock.png
+
 THEME_MODE=$(cat "$MODE_FILE" 2>/dev/null || echo "dark")
 matugen image "$SELECTED" -m "$THEME_MODE" --source-color-index 0
+
 killall -SIGUSR2 waybar && killall dunst && dunst &
 pkill -USR1 cava
 killall -SIGUSR1 kitty && pkill -USR1 firefox 2>/dev/null || killall -USR1 firefox 2>/dev/null

@@ -1,5 +1,0 @@
-@import "~/.config/rofi/themes/presets/menu.rasi"
-
-entry {
-    placeholder: "Search....";
-}

@@ -6,9 +6,9 @@ configuration {
 }
 
 window {
-    width:                       780px;
+    width:                       520px;
     transparency:                "real";
-    border-radius:               28px;
+    border-radius:               32px;
     background-color:            @surface;
     location:                    center;
     anchor:                      center;
@@ -34,10 +34,10 @@ entry {
     text-color:                  @on-surface;
     cursor:                      text;
     vertical-align:              0.5;
-    placeholder:                 "    Search...";
+    placeholder:                 "                  Search...";
     placeholder-color:           @on-surface-variant;
     padding:                     12px 16px;
-    border-radius:               16px;
+    border-radius:               20px;
 }
 
 listview {
@@ -60,7 +60,7 @@ element {
     cursor:                      pointer;
     background-color:            transparent;
     text-color:                  @on-surface;
-    border-radius:               14px;
+    border-radius:               20px;
 }
 
 element selected.normal {
