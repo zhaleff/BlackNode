@@ -11,12 +11,21 @@ fi
 wifi_on() { [ "$(nmcli radio wifi 2>/dev/null)" = "enabled" ]; }
 
 signal_icon() {
-    local sig=$1
-    if   [ "$sig" -ge 80 ]; then echo "󰤨"
-    elif [ "$sig" -ge 60 ]; then echo "󰤥"
-    elif [ "$sig" -ge 40 ]; then echo "󰤢"
-    elif [ "$sig" -ge 20 ]; then echo "󰤠"
-    else echo "󰤟"
+    local sig=$1 sec=$2
+    if [ "$sec" = "open" ]; then
+        if   [ "$sig" -ge 80 ]; then echo "󰤨"
+        elif [ "$sig" -ge 60 ]; then echo "󰤥"
+        elif [ "$sig" -ge 40 ]; then echo "󰤢"
+        elif [ "$sig" -ge 20 ]; then echo "󰤡"
+        else echo "󰤟"
+        fi
+    else
+        if   [ "$sig" -ge 80 ]; then echo "󰤧"
+        elif [ "$sig" -ge 60 ]; then echo "󰤤"
+        elif [ "$sig" -ge 40 ]; then echo "󰤡"
+        elif [ "$sig" -ge 20 ]; then echo "󰤟"
+        else echo "󰤞"
+        fi
     fi
 }
 
@@ -50,11 +59,10 @@ scan_networks() {
     local input=""
     while IFS='|' read -r ssid signal security; do
         [ -z "$ssid" ] && continue
-        local icon
-        icon=$(signal_icon "$signal")
-        local lock=""
-        [[ -n "$security" && "$security" != "--" ]] && lock=" "
-        input+="${icon} ${lock}${ssid}"$'\n'
+        local icon sec="locked"
+        [[ -z "$security" || "$security" == "--" ]] && sec="open"
+        icon=$(signal_icon "$signal" "$sec")
+        input+="${icon}  ${ssid}"$'\n'
     done <<< "$lines"
     local selected
     selected=$(printf '%s\n' "  Back" "$input" | rofi -dmenu -theme "$THEME" -p "Select Network")
