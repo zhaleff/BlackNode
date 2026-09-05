@@ -25,7 +25,7 @@ hl.bind(mainMod .. " + down",  hl.dsp.focus({ direction = "down" }))
 
 
 -- Applications
-hl.bind(mainMod .. " + B", hl.dsp.exec_cmd("zen-browser"))
+hl.bind(mainMod .. " + B", hl.dsp.exec_cmd("firefox"))
 hl.bind(mainMod .. " + D", hl.dsp.exec_cmd("kitty"))
 hl.bind(mainMod .. " + E", hl.dsp.exec_cmd("dolphin"))
 hl.bind(mainMod .. " + Y", hl.dsp.exec_cmd("spotify"))
@@ -34,9 +34,8 @@ hl.bind(mainMod .. " + Y", hl.dsp.exec_cmd("spotify"))
 -- Launchers and menus
 hl.bind(mainMod .. " + SHIFT + SPACE", hl.dsp.exec_cmd("~/.config/rofi/scripts/kb-layout.sh"))
 hl.bind(mainMod .. " + R",     hl.dsp.exec_cmd("rofi -show drun"))
-hl.bind(mainMod .. " + SPACE", hl.dsp.exec_cmd("~/.local/bin/blacknode/menu"))
-hl.bind(mainMod .. " + F1",    hl.dsp.exec_cmd("~/.local/bin/blacknode-tutorial"))
-hl.bind(mainMod .. " + CTRL + ALT + UP", hl.dsp.exec_cmd("~/.config/waybar/Scripts/launcher/launch.sh"))
+hl.bind(mainMod .. " + SPACE", hl.dsp.exec_cmd("rofi -show drun"))
+hl.bind(mainMod .. " + CTRL + ALT + UP", hl.dsp.exec_cmd("~/.config/waybar/Scripts/restart"))
 hl.bind(mainMod .. " + T",     hl.dsp.exec_cmd("~/.config/rofi/scripts/musicPlayer.sh"))
 hl.bind(mainMod .. " + A",     hl.dsp.exec_cmd("~/.config/rofi/scripts/wifi.sh"))
 hl.bind(mainMod .. " + SHIFT + X",     hl.dsp.exec_cmd("~/.config/rofi/scripts/powermenu.sh"))
@@ -72,9 +71,6 @@ hl.bind(mainMod .. " + Q", hl.dsp.window.close())
 hl.bind(mainMod .. " + F", hl.dsp.window.float({ action = "toggle" }))
 hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
 hl.bind(mainMod .. " + SHIFT + F", hl.dsp.window.fullscreen({ mode = "fullscreen", action = "toggle" }))
--- Settings
-hl.bind(mainMod .. " + COMMA",     hl.dsp.exec_cmd("~/.local/bin/blacknode/settings"))
-
 -- Wallpaper, animations and audio settings
 hl.bind(mainMod .. " + W",         hl.dsp.exec_cmd("~/.config/rofi/scripts/wallselect.sh"))
 hl.bind(mainMod .. " + SHIFT + I", hl.dsp.exec_cmd("~/.config/rofi/scripts/themeselect.sh"))
@@ -82,7 +78,7 @@ hl.bind(mainMod .. " + SHIFT + A", hl.dsp.exec_cmd("pavucontrol"))
 
 
 -- Waybar launcher
-hl.bind(mainMod .. " + CTRL + ALT + DOWN", hl.dsp.exec_cmd("~/.config/waybar/Scripts/launcher/script.sh"))
+hl.bind(mainMod .. " + CTRL + ALT + DOWN", hl.dsp.exec_cmd("~/.config/waybar/Scripts/layout"))
 
 
 -- Workspaces 1-9: focus and move window
