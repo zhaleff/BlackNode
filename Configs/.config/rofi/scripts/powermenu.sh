@@ -3,7 +3,7 @@ ROFI_DIR="$HOME/.config/rofi"
 THEME="$ROFI_DIR/themes/presets/submenu.rasi"
 
 choice=$(printf '%s\n' \
-    "  Back" \
+    "󰌍  Back" \
     "  Lock" \
     "  Suspend" \
     "  Hibernate" \
@@ -13,7 +13,7 @@ choice=$(printf '%s\n' \
     | rofi -dmenu -theme "$THEME" -p "Session")
 
 [ -z "$choice" ] && exit 0
-[[ "$choice" == "Back" ]] && exec bash "$ROFI_DIR/scripts/launcher.sh"
+[[ "$choice" == *"Back" ]] && exec bash "$ROFI_DIR/scripts/launcher.sh"
 
 confirm() {
     local result

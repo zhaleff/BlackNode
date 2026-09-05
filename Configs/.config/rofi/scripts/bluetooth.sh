@@ -22,9 +22,9 @@ scan_devices() {
         return
     fi
     local selected
-    selected=$(printf '%s\n' "  Back" "$devices" | rofi -dmenu -theme "$THEME" -p "Scan Devices")
+    selected=$(printf '%s\n' "󰌍  Back" "$devices" | rofi -dmenu -theme "$THEME" -p "Scan Devices")
     [ -z "$selected" ] && main_menu && return
-    [[ "$selected" == "Back" ]] && main_menu && return
+    [[ "$selected" == *"Back" ]] && main_menu && return
     local mac
     mac=$(echo "$selected" | awk '{print $2}')
     [ -z "$mac" ] && main_menu && return
@@ -41,9 +41,9 @@ paired_devices() {
         return
     fi
     local selected
-    selected=$(printf '%s\n' "  Back" "$devices" | rofi -dmenu -theme "$THEME" -p "Paired Devices")
+    selected=$(printf '%s\n' "󰌍  Back" "$devices" | rofi -dmenu -theme "$THEME" -p "Paired Devices")
     [ -z "$selected" ] && main_menu && return
-    [[ "$selected" == "Back" ]] && main_menu && return
+    [[ "$selected" == *"Back" ]] && main_menu && return
     local mac
     mac=$(echo "$selected" | awk '{print $2}')
     [ -z "$mac" ] && main_menu && return
@@ -80,7 +80,7 @@ main_menu() {
 
     local choice
     choice=$(printf '%s\n' \
-        "  Back" \
+        "󰌍  Back" \
         "  Scan Devices" \
         "  Paired Devices" \
         "󰅖  $toggle_label" \

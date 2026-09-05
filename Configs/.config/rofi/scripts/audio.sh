@@ -129,7 +129,7 @@ volume_control() {
     [ "$mic_muted" -gt 0 ] && mic_icon="" || mic_icon="󰍭"
 
     CHOICE=$(printf '%s\n' \
-        "  Back" \
+        "󰌍  Back" \
         "󰕾  Volume $vol%" \
         "󰝝  Volume +10%" \
         "󰝞  Volume -10%" \

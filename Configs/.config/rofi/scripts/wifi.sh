@@ -65,9 +65,9 @@ scan_networks() {
         input+="${icon}  ${ssid}"$'\n'
     done <<< "$lines"
     local selected
-    selected=$(printf '%s\n' "  Back" "$input" | rofi -dmenu -theme "$THEME" -p "Select Network")
+    selected=$(printf '%s\n' "󰌍  Back" "$input" | rofi -dmenu -theme "$THEME" -p "Select Network")
     [ -z "$selected" ] && main_menu && return
-    [[ "$selected" == "Back" ]] && main_menu && return
+    [[ "$selected" == *"Back" ]] && main_menu && return
     local ssid="${selected#*  }"
     ssid="${ssid#* }"
     [ -z "$ssid" ] && main_menu && return
@@ -84,9 +84,9 @@ saved_connections() {
         return
     fi
     local selected
-    selected=$(printf '%s\n' "  Back" "$connections" | rofi -dmenu -theme "$THEME" -p "Saved Networks")
+    selected=$(printf '%s\n' "󰌍  Back" "$connections" | rofi -dmenu -theme "$THEME" -p "Saved Networks")
     [ -z "$selected" ] && main_menu && return
-    [[ "$selected" == "Back" ]] && main_menu && return
+    [[ "$selected" == *"Back" ]] && main_menu && return
     nmcli connection up "$selected" >/dev/null 2>&1 \
         && notify-send "WiFi" "Connected to $selected" \
         || notify-send "WiFi" "Failed"
@@ -107,7 +107,7 @@ main_menu() {
 
     local choice
     choice=$(printf '%s\n' \
-        "  Back" \
+        "󰌍󰌍  Back" \
         "󱛇  Scan Networks" \
         "󱚾  Saved Networks" \
         "󰖪  $toggle_label" \
