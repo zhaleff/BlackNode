@@ -3,7 +3,7 @@
     "format": "{}",
     "return-type": "json",
     "tooltip": true,
-    "exec": "~/.config/waybar/Scripts/distro",
+    "exec": "~/.config/waybar/Scripts/System/distro.sh",
     "interval": 3600
   }
 }

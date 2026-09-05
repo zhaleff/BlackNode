@@ -1,6 +1,3 @@
 #!/usr/bin/env bash
-if pgrep -x wf-recorder >/dev/null 2>&1; then
-    echo '{"text":"󰀽","tooltip":"Recording","class":"recording"}'
-else
-    echo '{"text":"󰀽","tooltip":"Not recording","class":"idle"}'
-fi
+_DIR="$(cd "$(dirname "$0")" && pwd)"
+exec env PYTHONPATH="$_DIR/lib${PYTHONPATH:+:$PYTHONPATH}" python3 -m bnwb.recording "$@"

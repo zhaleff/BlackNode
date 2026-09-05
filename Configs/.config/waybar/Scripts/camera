@@ -1,14 +1,3 @@
 #!/usr/bin/env bash
-active=""
-for dev in /dev/video*; do
-    [ -e "$dev" ] || continue
-    pids=$(fuser "$dev" 2>/dev/null)
-    [ -z "$pids" ] && continue
-    for pid in $pids; do
-        name=$(ps -p "$pid" -o comm= 2>/dev/null)
-        [ -n "$name" ] && active="$active$name, "
-    done
-done
-active="${active%, }"
-[ -z "$active" ] && echo '{"text":"󰏿","tooltip":"Camera idle","class":"idle"}' && exit 0
-echo "{\"text\":\"󰍷\",\"tooltip\":\"Camera: $active\",\"class\":\"cam-active\"}"
+_DIR="$(cd "$(dirname "$0")" && pwd)"
+exec env PYTHONPATH="$_DIR/lib${PYTHONPATH:+:$PYTHONPATH}" python3 -m bnwb.camera "$@"

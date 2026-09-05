@@ -1,8 +1,3 @@
 #!/usr/bin/env bash
-if ! bluetoothctl show 2>/dev/null | grep -q "Powered: yes"; then
-    echo '{"text":"󰂲","tooltip":"Bluetooth off","class":"off"}'; exit 0
-fi
-connected=$(bluetoothctl devices Connected 2>/dev/null | wc -l)
-[ "$connected" -eq 0 ] && echo '{"text":"󰂯","tooltip":"Bluetooth on, no devices","class":"on"}' && exit 0
-names=$(bluetoothctl devices Connected 2>/dev/null | awk '{$1=$2=""; print substr($0,3)}' | tr '\n' ', ' | sed 's/,$//')
-echo "{\"text\":\"󰂱 $connected\",\"tooltip\":\"Connected: $names\",\"class\":\"connected\"}"
+_DIR="$(cd "$(dirname "$0")" && pwd)"
+exec env PYTHONPATH="$_DIR/lib${PYTHONPATH:+:$PYTHONPATH}" python3 -m bnwb.bluetooth "$@"

@@ -1,5 +1,3 @@
 #!/usr/bin/env bash
-total=$(checkupdates 2>/dev/null | wc -l)
-[ "$total" -eq 0 ] && echo '{"text":"","tooltip":"System up to date","class":"none"}' && exit 0
-cls="normal"; [ "$total" -ge 30 ] && cls="critical"; [ "$total" -ge 10 ] && [ "$total" -lt 30 ] && cls="warning"
-echo "{\"text\":\"$total\",\"tooltip\":\"$total system updates\",\"class\":\"$cls\"}"
+_DIR="$(cd "$(dirname "$0")" && pwd)"
+exec env PYTHONPATH="$_DIR/lib${PYTHONPATH:+:$PYTHONPATH}" python3 -m bnwb.updates "$@"

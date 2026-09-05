@@ -3,7 +3,7 @@
     "format": "{}",
     "tooltip": true,
     "return-type": "json",
-    "exec": "~/.local/bin/blacknode/weather --json",
+    "exec": "~/.config/waybar/Scripts/weather/script.py",
     "interval": 900
   }
 }

@@ -11,47 +11,53 @@
   "modules-center": [
     "group/hollow-center-2",
     "group/hollow-center"
+
   ],
   "modules-right": [
+    // "group/hollow-right-5",
     "group/hollow-right-4",
     "group/hollow-right-1",
     "group/hollow-right-2",
     "group/hollow-right-3"
   ],
-  "group/hollow-distro": {
-    "orientation": "horizontal",
-    "modules": ["custom/distro"]
-  },
   "group/hollow-left-1": {
     "orientation": "horizontal",
-    "modules": ["hyprland/workspaces"]
+    "modules": [ "hyprland/workspaces"]
   },
-  "group/hollow-left-2": {
+  "group/hollow-distro": {
     "orientation": "horizontal",
-    "modules": ["custom/pacman", "custom/pkg-aur"]
+    "modules": [ "custom/distro"]
   },
-  "group/hollow-left-3": {
+
+
+  "group/hollow-right-2": {
     "orientation": "horizontal",
-    "modules": ["custom/cam", "custom/mic", "custom/recording", "custom/dnd", "wireplumber"]
+    "modules": ["mpris", "custom/nomusic", "custom/previous", "custom/pause", "custom/next"]
+  },
+  "group/hollow-right-1": {
+    "orientation": "horizontal",
+    "modules": [  "network", "custom/bluetooth",  "backlight","battery"]
   },
   "group/hollow-center": {
     "orientation": "horizontal",
     "modules": ["clock"]
   },
-  "group/hollow-center-2": {
+    "group/hollow-center-2": {
     "orientation": "horizontal",
     "modules": ["idle_inhibitor"]
-  },
-  "group/hollow-right-1": {
-    "orientation": "horizontal",
-    "modules": ["network", "custom/bluetooth", "backlight", "battery"]
-  },
-  "group/hollow-right-2": {
-    "orientation": "horizontal",
-    "modules": ["mpris", "custom/nomusic", "custom/previous", "custom/pause", "custom/next"]
   },
   "group/hollow-right-3": {
     "orientation": "horizontal",
     "modules": ["custom/weather", "custom/power"]
+  },
+  "group/hollow-left-3": {
+    "orientation": "horizontal",
+    "modules": ["custom/cam", "custom/mic", "custom/recording", "custom/dnd",  "wireplumber" ]
+  },
+
+
+  "group/hollow-left-2": {
+    "orientation": "horizontal",
+    "modules": ["custom/pacman", "custom/pkg-aur"]
   }
 }

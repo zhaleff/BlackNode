@@ -1,18 +1,3 @@
 #!/usr/bin/env bash
-mic=$(pactl list source-outputs 2>/dev/null | awk -F= '/application\.name/{gsub(/"/,"",$2); printf "%s, ", $2}' | sed 's/, $//')
-cam=""
-for dev in /dev/video*; do
-    [ -e "$dev" ] || continue
-    pids=$(fuser "$dev" 2>/dev/null); [ -z "$pids" ] && continue
-    for pid in $pids; do name=$(ps -p "$pid" -o comm= 2>/dev/null); [ -n "$name" ] && cam="$cam$name, "; done
-done
-cam="${cam%, }"; mic="${mic%, }"
-if [ -n "$mic" ] && [ -n "$cam" ]; then
-    echo "{\"text\":\"󰍬 󰍷\",\"tooltip\":\"Mic: $mic\nCam: $cam\",\"class\":\"active\"}"
-elif [ -n "$mic" ]; then
-    echo "{\"text\":\"󰍬 󰍹\",\"tooltip\":\"Mic: $mic\",\"class\":\"mic-active\"}"
-elif [ -n "$cam" ]; then
-    echo "{\"text\":\"󰍭 󰍷\",\"tooltip\":\"Cam: $cam\",\"class\":\"cam-active\"}"
-else
-    echo '{"text":"󰍭 󰍹","tooltip":"Mic & Cam idle","class":"idle"}'
-fi
+_DIR="$(cd "$(dirname "$0")" && pwd)"
+exec env PYTHONPATH="$_DIR/lib${PYTHONPATH:+:$PYTHONPATH}" python3 -m bnwb.privacy "$@"
