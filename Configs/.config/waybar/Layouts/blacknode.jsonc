@@ -56,7 +56,7 @@
   },
   "group/hollow-left-3": {
     "orientation": "horizontal",
-    "modules": ["custom/cam", "custom/mic", "custom/recording", "custom/dnd",  "wireplumber" ]
+    "modules": ["custom/cam", "custom/mic", "custom/recording", "custom/dnd",  "wireplumber", "custom/pomodoro" ]
   },
 
 

@@ -207,3 +207,7 @@ tooltip label {
 #wireplumber {
   padding: 0px 10px 0px 0px;
 }
+
+#custom-pomodoro.running { color: #a6e3a1; }
+#custom-pomodoro.paused { color: #f9e2af; }
+#custom-pomodoro.finished { color: #f38ba8; }

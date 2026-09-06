@@ -1,6 +1,7 @@
 {
   "include": [
     "~/.config/waybar/Modules/backlight.jsonc",
+    "~/.config/waybar/Modules/pomodoro.jsonc",
     "~/.config/waybar/Modules/battery.jsonc",
     "~/.config/waybar/Modules/clock.jsonc",
     "~/.config/waybar/Modules/cpu.jsonc",

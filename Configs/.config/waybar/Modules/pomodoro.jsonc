@@ -1,0 +1,14 @@
+{
+  "custom/pomodoro": {
+    "exec": "~/.config/waybar/Scripts/System/pomodoro.sh",
+    "return-type": "json",
+    "interval": 1,
+    "signal": 10,
+    "format": "{text}",
+    "on-click": "~/.config/rofi/scripts/pomodoro.sh",
+    "on-click-middle": "pomodoro-cli pause; pkill -SIGRTMIN+10 waybar",
+    "on-click-right": "pomodoro-cli stop; pkill -SIGRTMIN+10 waybar"
+
+  }
+
+}
