@@ -5,9 +5,6 @@ reload_apps = true
 input_path = '~/.config/matugen/templates/hyprlang.conf'
 output_path = '~/.config/hypr/scheme/hyprlang.conf'
 
-[templates.walker]
-input_path = '~/.config/matugen/templates/walker.css'
-output_path = '~/.config/walker/colors.css'
 
 [templates.kitty]
 input_path = '~/.config/matugen/templates/kitty.conf'
@@ -70,3 +67,4 @@ output_path = '~/.cache/matugen/vscode-colors.json'
 [templates.icons]
 input_path = '~/.config/matugen/templates/icons.json'
 output_path = '~/.cache/matugen/icons.json'
+post_hook = '~/BlackNode/Configs/.local/bin/blacknode/recolor-icons.sh'
