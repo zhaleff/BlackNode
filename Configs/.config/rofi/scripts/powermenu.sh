@@ -4,11 +4,11 @@ THEME="$ROFI_DIR/themes/presets/submenu.rasi"
 
 choice=$(printf '%s\n' \
     "󰌍  Back" \
-    "  Lock" \
-    "  Suspend" \
-    "  Hibernate" \
+    "  Lock" \
+    "  Suspend" \
+    "  Hibernate" \
     "󰍃  Logout" \
-    "⟳  Reboot" \
+    "  Reboot" \
     "⏻  Shutdown" \
     | rofi -dmenu -theme "$THEME" -p "Session")
 

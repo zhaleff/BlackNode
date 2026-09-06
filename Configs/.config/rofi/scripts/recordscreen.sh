@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+u#!/usr/bin/env bash
 
 ROFI_DIR="$HOME/.config/rofi"
 THEME="$ROFI_DIR/themes/presets/submenu.rasi"
@@ -21,10 +21,10 @@ recorder_menu() {
 
     choice=$(printf '%s\n' \
         "󰌍  Back" \
-        "  Fullscreen" \
-        "  Select region" \
-        "  Fullscreen (no audio)" \
-        "  Select region (no audio)" \
+        "  Fullscreen" \
+        "󰩬  Select region" \
+        "  Fullscreen (no audio)" \
+        "  Select region (no audio)" \
         | rofi -dmenu -theme "$THEME" -p "Record")
 
     local file
