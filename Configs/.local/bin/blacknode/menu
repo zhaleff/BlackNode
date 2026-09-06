@@ -1,6 +1,0 @@
-#!/usr/bin/env bash
-# BlackNode user menu: one entrypoint, rofi owns the interaction.
-
-set -euo pipefail
-
-exec "$HOME/.config/rofi/scripts/launcher.sh"
