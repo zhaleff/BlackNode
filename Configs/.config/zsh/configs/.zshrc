@@ -13,3 +13,5 @@ source ~/.config/zsh/modules/functions.zsh
 
 # opencode
 export PATH=/home/zhaleff/.opencode/bin:$PATH
+
+export PATH="$HOME/.cargo/bin:$PATH"
