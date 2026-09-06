@@ -1,0 +1,39 @@
+{
+  "entries": [
+    {
+      "id": "2026-09-05-bash-migration",
+      "title": "Migrated notification system to Bash",
+      "body": "Replaced the Python-based sensor/notify architecture with simple, single-purpose Bash listener scripts. No more plugins, engines, or personality layers.",
+      "severity": "feature",
+      "date": "2026-09-05"
+    },
+    {
+      "id": "2026-09-05-rofi-refactor",
+      "title": "Rofi menu system refactored",
+      "body": "Unified rofi scripts under a single submenu theme, removed duplicate .rasi files and dead lib/init.sh dependencies.",
+      "severity": "feature",
+      "date": "2026-09-05"
+    },
+    {
+      "id": "2026-09-05-main-menu",
+      "title": "New main menu",
+      "body": "One launcher for WiFi, Bluetooth, Audio, Music, Clipboard, Screenshots, Screen Recorder, Wallpaper, Bookmarks, Keyboard Layout, Pomodoro, Emoji, Kill Process, and Reload.",
+      "severity": "feature",
+      "date": "2026-09-05"
+    },
+    {
+      "id": "2026-09-05-waybar-cleanup",
+      "title": "Waybar modules cleaned up",
+      "body": "Fixed broken Bluetooth, Pacman and AUR modules. Added a live Pomodoro module.",
+      "severity": "fix",
+      "date": "2026-09-05"
+    },
+    {
+      "id": "2026-09-05-local-bin",
+      "title": "New .local/bin structure",
+      "body": "Rebuilt battery, brightness, bluetooth, media, volume, wifi, usb and weather listeners as standalone Bash scripts, each with one job.",
+      "severity": "feature",
+      "date": "2026-09-05"
+    }
+  ]
+}
