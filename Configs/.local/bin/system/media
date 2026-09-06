@@ -1,2 +1,0 @@
-#!/usr/bin/env bash
-exec env PYTHONPATH="$HOME/.local/lib${PYTHONPATH:+:$PYTHONPATH}" python3 -m blacknode.notify.run media
