@@ -1,5 +1,0 @@
-{
-  "include": [
-    "~/.config/waybar/Profiles/study.jsonc"
-  ]
-}
