@@ -12,15 +12,9 @@
 hl.config({
   input = {
     kb_layout = "us,es",
-    kb_variant = "",
-    kb_model = "",
-    kb_options = "",
-    kb_rules = "",
+
     follow_mouse = 1,
 
-    -- sensitivy = 1,
-    -- mouse_keys = 0,
-    -- mouse_hide = 0,
     touchpad = {
       natural_scroll = true,
     },

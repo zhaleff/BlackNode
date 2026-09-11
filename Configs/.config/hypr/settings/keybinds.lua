@@ -32,8 +32,6 @@ hl.bind(mainMod .. " + H",         hl.dsp.exec_cmd("~/.config/rofi/scripts/scree
 hl.bind(mainMod .. " + W",         hl.dsp.exec_cmd("~/.config/rofi/scripts/wallselect.sh"))
 hl.bind(mainMod .. " + V",         hl.dsp.exec_cmd("~/.config/rofi/scripts/clipboard.sh"))
 hl.bind(mainMod .. " + SHIFT + H", hl.dsp.exec_cmd("~/.config/rofi/scripts/wf-recorder.sh"))
-hl.bind(mainMod .. " + SHIFT + W", hl.dsp.exec_cmd("~/.config/rofi/scripts/wallselect-mode.sh"))
-hl.bind(mainMod .. " + SHIFT + I", hl.dsp.exec_cmd("~/.config/rofi/scripts/themeselect.sh"))
 hl.bind(mainMod .. " + SHIFT + A", hl.dsp.exec_cmd("pavucontrol"))
 
 

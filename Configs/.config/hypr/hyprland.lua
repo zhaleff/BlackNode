@@ -30,8 +30,6 @@ require("settings/gesture")
 -- Master Layout
 require("settings/master-layout")
 
--- Scrolling Layout
-require("settings/scrolling-layout")
 
 -- Misc
 require("settings/misc")
@@ -64,15 +62,4 @@ require("settings/rules")
 require("settings/env")
 
 -- runtime overrides (from config-hud)
-pcall(require, "settings/overrides")
-
--- Active profile (from profiles/.active)
-local profile_file = io.open(os.getenv("HOME") .. "/.config/hypr/profiles/.active", "r")
-if profile_file then
-    local profile_name = profile_file:read("*l"):gsub("%s+", "")
-    profile_file:close()
-    if profile_name and #profile_name > 0 then
-        pcall(require, "profiles/" .. profile_name)
-    end
-end
 

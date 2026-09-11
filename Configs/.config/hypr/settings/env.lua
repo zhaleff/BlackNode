@@ -5,5 +5,4 @@
 -- `?888P'd88'   88b`?888P'  
 
 hl.env("XCURSOR_SIZE", "24")
-hl.env("HYPRCURSOR_THEME", "Bibata-Modern-Classic")
 hl.env("HYPRCURSOR_SIZE", "24")

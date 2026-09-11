@@ -80,19 +80,7 @@ hl.window_rule({
   match = { class = "org.kde.filelight" },
 })
 
-hl.window_rule({
-  name = "windowrule-11",
-  float = true,
-  size = "800 600",
-  match = { class = "org.gnome.cheese" },
-})
-hl.window_rule({
-  name = "windowrule-12",
-  float = true,
-  size = "800 600",
-  opacity = "0.75",
-  match = { class = "thunar"}
-})
+
 hl.window_rule({
   name = "windowrule-13",
   float = true,
@@ -100,14 +88,6 @@ hl.window_rule({
   center = true,
   match = { class = "nwg-look" }
 })
-hl.window_rule({
-  name = "windowrule-14",
-  float = true,
-  size = "800 600",
-  center = true,
-  match = { class = "nemo" }
-})
-
 hl.window_rule({
   name = "windowrule-15",
   float = true,
@@ -132,26 +112,15 @@ hl.window_rule({
 hl.window_rule({
   name = "windowrule-18",
   float = true,
-  size = "800 600",
+  size = "600 400",
+  opacity = "0.80",
   center = true,
   match = { class = "org.gnome.clocks" }
 })
 hl.window_rule({
-  name = "firefox-auth",
-  float = true,
-  center = true,
-  size = "700 700",
-
-  match = {
-    class = "firefox",
-    title = ".*([Ll]ogin|[Ss]ign.?in|[Aa]uth|OAuth|Google).*",
-  },
-})
-
-hl.window_rule({
   name = "windowrule-20",
   float = true,
-  size = "480 480",
+  size = "622 625",
   stay_focused = true,
   match = { class = "com.gabm.satty" },
 })
