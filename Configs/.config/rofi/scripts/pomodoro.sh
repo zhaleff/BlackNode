@@ -2,7 +2,7 @@
 
 ROFI_DIR="$HOME/.config/rofi"
 THEME="$ROFI_DIR/themes/presets/submenu.rasi"
-ICON_DIR="$HOME/.config/dunst/assets/src/system/pomodoro"
+ICON_DIR="/tmp/blacknode-icons/pomodoro/"
 
 pomodoro_menu() {
     local choice

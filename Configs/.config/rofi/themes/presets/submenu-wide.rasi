@@ -9,7 +9,7 @@ configuration {
 
 window {
     width:                       680px;
-    height:                      520px;
+    height:                      500px;
     transparency:                "real";
     fullscreen:                  false;
     border-radius:               24px 24px 0px 0px;
@@ -23,7 +23,7 @@ mainbox {
     spacing:                     20px;
     padding:                     20px;
     orientation:                 vertical;
-    children:                    [ "inputbar", "listview" ];
+    children:                    [ "listview", "inputbar"];
     background-color:            transparent;
 }
 
@@ -35,16 +35,13 @@ inputbar {
 }
 
 entry {
-    background-color:            @surface-container-low;
+    background-color:            @surface-container-high;
     text-color:                  @on-surface;
     cursor:                      text;
     vertical-align:              0.5;
-    placeholder:                 "Search...";
-    placeholder-color:           @on-surface-variant;
-    padding:                     12px 4px 12px 4px;
-    border-radius:               24px;
-    border:                      0px 0px 1px 0px;
-    border-color:                @outline-variant;
+    placeholder:                 "                         Search...          ";
+    padding:                     12px 16px;
+    border-radius:               16px;
 }
 
 listview {
@@ -66,18 +63,18 @@ element {
     padding:                     11px 12px;
     cursor:                      pointer;
     background-color:            transparent;
-    text-color:                  @on-surface-variant;
-    border-radius:               14px;
+    text-color:                  @on-surface;
+    border-radius:               16px;
 }
 
 element normal.normal {
     background-color:            transparent;
-    text-color:                  @on-surface-variant;
+    text-color:                  @on-surface-;
 }
 
 element selected.normal {
     background-color:            @primary;
-    border-radius:               999px;
+    border-radius:               16px;
     text-color:                  @on-primary;
 }
 

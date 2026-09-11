@@ -11,9 +11,9 @@ window {
     transparency:         "real";
     cursor:               "default";
     padding:              0px;
-    location:              south;
-    anchor:               south;
-    border-radius:        52px 52px 0px 0px;
+    location:             center;
+    anchor:               center;
+    border-radius:        32px;
     background-color:     transparent;
 }
 
@@ -23,7 +23,7 @@ mainbox {
 }
 
 listview {
-    columns:              4;
+    columns:              5;
     lines:                1;
     spacing:              24px;
     padding:              20px 24px;
@@ -39,25 +39,28 @@ listview {
 }
 
 element {
-    padding:              4px;
-    border-radius:        32px;
+    padding:              -68px 0px -68px 0px;
+    border-radius:        24px;
     cursor:               pointer;
-    background-color:     @surface-container-low;
+    background-color:     @surface-container-high;
 }
 
 element selected.normal {
-    background-color:     @secondary-container;
-    border:               1px;
-    border-color:         @secondary-container;
+    background-color:     transparent;
+    border:               2px;
+    border-color:         @primary;
 }
 
 element-icon {
     size:                300px;
     cursor:              inherit;
     expand:              true;
-    border-radius:        52px;
-    background-color:     transparent;
+    border-radius:       1px;
+    background-color:    transparent;
+    horizontal-align:    0.5;
+    vertical-align:      0.5;
 }
+
 
 element-text {
     enabled:              false;

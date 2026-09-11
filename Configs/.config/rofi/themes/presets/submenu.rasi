@@ -36,7 +36,7 @@ entry {
     cursor:                      text;
     vertical-align:              0.5;
     placeholder:                 "                  Search...";
-    placeholder-color:           @on-surface-variant;
+    placeholder-color:           @on-surface;
     padding:                     12px 16px;
     border-radius:               16px;
 }
@@ -65,8 +65,8 @@ element {
 }
 
 element selected.normal {
-    background-color:            @secondary-container;
-    text-color:                  @on-secondary-container;
+    background-color:            @primary;
+    text-color:                  @on-primary;
 }
 
 element-icon {
