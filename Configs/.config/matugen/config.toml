@@ -3,8 +3,7 @@ reload_apps = true
 
 [templates.hyprlang]
 input_path = '~/.config/matugen/templates/hyprlang.conf'
-output_path = '~/.config/hypr/scheme/hyprlang.conf'
-
+output_path = '~/.config/hypr/themes/hyprlang.conf'
 
 [templates.kitty]
 input_path = '~/.config/matugen/templates/kitty.conf'
@@ -40,17 +39,6 @@ input_path = '~/.config/matugen/templates/nvim.lua'
 output_path = '~/.config/nvim/generated.lua'
 post_hook = 'pkill -SIGUSR1 nvim'
 
-[templates.clipse]
-input_path = '~/.config/matugen/templates/clipse_theme.json'
-output_path = '~/.config/clipse/blacknode.json'
-
-# [templates.nvim]
-# input_path = '~/.config/matugen/templates/nvim.lua'
-# output_path = '~/.config/nvim/lua/core/config/colors.lua'
-
-[templates.hyprlock]
-input_path = '~/.config/matugen/templates/hyprlock.conf'
-output_path = '~/.config/hyprlock/hyprlock.conf'
 
 [templates.btop]
 input_path = '~/.config/matugen/templates/btop'
@@ -68,3 +56,8 @@ output_path = '~/.cache/matugen/vscode-colors.json'
 input_path = '~/.config/matugen/templates/icons.json'
 output_path = '~/.cache/matugen/icons.json'
 post_hook = '~/BlackNode/Configs/.local/bin/blacknode/recolor-icons.sh'
+
+[templates.alacritty]
+input_path = '~/.config/matugen/templates/alacritty.toml'
+output_path = '~/.config/alacritty/alacritty.toml'
+post_hook = 'pkill -SIGUSR1 alacritty'
