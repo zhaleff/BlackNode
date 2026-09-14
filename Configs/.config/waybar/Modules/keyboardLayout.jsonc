@@ -1,0 +1,8 @@
+{
+  "custom/layout": {
+  "exec": "~/.config/waybar/Scripts/System/KeyboardLayout.sh",
+  "on-click": "hyprctl switchxkblayout $(hyprctl devices -j | jq -r '.keyboards[] | select(.main==true) | .name') next",
+  "return-type": "json",
+  "interval": 2
+  }
+}

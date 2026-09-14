@@ -80,6 +80,7 @@ tooltip label {
 
 #custom-mic,
 #custom-cam,
+#custom-layout,
 #custom-dnd,
 #wireplumber,
 #custom-recording {
@@ -171,6 +172,9 @@ tooltip label {
   animation: blink 1.5s linear infinite;
 }
 
+#layout {
+  color: red;
+}
 
 #battery.charging 
 {

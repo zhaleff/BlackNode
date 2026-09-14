@@ -10,6 +10,7 @@
     "~/.config/waybar/Modules/mic.jsonc",
     "~/.config/waybar/Modules/cam.jsonc",
     "~/.config/waybar/Modules/recording.jsonc",
+    "~/.config/waybar/Modules/keyboardLayout.jsonc",
     "~/.config/waybar/Modules/distro.jsonc",
     "~/.config/waybar/Modules/pkg-aur.jsonc",
     "~/.config/waybar/Modules/power.jsonc",
