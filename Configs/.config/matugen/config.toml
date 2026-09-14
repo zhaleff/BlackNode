@@ -36,7 +36,7 @@ output_path = '~/.config/cava/config'
 
 [templates.neovim]
 input_path = '~/.config/matugen/templates/nvim.lua'
-output_path = '~/.config/nvim/generated.lua'
+output_path = '~/.config/nvim/lua/core/highlights/colors.lua'
 post_hook = 'pkill -SIGUSR1 nvim'
 
 
