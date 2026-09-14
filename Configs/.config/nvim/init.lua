@@ -7,52 +7,34 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 require("core.config.options")
+-- require("core.config.explorer")
 
 
 require("lazy").setup({
   -- plugins
   require("core.plugins.cmp"),
+  require("core.plugins.autopairs"),
+  require("core.plugins.fzf"),
   require("core.plugins.autotag"),
-  require("core.plugins.bufferline"),
-  require("core.plugins.nvim-tree"),
-  require("core.plugins.telescope"),
-  require("core.plugins.comment"),
-  require("core.plugins.emmet"),
-  require("core.plugins.notify"),
-  require("core.plugins.lush"),
-  require("core.plugins.blackline"),
-  require("core.plugins.tabout"),
-  require("core.plugins.harpoon"),
-  require("core.plugins.pets"),
-  require("core.plugins.ollama"),
-  require("core.plugins.trouble"),
-  require("core.plugins.dashboard"),
-  require("core.plugins.navic"),
-  require("core.plugins.diagnostic"),
-  require("core.plugins.gitsigns"),
   require("core.plugins.conform"),
-  require("core.plugins.toggleterm"),
-  require("core.plugins.colorizer"),
   require("core.plugins.mason"),
-  require("core.plugins.flash"),
-  require("core.plugins.schemastore"),
+  require("core.plugins.lualine"),
   require("core.plugins.mason-lsp"),
+  require("core.plugins.luasnip"),
+  require("core.plugins.oil"),
   require("core.plugins.lsp"),
-  require("core.plugins.mini"),
-  require("core.plugins.telekasten"),
-  require("core.plugins.winbar"),
-  require("core.plugins.treesiter"),
-  require("core.plugins.which-key"),
 })
 
 require("core.config.keymaps")
-require("core.config.emmet")
 
-dofile(vim.fn.stdpath("config") .. "/generated.lua")
+vim.o.termguicolors = true
+vim.cmd("hi clear")
+if vim.fn.exists("syntax_on") == 1 then
+  vim.cmd("syntax reset")
+end
 
-
-vim.api.nvim_create_autocmd({ "VimEnter", "ColorScheme" }, {
-  callback = function()
-    pcall(dofile, vim.fn.stdpath("config") .. "/generated.lua")
-  end,
-})
+require("core.highlights.core")
+require("core.highlights.treesitter")
+require("core.highlights.diagnostics")
+require("core.highlights.cmp")
+require("core.highlights.oil")

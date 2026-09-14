@@ -1,0 +1,20 @@
+local colors = require("core.highlights.colors")
+
+local hl = vim.api.nvim_set_hl
+
+hl(0, "CmpItemAbbr", { fg = colors.fg })
+hl(0, "CmpItemAbbrDeprecated", { fg = colors.outline, strikethrough = true })
+hl(0, "CmpItemAbbrMatch", { fg = colors.primary, bold = true })
+hl(0, "CmpItemAbbrMatchFuzzy", { fg = colors.primary, bold = true })
+hl(0, "CmpItemKind", { fg = colors.secondary })
+hl(0, "CmpItemMenu", { fg = colors.outline })
+hl(0, "CmpItemKindFunction", { fg = colors.primary })
+hl(0, "CmpItemKindMethod", { fg = colors.primary })
+hl(0, "CmpItemKindVariable", { fg = colors.fg })
+hl(0, "CmpItemKindKeyword", { fg = colors.secondary })
+hl(0, "CmpItemKindText", { fg = colors.fg })
+hl(0, "CmpItemKindClass", { fg = colors.primary_container })
+hl(0, "CmpItemKindInterface", { fg = colors.primary_container })
+hl(0, "CmpItemKindModule", { fg = colors.primary })
+hl(0, "CmpItemKindProperty", { fg = colors.primary })
+hl(0, "CmpItemKindSnippet", { fg = colors.tertiary })
