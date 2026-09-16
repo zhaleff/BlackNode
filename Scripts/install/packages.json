@@ -1,0 +1,54 @@
+{
+  "core": [
+    "hyprland",
+    "waybar",
+    "rofi-wayland",
+    "kitty",
+    "neovim",
+    "dunst",
+    "hyprlock",
+    "hypridle",
+    "fastfetch",
+    "yazi",
+    "zsh",
+    "fzf",
+    "matugen",
+    "sddm",
+    "gtk3",
+    "gtk4",
+    "ttf-jetbrains-mono"
+  ],
+  "aur": [
+    "wlogout",
+    "clipse-bin",
+    "powerlevel10k-git"
+  ],
+  "optional": [
+    "playerctl",
+    "brightnessctl",
+    "wireplumber",
+    "grim",
+    "slurp",
+    "pacman-contrib",
+    "bluez",
+    "bluez-utils",
+    "blueman",
+    "pamixer",
+    "firefox"
+  ],
+  "critical": [
+    "hyprland",
+    "kitty"
+  ],
+  "nvidia": {
+    "hyprland_replacement": "hyprland-nvidia-git",
+    "drivers": [
+      "nvidia-dkms",
+      "nvidia-open-dkms"
+    ],
+    "utils": [
+      "nvidia-utils",
+      "nvidia-settings"
+    ]
+  }
+}
