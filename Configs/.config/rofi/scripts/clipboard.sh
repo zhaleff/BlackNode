@@ -113,7 +113,7 @@ main_menu() {
     local choice
     choice=$(printf '%s\n' \
         "󰌍  Back" \
-        " History" \
+        "  History" \
         "󰐃  Pinned" \
         "  Pin Item" \
         "󰚃  Wipe" \
