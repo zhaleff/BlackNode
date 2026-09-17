@@ -1,45 +1,41 @@
 {
-    "label" : "lock",
-    "action" : "hyprlock",
-    "text" : "Lock",
-    "keybind" : "l"
+    "label": "lock",
+    "action": "hyprlock",
+    "text": "Lock",
+    "keybind": "l"
 }
 
 {
-    "label" : "suspend",
-    "action" : "~/.local/bin/ritual/wlogout-hook suspend",
-    "text" : "Suspend",
-    "keybind" : "u"
-}
-
-
-{
-    "label" : "reboot",
-    "action" : "~/.local/bin/ritual/wlogout-hook reboot",
-    "text" : "Reboot",
-    "keybind" : "r"
-}
-
-
-{
-    "label" : "shutdown",
-    "action" : "~/.local/bin/ritual/wlogout-hook shutdown",
-    "text" : "Shutdown",
-    "keybind" : "s"
+    "label": "suspend",
+    "action": "systemctl suspend",
+    "text": "Suspend",
+    "keybind": "u"
 }
 
 {
-    "label" : "logout",
-    "action" : "~/.local/bin/ritual/wlogout-hook logout",
-    "text" : "Logout",
-    "keybind" : "e"
+    "label": "reboot",
+    "action": "systemctl reboot",
+    "text": "Reboot",
+    "keybind": "r"
 }
 
-
+{
+    "label": "shutdown",
+    "action": "systemctl poweroff",
+    "text": "Shutdown",
+    "keybind": "s"
+}
 
 {
-    "label" : "hibernate",
-    "action" : "~/.local/bin/ritual/wlogout-hook hibernate",
-    "text" : "Hibernate",
-    "keybind" : "h"
+    "label": "logout",
+    "action": "hyprctl dispatch exit",
+    "text": "Logout",
+    "keybind": "e"
+}
+
+{
+    "label": "hibernate",
+    "action": "systemctl hibernate",
+    "text": "Hibernate",
+    "keybind": "h"
 }
