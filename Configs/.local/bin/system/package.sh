@@ -6,4 +6,4 @@ count=$(checkupdates 2>/dev/null | wc -l)
 
 [[ "$count" -eq 0 ]] && exit 0
 
-notify-send -i "$ICON" "PacMan updates" "$count packages pending"
+notify-send -i "$ICON" "Pacman updates" "$count packages pending"
