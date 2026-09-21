@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 ROFI_DIR="$HOME/.config/rofi"
-THEME="$ROFI_DIR/themes/presets/submenu.rasi"
+THEME="$ROFI_DIR/themes/presets/submenu-bottom.rasi"
 SHOTS_DIR="$HOME/Pictures/Screenshots"
 mkdir -p "$SHOTS_DIR"
 
@@ -9,12 +9,11 @@ for bin in grim slurp satty wl-copy hyprctl jq; do
 done
 
 choice=$(printf '%s\n' \
-    "󰌍  Back" \
     "󰆞  Region" \
     "󰖯  Window" \
     "󰍹  Output" \
     "󱄄  All" \
-    | rofi -dmenu -theme "$THEME" -p "Screenshot")
+    | rofi -dmenu -theme "$THEME" -p "Screenshot" -l 4 -theme-str 'window {width: 39%;}')
 
 [ -z "$choice" ] && exit 0
 [[ "$choice" == *"Back" ]] && exec bash "$ROFI_DIR/scripts/launcher.sh"

@@ -9,12 +9,12 @@ pomodoro_menu() {
     choice=$(printf '%s\n' \
         "󰌍  Back" \
         "󰅶  Work (25m)" \
-        "  Study (45m)" \
+        "  Study (45m)" \
         "󰃨  Short Break (5m)" \
         "󰒲  Long Break (15m)" \
-        "  Custom time" \
-        "  Pause/Resume" \
-        "  Stop" \
+        "  Custom time" \
+        "  Pause/Resume" \
+        "  Stop" \
         | rofi -dmenu -theme "$THEME" -p "Pomodoro")
 
     case "$choice" in

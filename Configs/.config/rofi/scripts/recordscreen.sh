@@ -1,7 +1,7 @@
 u#!/usr/bin/env bash
 
 ROFI_DIR="$HOME/.config/rofi"
-THEME="$ROFI_DIR/themes/presets/submenu.rasi"
+THEME="$ROFI_DIR/themes/presets/submenu-bottom.rasi"
 OUT_DIR="$HOME/Videos/Recordings"
 mkdir -p "$OUT_DIR"
 

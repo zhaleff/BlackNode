@@ -1,23 +1,23 @@
 #!/usr/bin/env bash
 ROFI_DIR="$HOME/.config/rofi"
-THEME="$ROFI_DIR/themes/presets/submenu.rasi"
+THEME="$ROFI_DIR/themes/presets/submenu-bottom.rasi"
 
 choice=$(printf '%s\n' \
-    "󰌍  Back" \
     "  Lock" \
     "  Suspend" \
     "  Hibernate" \
     "󰍃  Logout" \
     "  Reboot" \
     "⏻  Shutdown" \
-    | rofi -dmenu -theme "$THEME" -p "Session")
+    | rofi -dmenu -theme "$THEME" -p "Session" -l 6 -theme-str 'window {width: 64%;}')
+
 
 [ -z "$choice" ] && exit 0
 [[ "$choice" == *"Back" ]] && exec bash "$ROFI_DIR/scripts/launcher.sh"
 
 confirm() {
     local result
-    result=$(printf '%s\n' "󰄬  Yes" "󰅖  No" | rofi -dmenu -theme "$THEME" -p "Are you sure?")
+    result=$(printf '%s\n' "󰄬  Yes" "󰅖  No" | rofi -dmenu -theme "$THEME" -p "Are you sure?"  -theme-str 'window {width: 16%;}')
     [[ "$result" == *"Yes"* ]]
 }
 

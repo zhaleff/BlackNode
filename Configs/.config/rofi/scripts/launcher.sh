@@ -36,7 +36,7 @@ case "$choice" in
     *"Pomodoro")    exec bash "$ROFI_DIR/scripts/pomodoro.sh" ;;
     *"Record Screen") exec bash "$ROFI_DIR/scripts/recordscreen.sh" ;;
     *"Screenshots") exec bash "$ROFI_DIR/scripts/screenshots.sh" ;;
-    *"Wallpaper")   exec bash "$ROFI_DIR/scripts/wallselect.sh" ;;
+    *"Wallpaper")   exec bash "$ROFI_DIR/scripts/wallpaper.sh" ;;
     *"Kill Process") exec bash "$ROFI_DIR/scripts/killprocess.sh" ;;
     *"Emoji Picker") exec bash "$ROFI_DIR/scripts/emoji.sh" ;;
     *"Reload")      exec bash "$ROFI_DIR/scripts/reload.sh" ;;
