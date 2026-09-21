@@ -169,13 +169,10 @@ tooltip label {
   animation: blink 1.5s linear infinite;
 }
 
-#layout {
-  color: red;
-}
 
 #battery.charging 
 {
-  color: #CFFF8C;
+  color: @primary;
 }
 /* Privacy modules */
 
@@ -209,6 +206,6 @@ tooltip label {
   padding: 0px 10px 0px 0px;
 }
 
-#custom-pomodoro.running { color: #a6e3a1; }
-#custom-pomodoro.paused { color: #f9e2af; }
-#custom-pomodoro.finished { color: #f38ba8; }
+#idle_inhibitor.activated {
+  color: @primary;
+}
