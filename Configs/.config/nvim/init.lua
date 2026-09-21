@@ -17,7 +17,6 @@ require("lazy").setup({
   require("core.plugins.fzf"),
   require("core.plugins.autotag"),
   require("core.plugins.bufferline"),
-  require("core.plugins.conform"),
   require("core.plugins.mason"),
   require("core.plugins.lualine"),
   require("core.plugins.mason-lsp"),
