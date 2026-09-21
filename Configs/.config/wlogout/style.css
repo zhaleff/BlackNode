@@ -35,10 +35,9 @@ button:focus {
 
 #lock {
   padding: 1.8rem;
-  border-radius: 20px;
 
   background-image: image(url("./icons/lock.png"));
-  border-radius: 70px 20px 20px 70px;
+  border-radius: 70px 10px 10px 70px;
 }
 
 #suspend {
@@ -50,14 +49,14 @@ button:focus {
 
 #shutdown {
   padding: 0.7rem;
-  border-radius: 20px;
+  border-radius: 10px;
 
   background-image: image(url("./icons/power.png"));
 }
 
 #reboot {
   padding: 1.3rem;
-  border-radius: 20px;
+  border-radius: 10px;
 
   background-image: image(url("./icons/restart.png"));
 }
@@ -65,11 +64,11 @@ button:focus {
 #logout {
   padding: 1.3rem;
   background-image: image(url("./icons/logout.png"));
-  border-radius: 20px;
+  border-radius: 10px;
 }
 
 #hibernate {
   padding: 0.8rem;
   background-image: image(url("./icons/hibernate.png"));
-  border-radius: 20px 70px 70px 20px;
+  border-radius: 10px 70px 70px 10px;
 }
