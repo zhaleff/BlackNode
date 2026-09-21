@@ -9,6 +9,7 @@ Configs/.config/hypr/scheme/hyprlang.conf
 Configs/.config/hypr/themes/colors.lua
 Configs/.config/kitty/colors.conf
 Configs/.config/nvim/generated.lua
+Configs/.config/hypr/themes/hyprlang.conf
 Configs/.config/rofi/colors.rasi
 Configs/.config/waybar/colors.css
 Configs/.config/wlogout/colors.css
