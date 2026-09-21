@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-ICON="/tmp/blacknode-icons/plug.svg"
+ICON="/tmp/blacknode-icons/battery/plug.svg"
 
 get_capacity() {
     cat /sys/class/power_supply/BAT0/capacity 2>/dev/null

@@ -32,7 +32,7 @@ while true; do
     for threshold in "${THRESHOLDS[@]}"; do
         if [ "$capacity" -le "$threshold" ] && ! already_notified "$threshold"; then
             icon="$ICON_DIR/battery-low.svg"
-            [ "$threshold" -gt 10 ] && icon="$ICON_DIR/battery-medium.svg"
+            [ "$threshold" -gt 10 ] && icon="$ICON_DIR/battery-low.svg"
             urgency="normal"
             [ "$threshold" -le 10 ] && urgency="critical"
             notify-send -u "$urgency" -i "$icon" "Battery" "Battery at ${threshold}%"
