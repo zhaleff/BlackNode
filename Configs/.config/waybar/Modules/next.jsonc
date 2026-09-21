@@ -1,7 +1,7 @@
 {
   "custom/next": {
     "format": "{}",
-    "exec": "echo '󰙡'",
+    "exec": "echo '󰒭'",
     "interval": 2,
     "on-click": "playerctl next",
     "tooltip": false

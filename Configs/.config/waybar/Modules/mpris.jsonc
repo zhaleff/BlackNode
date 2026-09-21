@@ -3,7 +3,7 @@
     "format": "{player_icon} {title} - {artist} ",
     "format-paused": "{status_icon} {title} - {artist}",
     "player-icons": {
-      "default": "<span foreground='#cba6f7'>󰝚 </span>",
+      "default": "<span foreground='#cba6f7'>󰎇</span>",
       "spotify": "<span foreground='#a6e3a1'>󰓇 </span>",
       "firefox": "<span foreground='#f38ba8'>󰗃 </span>"
     },
