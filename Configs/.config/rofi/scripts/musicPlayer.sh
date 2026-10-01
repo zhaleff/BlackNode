@@ -24,7 +24,7 @@ music_menu() {
         "${play_icon}  ${play_label}" \
         "󰒭  Next" \
         "󰒝  Shuffle" \
-        | rofi -dmenu -theme "$THEME" -p "Music" -l 4 -theme-str 'window {width: 41%;}')
+        | rofi -dmenu -theme "$THEME" -p "Music" -l 4 -theme-str 'window {width: 49%;}')
 
     case "$choice" in
         *"Pause"|*"Play")  playerctl play-pause; music_menu ;;

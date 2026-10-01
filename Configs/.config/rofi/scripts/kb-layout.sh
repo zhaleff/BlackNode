@@ -12,8 +12,8 @@ layout_menu() {
     local choice
     choice=$(printf '%s\n' \
         "󰌍  Back" \
-        "  English" \
-        "  Español" \
+        "  English" \
+        "  Español" \
         | rofi -dmenu -theme "$THEME" -p "Layout ($current)")
 
     case "$choice" in

@@ -3,79 +3,78 @@ ROFI_DIR="$HOME/.config/rofi"
 THEME="$ROFI_DIR/themes/presets/submenu.rasi"
 
 if ! systemctl is-active --quiet bluetooth; then
-    notify-send "Bluetooth" "Bluetooth is not running."
     exit 1
 fi
 
-bt_on() { [ "$(bluetoothctl show 2>/dev/null | awk -F': ' '/Powered:/{print $2}')" = "yes" ]; }
-
-bt_connect() {
-    local mac="$1"
-    local path="org/bluez/hci0/dev_$(echo "$mac" | tr ':' '_')"
-    busctl call org.bluez "/$path" org.bluez.Device1 Connect &>/dev/null
-}
-
-paired_menu() {
-    local devices
-    devices=$(bluetoothctl devices 2>/dev/null)
-    [ -z "$devices" ] && { notify-send "Bluetooth" "No paired devices"; main_menu; return; }
-
-    local input=""
-    while IFS= read -r line; do
-        local name mac info connected icon
-        name=$(echo "$line" | awk '{$1=""; $2=""; print substr($0,3)}')
-        mac=$(echo "$line" | awk '{print $2}')
-        info=$(bluetoothctl info "$mac" 2>/dev/null)
-        connected=$(echo "$info" | grep "Connected:" | awk '{print $2}')
-        icon="󰂯"
-        [ "$connected" = "yes" ] && icon="󰂱"
-        input+="${icon}  ${name}"$'\n'
-    done <<< "$devices"
-
-    local selected
-    selected=$(printf '%s\n' "󰌍  Back" "$input" | rofi -dmenu -theme "$THEME" -p "Devices")
-    [ -z "$selected" ] && main_menu && return
-    [[ "$selected" == *"Back" ]] && main_menu && return
-
-    local sel_name mac info connected
-    sel_name=$(echo "$selected" | sed 's/.*  //')
-    mac=$(bluetoothctl devices 2>/dev/null | grep -F "$sel_name" | awk '{print $2}')
-    [ -z "$mac" ] && main_menu && return
-
-    info=$(bluetoothctl info "$mac" 2>/dev/null)
-    connected=$(echo "$info" | grep "Connected:" | awk '{print $2}')
-
-    if [ "$connected" = "yes" ]; then
-        bluetoothctl disconnect "$mac" 2>/dev/null && notify-send "Bluetooth" "Disconnected: $sel_name"
-    else
-        bt_connect "$mac" && notify-send "Bluetooth" "Connected: $sel_name" || notify-send "Bluetooth" "Failed"
-    fi
-    main_menu
+bt_on() {
+    [[ "$(bluetoothctl show 2>/dev/null | awk -F': ' '/Powered:/{print $2}')" == "yes" ]]
 }
 
 toggle_bt() {
     if bt_on; then
-        bluetoothctl power off 2>/dev/null && notify-send "Bluetooth" "Off"
+        bluetoothctl power off &>/dev/null
     else
-        bluetoothctl power on 2>/dev/null && notify-send "Bluetooth" "On"
+        bluetoothctl power on &>/dev/null
     fi
+    main_menu
+}
+
+paired_menu() {
+    local menu_input selected_line mac
+    declare -a macs
+
+    menu_input="󰌍  Back"$'\n'"󱉶  Scan"$'\n'
+
+    while IFS=$'\t' read -r mac_addr name connected; do
+        [[ -z "$mac_addr" ]] && continue
+        macs+=("$mac_addr")
+        local icon="󰂯"
+        [[ "$connected" == "yes" ]] && icon="󰂱"
+        menu_input+="${icon}  ${name}"$'\n'
+    done < <(bluetoothctl devices 2>/dev/null | while read -r _ addr name; do
+        connected=$(bluetoothctl info "$addr" 2>/dev/null | awk -F': ' '/Connected:/{print $2}')
+        printf '%s\t%s\t%s\n' "$addr" "$name" "$connected"
+    done)
+
+    selected_line=$(printf '%s' "$menu_input" | rofi -dmenu -theme "$THEME" -p "Devices" -format i)
+
+    [[ -z "$selected_line" || "$selected_line" -eq 0 ]] && { main_menu; return; }
+    [[ "$selected_line" -eq 1 ]] && { scan_menu; return; }
+
+    mac="${macs[$((selected_line - 2))]}"
+    [[ -z "$mac" ]] && { paired_menu; return; }
+
+    local connected
+    connected=$(bluetoothctl info "$mac" 2>/dev/null | awk -F': ' '/Connected:/{print $2}')
+
+    if [[ "$connected" == "yes" ]]; then
+        bluetoothctl disconnect "$mac" &>/dev/null
+    else
+        bluetoothctl connect "$mac" &>/dev/null
+    fi
+    paired_menu
+}
+
+scan_menu() {
+    bluetoothctl --timeout 8 scan on &>/dev/null
+    paired_menu
 }
 
 main_menu() {
-    local toggle_icon="󰅖"
-    bt_on && toggle_icon="󰁹"
+    local toggle_label="Turn On"
+    bt_on && toggle_label="Turn Off"
 
     local choice
     choice=$(printf '%s\n' \
         "󰌍  Back" \
         "󰂯  Devices" \
-        "$toggle_icon  Toggle" \
-        | rofi -dmenu -theme "$THEME" -p "󰂯  Bluetooth")
+        "  ${toggle_label}" \
+        | rofi -dmenu -theme "$THEME" -p "Bluetooth")
 
     case "$choice" in
         *"Back")    exec bash "$ROFI_DIR/scripts/launcher.sh" ;;
         *"Devices") paired_menu ;;
-        *"Toggle")  toggle_bt; main_menu ;;
+        *"On"|*"Off") toggle_bt ;;
     esac
 }
 

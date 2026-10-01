@@ -9,11 +9,11 @@ for bin in grim slurp satty wl-copy hyprctl jq; do
 done
 
 choice=$(printf '%s\n' \
-    "󰆞  Region" \
+    "󰩭  Region" \
     "󰖯  Window" \
     "󰍹  Output" \
     "󱄄  All" \
-    | rofi -dmenu -theme "$THEME" -p "Screenshot" -l 4 -theme-str 'window {width: 39%;}')
+    | rofi -dmenu -theme "$THEME" -p "Screenshot" -l 4 -theme-str 'window {width: 47%;}')
 
 [ -z "$choice" ] && exit 0
 [[ "$choice" == *"Back" ]] && exec bash "$ROFI_DIR/scripts/launcher.sh"

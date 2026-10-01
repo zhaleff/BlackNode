@@ -8,9 +8,8 @@ mkdir -p "$OUT_DIR"
 recorder_menu() {
     if pgrep -x "wf-recorder" > /dev/null; then
         choice=$(printf '%s\n' \
-            "󰌍  Back" \
-            "  Stop recording" \
-            | rofi -dmenu -theme "$THEME" -p "Recording...")
+            "  Stop recording" \
+            | rofi -dmenu -theme "$THEME" -p "Recording..." -l 6 -theme-str 'window {width: 70%;}' )
 
         case "$choice" in
             *"Back")            exec bash "$ROFI_DIR/scripts/launcher.sh" ;;
@@ -20,7 +19,6 @@ recorder_menu() {
     fi
 
     choice=$(printf '%s\n' \
-        "󰌍  Back" \
         "  Fullscreen" \
         "󰩬  Select region" \
         "  Fullscreen (no audio)" \
@@ -31,8 +29,6 @@ recorder_menu() {
     file="$OUT_DIR/recording-$(date +%Y%m%d-%H%M%S).mp4"
 
     case "$choice" in
-        *"Back")
-            exec bash "$ROFI_DIR/scripts/launcher.sh" ;;
         *"Fullscreen (no audio)")
             wf-recorder -f "$file" & disown ;;
         *"Fullscreen")

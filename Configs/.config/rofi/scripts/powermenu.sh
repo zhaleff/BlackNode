@@ -5,11 +5,10 @@ THEME="$ROFI_DIR/themes/presets/submenu-bottom.rasi"
 choice=$(printf '%s\n' \
     "  Lock" \
     "  Suspend" \
-    "  Hibernate" \
     "󰍃  Logout" \
     "  Reboot" \
     "⏻  Shutdown" \
-    | rofi -dmenu -theme "$THEME" -p "Session" -l 6 -theme-str 'window {width: 64%;}')
+    | rofi -dmenu -theme "$THEME" -p "Session" -l 6 -theme-str 'window {width: 62%;}')
 
 
 [ -z "$choice" ] && exit 0
@@ -17,7 +16,7 @@ choice=$(printf '%s\n' \
 
 confirm() {
     local result
-    result=$(printf '%s\n' "󰄬  Yes" "󰅖  No" | rofi -dmenu -theme "$THEME" -p "Are you sure?"  -theme-str 'window {width: 16%;}')
+    result=$(printf '%s\n' "󰄬  Yes" "󰅖  No" | rofi -dmenu -theme "$THEME" -p "Are you sure?"  -theme-str 'window {width: 19%;}')
     [[ "$result" == *"Yes"* ]]
 }
 
@@ -32,9 +31,7 @@ case "$choice" in
     *"Suspend")
         confirm && { mpc -q pause; amixer set Master mute; systemctl suspend; }
         ;;
-    *"Hibernate")
-        confirm && systemctl hibernate
-        ;;
+
     *"Logout")
         confirm && hyprctl dispatch exit
         ;;

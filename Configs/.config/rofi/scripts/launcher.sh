@@ -6,6 +6,7 @@ choice=$(printf '%s\n' \
     "󰤨  WiFi" \
     "󰂯  Bluetooth" \
     "󰕾  Audio" \
+    "󰑓  Reload" \
     "  Bookmarks" \
     "  Keyboard Layout" \
     "󰎈  Music" \
@@ -17,7 +18,6 @@ choice=$(printf '%s\n' \
     "󰸉  Wallpaper" \
     "  Kill Process" \
     "󰞅  Emoji Picker" \
-    "󰑓  Reload" \
     "󰎕  Whats New" \
     "󰐥  Session" \
     | rofi -dmenu -theme "$THEME" -p "BlackNode")
@@ -28,6 +28,7 @@ case "$choice" in
     *"WiFi")        exec bash "$ROFI_DIR/scripts/wifi.sh" ;;
     *"Bluetooth")   exec bash "$ROFI_DIR/scripts/bluetooth.sh" ;;
     *"Audio")       exec bash "$ROFI_DIR/scripts/audio.sh" ;;
+    *"Reload")      exec bash "$ROFI_DIR/scripts/reload.sh" ;;
     *"Bookmarks")   exec bash "$ROFI_DIR/scripts/bookmarks.sh" ;;
     *"Keyboard Layout") exec bash "$ROFI_DIR/scripts/kb-layout.sh" ;;
     *"Music")       exec bash "$ROFI_DIR/scripts/musicPlayer.sh" ;;
@@ -39,7 +40,6 @@ case "$choice" in
     *"Wallpaper")   exec bash "$ROFI_DIR/scripts/wallpaper.sh" ;;
     *"Kill Process") exec bash "$ROFI_DIR/scripts/killprocess.sh" ;;
     *"Emoji Picker") exec bash "$ROFI_DIR/scripts/emoji.sh" ;;
-    *"Reload")      exec bash "$ROFI_DIR/scripts/reload.sh" ;;
     *"Whats New")   exec bash "$ROFI_DIR/scripts/whatnews.sh" ;;
     *"Session")     exec bash "$ROFI_DIR/scripts/powermenu.sh" ;;
 esac

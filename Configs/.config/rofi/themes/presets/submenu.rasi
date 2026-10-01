@@ -1,7 +1,7 @@
 @import "~/.config/rofi/colors.rasi"
 
 configuration {
-    font:                        "JetBrainsMono Nerd Font 13";
+    font:                        "JetBrainsMono Nerd Font 15";
     show-icons:                  false;
 }
 
@@ -35,7 +35,7 @@ entry {
     text-color:                  @on-surface;
     cursor:                      text;
     vertical-align:              0.5;
-    placeholder:                 "                  Search...";
+    placeholder:                 "            BlackNode...     ";
     placeholder-color:           @on-surface;
     padding:                     12px 16px;
     border-radius:               12px;

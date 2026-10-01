@@ -9,14 +9,12 @@ volume_control() {
 
     local mic_muted
     mic_muted=$(wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | grep -c MUTED)
-    [ "$mic_muted" -gt 0 ] && mic_icon="" || mic_icon="󰍭"
+    [ "$mic_muted" -gt 0 ] && mic_icon="" || mic_icon="󰍭"
 
     local choice
     choice=$(printf '%s\n' \
         "󰌍  Back" \
         "󰕾  Mute" \
-        "󰝝  +10%" \
-        "󰝞  -10%" \
         "󰝚  Apps" \
         "$mic_icon  Mic" \
         | rofi -dmenu -theme "$THEME" -p "Audio")
@@ -24,8 +22,6 @@ volume_control() {
     case "$choice" in
         *"Back")    exec bash "$ROFI_DIR/scripts/launcher.sh" ;;
         *"Mute")    wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle; volume_control ;;
-        *"+10%")    wpctl set-volume @DEFAULT_AUDIO_SINK@ 10%+; volume_control ;;
-        *"-10%")    wpctl set-volume @DEFAULT_AUDIO_SINK@ 10%-; volume_control ;;
         *"Apps")
             local list=""
             while IFS= read -r block; do
