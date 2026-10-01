@@ -47,7 +47,18 @@ return {
       "typescript", "typescriptreact",
     },
   },
-
+  emmet_language_server = {
+    filetypes = {
+      "html", "css", "scss",
+      "javascript", "javascriptreact",
+      "typescript", "typescriptreact",
+    },
+    init_options = {
+      showExpandedAbbreviation = "always",
+      showAbbreviationSuggestions = true,
+      showSuggestionsAsSnippets = true,
+    },
+  },
   rust_analyzer = {},
 
   kotlin_language_server = {
