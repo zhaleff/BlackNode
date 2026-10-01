@@ -32,8 +32,13 @@ while true; do
     for threshold in "${THRESHOLDS[@]}"; do
         if [ "$capacity" -ge "$threshold" ] && ! already_notified "$threshold"; then
             icon="$ICON_DIR/battery-full.svg"
-            [ "$threshold" -lt 100 ] && icon="$ICON_DIR/battery-plus.svg"
-            notify-send -i "$icon" "Battery" "Battery at ${threshold}%"
+            message="Fully charged"
+            if [ "$threshold" -lt 100 ]; then
+                icon="$ICON_DIR/battery-plus.svg"
+                message="At ${threshold}% - consider unplugging soon"
+            fi
+            notify-send -h string:x-canonical-private-synchronous:battery \
+                -i "$icon" "Battery" "$message"
             mark_notified "$threshold"
         fi
     done

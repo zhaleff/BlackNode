@@ -35,7 +35,8 @@ while true; do
             [ "$threshold" -gt 10 ] && icon="$ICON_DIR/battery-low.svg"
             urgency="normal"
             [ "$threshold" -le 10 ] && urgency="critical"
-            notify-send -u "$urgency" -i "$icon" "Battery" "Battery at ${threshold}%"
+            notify-send -u "$urgency" -h string:x-canonical-private-synchronous:battery \
+                -i "$icon" "Battery" "Battery at ${threshold}%"
             mark_notified "$threshold"
         fi
     done

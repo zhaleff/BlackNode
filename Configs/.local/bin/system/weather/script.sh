@@ -14,9 +14,11 @@ lon=$(echo "$loc" | jq -r '.lon')
 
 data=$(curl -s "https://api.open-meteo.com/v1/forecast?latitude=$lat&longitude=$lon&current=temperature_2m,weather_code&hourly=precipitation_probability&forecast_hours=3")
 
-temp=$(echo "$data" | jq -r '.current.temperature_2m')
-code=$(echo "$data" | jq -r '.current.weather_code')
-rain_chance=$(echo "$data" | jq -r '.hourly.precipitation_probability | max')
+temp=$(echo "$data" | jq -r '.current.temperature_2m // empty')
+code=$(echo "$data" | jq -r '.current.weather_code // empty')
+rain_chance=$(echo "$data" | jq -r '.hourly.precipitation_probability | max // empty')
+
+[[ -z "$temp" || -z "$code" ]] && exit 0
 
 icon_for_code() {
     case "$1" in
@@ -46,6 +48,6 @@ icon="$ICON_DIR/$(icon_for_code "$code")"
 
 notify-send -i "$icon" "Weather" "${temp}°C"
 
-if [[ "$rain_chance" -ge 70 ]]; then
+if [[ -n "$rain_chance" ]] && [[ "$rain_chance" -ge 70 ]]; then
     notify-send -i "$ICON_DIR/showers.svg" "Weather" "Rain likely soon (${rain_chance}%)"
 fi

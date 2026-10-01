@@ -1,11 +1,19 @@
 #!/usr/bin/env bash
 
 COVER_PATH="/tmp/blacknode-music-cover"
+MAX_TITLE=40
+MAX_ARTIST=40
 
 download_cover() {
     local url="$1"
     [[ -z "$url" ]] && return 1
     curl -s -L "$url" -o "$COVER_PATH" 2>/dev/null
+}
+
+truncate() {
+    local text="$1" max="$2"
+    (( ${#text} > max )) && text="${text:0:max-1}…"
+    echo "$text"
 }
 
 notify_track() {
@@ -15,6 +23,9 @@ notify_track() {
     art_url=$(playerctl metadata mpris:artUrl 2>/dev/null)
 
     [[ -z "$title" ]] && return
+
+    title=$(truncate "$title" "$MAX_TITLE")
+    artist=$(truncate "$artist" "$MAX_ARTIST")
 
     if download_cover "$art_url"; then
         notify-send -i "$COVER_PATH" "$title" "$artist"
