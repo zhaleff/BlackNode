@@ -38,8 +38,8 @@ window#waybar {
 tooltip {
   background-color: @surface;
   color: @on-surface;
-  border-radius: 16px;
-  padding: 16px 24px;
+  border-radius: 12px;
+  padding: 24px 32px;
   border: 1px solid alpha(@outline, 0.2);
 }
 
@@ -60,10 +60,10 @@ tooltip label {
 #hollow-center,
 #hollow-right-2 {
   background-color: @surface;
-    padding: 12px 14px;
-    border-radius: 10px;
-    margin: 0px;
-    border: 1px solid alpha(@outline, 0.1);
+  padding: 12px 14px;
+  border-radius: 10px;
+  margin: 0px;
+  border: 1px solid alpha(@outline, 0.1);
 }
 
 
@@ -71,7 +71,6 @@ tooltip label {
 
 #custom-pause
 {
-  background-color: @surface;
   margin: 0px 2px;
 }
 
@@ -107,7 +106,7 @@ tooltip label {
 
 #custom-power {
   color: @primary;
-  margin: 0px 0px 0px -2px;
+  margin: 0px 0px 0px -6px;
 }
 
 #custom-bluetooth {

@@ -36,7 +36,7 @@
   },
   "group/hollow-right-1": {
     "orientation": "horizontal",
-    "modules": [  "network", "custom/bluetooth",  "backlight","battery"]
+    "modules": [  "network", "custom/bluetooth",  "backlight", "battery"]
   },
   "group/hollow-center": {
     "orientation": "horizontal",
