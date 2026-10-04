@@ -61,14 +61,14 @@ scan_menu() {
 }
 
 main_menu() {
-    local toggle_label="Turn On"
-    bt_on && toggle_label="Turn Off"
+    local toggle_label="  Turn On"
+    bt_on && toggle_label="  Turn Off"
 
     local choice
     choice=$(printf '%s\n' \
         "󰌍  Back" \
         "󰂯  Devices" \
-        "  ${toggle_label}" \
+        "${toggle_label}" \
         | rofi -dmenu -theme "$THEME" -p "Bluetooth")
 
     case "$choice" in

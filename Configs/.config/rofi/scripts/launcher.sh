@@ -16,7 +16,6 @@ choice=$(printf '%s\n' \
     "󰆞  Screenshots" \
     "  Record Screen" \
     "󰸉  Wallpaper" \
-    "  Kill Process" \
     "󰞅  Emoji Picker" \
     "󰎕  Whats New" \
     "󰐥  Session" \
@@ -38,7 +37,6 @@ case "$choice" in
     *"Record Screen") exec bash "$ROFI_DIR/scripts/recordscreen.sh" ;;
     *"Screenshots") exec bash "$ROFI_DIR/scripts/screenshots.sh" ;;
     *"Wallpaper")   exec bash "$ROFI_DIR/scripts/wallpaper.sh" ;;
-    *"Kill Process") exec bash "$ROFI_DIR/scripts/killprocess.sh" ;;
     *"Emoji Picker") exec bash "$ROFI_DIR/scripts/emoji.sh" ;;
     *"Whats New")   exec bash "$ROFI_DIR/scripts/whatnews.sh" ;;
     *"Session")     exec bash "$ROFI_DIR/scripts/powermenu.sh" ;;

@@ -1,14 +1,15 @@
 u#!/usr/bin/env bash
 
 ROFI_DIR="$HOME/.config/rofi"
-THEME="$ROFI_DIR/themes/presets/submenu-bottom.rasi"
+THEME="$ROFI_DIR/themes/presets/submenu.rasi"
 OUT_DIR="$HOME/Videos/Recordings"
 mkdir -p "$OUT_DIR"
 
 recorder_menu() {
     if pgrep -x "wf-recorder" > /dev/null; then
         choice=$(printf '%s\n' \
-            "  Stop recording" \
+            "󰌍  Back" \
+            "  Stop recording" \
             | rofi -dmenu -theme "$THEME" -p "Recording..." -l 6 -theme-str 'window {width: 70%;}' )
 
         case "$choice" in
@@ -19,6 +20,7 @@ recorder_menu() {
     fi
 
     choice=$(printf '%s\n' \
+        "󰌍  Back" \
         "  Fullscreen" \
         "󰩬  Select region" \
         "  Fullscreen (no audio)" \
@@ -29,6 +31,8 @@ recorder_menu() {
     file="$OUT_DIR/recording-$(date +%Y%m%d-%H%M%S).mp4"
 
     case "$choice" in
+        *"Back")
+            exec bash "$ROFI_DIR/scripts/launcher.sh" ;;
         *"Fullscreen (no audio)")
             wf-recorder -f "$file" & disown ;;
         *"Fullscreen")
