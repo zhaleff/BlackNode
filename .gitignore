@@ -3,6 +3,7 @@ __pycache__/
 target/
 Configs/.config/btop/themes/colors.theme
 Configs/.config/cava/config
+Configs/.config/nvim/lua/core/highlights/colors.lua
 Configs/.config/clipse/blacknode.json
 Configs/.config/dunst/dunstrc
 Configs/.config/hypr/scheme/hyprlang.conf
@@ -20,3 +21,4 @@ Configs/.config/rofi/scripts/music.sh
 Configs/.config/hypr/hyprlock.png
 Configs/.local/bin/lib/
 Scripts/lib/
+Configs/.config/nvim/lua/core/highlights/colors.lua
