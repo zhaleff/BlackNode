@@ -7,6 +7,9 @@ alias search='pacman -Ss'
 alias cleanup='sudo pacman -Rns $(pacman -Qtdq); sudo pacman -Sc'
 alias yayupdate='yay -Syu'
 
+# nvim 
+alias nv='nvim'
+
 # File System
 alias ls='exa --icons --color=always --group-directories-first'
 alias la='exa -a --icons --color=always'
