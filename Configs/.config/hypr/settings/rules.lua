@@ -27,7 +27,6 @@ hl.window_rule({
 
 hl.window_rule({
   name = "windowrule-3",
-  float = false,
   opacity = "0.8",
   match = { class = "kitty" },
 })
