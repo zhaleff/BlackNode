@@ -1,0 +1,8 @@
+{
+  "custom/microphonePrivacy": {
+    "format": "{}",
+    "return-type": "json",
+    "exec": "~/.config/waybar/Scripts/Privacy/microphoneModule.sh",
+    "interval": 2
+  }
+}

@@ -1,5 +1,5 @@
 {
-  "custom/nomusic": {
+  "custom/noPlaying": {
     "exec": "playerctl -l 2>/dev/null | grep -q . && echo '{\"text\":\"\"}' || echo '{\"text\":\"󰎊 No song\"}'",
     "return-type": "json",
     "interval": 3,

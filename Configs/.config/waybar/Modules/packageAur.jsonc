@@ -1,6 +1,6 @@
 {
-  "custom/pkg-aur": {
-    "exec": "~/.config/waybar/Scripts/System/aur.sh",
+  "custom/packageAur": {
+    "exec": "~/.config/waybar/Scripts/System/packageAur.sh",
     "return-type": "json",
     "interval": 1200,
     "format": "󰣇 {}",

@@ -1,5 +1,5 @@
 {
-  "custom/power": {
+  "custom/logoutMenu": {
     "format": "{icon}",
     "format-icons": "",
     "exec-on-event": "true",

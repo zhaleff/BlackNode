@@ -1,0 +1,8 @@
+{
+  "custom/notDisturb": {
+    "exec": "~/.config/waybar/Scripts/System/notDisturb.sh",
+    "return-type": "json",
+    "interval": 1,
+    "on-click": "~/.config/waybar/Scripts/System/notDisturb.sh toggle"
+  }
+}

@@ -1,5 +1,8 @@
 @import "colors.css";
 
+@define-color warning #FF8C8C;
+@define-color caution #FFEE8C;
+
 * {
   border: none;
   border-radius: 0;
@@ -11,8 +14,6 @@
   transition: all 0.25s cubic-bezier(0.3, 0.0, 0.0, 1.0);
   min-height: 0;
 }
-
-@define-color warning #FF8C8C;
 
 window#waybar {
   background-color: transparent;
@@ -27,13 +28,6 @@ window#waybar {
   padding: 0 4px;
   margin: 0;
 }
-
-#hollow-left-1 {
-  background-color: @surface;
-  border-radius: 24px 10px;
-  padding: 10px 10px;
-}
-
 
 tooltip {
   background-color: @surface;
@@ -66,45 +60,37 @@ tooltip label {
   border: 1px solid alpha(@outline, 0.1);
 }
 
-
-
-
-#custom-pause
-{
+#custom-playingStatus {
   margin: 0px 2px;
 }
 
-#custom-mic,
-#custom-cam,
-#custom-layout,
-#custom-dnd,
-#wireplumber,
-#custom-recording {
+#custom-microphonePrivacy,
+#custom-cameraPrivacy,
+#custom-notDisturb,
+#custom-recordingPrivacy,
+#wireplumber {
   margin: 0px 4px;
 }
 
-#network, 
-#bluetooth,
-#backlight, 
+#network,
+#backlight,
 #battery {
   margin: 0px 4px;
 }
 
-#hollow-right-1, 
+#hollow-right-1,
 #hollow-center-2,
-#hollow-distro
-{
+#hollow-distro {
   border-radius: 32px 10px 10px 32px;
 }
 
-#hollow-right-3,  
+#hollow-right-3,
 #hollow-center,
-#hollow-left-2
-{
+#hollow-left-2 {
   border-radius: 10px 32px 32px 10px;
 }
 
-#custom-power {
+#custom-logoutMenu {
   color: @primary;
   margin: 0px 0px 0px -6px;
 }
@@ -113,8 +99,6 @@ tooltip label {
   margin: 0px -4px 0px 2px;
 }
 
-
-
 #workspaces button {
   box-shadow: none;
   text-shadow: none;
@@ -122,42 +106,29 @@ tooltip label {
   border-radius: 10px;
   padding: 0 6px;
   margin: 0px;
-  animation: 20s ease-in-out 1;
   transition: background-color 0.4s cubic-bezier(.55, -0.68, .48, 1.682),
     padding 0.4s cubic-bezier(.55, -0.68, .48, 1.682),
     border-radius 0.4s cubic-bezier(.55, -0.68, .48, 1.682);
 }
-
 
 #workspaces button.active {
   background-color: @primary;
   color: @on-primary;
-  border-radius: 10px;
   padding: 2px 8px;
-  animation: 20s ease-in-out 1;
-  transition: background-color 0.4s cubic-bezier(.55, -0.68, .48, 1.682),
-    padding 0.4s cubic-bezier(.55, -0.68, .48, 1.682),
-    border-radius 0.4s cubic-bezier(.55, -0.68, .48, 1.682);
 }
-
 
 #workspaces button:hover {
   background-color: @primary;
   color: @on-primary;
-  border-radius: 10px;
   padding: 0 4px;
-  animation: 20s ease-in-out 1;
   transition: background-color 0.3s cubic-bezier(.55, -0.68, .48, 1.682),
     padding 0.3s cubic-bezier(.55, -0.68, .48, 1.682),
     border-radius 0.3s cubic-bezier(.55, -0.68, .48, 1.682);
 }
 
-
 /* Battery */
-
-
 #battery.warning {
-  color: #FFEE8C;
+  color: @caution;
 }
 
 #battery.critical {
@@ -168,38 +139,18 @@ tooltip label {
   animation: blink 1.5s linear infinite;
 }
 
-
-#battery.charging 
-{
+#battery.charging {
   color: @primary;
 }
+
 /* Privacy modules */
-
-#custom-dnd.dnd-active {
-  color: @warning;
-}
-
-#custom-cam.cam-active {
-  color: @warning;
-}
-
-#custom-recording.recording {
-  color: @warning;
-}
-
-
-/* MIC */
-#custom-mic.idle {
-  color: @on-surface;
-}
-#custom-mic.mic-active {
-  color: @warning;
-}
-
+#custom-notDisturb.dnd-active,
+#custom-cameraPrivacy.cam-active,
+#custom-recordingPrivacy.recording,
+#custom-microphonePrivacy.mic-active,
 #wireplumber.muted {
   color: @warning;
 }
-
 
 #wireplumber {
   padding: 0px 10px 0px 0px;

@@ -1,5 +1,5 @@
 {
-  "custom/previous": {
+  "custom/playPrevious": {
     "format": "{}",
     "exec": "echo '󰒮'",
     "interval": 2,

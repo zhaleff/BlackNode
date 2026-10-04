@@ -1,0 +1,8 @@
+{
+  "custom/cameraPrivacy": {
+    "format": "{}",
+    "return-type": "json",
+    "exec": "~/.config/waybar/Scripts/Privacy/cameraModule.sh",
+    "interval": 10
+  }
+}

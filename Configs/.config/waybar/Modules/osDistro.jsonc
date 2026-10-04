@@ -1,9 +1,9 @@
 {
- "custom/distro": {
+ "custom/osDistro": {
     "format": "{}",
     "return-type": "json",
     "tooltip": true,
-    "exec": "~/.config/waybar/Scripts/System/distro.sh",
+    "exec": "~/.config/waybar/Scripts/System/userDistro.sh",
     "interval": 3600
   }
 }

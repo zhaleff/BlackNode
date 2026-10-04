@@ -1,8 +1,8 @@
 {
-  "custom/pacman": {
+  "custom/packagePacman": {
     "format": "󰮯 {text}",
     "interval": 3600,
-    "exec": "~/.config/waybar/Scripts/System/pkg.sh",
+    "exec": "~/.config/waybar/Scripts/System/packagePacman.sh",
     "return-type": "json",
     "tooltip": true,
     "exec-if": "bash -c 'count=$(checkupdates | wc -l); [ $count -gt 0 ]'",

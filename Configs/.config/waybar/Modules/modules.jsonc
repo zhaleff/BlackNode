@@ -1,0 +1,27 @@
+{
+  "include": [
+    "~/.config/waybar/Modules/backlight.jsonc",
+    "~/.config/waybar/Modules/battery.jsonc",
+    "~/.config/waybar/Modules/bluetooth.jsonc",
+    "~/.config/waybar/Modules/cameraPrivacy.jsonc",
+    "~/.config/waybar/Modules/clock.jsonc",
+    "~/.config/waybar/Modules/idleInhibitor.jsonc",
+    "~/.config/waybar/Modules/logoutMenu.jsonc",
+    "~/.config/waybar/Modules/microphonePrivacy.jsonc",
+    "~/.config/waybar/Modules/mpris.jsonc",
+    "~/.config/waybar/Modules/network.jsonc",
+    "~/.config/waybar/Modules/noPlaying.jsonc",
+    "~/.config/waybar/Modules/notDisturb.jsonc",
+    "~/.config/waybar/Modules/osDistro.jsonc",
+    "~/.config/waybar/Modules/packageAur.jsonc",
+    "~/.config/waybar/Modules/packagePacman.jsonc",
+    "~/.config/waybar/Modules/playNext.jsonc",
+    "~/.config/waybar/Modules/playPrevious.jsonc",
+    "~/.config/waybar/Modules/playingStatus.jsonc",
+    "~/.config/waybar/Modules/recordingPrivacy.jsonc",
+    "~/.config/waybar/Modules/weather.jsonc",
+    "~/.config/waybar/Modules/wireplumber.jsonc",
+    "~/.config/waybar/Modules/workspaces.jsonc"
+  ]
+}
+
