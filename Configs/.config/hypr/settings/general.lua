@@ -22,7 +22,7 @@ hl.config({
       active_border   = { colors = {"rgba(" .. color0 .. "ee)", "rgba(" .. color1 .. "ee)"}, angle = 145 },
       inactive_border = "rgba(" .. color0 .. "aa)",
     },
-    layout = "dwindle",
+    layout = "scrolling",
     allow_tearing = false,
     resize_on_border = false,
   },

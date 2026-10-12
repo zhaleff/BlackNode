@@ -7,73 +7,141 @@
 -- d88' `?88b,`?888P'`?88P'?8b d88'`?88P'd88' `?88P'`88bd88'   88b`?888P'
 --                          )88
 --                         ,d8P
+--  d8b                         d8b        d8,      d8b
+--  ?88                         ?88       `8P       88P
+--   88b                         88b               d88
+--   888  d88' d8888b?88   d8P   888888b   88b d888888    88bd88b  .d888b,
+--   888bd8P' d8b_,dPd88   88    88P `?8b  88Pd8P' ?88    88P' ?8b ?8b,
+--  d88888b   88b    ?8(  d88   d88,  d88 d88 88b  ,88b  d88   88P   `?8b
+-- d88' `?88b,`?888P'`?88P'?8b d88'`?88P'd88' `?88P'`88bd88'   88b`?888P'
+--                          )88
+--                         ,d8P
 --                       ?888P'
 
 local mainMod = "SUPER"
+local rofi = "~/.config/rofi/scripts/"
+local waybar = "~/.config/waybar/Scripts/launcher/"
+local osd = "~/BlackNode/Configs/.local/bin/system/osd/"
+local step = 40
 
-
-hl.bind(mainMod .. " + left",  hl.dsp.focus({ direction = "left" }))
-hl.bind(mainMod .. " + right", hl.dsp.focus({ direction = "right" }))
-hl.bind(mainMod .. " + up",    hl.dsp.focus({ direction = "up" }))
-hl.bind(mainMod .. " + down",  hl.dsp.focus({ direction = "down" }))
-
-
-hl.bind(mainMod .. " + B", hl.dsp.exec_cmd("firefox"))
-hl.bind(mainMod .. " + D", hl.dsp.exec_cmd("kitty"))
-hl.bind(mainMod .. " + E", hl.dsp.exec_cmd("dolphin"))
-hl.bind(mainMod .. " + Y", hl.dsp.exec_cmd("spotify"))
-
-
-hl.bind(mainMod .. " + SPACE",     hl.dsp.exec_cmd("bash ~/.config/rofi/scripts/launcher.sh"))
-hl.bind(mainMod .. " + R",         hl.dsp.exec_cmd("rofi -show drun"))
-hl.bind(mainMod .. " + X",         hl.dsp.exec_cmd("~/.config/rofi/scripts/powermenu.sh"))
-hl.bind(mainMod .. " + H",         hl.dsp.exec_cmd("~/.config/rofi/scripts/screenshots.sh"))
-hl.bind(mainMod .. " + G",         hl.dsp.exec_cmd("~/.config/rofi/scripts/recordscreen.sh"))
-hl.bind(mainMod .. " + W",         hl.dsp.exec_cmd("~/.config/rofi/scripts/wallselect.sh"))
-hl.bind(mainMod .. " + V",         hl.dsp.exec_cmd("~/.config/rofi/scripts/clipboard.sh"))
-hl.bind(mainMod .. " + K",         hl.dsp.exec_cmd("~/.config/rofi/scripts/musicPlayer.sh"))
-hl.bind(mainMod .. " + SHIFT + H", hl.dsp.exec_cmd("~/.config/rofi/scripts/wf-recorder.sh"))
-hl.bind(mainMod .. " + SHIFT + A", hl.dsp.exec_cmd("pavucontrol"))
-
-
-hl.bind(mainMod .. " + SHIFT + X", hl.dsp.exec_cmd("wlogout -b 6"))
-hl.bind(mainMod .. " + L", hl.dsp.exec_cmd("hyprlock"))
-hl.bind(mainMod .. " + Q", hl.dsp.window.close())
-hl.bind(mainMod .. " + F", hl.dsp.window.float({ action = "toggle" }))
-hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
-hl.bind(mainMod .. " + SHIFT + F", hl.dsp.window.fullscreen({ mode = "fullscreen", action = "toggle" }))
-
-
-hl.bind(mainMod .. " + CTRL + ALT + UP",   hl.dsp.exec_cmd("~/.config/waybar/Scripts/launcher/launch.sh"))
-hl.bind(mainMod .. " + CTRL + ALT + DOWN", hl.dsp.exec_cmd("~/.config/waybar/Scripts/launcher/script.sh"))
-
-
-for i = 1, 9 do
-    hl.bind(mainMod .. " + " .. i,         hl.dsp.focus({ workspace = i }))
-    hl.bind(mainMod .. " + SHIFT + " .. i, hl.dsp.window.move({ workspace = i }))
+local function bind(keys, action, opts)
+    hl.bind(mainMod .. " + " .. keys, action, opts)
 end
 
+local function exec(cmd)
+    return hl.dsp.exec_cmd(cmd)
+end
 
-hl.bind(mainMod .. " + S",         hl.dsp.workspace.toggle_special("magic"))
-hl.bind(mainMod .. " + SHIFT + S", hl.dsp.window.move({ workspace = "special:magic" }))
+-- apps and scripts
+local launchers = {
+    { "B", "firefox" },
+    { "D", "kitty" },
+    { "E", "dolphin" },
+    { "Y", "spotify" },
+    { "R", "rofi -show drun" },
+    { "SPACE", "bash " .. rofi .. "launcher.sh" },
+    { "X", rofi .. "powermenu.sh" },
+    { "G", rofi .. "recordscreen.sh" },
+    { "W", rofi .. "wallselect.sh" },
+    { "V", rofi .. "clipboard.sh" },
+    { "M", rofi .. "musicPlayer.sh" },
+    { "ESCAPE", "hyprlock" },
+    { "SHIFT + S", rofi .. "screenshots.sh" },
+    { "SHIFT + R", rofi .. "wf-recorder.sh" },
+    { "SHIFT + A", "pavucontrol" },
+    { "SHIFT + X", "wlogout -b 6" },
+    { "CTRL + ALT + UP", waybar .. "launch.sh" },
+    { "CTRL + ALT + DOWN", waybar .. "script.sh" },
+}
 
+for _, l in ipairs(launchers) do
+    bind(l[1], exec(l[2]))
+end
 
-hl.bind(mainMod .. " + mouse_down", hl.dsp.focus({ workspace = "e+1" }))
-hl.bind(mainMod .. " + mouse_up",   hl.dsp.focus({ workspace = "e-1" }))
+-- window
+bind("Q", hl.dsp.window.close())
+bind("F", hl.dsp.window.float({ action = "toggle" }))
+bind("SHIFT + F", hl.dsp.window.fullscreen({ mode = "fullscreen", action = "toggle" }))
+bind("P", hl.dsp.window.pseudo())
 
-hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag(),   { mouse = true })
-hl.bind(mainMod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
+-- hjkl motion
+local motion = {
+    h = { name = "left",  dx = -step, dy = 0 },
+    j = { name = "down",  dx = 0,     dy = step },
+    k = { name = "up",    dx = 0,     dy = -step },
+    l = { name = "right", dx = step,  dy = 0 },
+}
 
+for key, m in pairs(motion) do
+    -- focus
+    bind(key, hl.dsp.focus({ direction = m.name }))
+    -- move tiled window
+    bind("SHIFT + " .. key, hl.dsp.window.move({ direction = m.name }))
+    -- resize floating
+    bind("ALT + " .. key, hl.dsp.window.resize({ x = m.dx, y = m.dy, relative = true }), { repeating = true })
+    -- move floating
+    bind("CTRL + " .. key, hl.dsp.window.move({ x = m.dx, y = m.dy, relative = true }), { repeating = true })
+end
 
-hl.bind("XF86AudioNext",  hl.dsp.exec_cmd("playerctl next"),        { locked = true })
-hl.bind("XF86AudioPrev",  hl.dsp.exec_cmd("playerctl previous"),    { locked = true })
-hl.bind("XF86AudioPlay",  hl.dsp.exec_cmd("playerctl play-pause"),  { locked = true })
-hl.bind("XF86AudioPause", hl.dsp.exec_cmd("playerctl play-pause"),  { locked = true })
+-- columns (scrolling)
+bind("CTRL + SHIFT + h", hl.dsp.layout("swapcol l"))
+bind("CTRL + SHIFT + l", hl.dsp.layout("swapcol r"))
+bind("period", hl.dsp.layout("move +col"))
+bind("comma", hl.dsp.layout("move -col"))
+bind("minus", hl.dsp.layout("colresize -0.1"))
+bind("equal", hl.dsp.layout("colresize +0.1"))
+bind("A", hl.dsp.layout("promote"))
+bind("T", hl.dsp.layout("togglefit"))
+bind("C", hl.dsp.layout("fit active"))
+bind("SHIFT + C", hl.dsp.layout("fit visible"))
+bind("Home", hl.dsp.layout("fit tobeg"))
+bind("End", hl.dsp.layout("fit toend"))
 
-hl.bind("XF86MonBrightnessUp",  hl.dsp.exec_cmd("brightnessctl -e4 -n2 set 5%+ && ~/BlackNode/Configs/.local/bin/system/osd/brightness.sh"), { locked = true, repeating = true })
-hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("brightnessctl -e4 -n2 set 5%- && ~/BlackNode/Configs/.local/bin/system/osd/brightness.sh"), { locked = true, repeating = true })
+-- workspaces
+for i = 1, 9 do
+    bind(i, hl.dsp.focus({ workspace = i }))
+    bind("SHIFT + " .. i, hl.dsp.window.move({ workspace = i }))
+end
 
+bind("bracketright", hl.dsp.focus({ workspace = "e+1" }))
+bind("bracketleft", hl.dsp.focus({ workspace = "e-1" }))
+bind("SHIFT + bracketright", hl.dsp.window.move({ workspace = "e+1" }))
+bind("SHIFT + bracketleft", hl.dsp.window.move({ workspace = "e-1" }))
+bind("TAB", hl.dsp.focus({ workspace = "previous" }))
 
-hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+ && ~/BlackNode/Configs/.local/bin/system/osd/audio.sh"), { locked = true, repeating = true })
-hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- && ~/BlackNode/Configs/.local/bin/system/osd/audio.sh"), { locked = true, repeating = true })
-hl.bind("XF86AudioMute",        hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle && ~/BlackNode/Configs/.local/bin/system/osd/audio.sh"), { locked = true, repeating = true })
+-- scratchpad
+bind("S", hl.dsp.workspace.toggle_special("magic"))
+bind("ALT + S", hl.dsp.window.move({ workspace = "special:magic" }))
+
+-- mouse
+bind("mouse_down", hl.dsp.focus({ workspace = "e+1" }))
+bind("mouse_up", hl.dsp.focus({ workspace = "e-1" }))
+bind("SHIFT + mouse_down", hl.dsp.layout("move +col"))
+bind("SHIFT + mouse_up", hl.dsp.layout("move -col"))
+bind("mouse:272", hl.dsp.window.drag(), { mouse = true })
+bind("mouse:273", hl.dsp.window.resize(), { mouse = true })
+
+-- media keys
+local media = {
+    { "XF86AudioNext", "playerctl next" },
+    { "XF86AudioPrev", "playerctl previous" },
+    { "XF86AudioPlay", "playerctl play-pause" },
+    { "XF86AudioPause", "playerctl play-pause" },
+    { "XF86AudioMute", "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle && " .. osd .. "audio.sh" },
+}
+
+for _, m in ipairs(media) do
+    hl.bind(m[1], exec(m[2]), { locked = true })
+end
+
+-- volume and brightness (held)
+local held = {
+    { "XF86AudioRaiseVolume", "wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+ && " .. osd .. "audio.sh" },
+    { "XF86AudioLowerVolume", "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- && " .. osd .. "audio.sh" },
+    { "XF86MonBrightnessUp", "brightnessctl -e4 -n2 set 5%+ && " .. osd .. "brightness.sh" },
+    { "XF86MonBrightnessDown", "brightnessctl -e4 -n2 set 5%- && " .. osd .. "brightness.sh" },
+}
+
+for _, h in ipairs(held) do
+    hl.bind(h[1], exec(h[2]), { locked = true, repeating = true })
+end

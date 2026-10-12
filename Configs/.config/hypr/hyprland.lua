@@ -35,7 +35,7 @@ require("settings/master-layout")
 require("settings/misc")
 
 -- dwindle
-require("settings/dwindle")
+require("settings/layout")
 
 -- Auto Start
 require("settings/autostart")
