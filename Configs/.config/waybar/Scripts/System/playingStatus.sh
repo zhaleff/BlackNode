@@ -3,7 +3,7 @@
 PLAY=""
 PAUSE=""
 
-last=""
+last=""
 while true; do
   s="$(playerctl status 2>/dev/null)"
   if [ "$s" != "$last" ]; then

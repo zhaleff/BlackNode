@@ -30,7 +30,7 @@ alias bat='bat --style=full'
 
 # System
 alias cl='clear'
-alias ff='fastfetch'
+alias ff='~/.local/bin/blacknode/fastfetch.sh'
 alias clock='peaclock'
 alias wf='wf-recorder'
 alias win='hyprctl clients'

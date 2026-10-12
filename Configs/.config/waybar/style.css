@@ -17,7 +17,7 @@
 
 window#waybar {
   background-color: transparent;
-  border-radius: 999px;
+  border-radius: 0px;
   margin: 4px 2px;
   padding: 0 8px;
 }
@@ -33,13 +33,13 @@ tooltip {
   background-color: @surface;
   color: @on-surface;
   border-radius: 12px;
-  padding: 24px 32px;
+  padding: 56px;
   border: 1px solid alpha(@outline, 0.2);
 }
 
 tooltip label {
   color: @on-surface;
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 800;
 }
 

@@ -35,7 +35,6 @@ entry {
     text-color:                  @on-surface;
     cursor:                      text;
     vertical-align:              0.5;
-    placeholder:                 "            BlackNode...     ";
     placeholder-color:           @on-surface;
     padding:                     12px 16px;
     border-radius:               12px;
