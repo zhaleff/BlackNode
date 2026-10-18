@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 COVER_PATH="/tmp/blacknode-music-cover"
-MAX_TITLE=40
-MAX_ARTIST=40
+MAX_TITLE=24
+MAX_ARTIST=24
 
 download_cover() {
     local url="$1"
