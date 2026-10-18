@@ -1,0 +1,61 @@
+{
+  "include": [
+    "~/.config/waybar/Modules/modules.jsonc"
+  ],
+  "modules-left": [
+    "group/hollow-left-1",
+    "group/hollow-left-3",
+    "group/hollow-left-2"
+  ],
+  "modules-center": [
+    "group/hollow-center-2",
+    "group/hollow-center"
+  ],
+  "modules-right": [
+    "group/hollow-right-1",
+    "group/hollow-right-2",
+    "group/hollow-right-5",
+    "group/hollow-right-3"
+  ],
+  "group/hollow-left-1": {
+    "orientation": "horizontal",
+    "modules": ["hyprland/workspaces"]
+  },
+  "group/hollow-distro": {
+    "orientation": "horizontal",
+    "modules": ["custom/osDistro"]
+  },
+  "group/hollow-right-2": {
+    "orientation": "horizontal",
+    "modules": ["mpris", "custom/noPlaying", "custom/playPrevious", "custom/playingStatus", "custom/playNext"]
+  },
+  "group/hollow-right-1": {
+    "orientation": "horizontal",
+    "modules": ["network", "custom/bluetooth", "backlight", "battery"]
+  },
+  "group/hollow-center": {
+    "orientation": "horizontal",
+    "modules": ["clock"]
+  },
+  "group/hollow-center-2": {
+    "orientation": "horizontal",
+    "modules": ["idle_inhibitor"]
+  },
+  "group/hollow-right-3": {
+    "orientation": "horizontal",
+    "modules": ["custom/logoutMenu"]
+  },
+  "group/hollow-right-5": {
+    "orientation": "horizontal",
+    "modules": ["custom/weather"]
+  },
+  "group/hollow-left-3": {
+    "orientation": "horizontal",
+    "modules": ["custom/cameraPrivacy", "custom/microphonePrivacy", "custom/recordingPrivacy", "custom/notDisturb", "wireplumber"]
+  },
+  "group/hollow-left-2": {
+    "orientation": "horizontal",
+    "modules": ["custom/packagePacman", "custom/packageAur"]
+  }
+}
+

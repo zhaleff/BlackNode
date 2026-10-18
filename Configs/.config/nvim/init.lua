@@ -20,6 +20,7 @@ require("lazy").setup({
   require("core.plugins.mason"),
   require("core.plugins.lualine"),
   require("core.plugins.mason-lsp"),
+  -- require("core.plugins.conform")
   require("core.plugins.luasnip"),
   require("core.plugins.oil"),
   require("core.plugins.lsp"),

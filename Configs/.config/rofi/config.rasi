@@ -1,1 +1,6 @@
-@theme "~/BlackNode/Configs/.config/rofi/themes/presets/submenu-wide.rasi"
+@theme "~/BlackNode/Configs/.config/rofi/themes/presets/submenu.rasi"
+
+configuration {
+    drun-display-format: "{name}";
+    show-icons: true;
+}

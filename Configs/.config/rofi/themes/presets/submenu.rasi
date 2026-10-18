@@ -1,15 +1,15 @@
 @import "~/.config/rofi/colors.rasi"
 
 configuration {
-    font:                        "JetBrainsMono Nerd Font 15";
+    font:                        "JetBrainsMono Nerd Font 16";
     show-icons:                  false;
-}
+    }
 
 window {
-    width:                       520px;
-    height:                      520px;
+    width:                       35%;
+    height:                      75%;
     transparency:                "real";
-    border-radius:               32px;
+    border-radius:               20px;
     background-color:            @surface;
     location:                    center;
     anchor:                      center;
@@ -35,9 +35,11 @@ entry {
     text-color:                  @on-surface;
     cursor:                      text;
     vertical-align:              0.5;
+    blink: false;
+    placeholder:                 "   Search...";
     placeholder-color:           @on-surface;
     padding:                     12px 16px;
-    border-radius:               12px;
+    border-radius:               16px;
 }
 
 listview {
@@ -60,11 +62,11 @@ element {
     cursor:                      pointer;
     background-color:            transparent;
     text-color:                  @on-surface;
-    border-radius:               12px;
+    border-radius:               16px;
 }
 
 element selected.normal {
-    background-color:            @primary;
+      background-color:            @primary;
     text-color:                  @on-primary;
 }
 
