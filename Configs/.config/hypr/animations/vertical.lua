@@ -11,9 +11,9 @@ hl.animation({ leaf = "windowsOut",  enabled = true, speed = 0.8, bezier = "snap
 hl.animation({ leaf = "windowsMove", enabled = true, speed = 1.2, bezier = "snappy",      style = "slide" })
 
 
-hl.animation({ leaf = "layers",    enabled = true, speed = 1.2, bezier = "microBounce", style = "slide" })
-hl.animation({ leaf = "layersIn",  enabled = true, speed = 1.2, bezier = "microBounce", style = "slide" })
-hl.animation({ leaf = "layersOut", enabled = true, speed = 0.8, bezier = "snappy",      style = "slide" })
+hl.animation({ leaf = "layers",    enabled = true, speed = 1.2, bezier = "microBounce", style = "popin 98%" })
+hl.animation({ leaf = "layersIn",  enabled = true, speed = 1.2, bezier = "microBounce", style = "popin 99%" })
+hl.animation({ leaf = "layersOut", enabled = true, speed = 0.8, bezier = "snappy",      style = "popin 99%" })
 
 hl.animation({ leaf = "fadeIn",     enabled = true, speed = 1.0, bezier = "snappy" })
 hl.animation({ leaf = "fadeOut",    enabled = true, speed = 0.6, bezier = "snappy" })
