@@ -1,10 +1,5 @@
+<h1 align="center">BlackNode</h1>
 
-<p align="center">
-  <img src="./assets/BlackNode-Logo.png" width="100%" alt="BlackNode Banner">
-</p>
-
-
-<h1 align="center">BlackNode // Your Setup</h1>
 <div align="center">
 
 <a href="https://github.com/zhaleff/BlackNode/stargazers"><img src="https://img.shields.io/github/stars/zhaleff/BlackNode?style=for-the-badge&logo=starship&color=C9CBFF&logoColor=C9CBFF&labelColor=302D41" alt="stars"></a>&nbsp;&nbsp;
@@ -13,161 +8,149 @@
 <a href="https://github.com/zhaleff/BlackNode/commits/main"><img src="https://img.shields.io/github/last-commit/zhaleff/BlackNode?style=for-the-badge&logo=github&logoColor=white&label=Last%20Commit&labelColor=302D41&color=A6E3A1" alt="last commit"></a>&nbsp;&nbsp;
 <a href="https://github.com/zhaleff/BlackNode/blob/main/LICENSE"><img src="https://img.shields.io/github/license/zhaleff/BlackNode?style=for-the-badge&logo=open-source-initiative&color=CBA6F7&logoColor=CBA6F7&labelColor=302D41" alt="license"></a>&nbsp;&nbsp;
 
+</div>
 
+<div align="center">
+  <h3>A dark Hyprland desktop that follows the wallpaper.</h3>
+  <p>Built for late hours, fast hands, and fewer interruptions.</p>
 </div>
 
 #
 
 <div align="center">
 
+<a href="#the-feel"><kbd> <br> The feel <br> </kbd></a>&ensp;&ensp;
 <a href="#installation"><kbd> <br> Installation <br> </kbd></a>&ensp;&ensp;
-<a href="#manual-install"><kbd> <br> Manual Install <br> </kbd></a>&ensp;&ensp;
-<a href="#showcase"><kbd> <br> Showcase <br> </kbd></a>&ensp;&ensp;
-<a href="./docs/KEYBINDS.md"><kbd> <br> Keybindings <br> </kbd></a>&ensp;&ensp;
-<a href="./docs/WAYBAR.md"><kbd> <br> Waybar <br> </kbd></a>&ensp;&ensp;
-<a href="./docs/MODULES.md"><kbd> <br> Modules <br> </kbd></a>&ensp;&ensp;
-<a href="./docs/REFERENCE.md"><kbd> <br> Reference <br> </kbd></a>&ensp;&ensp;
-
+<a href="#what-you-get"><kbd> <br> What you get <br> </kbd></a>&ensp;&ensp;
+<a href="#documentation"><kbd> <br> Documentation <br> </kbd></a>&ensp;&ensp;
 
 </div>
 
 #
 
 <div align="center">
-  <h3>Your home in the terminal. Simple, clean, yours.</h3>
-  <p><i>Dotfiles that embrace, not complicate.</i></p>
+  <img src="./Images/cavaNvim.png" alt="Cava and Neovim running on BlackNode" width="900">
+  <br>
+  <sub><i>Cava and Neovim, colored from the same wallpaper.</i></sub>
 </div>
 
-#
+You log in at night. The room is dark, the screen is darker, and the desktop is already quiet: near-black surfaces, soft borders, and a single set of accent colors pulled from the image on the wall.
 
-<a id="hello"></a>
-<img src="https://readme-typing-svg.herokuapp.com?font=Lexend+Giga&size=22&pause=1000&color=6CB6FF&vCenter=true&width=435&height=25&lines=HELLO." width="435"/>
+That image is the theme. Pick a new wallpaper and BlackNode repaints the bar, terminal, notifications, lock screen, and editor to match it. There is no theme menu to open and no palette to assemble by hand. The desktop changes because the room changed.
 
-BlackNode is my personal Linux configuration. It grew from years of tweaking, breaking, and slowly understanding what makes a system feel like home. It is not a monolithic rice you copy and forget. It is a living set of files, each one written to be read, understood, and eventually changed by you.
+BlackNode is a complete Hyprland setup for Arch Linux. It ships with a grouped Waybar, a Rofi control menu, a scrolling window layout, a lock screen, and scripts for the small things you reach for every day. The files are plain text, linked into your home, and meant to be edited.
 
-Every tool in this setup was chosen deliberately. Nothing is here just because it is popular. The install is unified: a single installer links what you need and builds the local components. Nothing runs without your input.
+## The feel
 
+### The wallpaper is the theme
 
+`matugen` reads the image and extracts a Material You palette from it. The bar, Kitty, Dunst, Rofi, Hyprlock, and Neovim receive that palette in their own formats. Choose a warm sunset and the desktop warms up. Choose a cold photograph and the edges turn blue.
 
-#
+Most of the desktop follows. A few pieces keep their own character: Yazi stays on Catppuccin Mocha, Fastfetch stays blue, and Clipse keeps its gold theme. The result is a room with a few objects that do not match, on purpose.
 
-<a id="stack"></a>
-<img src="https://readme-typing-svg.herokuapp.com?font=Lexend+Giga&size=22&pause=1000&color=6CB6FF&vCenter=true&width=435&height=25&lines=STACK" width="435"/>
+<div align="center">
+  <img src="./Images/wallselect.png" alt="BlackNode wallpaper picker" width="820">
+  <br>
+  <sub><i>The wallpaper picker. Choose an image; the desktop follows.</i></sub>
+</div>
 
-| Component | Tool | Role |
-|---|---|---|
-| Window Manager | Hyprland | Dynamic tiling Wayland compositor |
-| Status Bar | Waybar | Fully configurable bar |
-| Terminal | Kitty | GPU-accelerated terminal emulator |
-| Shell | Zsh + Powerlevel10k | Fast shell with a powerful prompt |
-| Launcher | Rofi | App launcher and dmenu replacement |
-| Notifications | Dunst | Lightweight notification daemon |
-| Lockscreen | Hyprlock + Hypridle | GPU-accelerated lock with idle management |
-| File Manager | Yazi | Blazing-fast terminal file manager |
-| Editor | Neovim | Extensible modal text editor |
-| Theming | Matugen | Material You colours generated from your wallpaper |
-| Wallpaper | awww | GPU-accelerated Wayland wallpaper daemon |
-| Clipboard | Clipse | Persistent clipboard history for Wayland |
-| Audio | Cava | Terminal audio visualiser |
-| Logout | Wlogout | Clean session management screen |
-| System Info | Fastfetch | Fast, customisable fetch tool |
-| AUR Helper | yay | AUR package manager |
+### Your hands stay on the keys
 
-<a id="ecosystem"></a>
+`SUPER` is the main modifier. The same four keys, `h`, `j`, `k`, and `l`, focus, move, resize, and drag depending on what you hold with them. Workspaces run from 1 to 9. `TAB` takes you back to the last one. The mouse works, but it is the slower path.
 
-## The BlackNode ecosystem
+The layout is `scrolling`, not classic tiling. Windows arrive as columns. You move the columns with `SUPER + .` and `SUPER + ,`, and the desktop keeps its shape while you work.
 
-BlackNode is not a folder of scripts — it is a small software system with a
-clear layout:
+<div align="center">
+  <img src="./Images/blacknodeMenu.png" alt="BlackNode control menu" width="820">
+  <br>
+  <sub><i>The control menu, one <code>SUPER + SPACE</code> away.</i></sub>
+</div>
 
-```
-BlackNode/
-├── Configs/            # the actual dotfiles (symlinked by linkdots.sh)
-│   ├── .config/        # hypr, waybar, rofi, kitty, nvim, dunst, ...
-│   └── .local/bin/     # shell entrypoints (blacknode, bn-menu, daemons)
-├── src/                # source code (not symlinked)
-│   └── brain/          # blacknode-brain: Rust learning engine (Cargo)
-├── scripts/            # operator tooling: install, linkdots, health
-├── docs/               # architecture + reference documentation
-├── assets/             # logo and imagery
-├── version.json        # ecosystem version + component versions
-└── ARCHITECTURE.md     # how the layers fit together
-```
+### The session knows when to stop
 
-The `blacknode` command is the front door to everything: `blacknode doctor`
-checks the whole system, `blacknode brain` controls the local intelligence
-engine, `blacknode profile` switches environments. See
-[ARCHITECTURE.md](./ARCHITECTURE.md) for the full picture.
+At five minutes the brightness drops. At seven the screen locks. At eight the display turns off. At fifteen the machine suspends. The sequence lives in `hypridle.conf`, and it is one of the few things BlackNode does without asking.
 
-Everything in the adaptive layer is **local-only**: no network calls, no
-external models, no telemetry. Behavior data stays in
-`~/.local/share/blacknode/`.
+<div align="center">
+  <img src="./Images/wlogout.png" alt="BlackNode session menu" width="820">
+  <br>
+  <sub><i>The session menu, ready when the night ends.</i></sub>
+</div>
 
+## Installation
 
-
-#
-
-<a id="installation"></a>
-<img src="https://readme-typing-svg.herokuapp.com?font=Lexend+Giga&size=22&pause=1000&color=6CB6FF&vCenter=true&width=435&height=25&lines=INSTALLATION" width="435"/>
-
-BlackNode is designed for a minimal [Arch Linux](https://wiki.archlinux.org/title/Arch_Linux) install. It may work on Arch-based distros, but this has not been tested on all of them.
+BlackNode targets a minimal [Arch Linux](https://wiki.archlinux.org/title/Arch_Linux) install. The installer links the configs, backs up what it replaces, and asks before it touches the system.
 
 > [!IMPORTANT]
-> Installing BlackNode alongside another DE or WM should work, but it **will** overwrite your GTK, Qt, SDDM, shell and Zsh configuration. Proceed at your own risk.
-
-> [!NOTE]
-> ```Scripts/linkdots.sh``` will create symbolic links from this repo into your
-> home directory. The Rust brain is built and installed automatically.
-
-Clone the repository and run the installer:
+> The installer overwrites your GTK, Qt, shell, and Zsh configuration. It backs up existing files, but review what it will replace before you continue.
 
 ```bash
-git clone https://github.com/zhaleff/BlackNode.git $HOME/BlackNode
-cd $HOME/BlackNode
+git clone https://github.com/zhaleff/BlackNode.git "$HOME/BlackNode"
+cd "$HOME/BlackNode"
 bash Scripts/install.sh
 ```
 
-For a manual link only (no package install), run:
+When it finishes, log out and back in. Then press `SUPER + W` and choose an image. That first choice generates the colors the rest of the desktop is waiting for.
 
-```bash
-bash Scripts/linkdots.sh
-```
+> [!NOTE]
+> The installer does not run `matugen`. Until you pick a wallpaper, Hyprland, Waybar, Kitty, Dunst, and Hyprlock may look for generated files that do not exist. [docs/firstBoot.md](./docs/firstBoot.md) walks through the first login.
 
-> [!TIP]
-> Read [docs/INSTALLATION.md](./docs/INSTALLATION.md) for the full, step-by-step
-> install guide.
+## What you get
 
-Please reboot after the installer completes for all changes to take effect.
+- A grouped Waybar with workspace, network, volume, battery, media, weather, and package modules.
+- A Rofi menu for WiFi, Bluetooth, audio, screenshots, recording, wallpaper, clipboard, music, and session actions.
+- A Hyprland configuration written in Lua, with one keybind grammar across focus, movement, and resizing.
+- A lock screen with the clock, date, current track, and weather.
+- A terminal, editor, file manager, notification daemon, and clipboard history that already share the same visual language.
+- An installer that backs up your old configs and logs every command it runs.
 
-#
-<a id="words"></a>
-<img src="https://readme-typing-svg.herokuapp.com?font=Lexend+Giga&size=22&pause=1000&color=6CB6FF&vCenter=true&width=435&height=25&lines=A+WORD+TO+YOU" width="435"/>
+## A closer look
 
-I have been where you are. I have stared at other people's dotfiles, overwhelmed by the complexity, convinced I could never create something like that. But I started small. I copied one line, then another. I broke things and fixed them. And slowly, it became mine.
+<div align="center">
+<table>
+  <tr>
+    <td align="center"><img src="./Images/fastfetch.png" alt="Fastfetch on BlackNode" width="420"></td>
+    <td align="center"><img src="./Images/btop.png" alt="btop on BlackNode" width="420"></td>
+  </tr>
+  <tr>
+    <td align="center"><sub><i>Fastfetch, with a random image from the assets folder.</i></sub></td>
+    <td align="center"><sub><i>btop, wearing the generated palette.</i></sub></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="./Images/launcherApp.png" alt="BlackNode application launcher" width="420"></td>
+    <td align="center"><img src="./Images/screenshotMenu.png" alt="BlackNode screenshot menu" width="420"></td>
+  </tr>
+  <tr>
+    <td align="center"><sub><i>The application launcher, one <code>SUPER + R</code> away.</i></sub></td>
+    <td align="center"><sub><i>Screenshots without leaving the keyboard.</i></sub></td>
+  </tr>
+</table>
+</div>
 
-You can do this. You are capable of more than you know. All it takes is the courage to start, the patience to learn from mistakes, and the belief that you belong here.
+## Under the hood
 
-BlackNode is not the answer. It is just a starting point. The real answer is inside you.
+Hyprland, Waybar, Kitty, Zsh with Powerlevel10k, Rofi, Dunst, Hyprlock and Hypridle, Yazi, Neovim, Matugen, awww, Cava, Wlogout, and Fastfetch.
 
-Now go. Explore. Break things. Fix them. And make this your own.
+## Documentation
 
+The manual covers the parts that are easy to miss: generated files, the `~/BlackNode` path contract, the missing packages, and the places where the repo and the running system disagree.
 
+| Document | What it covers |
+|---|---|
+| [Philosophy](./docs/philosophy.md) | The idea behind the desktop, the keyboard grammar, and the limits |
+| [Anatomy](./docs/anatomy.md) | The repo layout, symlinks, installer flow, generated files, and state |
+| [First boot](./docs/firstBoot.md) | From a clean clone to a working session, including the generated theme |
+| [Aesthetics](./docs/aesthetics.md) | Matugen, color roles, geometry, typography, and Waybar styling |
+| [Desktop](./docs/desktop.md) | Hyprland Lua, keybinds, scrolling layout, rules, idle, and locking |
+| [Daily use](./docs/dailyUse.md) | The menu, Waybar modules, notifications, weather, shell, editor, and files |
+| [Loose ends](./docs/looseEnds.md) | What is incomplete, mismatched, or likely to break |
 
-#
+## License
 
-<a id="licence"></a>
-<img src="https://readme-typing-svg.herokuapp.com?font=Lexend+Giga&size=22&pause=1000&color=6CB6FF&vCenter=true&width=435&height=25&lines=LICENCE" width="435"/>
-
-BlackNode is released under the [MIT Licence](./LICENSE). You are free to use, modify, and share it however you wish. Attribution is appreciated but not required.
+BlackNode is released under the [MIT License](./LICENSE). You are free to use, modify, and share it. Attribution is appreciated but not required.
 
 #
 
 <div align="center">
-  <p>Made with ❤️ by <a href="https://github.com/zhaleff">zhaleff</a></p>
-  <p><i>Happy configuring.</i></p>
+  <p>Made by <a href="https://github.com/zhaleff">zhaleff</a></p>
+  <p><i>Pick a wallpaper. Let the desktop follow.</i></p>
 </div>
-
-<div align="right">
-  <sub>Last edited on: 2026</sub>
-</div>
-
