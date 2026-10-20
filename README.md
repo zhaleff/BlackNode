@@ -25,16 +25,16 @@
 <br>
 <br>
 
-<a href="#see-it"><kbd> <br> See it <br> </kbd></a>&ensp;
-<a href="#why-blacknode"><kbd> <br> Why BlackNode <br> </kbd></a>&ensp;
-<a href="#install"><kbd> <br> Install <br> </kbd></a>&ensp;
-<a href="#questions"><kbd> <br> Questions <br> </kbd></a>
+<a href="#install"><img src="https://img.shields.io/badge/INSTALL-BlackNode-CBA6F7?style=for-the-badge&logo=archlinux&logoColor=white&labelColor=302D41" alt="Install BlackNode"></a>&nbsp;
+<a href="#see-it"><img src="https://img.shields.io/badge/SEE%20IT-Screenshots-C9CBFF?style=for-the-badge&labelColor=302D41" alt="See BlackNode"></a>&nbsp;
+<a href="./docs/philosophy.md"><img src="https://img.shields.io/badge/PHILOSOPHY-Stoicism-B4BEFE?style=for-the-badge&labelColor=302D41" alt="Read the philosophy"></a>&nbsp;
+<a href="#questions"><img src="https://img.shields.io/badge/QUESTIONS-FAQ-f9e2af?style=for-the-badge&labelColor=302D41" alt="Questions"></a>
 
 </div>
 
 ---
 
-Your desktop is the first thing you see before you start work. When it looks unfinished, you feel it every day. The last ten percent is the expensive part: a bar that almost matches, one application that ignores the palette, a keybind you keep meaning to change.
+Your desktop is the first thing you see before you start work. When it looks unfinished, you feel it every day. The last ten percent is the expensive part: a bar that almost matches, one application that ignores the palette, a keybind you keep meaning to change. None of it breaks your work. All of it takes a little attention, every time.
 
 BlackNode finishes that ten percent. It ships as one system: window manager, bar, launcher, notifications, lock screen, terminal, editor, and the scripts that connect them. The parts share a palette and a keyboard grammar. You install it in minutes, choose an image, and go back to work.
 
@@ -87,13 +87,15 @@ The design rules come from Stoicism. Epictetus drew the line between what is up 
 
 </div>
 
+Every screenshot on this page comes from a running session. The gaps are documented in [loose ends](./docs/looseEnds.md).
+
 ---
 
 ## Why BlackNode
 
 | What costs you now | What changes |
 |---|---|
-| Another weekend tuning borders and colors | Minutes to install, then defaults that hold together |
+| Two days spent tuning, again | One command, then a desktop that holds |
 | Five applications with five different looks | One palette across everything you see |
 | A keybind system you keep relearning | One grammar for focus, movement, and workspaces |
 | A setup that is almost right | A setup you stop noticing |
@@ -135,9 +137,7 @@ If three or more apply, this was built for you.
 Built for **Arch Linux** with **Hyprland**. The installer checks your system, installs what is missing, backs up what it replaces, and asks before it touches anything.
 
 ```bash
-git clone https://github.com/zhaleff/BlackNode.git "$HOME/BlackNode"
-cd "$HOME/BlackNode"
-bash Scripts/install.sh
+git clone https://github.com/zhaleff/BlackNode.git "$HOME/BlackNode" && cd "$HOME/BlackNode" && bash Scripts/install.sh
 ```
 
 > [!IMPORTANT]
@@ -146,8 +146,8 @@ bash Scripts/install.sh
 ### After the installer
 
 1. Log out and back in.
-2. Press `SUPER + W` and choose an image you like.
-3. Open `SUPER + SPACE` to see the menu. Start working.
+2. Press <kbd>SUPER</kbd> + <kbd>W</kbd> and choose an image you like.
+3. Press <kbd>SUPER</kbd> + <kbd>SPACE</kbd> to see the menu, then start working.
 
 > [!NOTE]
 > The generated palette needs one image before the desktop is complete. If something looks unstyled on the first login, [the first-boot guide](./docs/firstBoot.md) explains the missing step.
@@ -222,13 +222,15 @@ Because it is a desk worth sharing. The project uses the MIT license: use it, ch
 
 <br>
 
-<a href="#install"><kbd> <br> Install BlackNode <br> </kbd></a>&ensp;
-<a href="https://github.com/zhaleff/BlackNode"><kbd> <br> Star the repo <br> </kbd></a>
+<a href="#install"><img src="https://img.shields.io/badge/INSTALL-BlackNode-CBA6F7?style=for-the-badge&logo=archlinux&logoColor=white&labelColor=302D41" alt="Install BlackNode"></a>&nbsp;
+<a href="./docs/philosophy.md"><img src="https://img.shields.io/badge/READ-The%20Philosophy-B4BEFE?style=for-the-badge&labelColor=302D41" alt="Read the philosophy"></a>
 
 <br>
 <br>
 
 <sub>Built on Arch Linux and Hyprland. Released under the <a href="./LICENSE">MIT License</a>.</sub>
+
+<sub>If it saves you a weekend, use the Star button on GitHub.</sub>
 
 <sub>Made by <a href="https://github.com/zhaleff">zhaleff</a>.</sub>
 
