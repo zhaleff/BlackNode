@@ -1,6 +1,6 @@
 # Loose ends
 
-This page lists the gaps that change how the setup behaves, plus the places where the repo and the running system disagree.
+This page lists the gaps that change how the setup behaves, plus the places where the repo and the running system disagree. It is the project's *premeditatio malorum*: the failures are written down before they surprise you. The reasoning behind that habit is in [philosophy.md](philosophy.md).
 
 ## Things that fail on a clean clone
 

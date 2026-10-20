@@ -1,5 +1,7 @@
 # Daily use
 
+The menu and the bar keep routine actions close to the keyboard. The design reasoning is in [philosophy.md](philosophy.md).
+
 ## The BlackNode menu
 
 `SUPER + SPACE` opens `~/.config/rofi/scripts/launcher.sh`. It is an action menu, not an application launcher. The entries cover WiFi, Bluetooth, audio, bookmarks, keyboard layout, music, clipboard, shortcuts, pomodoro, screenshots, recording, wallpaper, emoji, What's New, reload, and session actions. Each entry calls a script in `rofi/scripts/`.

@@ -7,9 +7,9 @@
 
 <h1>BlackNode</h1>
 
-<h3>You don't need another theme.<br>You need to stop tweaking.</h3>
+<h3>A complete desktop for Arch Linux and Hyprland.</h3>
 
-<p>BlackNode is the desktop you keep trying to build.<br>Finished. Coherent. Yours in one command.</p>
+<p>Install it once. Stop fixing it.</p>
 
 <a href="https://github.com/zhaleff/BlackNode/stargazers"><img src="https://img.shields.io/github/stars/zhaleff/BlackNode?style=for-the-badge&logo=starship&color=C9CBFF&logoColor=C9CBFF&labelColor=302D41" alt="Stars"></a>&nbsp;
 <a href="https://github.com/zhaleff/BlackNode/forks"><img src="https://img.shields.io/github/forks/zhaleff/BlackNode?style=for-the-badge&logo=git&logoColor=f9e2af&label=Forks&labelColor=302D41&color=f9e2af" alt="Forks"></a>&nbsp;
@@ -25,8 +25,8 @@
 <br>
 <br>
 
-<a href="#gallery"><kbd> <br> See it <br> </kbd></a>&ensp;
-<a href="#who-this-is-for"><kbd> <br> Is this you? <br> </kbd></a>&ensp;
+<a href="#see-it"><kbd> <br> See it <br> </kbd></a>&ensp;
+<a href="#why-blacknode"><kbd> <br> Why BlackNode <br> </kbd></a>&ensp;
 <a href="#install"><kbd> <br> Install <br> </kbd></a>&ensp;
 <a href="#questions"><kbd> <br> Questions <br> </kbd></a>
 
@@ -34,33 +34,21 @@
 
 ---
 
-> **Be honest with yourself.**
->
-> How many weekends have you spent making your setup *almost* perfect?
->
-> How many screenshots of other people's desktops are still saved on your phone?
->
-> How many times have you opened your laptop and thought, *"I'll fix it later"*?
+Your desktop is the first thing you see before you start work. When it looks unfinished, you feel it every day. The last ten percent is the expensive part: a bar that almost matches, one application that ignores the palette, a keybind you keep meaning to change.
 
-That is not a skill problem. It is a finishing problem.
+BlackNode finishes that ten percent. It ships as one system: window manager, bar, launcher, notifications, lock screen, terminal, editor, and the scripts that connect them. The parts share a palette and a keyboard grammar. You install it in minutes, choose an image, and go back to work.
 
-A desktop that feels right takes hundreds of small decisions: spacing, colors, borders, fonts, shadows, how the bar behaves when a window touches it. You have good taste. What you do not have is another free weekend to spend on the last ten percent.
-
-**BlackNode is those decisions, already made.**
-
-By someone with the same obsession you have. For people who notice when something is two pixels off. For people who would rather learn a keybind than reach for the mouse. For people whose computer is not a tool they use, but a place they work.
-
-This is what *finished* looks like.
+The design rules come from Stoicism. Epictetus drew the line between what is up to us and what is not. Marcus Aurelius asked whether a thing was necessary before adding it. Seneca counted cost in time. BlackNode applies those questions to a desktop. [Read the full philosophy.](./docs/philosophy.md)
 
 ---
 
-## Gallery
+## See it
 
 <div align="center">
 
-<img src="./Images/cavaNvim.png" alt="Cava and Neovim matching the workspace" width="100%">
+<img src="./Images/cavaNvim.png" alt="Cava and Neovim sharing the desktop palette" width="100%">
 
-<sub><b>This is what finished looks like.</b> Nothing in your line of sight fights for attention.</sub>
+<sub>One palette across the terminal, the editor, and the bar.</sub>
 
 <br>
 <br>
@@ -71,8 +59,8 @@ This is what *finished* looks like.
     <td width="50%" align="center"><img src="./Images/launcherApp.png" alt="Application launcher in BlackNode" width="100%"></td>
   </tr>
   <tr>
-    <td align="center"><sub>Less hunting for settings. More finishing work.</sub></td>
-    <td align="center"><sub>Your apps, without breaking your rhythm.</sub></td>
+    <td align="center"><sub>The control menu: network, audio, clipboard, session.</sub></td>
+    <td align="center"><sub>The application launcher, without leaving the keyboard.</sub></td>
   </tr>
 </table>
 
@@ -84,16 +72,16 @@ This is what *finished* looks like.
     <td width="50%" align="center"><img src="./Images/btop.png" alt="btop with the generated palette" width="100%"></td>
   </tr>
   <tr>
-    <td align="center"><sub>"Finished" lives in the details.</sub></td>
-    <td align="center"><sub>Nothing feels bolted on.</sub></td>
+    <td align="center"><sub>The small utilities use the same colors.</sub></td>
+    <td align="center"><sub>Nothing looks bolted on.</sub></td>
   </tr>
   <tr>
     <td width="50%" align="center"><img src="./Images/screenshotMenu.png" alt="Screenshot menu in BlackNode" width="100%"></td>
     <td width="50%" align="center"><img src="./Images/wlogout.png" alt="Session menu in BlackNode" width="100%"></td>
   </tr>
   <tr>
-    <td align="center"><sub>Capture the moment. Keep your focus.</sub></td>
-    <td align="center"><sub>Leave clean. Come back clear.</sub></td>
+    <td align="center"><sub>Screenshots without breaking focus.</sub></td>
+    <td align="center"><sub>A session menu with a clear exit.</sub></td>
   </tr>
 </table>
 
@@ -101,72 +89,48 @@ This is what *finished* looks like.
 
 ---
 
-## The real cost of "later"
+## Why BlackNode
 
-Every "I'll fix it later" has a price. It is small the first time. Then it compounds.
-
-| What you keep paying | What BlackNode ends |
+| What costs you now | What changes |
 |---|---|
-| Another weekend tuning instead of using | Done in about ten minutes |
-| A setup that is *almost* right | A setup that is finished |
-| Five apps with five different personalities | One visual language, everywhere |
-| Attention leaking into visual noise | Nothing between you and your work |
-| The quiet annoyance every time you open the lid | A desk that looks intentional |
-| A folder of screenshots you still want to recreate | The screenshot, on your machine |
+| Another weekend tuning borders and colors | Minutes to install, then defaults that hold together |
+| Five applications with five different looks | One palette across everything you see |
+| A keybind system you keep relearning | One grammar for focus, movement, and workspaces |
+| A setup that is almost right | A setup you stop noticing |
+| Worry about losing your old configuration | A timestamped backup and a full install log |
 
-You are not saving money by waiting. You are paying with the one thing you cannot reinstall.
+The rules are simple:
 
-> **Time is the only config you can't edit later.**
+- **Control.** You own the files and the keybinds. Nothing depends on a service you cannot inspect.
+- **Necessity.** Every option is a decision someone has to make later. BlackNode ships fewer of them.
+- **Reversibility.** The installer backs up what it replaces and logs every step. You can go back.
 
----
+BlackNode makes one choice for each shared surface: one layout, one control menu, one palette source. That is why the parts fit.
 
-## Who this is for
-
-Check the ones that sound like you.
+### Who this is for
 
 - [ ] You have opinions about window management.
 - [ ] You have redesigned your bar more than once.
 - [ ] You have a folder of screenshots of setups you wanted.
-- [ ] You notice when one app does not match the rest.
+- [ ] You notice when one application does not match the rest.
 - [ ] You would rather press a key than move the mouse.
 - [ ] You want it to look good, but you need it to work.
 - [ ] You are tired of calling your setup "almost done".
 
-**Three or more? You are already the person this was built for.**
+If three or more apply, this was built for you.
 
 ### Who it is not for
 
 - People who want a desktop assembled by a committee.
-- People who click through settings and call it customization.
 - People who are fine with "good enough".
-- People who do not use Arch.
-
-That is not gatekeeping. It is honesty. BlackNode is opinionated because a coherent desktop cannot be everything to everyone.
-
----
-
-## What changes on Monday
-
-**Sunday night.** You run one command. It backs up your old setup, installs what is missing, and asks before touching anything.
-
-**Monday morning.** You open the lid. Nothing is *almost* right. There is no "later" list. There is no mismatch to fix.
-
-- Your screen looks intentional in a screen share.
-- Your hands stay on the keys.
-- Notifications, terminal, lock screen, and bar speak the same language.
-- The desktop becomes yours the moment you choose an image.
-- You close the laptop without thinking about your setup at all.
-
-That last one is the whole point.
-
-> A good desktop is not one you look at. It is one you stop looking at.
+- People who do not use Arch or Hyprland.
 
 ---
 
 ## Install
 
 > [!TIP]
-> **Ten minutes now. Not another weekend later.**
+> **The installer takes minutes. The backup happens before anything is replaced.**
 
 Built for **Arch Linux** with **Hyprland**. The installer checks your system, installs what is missing, backs up what it replaces, and asks before it touches anything.
 
@@ -177,23 +141,23 @@ bash Scripts/install.sh
 ```
 
 > [!IMPORTANT]
-> Your current GTK, Qt, shell, and Zsh configuration will be replaced. Everything is copied to `~/.blacknode-backup-YYYYmmdd-HHMMSS` first, and every step is logged to `~/.blacknode-install.log`. The risk is small. The decision is reversible.
+> Your current GTK, Qt, shell, and Zsh configuration will be replaced. Everything is copied to `~/.blacknode-backup-YYYYmmdd-HHMMSS` first, and every step is logged to `~/.blacknode-install.log`.
 
-### Then
+### After the installer
 
-1. **Log out and back in.**
-2. **Press `SUPER + W`** and choose an image that feels like you.
-3. **Stop configuring.** That is the last step.
+1. Log out and back in.
+2. Press `SUPER + W` and choose an image you like.
+3. Open `SUPER + SPACE` to see the menu. Start working.
 
 > [!NOTE]
-> The first image you choose is what personalizes the desktop. If anything looks unfinished before that, [the first-boot guide](./docs/firstBoot.md) explains the one missing step.
+> The generated palette needs one image before the desktop is complete. If something looks unstyled on the first login, [the first-boot guide](./docs/firstBoot.md) explains the missing step.
 
 <details>
 <summary><b>Not on Arch, or not ready to switch?</b></summary>
 
 <br>
 
-BlackNode is built for Arch and its derivatives. On another distribution you can still study the configuration and take what you need, but the installer and packages assume Arch.
+BlackNode is built for Arch and its derivatives. On another distribution you can read the configuration and take what you need, but the installer and packages assume Arch.
 
 Star the repo. When you switch, it will be here.
 
@@ -204,11 +168,11 @@ Star the repo. When you switch, it will be here.
 ## Questions
 
 <details>
-<summary><b>Is this just a dark theme?</b></summary>
+<summary><b>Is this just a theme pack?</b></summary>
 
 <br>
 
-No. A theme changes colors. BlackNode changes how the whole system behaves: layout, menus, notifications, lock screen, shell, editor. Dark is not the identity. Coherence is.
+No. BlackNode is a full session: the layout, the menus, the notifications, the lock screen, the shell, and the editor. The colors come from one source so the pieces agree with each other.
 
 </details>
 
@@ -235,7 +199,7 @@ Only after backing it up. Your existing configuration is copied to `~/.blacknode
 
 <br>
 
-Read the log, then [loose ends](./docs/looseEnds.md). It says what is incomplete, what depends on optional packages, and what to check first. The project is honest about its edges.
+Read the log, then [loose ends](./docs/looseEnds.md). It lists what is incomplete, what depends on optional packages, and what to check first.
 
 </details>
 
@@ -244,7 +208,7 @@ Read the log, then [loose ends](./docs/looseEnds.md). It says what is incomplete
 
 <br>
 
-Because it is a desk worth sharing. MIT license: use it, change it, make it yours. If it saves you a weekend, a star is the cheapest way to say thanks.
+Because it is a desk worth sharing. The project uses the MIT license: use it, change it, make it yours. If it saves you a weekend, star the repo so someone else can find it.
 
 </details>
 
@@ -252,9 +216,9 @@ Because it is a desk worth sharing. MIT license: use it, change it, make it your
 
 <div align="center">
 
-<h2>You already know you want this.</h2>
+<h2>Install BlackNode</h2>
 
-<p>The only question is whether you install it now,<br>or after one more weekend of "almost".</p>
+<p>One command. The installer handles the rest.</p>
 
 <br>
 

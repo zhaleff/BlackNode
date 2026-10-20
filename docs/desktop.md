@@ -1,5 +1,7 @@
 # The desktop in motion
 
+This page covers the mechanics. The reasoning behind the keybind grammar and the closing session is in [philosophy.md](philosophy.md).
+
 ## Hyprland in Lua
 
 The main config is `~/.config/hypr/hyprland.lua`. It uses the `hl.*` API from Hyprland 0.55 and `require()` to load the modules under `settings/`, `animations/vertical.lua`, and `themes/colors.lua`.

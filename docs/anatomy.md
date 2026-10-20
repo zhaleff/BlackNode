@@ -8,7 +8,7 @@
 | `Configs/.local/bin/` | user scripts (`blacknode/`, `system/`) | yes, symlinked into `~/.local/bin/` |
 | `Scripts/` | installer and checks | no, run from the repo |
 | `Scripts/install/packages.json` | package groups | read by the installer |
-| `version.json` | repo version and a `brain` component version | no |
+| `version.json` | release metadata: name, version, channel, and date | no |
 | `whatnews.json` | changelog fetched from GitHub | no |
 
 The installer walks the first level of `Configs/.config` and creates one symlink per directory. `~/.config/hypr` points at `~/BlackNode/Configs/.config/hypr`, so editing the file in your home edits the repo. The same happens with `~/.local/bin/blacknode` and `~/.local/bin/system`.
@@ -40,7 +40,7 @@ The flow is: AUR helper, core packages, AUR packages, optional packages, NVIDIA,
 
 Every command goes through `run()`, which appends to `~/.blacknode-install.log`. On failure it offers retry, skip, or abort. Abort can restore the symlinks from the backup. The backup directory is `~/.blacknode-backup-YYYYmmdd-HHMMSS`. Before linking, each existing file is moved there.
 
-The installer does not run `matugen` and does not create the color files. That happens the first time you pick a wallpaper. Until then, several programs look for files that do not exist. See [firstBoot.md](firstBoot.md).
+The installer does not run `matugen` and does not create the color files. That happens the first time the theme is generated, either from the wallpaper picker or by running `matugen` directly. Until then, several programs look for files that do not exist. See [firstBoot.md](firstBoot.md).
 
 ## Generated files
 

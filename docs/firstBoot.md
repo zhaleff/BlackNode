@@ -31,8 +31,10 @@ If you prefer to generate without the menu:
 
 ```bash
 mkdir -p ~/Pictures/Wallpapers
-matugen image ~/Pictures/Wallpapers/your-wallpaper.jpg -m dark --source-color-index 0
+matugen image ~/Pictures/Wallpapers/your-wallpaper.jpg -m light --source-color-index 0
 ```
+
+Use `dark` instead of `light` for a dark palette. The mode is a preference; it does not change the layout or the rest of the desktop.
 
 Then reload the programs that read the generated files:
 

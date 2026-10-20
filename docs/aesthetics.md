@@ -2,7 +2,7 @@
 
 ## One source, many outputs
 
-The theme starts with an image. `wallselect.sh` applies the image with `awww`, copies it to `~/.config/hypr/hyprlock.png`, and runs:
+The theme starts with an image. That image is the source of the palette, not the identity of the desktop; [philosophy.md](philosophy.md) explains why coherence matters more than a fixed color scheme. `wallselect.sh` applies the image with `awww`, copies it to `~/.config/hypr/hyprlock.png`, and runs:
 
 ```bash
 matugen image "$SELECTED" -m "$THEME_MODE" --source-color-index 0
@@ -43,7 +43,7 @@ output_path = '~/.config/myapp/colors.conf'
 post_hook = 'pkill -SIGUSR1 myapp'
 ```
 
-3. Make the app read that file, then run `matugen image ~/Pictures/Wallpapers/some.jpg -m dark` and check the output.
+3. Make the app read that file, then run `matugen image ~/Pictures/Wallpapers/some.jpg -m light` and check the output. Use `dark` instead of `light` if you prefer dark surfaces.
 
 ## Shape
 

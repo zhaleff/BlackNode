@@ -1,6 +1,8 @@
 # BlackNode field manual
 
-BlackNode is a Hyprland setup for Arch Linux. This manual covers what is in the repo, how the parts connect, and what needs attention before the desktop works. It assumes you can edit text files and run commands. For Hyprland itself, use the Hyprland wiki.
+BlackNode is a complete desktop for Arch Linux built on Hyprland. This manual covers what is in the repo, how the parts connect, and what needs attention before the desktop works. It assumes you can edit text files and run commands. For Hyprland itself, use the Hyprland wiki.
+
+The project follows Stoicism: control what is yours, remove what is not necessary, and prepare for failure. [philosophy.md](philosophy.md) explains how those rules shape the repository.
 
 When the code and the manual disagree, the code wins. Then fix the manual.
 
