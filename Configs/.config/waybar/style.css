@@ -55,7 +55,7 @@ tooltip label {
 #hollow-right-2 {
   background-color: @surface;
   padding: 12px 14px;
-  border-radius: 10px;
+  border-radius: 12px;
   margin: 0px;
   border: 1px solid alpha(@outline, 0.1);
 }
@@ -63,20 +63,21 @@ tooltip label {
 #custom-playingStatus {
   margin: 0px 2px;
 }
+#custom-firewallStatus {
+  margin: 0px 0px 0px 6px;
+}
 
 #custom-microphonePrivacy,
 #custom-cameraPrivacy,
 #custom-notDisturb,
+#network,
+#backlight,
+#battery, 
 #custom-recordingPrivacy,
 #wireplumber {
   margin: 0px 4px;
 }
 
-#network,
-#backlight,
-#battery {
-  margin: 0px 4px;
-}
 
 #hollow-right-1,
 #hollow-center-2,
@@ -147,6 +148,8 @@ tooltip label {
 #custom-cameraPrivacy.cam-active,
 #custom-recordingPrivacy.recording,
 #custom-microphonePrivacy.mic-active,
+#custom-firewallStatus.inactive,
+#custom-firewallStatus.none,
 #wireplumber.muted {
   color: @warning;
 }

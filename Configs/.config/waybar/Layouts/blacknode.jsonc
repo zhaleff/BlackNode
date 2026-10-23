@@ -52,7 +52,7 @@
   },
   "group/hollow-left-3": {
     "orientation": "horizontal",
-    "modules": ["custom/cameraPrivacy", "custom/microphonePrivacy", "custom/recordingPrivacy", "custom/notDisturb", "wireplumber"]
+    "modules": [ "custom/cameraPrivacy", "custom/microphonePrivacy", "custom/recordingPrivacy",  "custom/firewallStatus", "custom/notDisturb", "wireplumber"]
   },
   "group/hollow-left-2": {
     "orientation": "horizontal",
