@@ -12,6 +12,7 @@ choice=$(printf '%s\n' \
     "󰎈  Music" \
     "  Clipboard" \
     "󰌌  Shorcuts" \
+    "󰍹  Monitor" \
     "  Pomodoro" \
     "󰆞  Screenshots" \
     "  Record Screen" \
@@ -33,6 +34,7 @@ case "$choice" in
     *"Music")       exec bash "$ROFI_DIR/scripts/musicPlayer.sh" ;;
     *"Clipboard")   exec bash "$ROFI_DIR/scripts/clipboard.sh" ;;
     *"Shorcuts")    exec bash "$ROFI_DIR/scripts/shortcuts.sh" ;;
+    *"Monitor")     exec bash "$ROFI_DIR/scripts/monitor.sh" ;;
     *"Pomodoro")    exec bash "$ROFI_DIR/scripts/pomodoro.sh" ;;
     *"Record Screen") exec bash "$ROFI_DIR/scripts/recordscreen.sh" ;;
     *"Screenshots") exec bash "$ROFI_DIR/scripts/screenshots.sh" ;;
