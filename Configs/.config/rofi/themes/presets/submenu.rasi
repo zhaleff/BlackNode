@@ -3,52 +3,55 @@
 configuration {
     font:                        "JetBrainsMono Nerd Font 16";
     show-icons:                  false;
-    }
+}
 
 window {
     width:                       35%;
-    height:                      75%;
+    height:                      78%;
     transparency:                "real";
-    border-radius:               20px;
-    background-color:            @surface;
     location:                    center;
     anchor:                      center;
+    border-radius:               20px;
+    background-color:            @surface;
 }
 
 mainbox {
-    spacing:                     0px;
+    spacing:                     12px;
     padding:                     16px;
     orientation:                 vertical;
     children:                    [ "inputbar", "listview" ];
     background-color:            transparent;
 }
-
 inputbar {
-    spacing:                     0px;
-    padding:                     0px 0px 12px 0px;
-    children:                    [ "entry" ];
+    spacing:                     12px;
+    padding:                     14px 20px;
+    border-radius:               16px;
+    children:                    [ "prompt", "entry" ];
+    background-color:            @surface-container-high;
+}
+
+prompt {
+    str:                         "";
+    vertical-align:              0.5;
     background-color:            transparent;
+    text-color:                  @primary;
 }
 
 entry {
-    background-color:            @surface-container-high;
-    text-color:                  @on-surface;
+    padding:                     0px;
+    placeholder:                 "";
     cursor:                      text;
     vertical-align:              0.5;
-    blink: false;
-    placeholder:                 "   Search...";
-    placeholder-color:           @on-surface;
-    padding:                     12px 16px;
-    border-radius:               16px;
+    background-color:            transparent;
+    text-color:                  @on-surface;
 }
-
 listview {
     enabled:                     true;
     columns:                     1;
+    lines:                       6;
     spacing:                     4px;
     padding:                     0px;
     cycle:                       true;
-    lines:                       6;
     dynamic:                     true;
     scrollbar:                   false;
     layout:                      vertical;
@@ -58,15 +61,15 @@ listview {
 
 element {
     spacing:                     0px;
-    padding:                     10px 14px;
+    padding:                     12px 16px;
+    border-radius:               16px;
     cursor:                      pointer;
     background-color:            transparent;
     text-color:                  @on-surface;
-    border-radius:               16px;
 }
 
 element selected.normal {
-      background-color:            @primary;
+    background-color:            @primary;
     text-color:                  @on-primary;
 }
 
@@ -78,17 +81,17 @@ element-icon {
 }
 
 element-text {
+    margin:                      0px 0px 0px 14px;
     vertical-align:              0.5;
     horizontal-align:            0.0;
     cursor:                      inherit;
     background-color:            transparent;
     text-color:                  inherit;
-    margin:                      0px 0px 0px 14px;
 }
 
 textbox {
-    text-color:                  inherit;
-    background-color:            inherit;
     vertical-align:              0.5;
     horizontal-align:            0.5;
+    background-color:            inherit;
+    text-color:                  inherit;
 }
