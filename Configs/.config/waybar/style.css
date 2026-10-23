@@ -1,7 +1,5 @@
 @import "colors.css";
 
-@define-color warning #FF8C8C;
-@define-color caution #FFEE8C;
 
 * {
   border: none;
@@ -63,14 +61,14 @@ tooltip label {
 #custom-playingStatus {
   margin: 0px 2px;
 }
-#custom-firewallStatus {
-  margin: 0px 0px 0px 6px;
-}
+
 
 #custom-microphonePrivacy,
 #custom-cameraPrivacy,
+#custom-firewallStatus,
 #custom-notDisturb,
 #network,
+#custom-usb,
 #backlight,
 #battery, 
 #custom-recordingPrivacy,
@@ -82,13 +80,13 @@ tooltip label {
 #hollow-right-1,
 #hollow-center-2,
 #hollow-distro {
-  border-radius: 32px 10px 10px 32px;
+  border-radius: 32px 12px 12px 32px;
 }
 
 #hollow-right-3,
 #hollow-center,
 #hollow-left-2 {
-  border-radius: 10px 32px 32px 10px;
+  border-radius: 12px 32px 32px 12px;
 }
 
 #custom-logoutMenu {
@@ -128,11 +126,11 @@ tooltip label {
 
 /* Battery */
 #battery.warning {
-  color: @caution;
+  color: @error;
 }
 
 #battery.critical {
-  color: @warning;
+  color: @error;
 }
 
 #battery.critical:not(.charging) {
@@ -151,13 +149,15 @@ tooltip label {
 #custom-firewallStatus.inactive,
 #custom-firewallStatus.none,
 #wireplumber.muted {
-  color: @warning;
+  color: @error;
 }
 
 #wireplumber {
   padding: 0px 10px 0px 0px;
 }
 
-#idle_inhibitor.activated {
+#idle_inhibitor.activated,
+#custom-firewallStatus.active
+{
   color: @primary;
 }

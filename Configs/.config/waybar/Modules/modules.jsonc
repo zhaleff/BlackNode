@@ -10,6 +10,7 @@
     "~/.config/waybar/Modules/microphonePrivacy.jsonc",
     "~/.config/waybar/Modules/mpris.jsonc",
     "~/.config/waybar/Modules/network.jsonc",
+    "~/.config/waybar/Modules/usbStatus.jsonc",
     "~/.config/waybar/Modules/firewallStatus.jsonc",
     "~/.config/waybar/Modules/noPlaying.jsonc",
     "~/.config/waybar/Modules/notDisturb.jsonc",

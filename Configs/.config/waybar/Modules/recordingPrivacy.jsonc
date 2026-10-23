@@ -1,8 +1,8 @@
 {
   "custom/recordingPrivacy": {
+    "exec-if": "pgrep -x 'wf-recorder|wl-screenrec|gpu-screen-recorder|obs'",
     "exec": "~/.config/waybar/Scripts/Privacy/recordingModule.sh",
     "return-type": "json",
-    "interval": 2,
-    "hide-empty-text": true
+    "interval": 2
   }
 }

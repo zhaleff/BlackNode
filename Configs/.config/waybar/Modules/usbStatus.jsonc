@@ -1,0 +1,8 @@
+{
+  "custom/usb": {
+  "exec-if": "grep -qsx 08 /sys/bus/usb/devices/*:*/bInterfaceClass",
+  "exec": "~/.config/waybar/Scripts/Privacy/usbStatus.sh",
+  "return-type": "json",
+  "interval": 2
+  }
+}

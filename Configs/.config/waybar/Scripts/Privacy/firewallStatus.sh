@@ -13,4 +13,4 @@ else
   tip="Firewall: INACTIVE\nListening ports: $ports"
 fi
 
-jq -nc --arg c "$cls" --arg t "$(printf '%b' "$tip")" '{text:"󰈸",class:$c,tooltip:$t}'
+jq -nc --arg c "$cls" --arg t "$(printf '%b' "$tip")" '{text:"󱨑",class:$c,tooltip:$t}'
