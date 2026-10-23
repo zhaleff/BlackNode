@@ -1,11 +1,25 @@
 {
   "entries": [
     {
-      "id": "2026-09-05-script-install",
-      "title": "New installation script for Blacknode",
-      "body": "A new installation script for the dotfiles has been implemented, introducing new features and making maintenance easier for the user. The script is divided into several phases and is currently in beta; please update your dotfiles as soon as possible. Bugs have been fixed.",
-      "severity": "feacture",
-      "date": "2026-09-17"
+      "id": "2026-10-23-capslock-alert",
+      "title": "Caps Lock indicator",
+      "body": "A new Waybar script shows an indicator whenever Caps Lock is on and hides itself when it is off. It reads the keyboard LED state directly, so it needs no daemon and has no polling cost when idle. Update your dotfiles to get it.",
+     "severity": "feature",
+      "date": "2026-10-23"
+    },
+    {
+      "id": "2026-10-23-no-internet-alert",
+      "title": "Connected, but no internet",
+      "body": "A new Waybar script detects the case where you are connected to a network but have no actual internet access, such as a captive portal, a dead uplink or a broken DNS. It stays hidden while the connection works, and shows a warning only when it does not. Update your dotfiles to get it.",
+      "severity": "feature",
+      "date": "2026-10-23"
+    },
+    {
+      "id": "2026-10-23-usb-storage-module",
+     "title": "USB storage module for Waybar",
+      "body": "A new Waybar module appears only while a USB storage device is plugged in and disappears when it is removed. Keyboards, mice and hubs are ignored. The tooltip lists the device, size, filesystem and mount point. Update your dotfiles to get it.",
+      "severity": "feature",
+      "date": "2026-10-23"
     }
   ]
 }
