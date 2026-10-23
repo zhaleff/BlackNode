@@ -57,6 +57,10 @@ input_path = '~/.config/matugen/templates/icons.json'
 output_path = '~/.cache/matugen/icons.json'
 post_hook = '~/BlackNode/Configs/.local/bin/blacknode/recolor-icons.sh'
 
+[templates.quickshell-theme]
+input_path = '~/.config/matugen/templates/quickshell-theme.qml'
+output_path = '/home/zhaleff/works/systems/Vesperion/modern-bar/core/ThemeColors.qml'
+
 [templates.alacritty]
 input_path = '~/.config/matugen/templates/alacritty.toml'
 output_path = '~/.config/alacritty/alacritty.toml'

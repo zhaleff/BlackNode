@@ -58,14 +58,14 @@
     background = "{{colors.surface.default.hex}}"
     foreground = "{{colors.on_surface.default.hex}}"
     highlight = "{{colors.primary.default.hex}}"
-    timeout = 4
+    timeout = 2
 [urgency_normal]
     background = "{{colors.surface.default.hex}}"
     foreground = "{{colors.on_surface.default.hex}}"
     highlight = "{{colors.primary.default.hex}}"
-    timeout = 6
+    timeout = 3
 [urgency_critical]
     background = "{{colors.surface.default.hex}}"
     foreground = "{{colors.error.default.hex}}"
     highlight = "{{colors.error.default.hex}}"
-    timeout = 0
+    timeout = 6
