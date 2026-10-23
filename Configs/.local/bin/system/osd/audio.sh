@@ -9,7 +9,7 @@ muted=$(echo "$status" | grep -c MUTED)
 if [[ "$muted" -gt 0 ]]; then
     icon="$ICON_DIR/volume-mute.svg"
     notify-send -h string:x-canonical-private-synchronous:volume \
-        -i "$icon" "Volume" "Muted"
+        -i "$icon" "Volume" -t 1000 "Muted"
     exit 0
 fi
 

@@ -28,7 +28,7 @@ notify_track() {
     artist=$(truncate "$artist" "$MAX_ARTIST")
 
     if download_cover "$art_url"; then
-        notify-send -i "$COVER_PATH" "$title" "$artist"
+        notify-send -i "$COVER_PATH" "$title" -t 1500 "$artist"
     else
         notify-send "$title" "$artist"
     fi

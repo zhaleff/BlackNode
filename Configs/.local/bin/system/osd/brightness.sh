@@ -7,4 +7,4 @@ max=$(brightnessctl max)
 pct=$(( current * 100 / max ))
 
 notify-send -h int:value:"$pct" -h string:x-canonical-private-synchronous:brightness \
-    -i "$ICON" "Brightness" "${pct}%"
+    -i "$ICON" "Brightness" -t 1000 "${pct}%"
