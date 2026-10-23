@@ -1,0 +1,10 @@
+{
+  "custom/blacknodeMenu": {
+    "format": "{}",
+    "exec": "echo '󰍜'",
+    "interval": 2,
+    "on-click": "~/.config/rofi/scripts/launcher.sh",
+    "tooltip": false
+  }
+}
+

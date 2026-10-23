@@ -1,0 +1,7 @@
+{
+  "custom/firewallStatus": {
+  "exec": "~/.config/waybar/Scripts/Privacy/firewallStatus.sh",
+  "return-type": "json",
+  "interval": 10
+  }
+}
