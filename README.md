@@ -27,10 +27,11 @@
 <br>
 <br>
 
-# BLACKNODE
+<h1>BlackNode</h1>
 
-**A complete desktop for Arch Linux and Hyprland.**<br>
-Install it once. Stop fixing it.
+<h3>A complete desktop for Arch Linux and Hyprland.</h3>
+
+<p>Install it once. Stop fixing it.</p>
 
 <br>
 
@@ -46,9 +47,7 @@ Install it once. Stop fixing it.
 
 </div>
 
----
-
-## THE LAST TEN PERCENT
+## The last ten percent
 
 You look at your desktop before you start any work. When it looks unfinished, you feel it every day.
 
@@ -56,9 +55,7 @@ The last ten percent is the expensive part: a bar that almost matches, one appli
 
 BlackNode finishes that ten percent. It is one system: window manager, bar, launcher, notifications, lock screen, terminal, editor, and the scripts that connect them. The parts share a palette and a keyboard grammar. You install it, pick an image, and go back to work.
 
----
-
-## INSTALL
+## Install in one command
 
 Built for **Arch Linux** with **Hyprland**. The installer checks your system, installs what is missing, backs up what it replaces, and asks before it touches anything.
 
@@ -68,7 +65,7 @@ git clone https://github.com/zhaleff/BlackNode.git "$HOME/BlackNode" && cd "$HOM
 
 Your GTK, Qt, shell, and Zsh configuration will be replaced. Before that, everything is copied to `~/.blacknode-backup-YYYYmmdd-HHMMSS`, and every step is logged to `~/.blacknode-install.log`. If you dislike it, you go back to what you had.
 
-**After the installer**
+Then:
 
 1. Log out and back in.
 2. Press <kbd>SUPER</kbd> + <kbd>W</kbd> and choose an image.
@@ -85,34 +82,32 @@ You can read the configuration and take what you need, but the installer and the
 
 </details>
 
----
+## What is inside
 
-## WHAT CHANGES
-
-- Two days tuning, again → one command, then a desktop that holds.
-- Five applications with five looks → one palette across everything you see.
-- Keybinds you keep relearning → one grammar for focus, movement, and workspaces.
-- A setup that is almost right → a setup you stop noticing.
-- Fear of losing your old configuration → a timestamped backup and a full install log.
+- **Hyprland** runs the session and the layout.
+- **Waybar** is the bar, **Rofi** the launcher, **wlogout** the session menu, **hyprlock** the lock screen.
+- **Kitty**, **Zsh** and **Neovim** are the terminal, the shell and the editor.
+- **matugen** builds the palette from the image you choose, and every piece reads it.
+- **grim** and **slurp** take screenshots, **cliphist** keeps the clipboard history.
+- **btop**, **fastfetch** and **cava** are themed to match.
 
 BlackNode makes one choice for each shared surface: one layout, one control menu, one palette source. That is why the parts fit.
 
----
+## What you stop doing
 
-## THIS IS FOR YOU IF
+- Spending two days tuning, again. You run one command and get a desktop that holds.
+- Living with five applications in five different looks. One palette covers everything you see.
+- Relearning keybinds. One grammar handles focus, movement, and workspaces.
+- Calling your setup "almost right". You stop noticing it.
+- Worrying about your old configuration. It sits in a timestamped backup with a full install log.
 
-- You have opinions about window management.
-- You have redesigned your bar more than once.
-- You keep a folder of screenshots of setups you wanted.
-- You notice when one application does not match the rest.
-- You would rather press a key than move the mouse.
-- You are tired of calling your setup "almost done".
+## Is this for you?
 
-Three or more, and it was built for you. If you want a desktop assembled by committee, or "good enough" is fine, skip it.
+It is if you have opinions about window management, you have redesigned your bar more than once, you keep a folder of screenshots of setups you wanted, you notice when one application does not match the rest, and you would rather press a key than move the mouse.
 
----
+Three or more of those, and it was built for you. If you want a desktop assembled by committee, or "good enough" is fine, skip it.
 
-## FAQ
+## Questions
 
 <details>
 <summary><b>Is this a theme pack?</b></summary>
@@ -159,9 +154,7 @@ MIT license: use it, change it, make it yours. If it saves you a weekend, star t
 
 </details>
 
----
-
-## PHILOSOPHY
+## Philosophy
 
 The design rules come from Stoicism. Epictetus separated what is up to us from what is not. Marcus Aurelius asked whether a thing was necessary before adding it. Seneca counted cost in time. BlackNode asks those questions of a desktop. [Read the full philosophy.](./docs/philosophy.md)
 
