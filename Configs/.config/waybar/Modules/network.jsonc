@@ -4,7 +4,7 @@
     "format-wifi": "{icon}",
     "format-ethernet": "󰈀  {ipaddr}",
     "format-linked": "󰈁  {ifname} (not IP)",
-    "format-disconnected": "󰖪  Offline",
+    "format-disconnected": "󰖪",
     "format-alt": "󰛳  {ifname}",
     "tooltip-format-wifi": "{icon}  {essid}\n  {ipaddr}/{cidr}\n󰓅  {signalStrength}% signal\n↓  {bandwidthDownBytes} ↑  {bandwidthUpBytes}",
     "tooltip-format-ethernet": "󰈀  {ifname}\n{ipaddr}/{cidr}\nGateway: {gwaddr}",
