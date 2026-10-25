@@ -24,7 +24,7 @@
     progress_bar_frame_width = 0
     frame_width = 0
     separator_height = 0
-    corner_radius = 16
+    corner_radius = 12
     gap_size = 14
     line_height = 4
     notification_limit = 3

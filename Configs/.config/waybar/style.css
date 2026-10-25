@@ -8,36 +8,36 @@
   font-family: "JetBrainsMono Nerd Font", Roboto, Helvetica, Arial, sans-serif;
   font-size: 15px;
   font-weight: 600;
-  margin: 0px 3px;
+  margin: 0em 0.2em;
   transition: all 0.25s cubic-bezier(0.3, 0.0, 0.0, 1.0);
   min-height: 0;
 }
 
 window#waybar {
   background-color: transparent;
-  border-radius: 0px;
-  margin: 4px 2px;
-  padding: 0 8px;
+  border-radius: 0em;
+  margin: 0.27em 0.13em;
+  padding: 0 0.53em;
 }
 
 .module {
   background-color: transparent;
   color: @on-surface;
-  padding: 0 4px;
+  padding: 0 0.27em;
   margin: 0;
 }
 
 tooltip {
   background-color: @surface;
   color: @on-surface;
-  border-radius: 12px;
-  padding: 56px;
+  border-radius: 0.8em;
+  padding: 3.73em;
   border: 1px solid alpha(@outline, 0.2);
 }
 
 tooltip label {
   color: @on-surface;
-  font-size: 15px;
+  font-size: 1em;
   font-weight: 800;
 }
 
@@ -52,14 +52,14 @@ tooltip label {
 #hollow-center,
 #hollow-right-2 {
   background-color: @surface;
-  padding: 12px 14px;
-  border-radius: 12px;
-  margin: 0px;
+  padding: 0.8em 0.93em;
+  border-radius: 0.47em;
+  margin: 0em;
   border: 1px solid alpha(@outline, 0.1);
 }
 
 #custom-playingStatus {
-  margin: 0px 2px;
+  margin: 0em 0.13em;
 }
 
 
@@ -73,38 +73,38 @@ tooltip label {
 #battery, 
 #custom-recordingPrivacy,
 #wireplumber {
-  margin: 0px 4px;
+  margin: 0em 0.27em;
 }
 
 
 #hollow-right-1,
 #hollow-center-2,
 #hollow-distro {
-  border-radius: 32px 12px 12px 32px;
+  border-radius: 2.13em 0.47em 0.47em 2.13em;
 }
 
 #hollow-right-3,
 #hollow-center,
 #hollow-left-2 {
-  border-radius: 12px 32px 32px 12px;
+  border-radius: 0.47em 2.13em 2.13em 0.47em;
 }
 
 #custom-logoutMenu {
   color: @primary;
-  margin: 0px 0px 0px -6px;
+  margin: 0em 0.2em 0em -0.3em;
 }
 
 #custom-bluetooth {
-  margin: 0px -4px 0px 2px;
+  margin: 0em -0.27em 0em 0.13em;
 }
 
 #workspaces button {
   box-shadow: none;
   text-shadow: none;
   color: @on-surface;
-  border-radius: 10px;
-  padding: 0 6px;
-  margin: 0px;
+  border-radius: 0.27em;
+  padding: 0 0.35em;
+  margin: 0em;
   transition: background-color 0.4s cubic-bezier(.55, -0.68, .48, 1.682),
     padding 0.4s cubic-bezier(.55, -0.68, .48, 1.682),
     border-radius 0.4s cubic-bezier(.55, -0.68, .48, 1.682);
@@ -113,11 +113,12 @@ tooltip label {
 #workspaces button.active {
   background-color: @primary;
   color: @on-primary;
-  padding: 2px 8px;
+  margin: 0em 0.35em;
+  padding: 0.07em 0.8em 0.07em 0.7em;
 }
 
 #workspaces button:hover {
-  background-color: @primary;
+  background-color: @secondary;
   color: @on-primary;
   transition: background-color 0.3s cubic-bezier(.55, -0.68, .48, 1.682),
     padding 0.3s cubic-bezier(.55, -0.68, .48, 1.682),
@@ -153,7 +154,7 @@ tooltip label {
 }
 
 #wireplumber {
-  padding: 0px 10px 0px 0px;
+  padding: 0em 0.4em 0em 0em;
 }
 
 #idle_inhibitor.activated,
