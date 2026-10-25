@@ -1,12 +1,11 @@
 {
 "hyprland/workspaces": {
-    "format": "{name}",
-    "on-click": "hyprctl dispatch workspace {name}",
+    "format": "{icon}",
     "all-outputs": true,
     "active-only": false,
     "format-icons": {
         "active": "󰮯",
-        "default": "*",
+        "default": "󰊠",
         "urgent": "*"
     },
     "persistent-workspaces": {
