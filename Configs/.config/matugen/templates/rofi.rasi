@@ -1,10 +1,10 @@
 * {
-    primary: {{colors.primary.default.hex}}E6;
+    primary: {{colors.primary.default.hex}};
     on-primary: {{colors.on_primary.default.hex}};
-    error: {{colors.error.default.hex}}E6;
+    error: {{colors.error.default.hex}};
     on-error: {{colors.on_error.default.hex}};
-    surface: {{colors.surface.default.hex}}E6;
+    surface: {{colors.surface.default.hex}};
     on-surface: {{colors.on_surface.default.hex}};
-    surface-container-low: {{colors.surface_container_low.default.hex}}E6;
-    surface-container-high: {{colors.surface_container_high.default.hex}}E6;
+    surface-container-low: {{colors.surface_container_low.default.hex}};
+    surface-container-high: {{colors.surface_container_high.default.hex}};
 }
