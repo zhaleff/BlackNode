@@ -1,52 +1,51 @@
+
+
 #!/usr/bin/env bash
+
 ROFI_DIR="$HOME/.config/rofi"
 THEME="$ROFI_DIR/themes/presets/submenu.rasi"
 
-volume_control() {
-    local muted mute_label
-
-    muted=$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep -c MUTED)
-    mute_label="󰕾  Mute"
-    [[ "$muted" -gt 0 ]] && mute_label="󰖁  Unmute"
-
-    local choice
-    choice=$(printf '%s\n' \
-        "󰌍  Back" \
-        "${mute_label}" \
-        "󰓃  Output" \
-        "󰏋  Pavucontrol" \
-        | rofi -dmenu -theme "$THEME" -p "Audio")
-
-    case "$choice" in
-        *"Back")        exec bash "$ROFI_DIR/scripts/launcher.sh" ;;
-        *"Mute"*)       wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle; volume_control ;;
-        *"Output")      output_menu ;;
-        *"Pavucontrol") pavucontrol & disown ;;
-    esac
-}
-
 output_menu() {
-    local menu_input selected_line
-    declare -a sink_ids
-
-    menu_input="󰌍  Back"$'\n'
+    local ids=() labels=() id name idx
 
     while IFS=$'\t' read -r id name; do
-        [[ -z "$id" ]] && continue
-        sink_ids+=("$id")
-        menu_input+="󰓃  ${name}"$'\n'
-    done < <(pactl list sinks 2>/dev/null | awk '
-        /^Sink #/ { id=$2; gsub(/#/, "", id) }
-        /Description:/ { $1=""; sub(/^ /, ""); print id "\t" $0 }
+        ids+=("$id")
+        labels+=("󰓃  $name")
+    done < <(pactl list sinks | awk '
+        /^Sink #/ { id = substr($2, 2) }
+        /Description:/ { sub(/^[ \t]*Description: /, ""); print id "\t" $0 }
     ')
 
-    [[ ${#sink_ids[@]} -eq 0 ]] && { volume_control; return; }
+    idx=$(printf '%s\n' "󰌍  Back" "${labels[@]}" | rofi -dmenu -theme "$THEME" -p "Output" -format i)
+    [[ -n "$idx" && "$idx" -gt 0 ]] || { volume_control; return; }
 
-    selected_line=$(printf '%s' "$menu_input" | rofi -dmenu -theme "$THEME" -p "Output" -format i)
-    [[ -z "$selected_line" || "$selected_line" -eq 0 ]] && { volume_control; return; }
-
-    pactl set-default-sink "${sink_ids[$((selected_line - 1))]}"
+    pactl set-default-sink "${ids[idx-1]}"
     volume_control
+}
+
+volume_control() {
+    local idx mute_label mic_label
+
+    mute_label="󰖁  Mute"
+    mic_label="󰍭  Mute mic"
+    [[ $(wpctl get-volume @DEFAULT_AUDIO_SINK@) == *MUTED* ]] && mute_label="󰕾  Unmute"
+    [[ $(wpctl get-volume @DEFAULT_AUDIO_SOURCE@) == *MUTED* ]] && mic_label="󰍬  Unmute mic"
+
+    idx=$(printf '%s\n' \
+        "󰌍  Back" \
+        "$mute_label" \
+        "$mic_label" \
+        "󰓃  Output" \
+        "󰏋  Pavucontrol" \
+        | rofi -dmenu -theme "$THEME" -p "Audio" -format i)
+
+    case "$idx" in
+        0) exec bash "$ROFI_DIR/scripts/launcher.sh" ;;
+        1) wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle; volume_control ;;
+        2) wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle; volume_control ;;
+        3) output_menu ;;
+        4) pavucontrol & disown ;;
+    esac
 }
 
 volume_control
