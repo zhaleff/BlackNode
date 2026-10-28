@@ -52,7 +52,7 @@ tooltip label {
 #hollow-center,
 #hollow-right-2 {
   background-color: @surface;
-  padding: 0.8em 0.93em;
+  padding: 0.78em 0.93em;
   border-radius: 0.47em;
   margin: 0em;
   border: 1px solid alpha(@outline, 0.1);
@@ -98,13 +98,17 @@ tooltip label {
   margin: 0em -0.27em 0em 0.13em;
 }
 
+#workspaces {
+  padding: 0;
+  margin: 0;
+}
+
 #workspaces button {
   box-shadow: none;
   text-shadow: none;
   color: @on-surface;
   border-radius: 0.27em;
-  padding: 0 0.35em;
-  margin: 0em;
+  padding: 0 0.25em;
   transition: background-color 0.4s cubic-bezier(.55, -0.68, .48, 1.682),
     padding 0.4s cubic-bezier(.55, -0.68, .48, 1.682),
     border-radius 0.4s cubic-bezier(.55, -0.68, .48, 1.682);
@@ -113,7 +117,6 @@ tooltip label {
 #workspaces button.active {
   background-color: @primary;
   color: @on-primary;
-  margin: 0em 0.35em;
   padding: 0.07em 0.8em 0.07em 0.7em;
 }
 
