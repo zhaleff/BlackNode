@@ -3,8 +3,8 @@
   "logo": {
     "type": "kitty-direct",
     "source": "~/.config/fastfetch/assets/current.png",
-    "width": 32,
-    "height": 18,
+    "width": 20,
+    "height": 12,
     "padding": {
       "right": 4,
       "left": 2
@@ -14,106 +14,90 @@
     "color": "blue"
   },
   "modules": [
-    {
-      "type": "custom",
-      "format": "╭─────────────────────────────────────────────╮"
-    },
+
     {
       "type": "title",
-      "key": "   󰢚 ",
+      "key": "󰢚 ",
       "keyColor": "blue",
       "format": "coffee race at dawn",
       "color": "blue"
     },
-    {
-      "type": "custom",
-      "format": "├─────────────────────────────────────────────┤",
-      "color": "gray"
-    },
+
     {
       "type": "title",
-      "key": "    ",
+      "key": " ",
       "keyColor": "blue",
       "format": "{1}@{2}",
       "color": "white"
     },
     {
       "type": "os",
-      "key": "   󰣇 ",
+      "key": "󰣇 ",
       "keyColor": "blue",
       "format": "{2}",
       "color": "white"
     },
     {
       "type": "packages",
-      "key": "   󰏗 ",
+      "key": "󰏗 ",
       "keyColor": "blue",
       "color": "white"
     },
     {
       "type": "cpu",
-      "key": "    ",
+      "key": " ",
       "keyColor": "blue",
-      "format": "{1} ({3}) @ {7}",
+      "format": "{1} ({3}) ",
       "color": "white"
     },
     {
       "type": "memory",
-      "key": "   󰍛 ",
+      "key": "󰍛 ",
       "keyColor": "blue",
       "format": "{1} / {2} ({3})",
       "color": "white"
     },
-    {
-      "type": "custom",
-      "format": "╰─────────────────────────────────────────────╯"
-    },
-    {
-      "type": "custom",
-      "format": "╭─────────────────────────────────────────────╮"
-    },
-{
-  "type": "shell",
-  "key": "   󰆍 ",
-  "keyColor": "blue",
-  "format": "{2}",
-  "color": "white"
-},
 
+
+    {
+      "type": "shell",
+      "key": "󰆍 ",
+      "keyColor": "blue",
+      "format": "{2}",
+      "color": "white"
+    },
+    
 
 
     {
       "type": "wm",
-      "key": "   󱗃 ",
+      "key": "󱗃 ",
       "keyColor": "blue",
       "format": "{2}",
       "color": "white"
     },
     {
       "type": "terminal",
-      "key": "    ",
+      "key": " ",
       "keyColor": "blue",
       "format": "{2}",
       "color": "white"
     },
     {
       "type": "uptime",
-      "key": "   󰅐 ",
+      "key": "󰅐 ",
       "keyColor": "blue",
       "color": "white"
     },
     {
       "type": "disk",
-      "key": "   󱦟 ",
+      "key": "󱦟 ",
       "keyColor": "blue",
       "format": "{1} / {2} ({3})",
       "folders": "/",
       "color": "white"
     },
-    {
-      "type": "custom",
-      "format": "╰─────────────────────────────────────────────╯"
-    },
+
     {
       "type": "colors",
       "symbol": "circle",
