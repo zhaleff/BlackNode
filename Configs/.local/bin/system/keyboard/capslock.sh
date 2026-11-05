@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-ICON_DIR="/tmp/blacknode-icons"
+ICON_DIR="/tmp/blacknode-icons/keyboard"
 
 leds=(/sys/class/leds/*::capslock/brightness)
 [[ -e "${leds[0]}" ]] || exit 1

@@ -10,15 +10,15 @@ declare -A actions=(
     ["SUPER + Y  →  Spotify"]="spotify"
     ["SUPER + SPACE  →  BlackNode menu"]="bash ~/.config/rofi/scripts/launcher.sh"
     ["SUPER + R  →  App launcher"]="rofi -show drun"
-    ["SUPER + K  →  Music player menu"]="~/.config/rofi/scripts/musicPlayer.sh"
-    ["SUPER + X  →  Power menu (rofi)"]="~/.config/rofi/scripts/powermenu.sh"
+    ["SUPER + M  →  Music player menu"]="~/.config/rofi/scripts/audio/musicPlayer.sh"
+    ["SUPER + X  →  Power menu (rofi)"]="~/.config/rofi/scripts/system/powermenu.sh"
     ["SUPER + SHIFT + X  →  Power menu (wlogout)"]="wlogout -b 6"
-    ["SUPER + H  →  Screenshots"]="~/.config/rofi/scripts/screenshots.sh"
-    ["SUPER + SHIFT + H  →  Screen recorder"]="~/.config/rofi/scripts/recordscreen.sh"
-    ["SUPER + W  →  Wallpaper select"]="~/.config/rofi/scripts/wallselect.sh"
-    ["SUPER + V  →  Clipboard"]="~/.config/rofi/scripts/clipboard.sh"
+    ["SUPER + SHIFT + S  →  Screenshots"]="~/.config/rofi/scripts/recording/screenshots.sh"
+    ["SUPER + G  →  Screen recorder"]="~/.config/rofi/scripts/recording/recordscreen.sh"
+    ["SUPER + W  →  Wallpaper select"]="~/.config/rofi/scripts/appearance/wallselect.sh"
+    ["SUPER + V  →  Clipboard"]="~/.config/rofi/scripts/utilities/clipboard.sh"
     ["SUPER + SHIFT + A  →  Pavucontrol"]="pavucontrol"
-    ["SUPER + L  →  Lock screen"]="hyprlock"
+    ["SUPER + ESCAPE  →  Lock screen"]="hyprlock"
 )
 
 choice=$(printf '%s\n' "${!actions[@]}" | sort | rofi -dmenu -theme "$THEME" -p "Keybinds")

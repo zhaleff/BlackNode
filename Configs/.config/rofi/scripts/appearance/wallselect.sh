@@ -5,7 +5,7 @@ ACTIVE_FILE="$PROFILES_BASE/active_profile"
 MODE_FILE="$PROFILES_BASE/theme_mode"
 WALL_DIR="$HOME/Pictures/Wallpapers/"
 WALLPAPER_NAME=$(basename "$SELECTED")
-ICON="/tmp/blacknode-icons/wallpaper.svg"
+ICON="/tmp/blacknode-icons/appearance/wallpaper.svg"
 
 if [[ -f "$ACTIVE_FILE" ]]; then
     active=$(cat "$ACTIVE_FILE")

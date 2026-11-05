@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-ICON="/tmp/blacknode-icons/brightness.svg"
+ICON="/tmp/blacknode-icons/display/brightness.svg"
 
 current=$(brightnessctl get)
 max=$(brightnessctl max)

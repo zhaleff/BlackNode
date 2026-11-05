@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 ROFI_DIR="$HOME/.config/rofi"
-ICON="/tmp/blacknode-icons/reload.svg"
+ICON="/tmp/blacknode-icons/system/reload.svg"
 THEME="$ROFI_DIR/themes/presets/submenu.rasi"
 
 reload_waybar() {

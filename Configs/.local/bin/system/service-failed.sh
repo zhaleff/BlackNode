@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-ICON="/tmp/blacknode-icons/error.svg"
+ICON="/tmp/blacknode-icons/system/error.svg"
 declare -A notified
 
 is_transient() {

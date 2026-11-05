@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-ICON="/tmp/blacknode-icons/whatnews.svg"
+ICON="/tmp/blacknode-icons/system/whatsnew.svg"
 REMOTE_URL="https://raw.githubusercontent.com/zhaleff/BlackNode/main/whatnews.json"
 SEEN_FILE="$HOME/.local/share/blacknode/whatsnew_seen"
 

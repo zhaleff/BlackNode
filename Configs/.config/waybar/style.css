@@ -52,7 +52,7 @@ tooltip label {
 #hollow-center,
 #hollow-right-2 {
   background-color: @surface;
-  padding: 0.78em 0.93em;
+  padding: 0.60em 0.93em;
   border-radius: 0.47em;
   margin: 0em;
   border: 1px solid alpha(@outline, 0.1);

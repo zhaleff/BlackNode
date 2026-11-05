@@ -21,7 +21,9 @@
 local mainMod = "SUPER"
 local rofi = "~/.config/rofi/scripts/"
 local waybar = "~/.config/waybar/Scripts/launcher/"
-local osd = "~/BlackNode/Configs/.local/bin/system/osd/"
+local bin = "~/BlackNode/Configs/.local/bin/system/"
+local audio = bin .. "audio/"
+local display = bin .. "display/"
 local step = 40
 
 local function bind(keys, action, opts)
@@ -40,14 +42,13 @@ local launchers = {
     { "Y", "spotify" },
     { "R", "rofi -show drun" },
     { "SPACE", "bash " .. rofi .. "launcher.sh" },
-    { "X", rofi .. "powermenu.sh" },
-    { "G", rofi .. "recordscreen.sh" },
-    { "W", rofi .. "wallselect.sh" },
-    { "V", rofi .. "clipboard.sh" },
-    { "M", rofi .. "musicPlayer.sh" },
+    { "X", rofi .. "system/powermenu.sh" },
+    { "G", rofi .. "recording/recordscreen.sh" },
+    { "W", rofi .. "appearance/wallselect.sh" },
+    { "V", rofi .. "utilities/clipboard.sh" },
+    { "M", rofi .. "audio/musicPlayer.sh" },
     { "ESCAPE", "hyprlock" },
-    { "SHIFT + S", rofi .. "screenshots.sh" },
-    { "SHIFT + R", rofi .. "wf-recorder.sh" },
+    { "SHIFT + S", rofi .. "recording/screenshots.sh" },
     { "SHIFT + A", "pavucontrol" },
     { "SHIFT + X", "wlogout -b 6" },
     { "CTRL + ALT + UP", waybar .. "launch.sh" },
@@ -127,7 +128,7 @@ local media = {
     { "XF86AudioPrev", "playerctl previous" },
     { "XF86AudioPlay", "playerctl play-pause" },
     { "XF86AudioPause", "playerctl play-pause" },
-    { "XF86AudioMute", "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle && " .. osd .. "audio.sh" },
+    { "XF86AudioMute", "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle && " .. audio .. "audio.sh" },
 }
 
 for _, m in ipairs(media) do
@@ -136,10 +137,10 @@ end
 
 -- volume and brightness (held)
 local held = {
-    { "XF86AudioRaiseVolume", "wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+ && " .. osd .. "audio.sh" },
-    { "XF86AudioLowerVolume", "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- && " .. osd .. "audio.sh" },
-    { "XF86MonBrightnessUp", "brightnessctl -e4 -n2 set 5%+ && " .. osd .. "brightness.sh" },
-    { "XF86MonBrightnessDown", "brightnessctl -e4 -n2 set 5%- && " .. osd .. "brightness.sh" },
+    { "XF86AudioRaiseVolume", "wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+ && " .. audio .. "audio.sh" },
+    { "XF86AudioLowerVolume", "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- && " .. audio .. "audio.sh" },
+    { "XF86MonBrightnessUp", "brightnessctl -e4 -n2 set 5%+ && " .. display .. "brightness.sh" },
+    { "XF86MonBrightnessDown", "brightnessctl -e4 -n2 set 5%- && " .. display .. "brightness.sh" },
 }
 
 for _, h in ipairs(held) do

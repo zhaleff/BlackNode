@@ -9,7 +9,7 @@
     "tooltip-format-wifi": "{icon}  {essid}\n  {ipaddr}/{cidr}\n󰓅  {signalStrength}% signal\n↓  {bandwidthDownBytes} ↑  {bandwidthUpBytes}",
     "tooltip-format-ethernet": "󰈀  {ifname}\n{ipaddr}/{cidr}\nGateway: {gwaddr}",
     "tooltip-format-disconnected": "󰖪  Offline",
-    "on-click": "~/.config/rofi/scripts/wifi.sh",
+    "on-click": "~/.config/rofi/scripts/network/wifi.sh",
     "on-click-right": "nm-connection-editor",
     "format-icons": {
         "wifi": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 ROFI_DIR="$HOME/.config/rofi"
 THEME="$ROFI_DIR/themes/presets/submenu-bottom.rasi"
-ERROR_ICON="/tmp/blacknode-icons/error.svg"
+ERROR_ICON="/tmp/blacknode-icons/system/error.svg"
 
 music_menu() {
     if ! playerctl status &>/dev/null; then

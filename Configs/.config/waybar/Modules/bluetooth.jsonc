@@ -3,7 +3,7 @@
         "exec": "~/.config/waybar/Scripts/System/bluetoothModule.sh",
         "return-type": "json",
         "interval": 5,
-        "on-click": "~/.config/rofi/scripts/bluetoothModule.sh",
+        "on-click": "~/.config/rofi/scripts/bluetooth/bluetooth.sh",
         "on-click-right": "bluetoothctl power toggle",
         "tooltip": true,
         "format": "{}"

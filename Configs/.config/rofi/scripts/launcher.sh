@@ -26,22 +26,22 @@ choice=$(printf '%s\n' \
 [[ -z "$choice" ]] && exit 0
 
 case "$choice" in
-    *"WiFi")        exec bash "$ROFI_DIR/scripts/wifi.sh" ;;
-    *"Bluetooth")   exec bash "$ROFI_DIR/scripts/bluetooth.sh" ;;
-    *"Audio")       exec bash "$ROFI_DIR/scripts/audio.sh" ;;
-    *"Notification")       exec bash "$ROFI_DIR/scripts/notification.sh" ;;
-    *"Reload")      exec bash "$ROFI_DIR/scripts/reload.sh" ;;
-    *"Bookmarks")   exec bash "$ROFI_DIR/scripts/bookmarks.sh" ;;
-    *"Keyboard Layout") exec bash "$ROFI_DIR/scripts/kb-layout.sh" ;;
-    *"Music")       exec bash "$ROFI_DIR/scripts/musicPlayer.sh" ;;
-    *"Clipboard")   exec bash "$ROFI_DIR/scripts/clipboard.sh" ;;
-    *"Shorcuts")    exec bash "$ROFI_DIR/scripts/shortcuts.sh" ;;
-    *"Monitor")     exec bash "$ROFI_DIR/scripts/monitor.sh" ;;
-    *"Pomodoro")    exec bash "$ROFI_DIR/scripts/pomodoro.sh" ;;
-    *"Record Screen") exec bash "$ROFI_DIR/scripts/recordscreen.sh" ;;
-    *"Screenshots") exec bash "$ROFI_DIR/scripts/screenshots.sh" ;;
-    *"Wallpaper")   exec bash "$ROFI_DIR/scripts/wallpaper.sh" ;;
-    *"Emoji Picker") exec bash "$ROFI_DIR/scripts/emoji.sh" ;;
-    *"Whats New")   exec bash "$ROFI_DIR/scripts/whatnews.sh" ;;
-    *"Session")     exec bash "$ROFI_DIR/scripts/powermenu.sh" ;;
+    *"WiFi")        exec bash "$ROFI_DIR/scripts/network/wifi.sh" ;;
+    *"Bluetooth")   exec bash "$ROFI_DIR/scripts/bluetooth/bluetooth.sh" ;;
+    *"Audio")       exec bash "$ROFI_DIR/scripts/audio/audio.sh" ;;
+    *"Notification")       exec bash "$ROFI_DIR/scripts/system/notification.sh" ;;
+    *"Reload")      exec bash "$ROFI_DIR/scripts/system/reload.sh" ;;
+    *"Bookmarks")   exec bash "$ROFI_DIR/scripts/utilities/bookmarks.sh" ;;
+    *"Keyboard Layout") exec bash "$ROFI_DIR/scripts/keyboard/kb-layout.sh" ;;
+    *"Music")       exec bash "$ROFI_DIR/scripts/audio/musicPlayer.sh" ;;
+    *"Clipboard")   exec bash "$ROFI_DIR/scripts/utilities/clipboard.sh" ;;
+    *"Shorcuts")    exec bash "$ROFI_DIR/scripts/keyboard/shortcuts.sh" ;;
+    *"Monitor")     exec bash "$ROFI_DIR/scripts/display/monitor.sh" ;;
+    *"Pomodoro")    exec bash "$ROFI_DIR/scripts/pomodoro/pomodoro.sh" ;;
+    *"Record Screen") exec bash "$ROFI_DIR/scripts/recording/recordscreen.sh" ;;
+    *"Screenshots") exec bash "$ROFI_DIR/scripts/recording/screenshots.sh" ;;
+    *"Wallpaper")   exec bash "$ROFI_DIR/scripts/appearance/wallpaper.sh" ;;
+    *"Emoji Picker") exec bash "$ROFI_DIR/scripts/utilities/emoji.sh" ;;
+    *"Whats New")   exec bash "$ROFI_DIR/scripts/system/whatnews.sh" ;;
+    *"Session")     exec bash "$ROFI_DIR/scripts/system/powermenu.sh" ;;
 esac

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-ICON="/tmp/blacknode-icons/usb.svg"
+ICON="/tmp/blacknode-icons/device/usb.svg"
 declare -A known_names
 
 get_device_name() {

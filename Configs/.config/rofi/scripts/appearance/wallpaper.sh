@@ -17,7 +17,7 @@ wall_menu() {
 
     case "$choice" in
         *"Back")             exec bash "$ROFI_DIR/scripts/launcher.sh" ;;
-        *"Select Wallpaper") exec bash "$ROFI_DIR/scripts/wallselect.sh" ;;
+        *"Select Wallpaper") exec bash "$ROFI_DIR/scripts/appearance/wallselect.sh" ;;
         *"Dark Mode")        mkdir -p "$(dirname "$THEME_FILE")"; printf '%s' "dark" > "$THEME_FILE" ;;
         *"Light Mode")       mkdir -p "$(dirname "$THEME_FILE")"; printf '%s' "light" > "$THEME_FILE" ;;
         *"Open Directory")   xdg-open "$WALL_DIR" ;;
